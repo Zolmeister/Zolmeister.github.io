@@ -3,7 +3,7 @@ layout: post
 title:  "The Pond at Mobile World Congress with Firefox OS"
 date:   2014-03-04
 ---
-<img src="http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg" style="max-width: 600px;">
+[<img src="http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg" style="max-width: 600px;">](http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg)
 
 Last week I attended [Mobile World Congress](http://www.mobileworldcongress.com/) in Barcelona, Spain after being invited by Mozilla to show off [The Pond](http://thepond.zolmeister.com/) ([blog post](http://www.zolmeister.com/2013/10/the-pond.html)). Originally Mozilla found me through my blog, and asked me to write a post about [The Pond on Mozilla Hacks](https://hacks.mozilla.org/2013/11/the-pond-building-a-multi-platform-html5-game/). For Mobile World Congress they were looking for app developers to help showcase [Firefox OS](http://www.mozilla.org/en-US/firefox/os/), which is where I came in.
 
