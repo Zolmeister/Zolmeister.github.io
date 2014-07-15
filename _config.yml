@@ -1,6 +1,10 @@
-name: Your New Jekyll Site
+name: Zolmeister
 description: Blogging about stuffs
-meta_description: "Your New Jekyll Site, Blogging about stuffs"
+meta_description: "Zolmeister, blog"
+
+permalink: :year/:month/:title.html
+rss_path: feeds/posts/
+rss_name: default
 
 markdown: redcarpet
 pygments: true
@@ -8,5 +12,5 @@ logo: false
 paginate: 15
 
 # Details for the RSS feed generator
-url:            'blog url'
-author:         'Your Name'
+url:            'http://zolmeister.com'
+author:         'Zoli Kahan'

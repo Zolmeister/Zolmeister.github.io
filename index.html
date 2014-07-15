@@ -3,6 +3,7 @@ layout: default
 title: Home
 cover: false
 about: 'about.html'
+logo: 'assets/images/profile.png'
 ---
 
 <header class="site-head" {% if page.cover %} style="background-image: url({{ page.cover }})"{% endif %}>
@@ -10,13 +11,12 @@ about: 'about.html'
         <div class="site-head-content" class="inner">
             {% if page.logo %}
                 <a class="blog-logo" href="{{ site.baseurl }}">
-                    <img src="{{ page.logo }}" alt="Blog Logo" />
+                    <img src="{{ page.logo }}" alt="Z" />
                 </a>
             {% endif %}
             <h1 class="blog-title">{{ site.name }}</h1>
-            <h2 class="blog-description"> 
-                {{ site.description }}. 
-                {% if page.about %} <a href='{{ site.baseurl }}{{ page.about }}'> About me </a> {% endif %}
+                <a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                <a target="_blank" href="https://github.com/Zolmeister">GitHub</a>
             </h2>
         </div>
     </div>
@@ -50,11 +50,11 @@ about: 'about.html'
         {% endif %}
 
         <span class="page-number"> Page {{paginator.page}} of {{paginator.total_pages}} </span>
-        
-        {% if paginator.next_page %} 
+
+        {% if paginator.next_page %}
         <a class="older-posts" href="/page{{ paginator.next_page }}/" title="Next Page">Older Posts &raquo;</a>
-        {% endif %} 
+        {% endif %}
     </nav>
-    
+
 
 </main>

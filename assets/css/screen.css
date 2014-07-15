@@ -41,10 +41,10 @@
 }
 
 /* Apply these base styles to all icons */
-.icon-ghost:before, 
-.icon-feed:before, 
-.icon-twitter:before, 
-.icon-google-plus:before, 
+.icon-ghost:before,
+.icon-feed:before,
+.icon-twitter:before,
+.icon-google-plus:before,
 .icon-facebook:before {
     font-family: 'icons';
     speak: none;
@@ -57,7 +57,7 @@
     text-decoration: none;
 }
 
-/* Each icon is created by inserting the corret character into the 
+/* Each icon is created by inserting the corret character into the
    content of the :before pseudo element. Like a boss. */
 .icon-ghost:before {
     content: "\e000";
@@ -273,8 +273,8 @@ kbd {
     font-weight: bold;
     background: #f4f4f4;
     border-radius: 4px;
-    box-shadow: 
-        0 1px 0 rgba(0, 0, 0, 0.2), 
+    box-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.2),
         0 1px 0 0 #fff inset;
 }
 
@@ -791,9 +791,9 @@ margin on the iframe, cause it breaks stuff. */
     }
 
     .site-head {
-        -webkit-box-sizing: border-box; 
+        -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
-        box-sizing: border-box; 
+        box-sizing: border-box;
         height: auto;
         min-height: 240px;
         padding: 15% 0;
@@ -852,7 +852,7 @@ margin on the iframe, cause it breaks stuff. */
         max-height: 80px;
     }
 
-    .inner, 
+    .inner,
     .pagination {
         width: auto;
         margin-left: 16px;

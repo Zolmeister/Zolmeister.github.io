@@ -13,10 +13,10 @@ archive: false
                     <img src="{{site.logo}}" alt="{{ site.name }}" />
                 {% else %}
                     <span class="blog-title">{{ site.name }}</span>
-                {%endif%} 
+                {%endif%}
             </a>
         </header>
-        
+
         <span class="post-meta">
         	<time datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date_to_string }}</time>
         	{% if page.categories %}
@@ -39,7 +39,7 @@ archive: false
     		<ul>
     			{% for post in site.posts %}
     				<li><span>{{ post.date | date_to_string }}</span>  <a href="{{ post.url }}">{{ post.title }}</a></li>
-    			{% endfor %}	
+    			{% endfor %}
     		</ul>
         </section>
         {% endif %}
@@ -48,16 +48,17 @@ archive: false
         	<!-- If we want to display author's name and bio -->
             {% if site.author %}
                 <section class="author">
-                	<header> <a href="{{ site.baseurl }}"> <img class="profile" src="/assets/images/profile.png" alt="Author's profile picture"></a></header>
+                	<header> <a href="{{ site.baseurl }}"> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
                 	<article>
                 		<!-- Author Name -->
                     	<h4> {{ site.author }} </h4>
                     	<!-- Author Bio -->
-                    	<p> 
-                    		Here goes the author description. You might want to place some links too in here
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a>
                     	</p>
                     </article>
-                </section>                
+                </section>
             {% endif %}
 
             <section class="share">
@@ -75,13 +76,13 @@ archive: false
                     <span class="hidden">Google+</span>
                 </a>
             </section>
-            
+
             {% if page.disqus %}
             <section class="disqus">
             	<div id="disqus_thread"></div>
             	<script type="text/javascript">
 
-            	    var disqus_shortname = ''; 
+            	  var disqus_shortname = '';
             		var disqus_developer = 0; // developer mode is on
             	    (function() {
             	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -89,11 +90,9 @@ archive: false
             	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             	    })();
             	</script>
-            	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
             </section>
             {% endif %}
-        	
+
         </footer>
 
     </article>
