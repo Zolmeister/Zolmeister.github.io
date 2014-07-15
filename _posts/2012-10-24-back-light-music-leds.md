@@ -28,6 +28,7 @@ This was probably the most silly issue that I had to deal with, because it seeme
 You can check out the code [here](https://github.com/Zolmeister/AudioMan). Basically it uses the [pyaudio](http://people.csail.mit.edu/hubert/pyaudio/) library to record audio, write streaming data chunks to a temporary wav file (this could be improved upon), and use some magic to get amplitude data from the wav file. Then it normalizes the amplitude over the 0-255 range of LED brightness for the arduino, smooths the curve slightly, and sends the amplitude over to the arduino at 115200 baud (not sure if this is too much/not enough, but it worked for me - 9600 baud hung because it was too slow).
 
 **Beat detection snippet (thanks [Mr.Doob](http://ricardocabello.com/blog/post/677) and [Dean McNamee](http://www.deanmcnamee.com/))**
+
 ```python
 w = wave.open(WAVE_OUTPUT_FILENAME, 'rb')
 summ = 0
@@ -47,6 +48,7 @@ for i in xrange(0, w.getnframes()):
     sendVal(tarW)
     delta = value
 ```
+
 My normalization algorithm for the value consists of storing the last 100 values of data and dividing new data by the max of the last X values (all values before a reset) to get a value between 0 and 1, which I then multiply by 255 to get 0-255\. After a period of low values (ie. silence), detected by the store of last 100 values, the&nbsp;minimum&nbsp;and maximum values reset to allow for a new song which may not fit the amplitude of the previous song. I smooth the data by averaging the current point with the previous point.
 
 #### Arduino LED fading (pwm):

@@ -4,14 +4,14 @@ title:  "How to deploy node.js applications"
 date:   2012-12-10
 ---
 
-[![](http://www.ascendtraining.com/blog/wp-content/uploads/2012/11/aws.png)](http://www.ascendtraining.com/blog/wp-content/uploads/2012/11/aws.png)
+[<img src="http://www.ascendtraining.com/blog/wp-content/uploads/2012/11/aws.png" style="max-width:400px">](http://www.ascendtraining.com/blog/wp-content/uploads/2012/11/aws.png)
 
-I am currently running 5&nbsp;websites on my free (1 year) Amazon EC2 [micro instace](http://aws.amazon.com/ec2/pricing/?_encoding=UTF8&camp=1789&creative=9325&linkCode=ur2&tag=zolmeister-20)![](http://www.assoc-amazon.com/e/ir?t=zolmeister-20&l=ur2&o=1). Every one of these urls corresponds to a&nbsp;separate&nbsp;node.js service running on the server:
-[http://zoggle.zolmeister.com/](http://zoggle.zolmeister.com/)
-[http://games.zolmeister.com/](http://games.zolmeister.com/)
-[http://avabranch.zolmeister.com/](http://avabranch.zolmeister.com/)
-[http://gallery.zolmeister.com/](http://gallery.zolmeister.com/)
-[http://charityvid.org/](http://charityvid.org/)
+I am currently running 5&nbsp;websites on my free (1 year) Amazon EC2 [micro instace](http://aws.amazon.com/ec2/pricing/?_encoding=UTF8&camp=1789&creative=9325&linkCode=ur2&tag=zolmeister-20)![](http://www.assoc-amazon.com/e/ir?t=zolmeister-20&l=ur2&o=1). Every one of these urls corresponds to a&nbsp;separate&nbsp;node.js service running on the server:  
+[http://zoggle.zolmeister.com/](http://zoggle.zolmeister.com/)  
+[http://games.zolmeister.com/](http://games.zolmeister.com/)  
+[http://avabranch.zolmeister.com/](http://avabranch.zolmeister.com/)  
+[http://gallery.zolmeister.com/](http://gallery.zolmeister.com/)  
+[http://charityvid.org/](http://charityvid.org/)  
 
 Let me preface this by saying that the way I deployed my sites before was the following:
 
@@ -22,6 +22,7 @@ Let me preface this by saying that the way I deployed my sites before was the fo
 
 [![](http://upstart.ubuntu.com/img/upstart80.png)](http://upstart.ubuntu.com/img/upstart80.png)
 Enter [upstart](http://upstart.ubuntu.com/), the /sbin/init replacement. Upstart lets you maintain just one config file per site and start and stop it as a service without the need to run everything in a screen. To deploy an app is as simple as copying the myapplication.conf file into /etc/init/ and running "start myapplication". Here is an example of one of my conf files (modified from [this site](http://kvz.io/blog/2009/12/15/run-nodejs-as-a-service-on-ubuntu-karmic/)):
+
 ```
      description "CharityVid node server"
      author   "Zolmeister"
@@ -96,6 +97,7 @@ var options = {
 httpProxy.createServer(options).listen(443);
 ```
 After running the routing proxy every site should now be functional and up, but we still have to ssh into the server to start/stop apps and to update them (with supervisor and up you should rarely have to restart the node server). This is where [fabric](http://docs.fabfile.org/en/1.5/) comes in. Fabric lets you automate the ssh process and run commands on the server from your work machine. For example a simple command to send the initial application.conf upstart file would be:
+
 ```python
 def installInit():
 	put('avabranch.conf', '/etc/init/avabranch.conf', True)
@@ -103,6 +105,7 @@ def installInit():
 	sudo('chown admin /var/log/avabranch.log')
 ```
 And if you're using git to manage your source (I store mine in a private [bitbucket](https://bitbucket.org/) repo), updating your production code is as easy as "fab update:avabranch" with the following fab file declaration:
+
 ```python
 def update(app):
 	with cd('/home/admin/websites'):

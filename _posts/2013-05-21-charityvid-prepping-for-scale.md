@@ -23,6 +23,7 @@ Next, is the creation of the load balancer. It's quite a simple setup, the key b
 Now, if a server goes down for some reason, the load balancer will automatically stop sending it traffic. It also distributes the load so that you can handle a lot more traffic.
 
 There is a problem however, because our MongoDB instance which has all of our users is on each server independently, but we want all the servers to read from the same database. Normally, a master database server would be used, but I found it quicker and easier to use the hosted service Mongolab. With mongolab, we create a database with their interface, and then upload our existing database to the server.
+
 ```
      mongodump --dbpath /data/db/ --out dump
      mongorestore -h xxx.mongolab.com:xxxx -d charityvid-database -d -u <user> -p <password> dump
@@ -36,6 +37,7 @@ Next we setup New Relic to monitor the whole server. New Relic sets up a daemon 
 In addition to full server monitoring, I also use nodefly to monitor the main node.js server process which tracks response time, the event loop, and heap size. This is useful is we ever encounter any response time issues, or any other node.js specific issue which is not readily visible through New Relic. That being said, because I run more that one service on my server I mostly pay attention to New Relic, and only occasionally look at nodefly to make sure response times are low.
 
 Finally, and most importantly, we need to log error events. For this we will use the Loggly service, and the nodejs [winston](https://github.com/flatiron/winston) library. For logging, I set up my own log.js file which manages the winston setup and the configuration settings with the [winston-loggly](https://github.com/indexzero/winston-loggly) plugin. It then exports the winston object so that I can import it in other modules for when I want to log things. My log.js config looks like this:
+
 ```js
    var winston = require('winston'),
        Loggly = require('winston-loggly').Loggly,

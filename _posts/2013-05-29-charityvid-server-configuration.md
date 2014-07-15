@@ -12,10 +12,12 @@ In this post, I will focus on how I run and update the&nbsp;[CharityVid.org](htt
 *   [fabric](http://docs.fabfile.org/en/1.6/)
 
 Lets start with Up. Up allows us to do live reloads of the site, while&nbsp;simultaneously&nbsp;load balancing across many&nbsp;processes. This makes it quite robust and keeps the server from going down. If one thread fails, another will just take over, no problem. Here is how I launch it:
+
 ```
      up -w app.js -p 3100 -n 2 -k -T charityvid
 ```
 CharityVid runs on [express.js](http://expressjs.com/), however unlike a normal express application we do not start the server ourselves. Instead we let Up handle it:
+
 ```js
      var app = express()
      ...
@@ -24,10 +26,12 @@ CharityVid runs on [express.js](http://expressjs.com/), however unlike a normal 
      })
 ```
 Now after launching, Up will watch (-w) app.js for changes, listen on port (-p) 3100, with 2 (-n) threads, &nbsp;spawn new workers on death (-k), and have a title (-T) of charityvid for the process view. If we want to issue the reload command, then we call:
+
 ```
 kill -s SIGUSR2 $(cat /var/run/charityvid.pid)
 ```
 At this point, we have our server running on port 3100, now we need to expose it to the outside world on port 80.&nbsp;To do this, we will use nginx, which will also provide caching support by sitting between our express server and the internet. Here is what a basic nginx config file looks like:
+
 ```
      worker_processes 1;
      error_log logs/error.log;
@@ -56,12 +60,14 @@ At this point, we have our server running on port 3100, now we need to expose it
      }
 ```
 If you installed from source, start nginx by calling:
+
 ```
 /usr/local/nginx/sbin/./nginx
 ```
 Now we have our nginx acting as a proxy between port 3100 and port 80, for the charityvid hostnames. This is also useful because if we wanted to run multiple apps on one IP (which I do), you can have them all on port 80 but listening for different hostnames (effectively URLs).
 
 Finally, we want to automate the deployment process. This is what fabric is for. With fabric we can issue commands to our remote server using python. A basic config looks like this:
+
 ```
      from __future__ import with_statement
      from fabric.api import *
@@ -79,6 +85,7 @@ Finally, we want to automate the deployment process. This is what fabric is for.
        start('charityvid')
 ```
 We can then issue the update command like so:
+
 ```
 fab ec2 update:charityvid
 ```

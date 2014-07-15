@@ -9,6 +9,7 @@ App:&nbsp;[Flurry](http://js1k.com/2013-spring/demo/1345)
 In my [second blog post](http://www.zolmeister.com/2012/06/javascript-golfing.html)&nbsp;I wrote about javascript golfing, and how it is a great way to entertain yourself and learn some cool tricks along the way. With [js1k](http://js1k.com/2013-spring/)&nbsp;underway (you can submit till Match 31st), I have decided to write about my submission, Flurry. Now originally it was going to use both the [Full Screen API](https://developer.mozilla.org/en-US/docs/DOM/Using_fullscreen_mode), as well as the [Pointer Lock API](https://developer.mozilla.org/en-US/docs/API/Pointer_Lock_API)&nbsp;(Mozilla misspelled their call with a capital S in screen), however after submitting it turned out that webkit blocks (be default) the fullscreen/pointerlock from within a frame (which is how js1k hosts submissions). I was&nbsp;disappointed&nbsp;but moved on to a variant that didn't use those calls.
 
 The final code came in at 1023 bytes, here is the original&nbsp;uncompressed&nbsp;source (4.8 kB):
+
 ```js
      /*
  * By: Zolmeister

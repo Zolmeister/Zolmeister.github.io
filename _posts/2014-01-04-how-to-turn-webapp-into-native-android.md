@@ -22,6 +22,7 @@ Alright, now let's install the Android SDK tools
 [http://developer.android.com/sdk/installing/index.html](http://developer.android.com/sdk/installing/index.html)
 
 #### Step 1 - Hello World application
+
 ```bash
 # go into your project
 cd myapp
@@ -43,19 +44,23 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-networ
 
 #### Step 2 - Portrait mode only
 Now let's edit our android manifest to force the app to stay in portrait mode, edit:
+
 ```
 platforms/android/AndroidManifest.xml
 ```
 and add this config to it:
+
 ```
 android:screenOrientation="portrait"
 ```
 
 #### Step 3 - Content
 Finally we get to adding our website. Edit your index.html to look similar to mine:
+
 ```
 www/index.html
 ```
+
 ```html
 <!doctype html>
 <html lang="en">
@@ -105,6 +110,7 @@ www/index.html
 
 #### Step 3 - Icons
 Lastly we need to add icons for our application.</div><div>You will find all icons here:
+
 ```js
 platforms/android/res
 ```
@@ -114,28 +120,34 @@ And that's it. Now lets look into compiling for release on the app store.
 #### Step 4 - Publishing!
 First, we need to remove debug mode (and in my case update the app version).
 Open up the Android Manifest
+
 ```
 platforms/android/AndroidManifest.xml
 ```
 and change the line from
+
 ```
 android:debuggable="true"
 ```
 to
+
 ```
 android:debuggable="false"
 ```
 Now we can generate a release version of the APK
+
 ```
 cordova build --release
 ```
 Your APK file should be located here:
+
 ```
 platforms/android/bin/MyApp-release-unsigned.apk
 ```
 To submit it to the app store, we need to sign it (cryptographically). This page details how to do that:
 [http://developer.android.com/tools/publishing/app-signing.html](http://developer.android.com/tools/publishing/app-signing.html)
 but the short version is this:
+
 ```bash
 # generate a keystore
 keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
@@ -151,18 +163,22 @@ And that's it! You can now upload that APK to Google play and publish your appli
 I created a splash screen for Zoggle, but the game loaded so quickly that it became unnecessary. However it was a bit tricky, so I'll go ahead and explain the process.
 
 First install the cordova plugin
+
 ```
 cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-splashscreen.git
 ```
 Then edit your main activity Java file. Mine was here:
+
 ```
 platforms/android/src/com/zolmeister/zoggle/Zoggle.java
 ```
 And add this line:
+
 ```
 super.setIntegerProperty("splashscreen", R.drawable.splash);
 ```
 Then, in the app code above (www/index.html), uncomment the following line:
+
 ```
 navigator.splashscreen.hide();
 ```
@@ -183,6 +199,7 @@ Here is mine:
 
 The black lines mean the the content there WILL BE STRETCHED (so long to figure this out...). This means if you don't want your logo to be distorted, draw the sections around the outside of your logo.
 Lastly, make sure your image ends in '.9.png' to let the device know that it is a 9-patch image. Then simply put it inside the folder next to your icon:
+
 ```
 platforms/android/res/drawable/splash.9.png
 ```

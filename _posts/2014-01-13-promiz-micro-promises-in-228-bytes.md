@@ -9,6 +9,7 @@ date:   2014-01-13
 [Promiz.js](https://github.com/Zolmeister/promiz) ([original post](http://www.zolmeister.com/2013/07/promizjs.html)) is a (now) completely [Promises/A+](http://promises-aplus.github.io/promises-spec/) spec compliant library that fits in 590 bytes (min+gzip). In addition, the new&nbsp;[Promiz Micro](https://github.com/Zolmeister/promiz#promiz-micro) comes in at 228 bytes (min+gzip) and provides an amazingly clean API.
 
 #### Promiz Micro:
+
 ```js
 !function(){function a(b,c){function d(a,b,c,d){if("object"==typeof h&&"function"==typeof a)try{var e=0;a.call(h,function(a){e++||(h=a,b())},function(a){e++||(h=a,c())})}catch(f){h=f,c()}else d()}function e(){var a;try{a=h&&h.then}catch(i){return h=i,g=2,e()}d(a,function(){g=1,e()},function(){g=2,e()},function(){try{1==g&&"function"==typeof b?h=b(h):2==g&&"function"==typeof c&&(h=c(h),g=1)}catch(e){return h=e,j()}h==f?(h=TypeError(),j()):d(a,function(){j(3)},j,function(){j(1==g&&3)})})}var f=this,g=0,h=0,i=[];f.promise=f,f.resolve=function(a){return g||(h=a,g=1,setTimeout(e)),this},f.reject=function(a){return g||(h=a,g=2,setTimeout(e)),this},f.then=function(b,c){var d=new a(b,c);return 3==g?d.resolve(h):4==g?d.reject(h):i.push(d),d};var j=function(a){g=a||4,i.map(function(a){3==g&&a.resolve(h)||a.reject(h)})}}"undefined"!=typeof module?module.exports=a:this.Promiz=a}();
 ```
@@ -38,6 +39,7 @@ In the process or re-writing the library, I started out by creating a minimal sp
 
 #### Promise State
 If you notice the above code (and read the spec), it specifies that once a promise has been resolved or rejected, it's state must not change. This meant that I decided to chain objects together, similar to a Tree/Linked List, by tracking pointers to each promise in the chain. Because of this, we need variables to track state:
+
 ```js
 var self = this
 
@@ -58,6 +60,7 @@ self.next = [];
 
 #### Resolve and Then
 The implementation of the Resolve and Then functions is similar to the original implementation, except with Then it returns a new promise instead of itself:
+
 ```js
 self.resolve = function (v) {
   if (self.state === 'pending') {
@@ -87,6 +90,7 @@ self.then = function (fn, er) {
 
 #### 2.3.3.1 - [Let then be x.then](http://promises-aplus.github.io/promises-spec/#point-66)
 One of the more frustrating parts of the spec is the requirement that the x.then function on a thenable (promise) is only accessed once. This means that when we check to see if an object has '.then', we have to save that value to a variable if we want to call it later. Not only that, when we try accessing that value, it may throw an exception ([2.3.3.3.4](http://promises-aplus.github.io/promises-spec/#point-78)).
+
 ```js
 self.fire = function () {
   var self = this
@@ -156,6 +160,7 @@ if (self.state === 'rejecting' && typeof self.er === 'function') {
 
 #### 2.3.1 - [TypeError](http://promises-aplus.github.io/promises-spec/#point-57)
 Part of the spec specifies that we should avoid direct circular loops, where we return our own promise as a return value from a function. If someone tries to do this, we need to throw a TypeError exception:
+
 ```js
 if (self.val === self) {
   self.val = TypeError()
@@ -165,6 +170,7 @@ if (self.val === self) {
 
 #### Finish
 Finally, we finish up our call by finalizing our state and calling the next promise in the chain:
+
 ```js
 self.finish = function (type) {
   self.state = type || 'rejected'

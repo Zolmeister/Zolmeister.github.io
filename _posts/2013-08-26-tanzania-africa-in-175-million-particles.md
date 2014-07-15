@@ -37,18 +37,21 @@ I also learned a lot from these amazing tutorials: [aerotwist.com/tutorials](htt
 Deviation: Here's how I took my 2k photos and picked a few.
 [python script](https://gist.github.com/Zolmeister/6337546) to save select images while viewing them as a slide show
 Image resize + crop bash script:
+
 ```bash
 for file in *.jpg; do
   convert -size 1624x1080 $file -resize '1624x1080^' -crop '1624x1080+0+0' -quality 90 +profile '*' $file
 done
 ```
 Thumbnail bash script:
+
 ```bash
 for file in *.jpg; do
   convert $file -resize 120x -quality 90 +profile '*' thumb/$file
 done
 ```
 File rename bash script:
+
 ```bash
 for file in *.jpg; do
   mv "$file" "$file.tmp.jpg"
@@ -64,7 +67,8 @@ Alright, back to javascript. Let me explain a bit about how the GPU and WebGL wo
 So, what happens is that these two things, the vertices and the texture, get passed into the Vertex Shader, and the Fragment Shader. First, everything goes to the Vertex Shader. The Vertex Shader may alter the position of vertices and move stuff around (this is important, as it will let us do animation on the GPU). Then the Fragment Shader takes over, and applies color to all the parts of the object, using the vertices as guides for how to color things (for shadows for example). Here is a [great tutorial](http://aerotwist.com/tutorials/an-introduction-to-shaders-part-1/).
 
 Shaders are coded in a language called GLSL. Yeah, that already sounds scary. But it's not too bad once you spend a few hours banging your head against a wall. Here is what my (shortend) vertex shader looks like:
-```
+
+```html
 <script id='vertexshader' type='x-shader/x-vertex'>
   varying vec3 vColor;
   uniform float amplitude;
@@ -84,7 +88,7 @@ Shaders are coded in a language called GLSL. Yeah, that already sounds scary. Bu
 ```
 And here is what my fragment shader looks like:
 
-```
+```html
 <script id='fragmentshader' type='x-shader/x-fragment'>
   varying vec3 vColor;
 
@@ -101,21 +105,25 @@ Easy. GLSL has 3 main variables that get passed from javascript to the GPU.
 *   uniform - global constant set by JS<div>Sometimes you can get away with doing a particle system by updating an 'attribute' variable for each particle, however this isn't feasible for us.
 
 The way I will do animation (there are many ways), is to update a uniform (global constant) with a number from 0 to 1 depending on the frame I'm at. I will use the 'sine' function to do this, which will give me a smooth sequence from 0 to 1 and then back to 0 again.
-```
+
+```js
 // update the frame counter
 frame += Math.PI * 0.02;
 
 // update the amplitude based on the frame
 uniforms.amplitude.value = Math.abs(Math.sin(frame))
+
 ```
 Now, all I need to do to get cool animations is have each particle move with respect the the amplitude from its original location. Here is the second effect in the app (in the vertex shader):
-```
+
+```js
 newPosition = newPosition * (amplitude + 1.0) + amplitude * newPosition / 1.0;
 newPosition = newPosition * (amplitude * abs(sin(distance(newPosition, vec3(0.0,0.0,0.0)) / 100.0))+ 1.0);
 ```
 Now, as far as the fragment shader goes, you see I am updating the color from an attribute set by Three.js (`color`), which is the color per-pixel from the image to the vertex. This (I think) is quite inefficient (but fast enough for me), and the optimal way (I think) is to pass the image directly as a texture2D variable and let the fragment shader look at that to determine its color ([nucleal.com/](http://nucleal.com/)&nbsp;does that I think). However I couldn't &nbsp;figure out how to do this.
 
 Here is the Three.js code for using a custom vertex and fragment shader:
+
 ```js
     uniforms = {
       // This dictates the point of the animation sequence
@@ -147,6 +155,7 @@ Here is the Three.js code for using a custom vertex and fragment shader:
     scene.add(particles)
 ```
 Now, we're missing the `geometry` part of the particle system, as well as a way to display the particles with a 1:1 pixel ratio to the screen. The latter is solved by some field-of-view voodoo code:
+
 ```js
 camera = new THREE.PerspectiveCamera(90, width / height, 1, 100000)
 // position camera for a 1:1 pixel unit ratio
@@ -157,8 +166,8 @@ var targetZ = height / (2 * Math.tan(vFOV / 2))
 camera.position.z = targetZ + 2
 ```
 And the former is solved with a giant for-loop (Don't actually do this)
-```
-js
+
+```js
 geometry = new THREE.Geometry()
 var vertices = []
 for(var i=0;i<1,750,000;i++){
@@ -167,6 +176,7 @@ for(var i=0;i<1,750,000;i++){
 geometry.vertices = vertices
 ```
 There are many things wrong with the code above (it won't even compile), but the most important part is to notice that it's pushing a NEW object every time it runs, and this is happening over 1million times. This loop is extremely slow, takes up hundreds of megabytes of memory, and breaks the garbage collector (but more on that later). Not to mention that you can't have a loading bar because it blocks the UI thread. Oh yeah, don't forget about colors! (This code is also ridiculously slow)
+
 ```js
 geometry = new THREE.Geometry()
 var colors = []
@@ -179,6 +189,7 @@ geometry.colors = colors
 The first thing that came to mind that would fix both problems at once (sort of) is to use [Web Workers](https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers). However, when passing data to and from web workers it gets JSON.stringify 'd, which is horribly slow and takes forever (but there's another way - more later).
 
 We can speed things up by using plain objects instead of Three.js objects (they seemed to work the same):
+
 ```js
 var col = {r: 1, g: 2, b:3}
 ```
@@ -187,6 +198,7 @@ This is considerably faster, but still not fast enough. Well, it was fast enough
 Here is a great video on [Memory management in the browser](http://www.youtube.com/watch?v=x9Jlu_h_Lyw) from GoogleIO, and I'll explain a little bit about GC. Javascript is a GC'd (Garbage Collected) language, which means you don't have to de-allocate memory you use. Instead what happens is you get 2 memory chunks. The first is short-term memory, and the second is long-term memory. Short term memory is collected often, and objects that survive long enough (aren't collected) move into long-term memory. In order to determine what memory can be collected safely, The garbage collector goes through every object and checks what objects can be reached from that object (an object graph if you will, as a tree with nodes). So when the GC runs on our app with 3million+ objects, it crashes.
 
 Finally, after much headache, user `bai` on #three.js (freenode IRC) saved the day with the suggestion to use BufferGeometry in Three.js instead of just Geometry. BufferGeometry is exactly what I needed, as it exposes the raw typed javascript arrays used by WebGl, which means a huge performance increase and drastically reduced memory usage. I'm talking about going from 1GB of memory to 16MB.
+
 ```js
 // BufferGeometry is MUCH more memory efficient
 geometry = new THREE.BufferGeometry()
@@ -214,7 +226,8 @@ Web workers spawn a new OS thread, which means no UI blocking. However we still 
 
 Typed arrays in javascript consist of a read-only ArrayBuffer object, and a `viewer` which allows you to write data to the ArrayBuffer behind the scenes. For example, if I have an ArrayBuffer, I can create a viewer on top of it (cheaply) Uint8ClampedArray(ArrayBuffer), which lets me read and write data to the buffer. Now, lets look at how I pass the ArrayBuffers back and forth between the web worker thread and the main thread to offload heavy work.
 (web worker code)
-```
+
+```html
 <script id='imageworker' type='text/js-worker'>
 onmessage = function (e) {
   var pixels = new Uint8ClampedArray(e.data.pixels)
@@ -234,6 +247,7 @@ onmessage = function (e) {
 </script>
 ```
 (main thread code)
+
 ```js
 function loadImage(num, buffer, cb) {
   var img = new Image()

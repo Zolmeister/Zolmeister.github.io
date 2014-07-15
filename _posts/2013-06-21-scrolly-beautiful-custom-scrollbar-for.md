@@ -12,6 +12,7 @@ It turns this ![](http://2.bp.blogspot.com/-kk8EAGLIpQU/UcPGLhoX1LI/AAAAAAAAAiM/
 
 This is necessary because chrome does not use the scrollbars from your Linux theme:
 > Because widget rendering is done in a separate, sandboxed process that doesn't have access to the X server or the filesystem, there's no current way to do GTK+ widget rendering. We instead pass WebKit a few colors and let it draw a default scrollbar. ([source](https://code.google.com/p/chromium/wiki/LinuxGtkThemeIntegration))</span></div><div style="text-align: left;">Here is the source:
+
 ```css
 ::-webkit-scrollbar {
     width: 12px;

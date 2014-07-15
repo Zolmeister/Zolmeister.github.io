@@ -8,6 +8,7 @@ This is the last (official) post in my [CharityVid](http://charityvid.org/) seri
 
 ### User Authentication
 We're going to be using [passport.js](http://passportjs.org/)&nbsp;and [MongoDB](http://www.mongodb.org/) to create and store users. Here is what the passport code will look like:
+
 ```js
      var passport = require('passport'),
        FacebookStrategy = require('passport-facebook').Strategy,
@@ -49,7 +50,8 @@ We're going to be using [passport.js](http://passportjs.org/)&nbsp;and [MongoDB]
      })
 ```
 and then we need to add it in as express middleware.
-```
+
+```js
 app.configure(function() {
        app.use(express.cookieParser(settings.SESSION_SECRET))
        app.use(express.session({
@@ -77,6 +79,7 @@ Well that was a piece of cake, onto testing!
 
 ### Testing
 There are many kinds of testing ([http://en.wikipedia.org/wiki/Software_testing#Testing_levels](http://en.wikipedia.org/wiki/Software_testing#Testing_levels)), and its up to you to decide how much or how little of it you wan't to do. CharityVid uses [Jasmine-node](https://github.com/mhevery/jasmine-node)&nbsp;for its tests. We have a folder named 'tests', and inside are javascript files named '<part of code>.spec.js'. The .spec.js extension tells jasmine that these are tests to run. Here is what a test might look like with jasmine:
+
 ```js
 describe("Util check", function() {
        var belt = require('../util')
@@ -93,6 +96,7 @@ describe("Util check", function() {
      })
 ```
 And then to test it:
+
 ```
 jasmine-node tests
 ```
@@ -100,6 +104,7 @@ And now finally, onto Dust.js
 
 ### Dust.js
 CharityVid uses&nbsp;[Dust.js](http://linkedin.github.io/dustjs/), which&nbsp;is a [template engine](http://en.wikipedia.org/wiki/Template_engine_(web)), similar to [Jade](http://jade-lang.com/), the default template engine used by express.js. Dust has a some nice features, including pre-compiled client side templates that can also be used server side (pre-compiling reduces the initial load times). Using dust.js is as simple as setting the view engine:
+
 ```js
 var cons = require('consolidate')
      app.engine('dust', cons.dust) //dustjs template engine
@@ -110,6 +115,7 @@ var cons = require('consolidate')
 The dust engine comes from the [Consolidate.js](https://github.com/visionmedia/consolidate.js/)&nbsp;library, which supports a ton of different engines.
 
 Here is an example of what dust.js looks like:
+
 ```
 {>"base.dust"/}
      {<css_extra}<link href="/css/profile.css" rel="stylesheet">{/css_extra}

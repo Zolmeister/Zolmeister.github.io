@@ -43,11 +43,13 @@ JavaScript is pretty great, but it's not perfect. So I made it better by adding 
      [1,2,5,3,4,5]
 ```
 Now, those are just the basics. What would be really great is if we could utilize python selectors:
+
 ```
 	> "abcdef".g('-3:-1')
      'de'
 ```
 And wouldn't it also be great if we had access to some of the python itertools methods?
+
 ```
      Polish.combinations([1,2,3],2)
      Polish.combinationsReplace("abc",2)

@@ -4,7 +4,7 @@ title:  "Javascript Golfing"
 date:   2012-06-26
 ---
 
-{<1>}![](http://www.clker.com/cliparts/4/3/d/0/1207314048614869515golfing%20black.svg.med.png)
+![](http://www.clker.com/cliparts/4/3/d/0/1207314048614869515golfing%20black.svg.med.png)
 
 #### What is Javascript Golfing?
 Well, Javascript golfing is the&nbsp;process&nbsp;of writing the smallest amount of javascript code to do something awesome. It tests your ability to reduce, reuse, and recycle for the purpose of achieving the tiniest footprint possible. Also, it's fun!
@@ -12,6 +12,7 @@ Note: All of these games and more can be found here: [Games.Zolmeister.com](http
 
 #### First attempt, [Snake](http://games.zolmeister.com/snake/tinySnake/):
 My first attempt at golfing was inspired by [MXSnake](http://www.strille.net/works/snake_game_1Kb.php) (back when I didn't even&nbsp;know&nbsp;it was called golfing). Here is my version: [tinySnake](http://games.zolmeister.com/snake/tinySnake/) (686 bytes). Kind of large, not too pretty and nothing really special, except my key events which I think are quite unique.
+
 ```js
 onkeydown = function (a) {
   q = a.which - 38;

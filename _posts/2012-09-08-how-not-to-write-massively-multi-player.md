@@ -7,9 +7,9 @@ date:   2012-09-08
 
 <br>
 #### Welcome to Page Explorer!
-~~Click [here](javascript:(function(){var%20s=document.createElement() to join!~~&nbsp;(no longer up)
-~~Click [here](javascript:(function(){var%20s=document.createElement()&nbsp;(again)&nbsp;to join! (yes, bug)~~
-Now hit the CAPS LOCK key (to toggle view state)
+<del>Click [here](javascript:(function(){var%20s=document.createElement() to join!</del>&nbsp;(no longer up)  
+<del>Click [here](javascript:(function(){var%20s=document.createElement()&nbsp;(again)&nbsp;to join! (yes, bug)</del>  
+Now hit the CAPS LOCK key (to toggle view state)  
 After you have joined here are the controls:
 
 [![](http://1.bp.blogspot.com/-254J_x8iPIU/UEwu6X5yYHI/AAAAAAAAAVo/epFhspyE52c/s1600/page-explorer-dude.png)](http://1.bp.blogspot.com/-254J_x8iPIU/UEwu6X5yYHI/AAAAAAAAAVo/epFhspyE52c/s1600/page-explorer-dude.png)
@@ -44,6 +44,7 @@ Ok lets start at the beginning of the code (or rather the first part that I wrot
 Basically a bunch of nodes connected to each other. This allows me to draw the player once and animate him freely. If you're confused, this video might help:&nbsp;[http://www.youtube.com/watch?v=34cBGjCKkgU](http://www.youtube.com/watch?v=34cBGjCKkgU)
 
 The issue here is that everything is absolute positioned instead of being relative to one another. The correct way to do it would have been to use a [Polar system](http://en.wikipedia.org/wiki/Pole_and_polar) (angle, distance) instead of a&nbsp;[Cartesian&nbsp;system](http://en.wikipedia.org/wiki/Cartesian_coordinate_system) (x,y).
+
 ```js
 var skeleton = [{
  "name": "root",

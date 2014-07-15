@@ -17,12 +17,14 @@ With these tools we can analyse what resources are consuming the most bandwidth 
 Hopefully those tools are self explanatory, (don't feel like you need to to get to 100% on Page Speed/YSlow), usually just taking advantages of easy wins (like caching) is enough to make your site fast enough (aim for ~90%+ on PageSpeed and you should be good).
 
 Here are some helpful snippets for express:
+
 ```js
      app.configure('production', function() {
        app.use(express.logger())
        app.use(express.compress()) //gzip all the things
      })
 ```
+
 ```js
      //force non-www
      app.get('/*', function(req, res, next) {
@@ -33,6 +35,7 @@ Here are some helpful snippets for express:
 Next up is browser compatibility. Hopefully you don't have to support ie6, but even then browsers like ie 7 (mostly gone), ie8, ie9, ie10 are still a pain to work with. This is especially true because in order to test these out on a real computer (running linux), you have to install a windows VM. Tools like&nbsp;[http://browsershots.org/](http://browsershots.org/)&nbsp;let you see your site running in other browsers pretty well, but this is just a quick check though, if you really want to support IE (which you shouldn't) then test it in a VM.
 
 Finally, we get to <meta> tags (and such). Let me make it easy, and I'll just post what I use:
+
 ```html
      <meta charset="utf-8">
      <meta name="description" content="Be the difference, support charity just by watching a video.">
@@ -62,6 +65,7 @@ There is actually a lot more I could write about, however It's easier to provide
 Lastly, I highly recommend [grunt](http://gruntjs.com/)&nbsp;(charityvid will be using this soon) to automate any compression/minification of files (all js should be concatenated and minified, same with css, and images should be compressed with SmushIt or similar).
 
 Grunt seemed a bit daunting at a glance, but its actually quite simple. Here is an example Gruntfile.js:
+
 ```js
     module.exports = function(grunt) {
       grunt.initConfig({
@@ -74,7 +78,7 @@ Grunt seemed a bit daunting at a glance, but its actually quite simple. Here is 
        uglify: {
         dist: {
          files: {
-          'public/prod/js/production.min.js': ['public/prod/js/production.js'']
+          'public/prod/js/production.min.js': ['public/prod/js/production.js']
          }
         }
        }

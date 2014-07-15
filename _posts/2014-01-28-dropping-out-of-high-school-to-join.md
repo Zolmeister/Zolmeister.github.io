@@ -4,7 +4,7 @@ title:  "Dropping out of High School to Join a Startup in San Francisco"
 date:   2014-01-28
 ---
 
-[![](http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg)](http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg)
+[<img src="http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg" style="max-width:600px">](http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg)
 
 #### TL;DR
 I dropped out of high school and got a job at [Nomic](https://nomic.com/) as a software developer in San Francisco, after turning down an on-site interview with Google. This is my story.
@@ -76,7 +76,7 @@ I turn 18 - Time to start looking for more job opportunities.
 ##### Hired / Developer Auction
 I had signed up for Developer Auction (now [Hired](http://join.hired.com/x/c5PXQJ)) a long time ago, but now I can actually use it. They provide a service where developers can write up a profile and have companies contact them during the auction period (which lasts a week). I update my profile, and submit it for approval.
 
-{<1>}![](https://lh4.googleusercontent.com/lc33U3vA_iffk4AmYTYQu24cpkhCqERuHSCNa9ADTShbTBalH2boebBdGmYTEh4EuQsfQHEEMOjk_nQrlqy-4iA7utj4HVkiM-bI7pm00bMWSBOzAhC4-y0bYQ)
+![](https://lh4.googleusercontent.com/lc33U3vA_iffk4AmYTYQu24cpkhCqERuHSCNa9ADTShbTBalH2boebBdGmYTEh4EuQsfQHEEMOjk_nQrlqy-4iA7utj4HVkiM-bI7pm00bMWSBOzAhC4-y0bYQ)
 
 ### Oct 21
 Hired emails me, letting me know I’m in the next auction (starting Oct 28). They ask that I block off their auction week for them, and not look for other job opportunities during the auction. That's fine with me, but I'm already interviewing with Google. I let Hired know, and it's not a problem.
@@ -103,10 +103,10 @@ I get a great job offer from[ Balderdash](http://balderdash.co/) based on my int
 ##### Bids from Hired
 I receive 10 bids from [Hired](http://join.hired.com/x/c5PXQJ), ranging from $85,000 to $130,000 per year,with a median bid of $100,000. These are my initial responses:
 
-{<2>}![](https://lh3.googleusercontent.com/PnObS0UgIJRKSBao63nsO00wSnbJ2194TzsabBrKwSIMvsxGJmn6HdxbYgzgl4OyiZ7gVDBSqStGDOdUHyBJUbVIPGLjQHnhZwrNBDs51LAKII5k0FhYcf-Usw)
+![](https://lh3.googleusercontent.com/PnObS0UgIJRKSBao63nsO00wSnbJ2194TzsabBrKwSIMvsxGJmn6HdxbYgzgl4OyiZ7gVDBSqStGDOdUHyBJUbVIPGLjQHnhZwrNBDs51LAKII5k0FhYcf-Usw)
 [Upstart](http://upstart.com/): I request a revision because the salary is a bit low (and also they seem to be in Palo Alto, which is not San Francisco).
 
-{<3>}![](https://lh5.googleusercontent.com/9BaLXfmIJCbN9xDxUfMTC5VdnwuCWkI51XCnCVg8Cat7nrBLyI_OlRBoZ1IshFErpq2wUnwcJ-2nraTfQ-hxE7vkoQivZxB7gRvJRtXKuA7qqPviA3AK23FQLg)
+![](https://lh5.googleusercontent.com/9BaLXfmIJCbN9xDxUfMTC5VdnwuCWkI51XCnCVg8Cat7nrBLyI_OlRBoZ1IshFErpq2wUnwcJ-2nraTfQ-hxE7vkoQivZxB7gRvJRtXKuA7qqPviA3AK23FQLg)
 
 [The Minerva Project](http://www.minervaproject.com/): I schedule a call to chat for Friday, Nov 1st.
 

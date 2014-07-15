@@ -25,9 +25,10 @@ Now, before I go on, I will preface with the fact that this feature is currently
 
 Anyways, lets begin with an introduction to Naive Bayes classification and go over basically how it works. I recommend you read other sources as well (and watch [this video](https://www.youtube.com/watch?v=8yvBqhm92xA)), but I will try to explain it from a high-level programmer perspective.
 
-Naive Bayes works by assuming that all 'features' are independent (that's the Naive part). A 'feature' is an input. For example, lets say I have a ~~cat~~ dog with brown fur and floppy ears. Well then I may have two features I can use to compare him to other dogs - fur color (1) and ear floppiness (2). I can measure how floppy his ears are (and get a float/int) or I can measure if his ears are floppy (and get a boolean) (same for fur). However, we have to assume that these are independent. The fact that the dog is brown does not affect if his ears will be floppy (remember, Naive). It may be that in fact the features really are related (brown dogs have floppy ears) however, we ignore this fact in order to make computation reasonable (it's a CPU intensive computation).
+Naive Bayes works by assuming that all 'features' are independent (that's the Naive part). A 'feature' is an input. For example, lets say I have a <del>cat</del> dog with brown fur and floppy ears. Well then I may have two features I can use to compare him to other dogs - fur color (1) and ear floppiness (2). I can measure how floppy his ears are (and get a float/int) or I can measure if his ears are floppy (and get a boolean) (same for fur). However, we have to assume that these are independent. The fact that the dog is brown does not affect if his ears will be floppy (remember, Naive). It may be that in fact the features really are related (brown dogs have floppy ears) however, we ignore this fact in order to make computation reasonable (it's a CPU intensive computation).
 
 Now, lets see how we can extract 'features' from text. Lets take the following string: `The dog sat down and the dog was happy.` Alright, we can now break down the string into individual words (each word is a feature) (this is where you tokenize words, and can do thing like remove punctuation and add word combinations).
+
 ```js
 {
   'the': 2,
@@ -40,6 +41,7 @@ Now, lets see how we can extract 'features' from text. Lets take the following s
 }
 ```
 Now, lets add another sentence to compare it to, and also label out two sentences differently.
+
 ```js
 // dog sentences
 'dog': {
@@ -51,6 +53,7 @@ Now, lets add another sentence to compare it to, and also label out two sentence
 }
 ```
 Ok, now we can try to classify a new sentence: 'the animal lay down at my feet'
+
 ```js
 {
   'the':1,'animal':1,'lay':1,'down':1,'at':1,'my':1,'feet':1
@@ -74,6 +77,7 @@ The Logistic Regression classifier was horribly slow compared to the Bayes class
 In addition to the logistic regression, I tried to use a Support vector machine (svm) to try to combine the results of many classifiers into a new, more accurate classifier. Besides the fact that the SVM library I chose to use didn't even work correctly (probably my fault), the SVM led to results that were sub-optimal for my particular problem (more on this in a sec). The way the SVM works, is that it takes an input matrix (array) of features and then tries to fit new matrices into either one of two groups (binary classification) by comparing it to &nbsp;matrices in its history.
 
 Like so:
+
 ```js
 // train
 [1,1,1,0,0,0]  1
@@ -87,6 +91,7 @@ Like so:
 ```
 Now, as I mentioned before, I have 3 separate feature sets for rss feed items: title, summary, and link
 My final solution was this:
+
 ```js
 var classifier1 = new natural.BayesClassifier() // summary
 var classifier2 = new natural.BayesClassifier() // title
@@ -109,6 +114,7 @@ var tag3 = classifier3.classify(hostname)
 result = (tag1 === 'true' && tag3 === 'true' || tag2 === 'true'  ? true : false)
 ```
 Which gave me ~60% accuracy, with ~20% false negatives (I had ~4000 documents in my training set, and I separated 200 extra documents for testing, meaning that the classifiers were not trained on the 200 selected documents meant to check their accuracy). I care a lot about false negatives because a false negative means that an article was marked as uninteresting, when in fact I would have actually been interested in reading it. When I applied the SVM or combination Bayes classifier:
+
 ```js
 var classifierSum = new natural.BayesClassifier() // total
 

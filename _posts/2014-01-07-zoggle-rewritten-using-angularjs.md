@@ -9,8 +9,6 @@ date:   2014-01-07
 #### Zoggle, the ultimate word game!
 Play [Zoggle](http://zoggle.zolmeister.com/) ([source](https://github.com/Zolmeister/Zoggle)) FREE on:
 
-[<img border="0" src="http://1.bp.blogspot.com/-Yzf7q1IiKzA/UstA9JrjQLI/AAAAAAAABlU/y5lvJ4PXpGA/s1600/icon.png" height="80">](http://zoggle.zolmeister.com/)
-
 <a href="https://play.google.com/store/apps/details?id=zolmeister.zman.zoggle" imageanchor="1" style="float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/-5TYDOf_4nWo/UstXHii97zI/AAAAAAAABm8/eEaTaNLJ4tY/s1600/google_play_store_logo_ungarische-Produkte_online.png" height="80"></a>
 
 <a href="https://chrome.google.com/webstore/detail/zoggle/makbpnhaoldbpinpacbppcefmonaimlf" imageanchor="1" style="margin-left: 1em; margin-right: 1em; text-align: center;"><img border="0" src="http://4.bp.blogspot.com/-KWn2qgBFK-k/UstTgx7kE4I/AAAAAAAABlw/NdU1RkAJQiM/s1600/blog_chrome.png" height="80"></a><br>
@@ -42,12 +40,13 @@ What can I say, except that AngularJS is absolutely amazing! It has a few bugs (
 
 #### AngularJS Gotchas
 
-*   ~~Data-binding on primitives (string, num, bool) doesn't always work properly.~~ Update: updating primitives from views doesn't work as expected ([more info](https://github.com/angular/angular.js/wiki/Understanding-Scopes)).
+*   <del>Data-binding on primitives (string, num, bool) doesn't always work properly.</del> Update: updating primitives from views doesn't work as expected ([more info](https://github.com/angular/angular.js/wiki/Understanding-Scopes)).
 
 *   Either nest data inside an object {} or call $scope.$apply()*   Directives can be called before the DOM is ready
 
 #### Boggle Board
 I could have rendered the board using either the DOM or Canvas (or WebGL) but I opted for using the DOM. One issue I ran across when writing the original Zoggle was that touch-move events [do not cross over elements](http://stackoverflow.com/questions/12396635/crossing-over-to-new-elements-during-touchmove). This meat that I had to use the document.elementFromPoint() function in the original Zoggle. Unfortunately, it does not perform well on mobile, so this time around I decided to overlay a div over the whole board and calculate the position of the mouse over the elements manually. Unlike the non-performant code in the [stackoverflow answer](http://stackoverflow.com/a/12397041/2780143), I cached the position of the elements so that detection would be much faster.
+
 ```js
 var positions = [];
 
@@ -73,6 +72,7 @@ function collide(x1, y1, w1, h1, x2, y2, w2, h2) {
 
 #### Letter Interpolation
 The boggle board is represented internally as a single list (of 16 characters) because it made rendering easy. The logical thing (which I didn't do) would be to clone the data (as it's static per-game) and represent it as a 2D array. Anyways, one great feature I added to Zoggle was the ability to interpolate between two tiles. This means if you touch one tile (mobile device) and move too quickly and end up 2 tiles over, the algorithm will add the missing tile(s). The algorithm is pretty simple (see bonus for explanation of touching function):
+
 ```js
 function touching(x1, y1, x2, y2) {
   return _.some(_.filter(_.flatten(_.map(_.range(-1,2),_.compose(_.partial(_.zip,_.range(-1,2)),_.partial(_.compose(_.partial(_.map,_.range(3)),_.partial),_.identity))),!0),_.compose(_.first,_.compact)), function(dir) {
@@ -92,6 +92,7 @@ while (!touching(x1, y1, x2, y2)) {
 
 #### Real-Time Word Highlighting
 Another amazing new feature I added was highlighting as you type. The code for this is a simple depth-first search, except that instead of searching it adds every valid visited node as selected.
+
 ```js
 function depthFirstSearch(grid, word, pos, index, past) {
   index = index || 0
@@ -123,6 +124,7 @@ function depthFirstSearch(grid, word, pos, index, past) {
 
 #### Minification and Concatenation
 For any production application, minifying and concatenating JS source is essential for an optimal user experience. To automate the process, I used Grunt which is an amazingly powerful tool for running a multitude of tasks.
+
 ```js
 module.exports = function(grunt) {
 
@@ -177,6 +179,7 @@ module.exports = function(grunt) {
 };
 ```
 And set this in package.json to use grunt on Heroku:
+
 ```js
 "scripts": {
   "postinstall": "echo postinstall time; ./node_modules/grunt-cli/bin/grunt"
@@ -189,6 +192,7 @@ Originally the mobile application was simply a web-view which pointed to the web
 
 #### Bonus
 Recall the touching function from above:
+
 ```js
 function touching(x1, y1, x2, y2) {
   return _.some(_.filter(_.flatten(_.map(_.range(-1,2),_.compose(_.partial(_.zip,_.range(-1,2)),_.partial(_.compose(_.partial(_.map,_.range(3)),_.partial),_.identity))),!0),_.compose(_.first,_.compact)), function(dir) {
@@ -197,6 +201,7 @@ function touching(x1, y1, x2, y2) {
 }
 ```
 For fun, I decided to write a functional-only (using only LoDash functions) generator for the 8 cardinal directions (2D) - N, S, E, W, NW, NE, SW, SE. That list ([[0,1],[0,-1],[1,0],[-1,0],[-1,1]...]) is what populates 'dir' in the function call. Let's see how I composed it:
+
 ```js
 // Here is the original
 var dirs = _.filter(_.flatten(_.map(_.range(-1,2),_.compose(_.partial(_.zip,_.range(-1,2)),_.partial(_.compose(_.partial(_.map,_.range(3)),_.partial),_.identity))),!0),_.compose(_.first,_.compact))

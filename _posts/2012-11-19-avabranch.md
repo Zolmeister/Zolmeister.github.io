@@ -9,6 +9,7 @@ date:   2012-11-19
 [Avabranch](http://avabranch.zolmeister.com/)&nbsp;([source on Github](https://github.com/Zolmeister/avabranch)) is my entry for the [github gameoff](https://github.com/blog/1303-github-game-off)&nbsp;web-game challenge. It's built using [Node.js](http://nodejs.org/) and the [Express](http://expressjs.com/) framework, though most of the code is pure handwritten&nbsp;client-side&nbsp;javascript. I really enjoyed working on avabranch and wanted to take you through what I did to build it.
 
 First of all, since the game uses canvas, we need to figure out how to clear, update, and draw our objects on the canvas. This is where 'requestAnimFrame' comes in. The boilerplate code for this function is this (it adds support for browser-specific implementations because it's not a finalized standard yet):
+
 ```js
 window.requestAnimFrame = (function () {
   return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function ( /* function */ callback, /* DOMElement */ element) {
@@ -36,6 +37,7 @@ function startGame() {
 }
 ```
 Now, when I call game.update(), it runs this code:
+
 ```js
 this.update = function (time) {
   if (!this.play) return;
@@ -52,6 +54,7 @@ this.update = function (time) {
 }
 ```
 This is where most new developers make a mistake, as they forget the critical 'time' variable that is passed into the function by requestAnimFrame, which is essential for consistent playback across all machines. In order to make sure that a slow machine, unable to run the game at the optimum 60 fps, doesn't end up playing a game that runs half as fast we must keep track of how much time has passed since we last updated the objects on the screen. This is what 'timeDelta' is for, as it keeps track of this time. Now when the Game object calls the 'physics' function on all of its children, it passes in this timeDelta value which is used in the update code for objects that move. For example the 'Line' object uses timeDelta when it updates its position:
+
 ```js
 this.points[i].y += .05 * timeDelta * this.ySpeed
 ```
