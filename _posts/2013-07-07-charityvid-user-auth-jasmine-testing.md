@@ -103,7 +103,7 @@ jasmine-node tests
 And now finally, onto Dust.js
 
 ### Dust.js
-CharityVid uses&nbsp;[Dust.js](http://linkedin.github.io/dustjs/), which&nbsp;is a [template engine](http://en.wikipedia.org/wiki/Template_engine_(web)), similar to [Jade](http://jade-lang.com/), the default template engine used by express.js. Dust has a some nice features, including pre-compiled client side templates that can also be used server side (pre-compiling reduces the initial load times). Using dust.js is as simple as setting the view engine:
+CharityVid uses&nbsp;[Dust.js](http://linkedin.github.io/dustjs/), which&nbsp;is a [template engine](http://en.wikipedia.org/wiki/Template_engine_%28web%29), similar to [Jade](http://jade-lang.com/), the default template engine used by express.js. Dust has a some nice features, including pre-compiled client side templates that can also be used server side (pre-compiling reduces the initial load times). Using dust.js is as simple as setting the view engine:
 
 ```js
 var cons = require('consolidate')

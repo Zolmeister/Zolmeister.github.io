@@ -152,6 +152,4 @@ Getting environment variables does not always work (ie. overflow 5) so I came up
 Here are some good sources for more information on buffer overflows:  
 [http://insecure.org0xffffd7f0/stf/smashstack.html](http://insecure.org/stf/smashstack.html)  
 [http://security.stackexchange.com/questions/13194/finding-environment-variables-with-gdb-to-exploit-a-buffer-overflow](http://security.stackexchange.com/questions/13194/finding-environment-variables-with-gdb-to-exploit-a-buffer-overflow)  
-[http://www.lopisec.com/2011/12/smashthestack-io-level-5-writing-my.html](http://www.lopisec.com/2011/12/smashthestack-io-level-5-writing-my.html)  
 [http://raidersec.blogspot.com/2012/10/smash-stack-io-level-3-writeup.html](http://raidersec.blogspot.com/2012/10/smash-stack-io-level-3-writeup.html)  
-[http://key-basher.blogspot.com/2013/04/smash-stack-level-5.html](http://key-basher.blogspot.com/2013/04/smash-stack-level-5.html)  

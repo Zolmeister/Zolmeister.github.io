@@ -143,7 +143,7 @@ function sawtooth(x) {
   return y
 }
 ```
-With this code, I am able to simply export an array of `[freq, wave]` date from the editor, and then convert that into music (highly efficient). Also for those astute musicians, I decided to use a D Minor Pentatonic scale for the note range, using this [scale hertz chart](http://drumvibe.com/Tuning.html) as reference.
+With this code, I am able to simply export an array of `[freq, wave]` date from the editor, and then convert that into music (highly efficient). Also for those astute musicians, I decided to use a D Minor Pentatonic scale for the note range, <del>using this [scale hertz chart](#null) as reference</del>.
 
 Now, if you hit the 'export' button in the editor, you may note that the output string in the console is actually ~12KB. This is because while the data is highly optimised, it is not yet compressed. For that, we go to [JSCrush](http://www.iteral.com/jscrush/)&nbsp;which compresses javascript by turning it into a string, and then compressing that string via pointers to heavily used sequences within the string. It does a fantastic job of compressing the output to a manageable size.
 
