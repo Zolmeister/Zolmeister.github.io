@@ -3,8 +3,8 @@ layout: post
 title:  "Prism"
 date:   2014-07-15
 ---
-![Prism Game](https://raw.githubusercontent.com/Zolmeister/prism/master/images/440x280.png)  
-Prism is a [2048](http://gabrielecirulli.github.io/2048/) clone, using colors instead of numbers.
+[![Prism Game](https://raw.githubusercontent.com/Zolmeister/prism/master/images/440x280.png)](http://prism.clay.io/)  
+[Prism](http://prism.clay.io/) ([source](https://github.com/Zolmeister/prism)) is a [2048](http://gabrielecirulli.github.io/2048/) clone, using colors instead of numbers.
 It was created by [Austin](http://austinhallock.com) and myself in about a day, mostly for the purposes of
 getting to know each other better (this was before [I joined Clay.io](http://localhost:4000/2014/07/cto-cofounder-clay-io.html))
 as well as to show investors that we could produce content quickly. We have since
