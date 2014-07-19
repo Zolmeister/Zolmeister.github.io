@@ -3,7 +3,7 @@ layout: post
 title:  "CTO/Co-Founder Clay.io"
 date:   2014-07-15
 ---
-![Clay.io](/assets/images/clayio.png)
+[![Clay.io](/assets/images/clayio.png)](http://clay.io)
 #### tl;dr
 I have joined [Clay.io](http://clay.io) as CTO/Co-Founder,
 after we raised a ~$500k seed round,
@@ -32,7 +32,7 @@ I am joining [Austin](http://austinhallock.com/), the original founder of Clay.i
 working on his vision for what Clay.io can become, a vision which I share and hope to help us achieve.
 
 #### How I got here
-![The Pond](/assets/images/the-pond-playing.png)  
+[![The Pond](/assets/images/the-pond-playing.png)](http://thepond.zolmeister.com/)
 The story of how I found Austin begins just four days before moving to San Francisco.
 I had recently submitted [The Pond](http://localhost:4000/2013/10/the-pond.html) to Clay.io, and written a guest post about it on [Mozilla Hacks](https://hacks.mozilla.org/2013/11/the-pond-building-a-multi-platform-html5-game/).
 Austin noticed my game, and the fact that I lived in Austin, TX, and invited me to lunch.
