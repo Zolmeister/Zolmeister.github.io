@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "CTO/Co-Founder Clay.io"
-date:   2014-07-15
+date:   2014-07-19
 ---
 [![Clay.io](/assets/images/clayio.png)](http://clay.io)
 #### tl;dr
@@ -15,7 +15,7 @@ I have to thank Nomic, and the people behind it,
 for the opportunity they gave me to work with them for the past 6 months.
 They took a big risk taking me on, and am very grateful for the chance they gave me to prove myself and work with such a great team.
 It's difficult to quantify the amount of respect I hold for each and every one of my team members at Nomic,
-but I can say that I enjoyed every minute of the experience.  
+but I can definitely say that I enjoyed every minute of the experience.  
 
 I have grown so much, and learned such a tremendous amount during my time at Nomic, and am sorry to have to leave such a supportive and
 skillful team.  
@@ -43,12 +43,12 @@ Our conversation was great, but although Austin seemed to be looking for a devel
 I was moving out to [San Francisco](http://localhost:4000/2014/01/dropping-out-of-high-school-to-join.html) and was quite excited to start my new career at Nomic.  
 
 A few months later Austin reached out to me again, saying he was looking for a co-founder to help
-take Clay.io to the next level. He knew I needed a salary (as I had little money saved), and also that I was
+take Clay.io to the next level. He knew I needed a salary, and also that I was
 happy at my job with Nomic. We didn't come to an agreement then, but he offered to fly out to San Francisco in a month so we could speak in person.
 After that meeting, I agreed to join Clay.io, contingent on the fact that we raised a seed round, and that I could stay with Nomic
 for a few weeks to help them transition.  
 
-The last few weeks have been quite stressful, as our biggest priorities have been to find an office space, as well as hire a UI/UX designer.
+The last few weeks have been quite stressful, as our biggest priorities have been to find an office space and hire a UI/UX designer.
 Luckily, most of that is in the past today, and we should be moving much more quickly over the next few weeks.  
 
 I look forward to growing Clay.io with Austin, and turning it into a billion dollar company.
@@ -58,7 +58,7 @@ I look forward to growing Clay.io with Austin, and turning it into a billion dol
 #### Clay.io is Hiring!
 We are currently looking to expand our team by hiring two engineers full-time to help us
 grow Clay.io and bring it to the next level. If you are interested or know someone who is interested
-in mobile web games and loves to code and play games, email me at [zoli@clay.io](mailto:zoli@clay.io) ([or post here](http://clay.io/jobs)).
+in mobile web and loves to code and play games, email me at [zoli@clay.io](mailto:zoli@clay.io) ([or post here](http://clay.io/jobs)).
 
 #### Clay.io and Open Source
 I am a strong believer in the open source community, and as CTO I will push to make as much
