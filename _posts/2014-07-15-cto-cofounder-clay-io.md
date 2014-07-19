@@ -20,7 +20,7 @@ but I can say that I enjoyed every minute of the experience.
 I have grown so much, and learned such a tremendous amount during my time at Nomic, and am sorry to have to leave such a supportive and
 skillful team.  
 
-But 600+ commits, and 50,000+ lines of code later, I must bid them farewell.
+Now, 600+ commits and 50,000+ lines of code later, I must bid them farewell.
 
 #### [Clay.io](http://clay.io)
 Clay.io is a marketplace for mobile and desktop web games. We provide users with great games that they can play right
@@ -62,11 +62,12 @@ in mobile web games and loves to code and play games, email me at [zoli@clay.io]
 
 #### Clay.io and Open Source
 I am a strong believer in the open source community, and as CTO I will push to make as much
-of our software at Clay.io as open and publicly available as possible. I will be posting regularly to [my blog](http://zolmeister.com) with updates on the development of our company
+of our software at Clay.io as open and publicly available as possible ([GitHub](https://github.com/claydotio)). I will be posting regularly to [my blog](http://zolmeister.com) with updates on the development of our company
 and our internal products. In addition, I will also be posting to [clay.io/blog/](http://clay.io/blog/)
 with updates and announcements.
 
-#### Where was I for the past 3 months?
-I was staying at The Negev, a hacker house in San Francisco, which I will be writing about shortly.
+#### Where was I for the past 4 months?
+I was staying at [The Negev](http://thenegev.com/), a hacker house (60+ people, 2 per room) in San Francisco.
+I made some great connections, and learned a ton. I have since moved to a Live/Work loft to focus on Clay.io full time.
 
 \- Zoli
