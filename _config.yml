@@ -1,6 +1,6 @@
 name: Zolmeister
-description: Zolmeister - Legend
-meta_description: "Zolmeister, blog"
+description: Zolmeister - Blog
+meta_description: "Zolmeister- Blog"
 
 permalink: :year/:month/:title.html
 rss_path: feeds/posts/
