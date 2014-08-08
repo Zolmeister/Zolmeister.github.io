@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2013-05-21">21 May 2013</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">CharityVid - Prepping for scale</a></h1>
+
+        <section class="post-content">
+            <p><a href="http://charityvid.org/img/logo.png"><img src="http://charityvid.org/img/logo.png" alt=""></a>
+In this post, I will outline how I setup horizontal scaling on <a href="http://aws.amazon.com/ec2/?_encoding=UTF8&amp;camp=1789&amp;creative=9325&amp;linkCode=ur2&amp;tag=zolmeister-20">AWS EC2</a><img src="http://www.assoc-amazon.com/e/ir?t=zolmeister-20&amp;l=ur2&amp;o=1" alt="">, and also how I added server monitoring tools to watch my servers. I will go over:</p>
+
+<ul>
+<li>  Migrating to <a href="https://mongolab.com/">Mongolab</a></li>
+<li>  <a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.elb.html">AWS Load Balancer</a> setup</li>
+<li>  <a href="http://loggly.com/">Loggly</a> logging</li>
+<li>  <a href="http://newrelic.com/">New Relic</a> server monitoring</li>
+<li>  <a href="https://www.pingdom.com/">Pingdom</a> uptime monitor</li>
+<li>  <a href="http://nodefly.com/">nodefly</a> node.js monitor</li>
+</ul>
+
+<p>The AWS Load balancer allow you to distribute load coming to a url to different servers. It does this by creating a dynamic DNS entry, which resolves to the server IP which has the least load and thus is best suited to handle traffic. To setup the AWS load balancer is quite simple, and it even removes the need to host your SSL certificate on the webservers themselves. Instead you can have the balancer server the SSL certificate, and then forward the SSL traffic over to port 80 on your servers. This is secure because we assume an uncompromised local network (and indeed Amazon&#39;s internal AWS network isolates instances networks properly).</p>
+
+<p>The first step to load balancing is to create an <a href="http://aws.amazon.com/about-aws/whats-new/2013/03/12/announcing-ami-copy-for-amazon-ec2/">AMI</a> (hard disk clone) of your main server. From there, you can spin up multiple cloned instances based on that AMI. These clones can then be brought online, and then added to the load balancer.</p>
+
+<p>Next, is the creation of the load balancer. It&#39;s quite a simple setup, the key being that you DNS is setup properly. For me, I found it easiest to move my DNS to <a href="https://www.cloudflare.com/">cloudflare</a> (which has given me other security benefits as well), and then all you do is create a CNAME record for your domain which points to the dynamic DNS of the load balancer.</p>
+
+<p>Now, if a server goes down for some reason, the load balancer will automatically stop sending it traffic. It also distributes the load so that you can handle a lot more traffic.</p>
+
+<p>There is a problem however, because our MongoDB instance which has all of our users is on each server independently, but we want all the servers to read from the same database. Normally, a master database server would be used, but I found it quicker and easier to use the hosted service Mongolab. With mongolab, we create a database with their interface, and then upload our existing database to the server.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     mongodump --dbpath /data/db/ --out dump
+     mongorestore -h xxx.mongolab.com:xxxx -d charityvid-database -d -u &lt;user&gt; -p &lt;password&gt; dump
+</code></pre></div>
+<p>In addition to creating a production shared mongodb instance, I also created a dev clone of the database for testing purposes.</p>
+
+<p>The next step is to set up services which will alert us when the service goes down, and will log error events so that we can debug issues later. For basic uptime monitoring we use Pingdom, which just pings the site every once in a while and will email us (or alert us through their android app) that the site has gone offline.</p>
+
+<p>Next we setup New Relic to monitor the whole server. New Relic sets up a daemon which reports things like CPU and RAM usage, as well as network usage so that you can make sure that the server is running smoothly (and also you get a <a href="http://newrelic.com/nerdlife">free t-shirt</a>).</p>
+
+<p>In addition to full server monitoring, I also use nodefly to monitor the main node.js server process which tracks response time, the event loop, and heap size. This is useful is we ever encounter any response time issues, or any other node.js specific issue which is not readily visible through New Relic. That being said, because I run more that one service on my server I mostly pay attention to New Relic, and only occasionally look at nodefly to make sure response times are low.</p>
+
+<p>Finally, and most importantly, we need to log error events. For this we will use the Loggly service, and the nodejs <a href="https://github.com/flatiron/winston">winston</a> library. For logging, I set up my own log.js file which manages the winston setup and the configuration settings with the <a href="https://github.com/indexzero/winston-loggly">winston-loggly</a> plugin. It then exports the winston object so that I can import it in other modules for when I want to log things. My log.js config looks like this:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js">   <span class="kd">var</span> <span class="nx">winston</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;winston&#39;</span><span class="p">),</span>
+       <span class="nx">Loggly</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;winston-loggly&#39;</span><span class="p">).</span><span class="nx">Loggly</span><span class="p">,</span>
+       <span class="nx">settings</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./settings&#39;</span><span class="p">)</span>
+     <span class="nx">winston</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">winston</span><span class="p">.</span><span class="nx">transports</span><span class="p">.</span><span class="nx">File</span><span class="p">,</span> <span class="p">{</span> <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;charityvid.log&#39;</span> <span class="p">});</span>
+     <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">settings</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">){</span>
+       <span class="nx">winston</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">Loggly</span><span class="p">,</span> <span class="p">{</span>
+         <span class="nx">subdomain</span><span class="o">:</span> <span class="s1">&#39;charityvid&#39;</span><span class="p">,</span>
+         <span class="nx">inputToken</span><span class="o">:</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">LOGGLY_KEY</span>
+       <span class="p">})</span>
+     <span class="p">}</span>
+     <span class="c1">//winston.remove(winston.transports.Console);</span>
+     <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">winston</span>
+</code></pre></div>
+<p>In order to determine what level to log things at, I generally follow this comments suggestions:&nbsp;<a href="http://stackoverflow.com/a/186844">http://stackoverflow.com/a/186844</a></p>
+
+<p>And that&#39;s it. Just make sure you log everything, so that when something bad happens (and something bad always happens), you can resolve the issue as quickly as possible.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=CharityVid - Prepping for scale&amp;url=http://zolmeister.com/2013/05/charityvid-prepping-for-scale.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2013/05/charityvid-prepping-for-scale.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2013/05/charityvid-prepping-for-scale.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

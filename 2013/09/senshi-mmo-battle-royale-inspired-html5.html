@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2013-09-08">08 Sep 2013</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">戦士 - Senshi (an MMO Battle-Royale inspired game)</a></h1>
+
+        <section class="post-content">
+            <p><a href="http://senshi.zolmeister.com/"><img src="http://1.bp.blogspot.com/-j5eG97sWxOI/Uizyu9QnYkI/AAAAAAAAAoM/3hFSoyaRn5s/s640/Selection_029.png" alt=""></a></p>
+
+<h4><a href="http://senshi.zolmeister.com/">senshi.zolmeister.com</a></h4>
+
+<p>A real-time MMO Battle-Royale inspired game, with permadeath (names can never be reused).
+Source:&nbsp;<a href="https://github.com/Zolmeister/senshi">github.com/Zolmeister/senshi</a>&nbsp;-&nbsp;Sprite Attribution: <a href="http://opengameart.org/content/18x20-characters-walkattackcast-spritesheet">Ghosa</a>
+Audio editor:&nbsp;<a href="http://senshi.zolmeister.com/audio.html">senshi.zolmeister.com/audio.html</a></p>
+
+<p>This game is my submission to <a href="http://js13kgames.com/">js13kgames</a>, a contest similar to <a href="http://js1k.com/">js1k</a>, but instead you get 13k (for the client, and also the server), and you get to zip it (!). After competing in js1k, I was amazed at how much I could get out of 13k, especially due to the zipping. In fact, the source in the zip files is uncompressed, because using a minifier actually increased the file size. In the end: client - 11.3KB, server - 4.1KB.</p>
+
+<p>Making the game was fairly straight forward, except perhaps the audio, which I will explain in detail, as well as the real-time socket.io code.</p>
+
+<p>The game engine is completely server-side, with the client solely used for rending and sending keystrokes. This is necessary to prevent cheating, as the client can never be trusted. The ideal solution (which I didn&#39;t get around to implementing) is to have the client and the server both have physics engines running simultaneously, with updates from the server forcing the client to sync up. Here is a great video from Google.IO which goes deep into the mechanics of a real-time MMO game:
+<a href="http://www.youtube.com/watch?v=Prkyd5n0P7k">Google I/O 2012 - GRITS: PvP Gaming with HTML5</a>
+With the 13KB limitation, you have a lot of room to work with in terms of pure JS, however the art assets (Sprites and Audio) are highly constrained. For this reason, I decided to go with pixel art, and custom audio format. I am not the most artistically inclined person, so I opted to use a sprite someone else made on&nbsp;<a href="http://opengameart.org/">opengameart.org</a>&nbsp;and then modified it to include each weapon (using <a href="http://www.gimp.org/">GIMP</a>). Here is what my sprite sheet/atlas looked like:</p>
+
+<p><a href="http://3.bp.blogspot.com/-P_TPHAlR2MU/Uiz3-CdE9GI/AAAAAAAAAog/iE5RKVK7iEg/s1600/player.png"><img src="http://3.bp.blogspot.com/-P_TPHAlR2MU/Uiz3-CdE9GI/AAAAAAAAAog/iE5RKVK7iEg/s1600/player.png" alt=""></a></p>
+
+<p>As you can see, each frame of animation has its own image, as well as each weapon. On the right, I merged the item/terrain atlas in the same PNG to save space. The player is 22x20px, and the items are 14x14px (some items were unused).</p>
+
+<p>One of the biggest features I wanted to add was diagonal walking, but I just could not muster the artistic talent (not for lack of trying) to draw the character (lets call him Zed) facing new directions. So I cheated by skewing the image using ctx.setTransform() :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">drawPlayer</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">health</span><span class="p">,</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">frame</span><span class="p">,</span> <span class="nx">weapon</span><span class="p">,</span> <span class="nx">kills</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// 22 x 20, with +10 x-offset</span>
+  <span class="kd">var</span> <span class="nx">tanAngle</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">tan</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">rowDir</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+  <span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="nx">rowDir</span><span class="p">[</span><span class="nx">dir</span><span class="p">]</span>
+  <span class="kd">var</span> <span class="nx">col</span> <span class="o">=</span> <span class="nx">frame</span> <span class="o">==</span> <span class="mi">3</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="nx">frame</span>
+  <span class="nx">col</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">weapon</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">7</span>
+  <span class="nx">x</span> <span class="o">+=</span> <span class="mi">10</span>
+
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">dir</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">dir</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">dir</span> <span class="o">==</span> <span class="mi">7</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// facing left</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="mi">22</span> <span class="o">-</span> <span class="nx">x</span>
+  <span class="p">}</span>
+
+  <span class="c1">//draw character</span>
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">x</span><span class="o">+</span><span class="mi">11</span><span class="p">,</span><span class="nx">y</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">dir</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// diagonal</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">dir</span><span class="o">==</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">dir</span><span class="o">==</span><span class="mi">7</span><span class="p">)</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">setTransform</span><span class="p">(</span><span class="mf">3.8</span><span class="p">,</span> <span class="p">(</span><span class="nx">dir</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">dir</span> <span class="o">==</span> <span class="mi">5</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nx">tanAngle</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">400</span><span class="o">-</span><span class="nx">x</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">22</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">11</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="mi">300</span><span class="o">+</span><span class="nx">y</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">10</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">setTransform</span><span class="p">(</span><span class="mf">3.8</span><span class="p">,</span> <span class="p">(</span><span class="nx">dir</span> <span class="o">==</span> <span class="mi">5</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nx">tanAngle</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">400</span><span class="o">+</span><span class="nx">x</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">11</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="mi">300</span><span class="o">+</span><span class="nx">y</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">10</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">image</span><span class="p">,</span> <span class="nx">col</span> <span class="o">*</span> <span class="mi">22</span><span class="p">,</span> <span class="nx">row</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">11</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">restore</span><span class="p">()</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>Another thing to note is that I was unable to use off-screen <a href="http://www.html5rocks.com/en/tutorials/canvas/performance/">canvas pre-rendering</a>&nbsp;because It kept <a href="http://en.wikipedia.org/wiki/Aliasing">aliasing</a> the image, event through I told it not to (a big problem for a pixel-art game):</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">ctx</span><span class="p">.</span><span class="nx">webkitImageSmoothingEnabled</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">mozImageSmoothingEnabled</span> <span class="o">=</span> <span class="kc">false</span>
+</code></pre></div>
+<p>In order to get some real-time action going, I decided to use <a href="http://socket.io/">Socket.io</a> (as it is allowed by the rules without counting against the file-size). Socket.io is a <a href="http://www.html5rocks.com/en/tutorials/websockets/basics/">Websockets</a> compatibility library which uses backup transports for data if websockets is not available (Socket.io is absolutely amazing!). Now, notice that the player has a lot of attributes associated with them: name, x, y, health, kills, weapon, direction, animation frame, isAttacking, and the keys that they are pressing (remember, everything is computed server-side). Every tick of the physics engine, we have to update all the users positions and send the data out to all the other players. This adds up to a lot of data being sent, and exponentially increases per-player in the arena.</p>
+
+<p>In order to be efficient with how much data we send per player, I decided to only send a <code>diff</code>, or only what has changed in game state since the last update. I shrunk all variable names to 1 letter, and devised a data structure that would efficiently provide a full diff. Here is what I came up with (small snippet):</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// This diff will be sent and applied by the client to sync their arena</span>
+<span class="c1">// diff[0-2] = players</span>
+<span class="c1">// diff[0] = new players (append to end)</span>
+<span class="c1">// diff[1] = del players indicies (splice, starting in reverse order)</span>
+<span class="c1">// diff[2] = player updates (i:index, updated attrs)</span>
+<span class="c1">// diff[3-5] = bullets</span>
+<span class="c1">// diff[6-8] = items</span>
+<span class="kd">var</span> <span class="nx">diff</span> <span class="o">=</span> <span class="nx">physics</span><span class="p">(</span><span class="o">++</span><span class="nx">frame</span><span class="p">)</span>
+
+<span class="c1">// don&#39;t send if empty</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">diff</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">total</span><span class="p">,</span> <span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">total</span> <span class="o">+</span> <span class="nx">x</span><span class="p">.</span><span class="nx">length</span>
+<span class="p">},</span> <span class="mi">0</span><span class="p">))</span> <span class="k">return</span>
+
+<span class="c1">// clear out empty trailing arrays</span>
+<span class="kd">var</span> <span class="nx">found</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">diff</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">diff</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">diff</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">diff</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This added a lot of serialization/deserialization overhead, however it was worth it because it drastically reduced data size. After setting up a diff-based structure, I decided to look into more ways of data compression. This website was quite helpful:&nbsp;<a href="http://buildnewgames.com/optimizing-websockets-bandwidth/">buildnewgames.com/optimizing-websockets-bandwidth/</a>. Additionally, I found this tool which looked quite promising:&nbsp;<a href="http://msgpack.org/">msgpack</a>. Basically it defines a way to represent JSON as binary data in a highly optimized way. Sadly, I was unable to use it, not because of it&#39;s filesize, but for lack of binary data support in Socket.io -&nbsp;<a href="https://github.com/LearnBoost/socket.io/issues/511">#511</a>. Socket.io isn&#39;t perfect, but I was disappointed in that it didn&#39;t support some of the really useful data compression options available to raw websockets - <a href="https://github.com/LearnBoost/socket.io/issues/1148">#1148</a>, <a href="https://github.com/LearnBoost/socket.io/issues/680">#680</a>.</p>
+
+<p>In the end, I went with the diff strategy, which will hopefully be enough (haven&#39;t tested at large scale).</p>
+
+<p>The last significant part of this game is the audio. Now, let me preface by saying that I made the audio myself, with no help, and zero prior experience. That being said, I think the audio actually turned out pretty good. Not great, but pretty good. Also, the audio data size (with decoder) ended up being ~1.3KB, which is outstanding considering that even the most trivial music goes into the hundreds of KB.</p>
+
+<p>With only 13KB to work with, I looked at perhaps using someone else&#39;s music and just <a href="http://en.wikipedia.org/wiki/Bitcrusher">bitcrushing</a> it. However, it quickly became apparent that I wasn&#39;t going to get enough length and quality out. So I decided to look at what others had done, and found this amazing resource: <a href="http://games.23inch.de/chime/doc/">Chime Docs</a> (<a href="http://js1k.com/2012-love/demo/1265">Chime Hero</a>). I also found this great tutorial on <a href="http://www.milkytracker.org/docs/Vhiiula-TechniquesOfChipping.txt"><code>chipping</code> techniques</a> (for creating <a href="http://www.youtube.com/results?search_query=chiptunes">Chiptunes</a> - classic 8-bit music). Based on this information, I decided to make my own chiptunes editor:&nbsp;<a href="http://senshi.zolmeister.com/audio.html">senshi.zolmeister.com/audio.html</a></p>
+
+<p>The editor is basic, and quite limited in what you can do, but it gets the job done. The key though, is that it is able to output algorithmically compressed audio, which leads to a 1 minute song at &lt;1.5Kb.
+In order to create the editor I followed the Chime Hero docs carefully, and from it figured out how to generate all of the other types of sound waves (this fiddle was also helpful: <a href="http://jsfiddle.net/CxPFw/1/">jsfiddle.net/CxPFw/1</a>):</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">samples</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="mi">11025</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">bytes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">samples</span><span class="p">;</span> <span class="nx">s</span><span class="o">--</span><span class="p">;)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="kr">byte</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">note</span><span class="p">.</span><span class="nx">wave</span> <span class="o">===</span> <span class="s1">&#39;square&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* Square wave */</span>
+    <span class="kr">byte</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">s</span> <span class="o">/</span> <span class="mi">44100</span> <span class="o">*</span> <span class="mi">1</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="nx">note</span><span class="p">.</span><span class="nx">freq</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">note</span><span class="p">.</span><span class="nx">wave</span> <span class="o">===</span> <span class="s1">&#39;sine&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* sine wave */</span>
+    <span class="kr">byte</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">s</span> <span class="o">/</span> <span class="mi">44100</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="nx">note</span><span class="p">.</span><span class="nx">freq</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">note</span><span class="p">.</span><span class="nx">wave</span> <span class="o">===</span> <span class="s1">&#39;saw&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* sawtooth wave */</span>
+    <span class="kr">byte</span> <span class="o">=</span> <span class="nx">sawtooth</span><span class="p">(</span><span class="nx">s</span> <span class="o">/</span> <span class="mi">44100</span> <span class="o">*</span> <span class="nx">note</span><span class="p">.</span><span class="nx">freq</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">note</span><span class="p">.</span><span class="nx">wave</span> <span class="o">===</span> <span class="s1">&#39;ramp&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* ramp wave */</span>
+    <span class="kr">byte</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">s</span> <span class="o">%</span> <span class="p">(</span><span class="nx">note</span><span class="p">.</span><span class="nx">freq</span><span class="p">)</span> <span class="o">-</span> <span class="nx">note</span><span class="p">.</span><span class="nx">freq</span><span class="p">)</span> <span class="o">/</span> <span class="nx">note</span><span class="p">.</span><span class="nx">freq</span>
+  <span class="p">}</span>
+   <span class="nx">bytes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="kr">byte</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">bytes</span> <span class="o">=</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="kr">byte</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">s</span> <span class="o">=</span> <span class="nx">samples</span> <span class="o">-</span> <span class="nx">s</span>
+  <span class="c1">// normalize bytes</span>
+  <span class="k">return</span> <span class="kr">byte</span> <span class="o">*</span> <span class="mi">127</span> <span class="o">+</span> <span class="mi">128</span>
+<span class="p">}).</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="kr">byte</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// encode the bytes</span>
+  <span class="k">return</span> <span class="nx">str</span> <span class="o">+</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="kr">byte</span><span class="p">);</span>
+<span class="p">},</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">player</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Audio</span><span class="p">(</span><span class="s1">&#39;data:audio/wav;base64,UklGRjUrAABXQVZFZm10IBAAAAA\</span>
+<span class="s1">   BAAEARKwAAESsAAABAAgAZGF0YREr&#39;</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="s1">&#39;\9\0&#39;</span> <span class="o">+</span> <span class="nx">bytes</span><span class="p">))</span>
+<span class="nx">player</span><span class="p">.</span><span class="nx">play</span><span class="p">()</span>
+
+<span class="kd">function</span> <span class="nx">sawtooth</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">pi</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span>
+  <span class="kd">var</span> <span class="nx">tn</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">((</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">pi</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">pi</span><span class="p">));</span>
+  <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="p">((</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">tn</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">pi</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">pi</span><span class="p">)</span> <span class="o">/</span> <span class="nx">pi</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">y</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>With this code, I am able to simply export an array of <code>[freq, wave]</code> date from the editor, and then convert that into music (highly efficient). Also for those astute musicians, I decided to use a D Minor Pentatonic scale for the note range, <del>using this <a href="#null">scale hertz chart</a> as reference</del>.</p>
+
+<p>Now, if you hit the &#39;export&#39; button in the editor, you may note that the output string in the console is actually ~12KB. This is because while the data is highly optimised, it is not yet compressed. For that, we go to <a href="http://www.iteral.com/jscrush/">JSCrush</a>&nbsp;which compresses javascript by turning it into a string, and then compressing that string via pointers to heavily used sequences within the string. It does a fantastic job of compressing the output to a manageable size.</p>
+
+<p>Now, after loading that code into the game, I realized that the compile time (to generate the wave from frequency data) was quite long and blocked the UI, so I decided to offload it to an embedded <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers">Web Worker</a>&nbsp;(The &#39;export&#39; globalizes an &#39;a_audio&#39; object which is the un-base64 encoded data string seen in the above code as &#39;bytes&#39;):</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">id</span><span class="o">=</span><span class="s1">&#39;audioworker&#39;</span> <span class="nx">type</span><span class="o">=</span><span class="s1">&#39;text/js-worker&#39;</span><span class="o">&gt;</span>
+<span class="nx">_</span><span class="o">=</span><span class="s1">&#39;  keW  t(eWvar t=&lt;PI;var n=&lt;ceil((e+t)/(2*t));var r=(e-n*2*t+2*t)/t; r}`=&lt;floor(11025/2); s=e!nWj=nNeW=[]e[1];&amp;=e[0]; =0;Bif==01&gt;0?1:-1$=12$2W =tO&amp;)$3W =&lt;abs(Fs%&amp;-&amp;)/&amp;}.push( )} })!tW tNt,nW e[n]?[t].concat(e[n]):[t]})},[])NeW e!tW e+t},0)/e})Ne,tWt=`-t; e*127+128})!tW e+Gt)},&quot;&quot;);if(j===0WBj+=G128)}} e+j},&quot;&quot;);Faudio=&quot;9\\0&quot;+ s}Fr=[[  |K  |J  |D  |J  |K  |  1XXXX  KZ           Z[ 1  L   RK D  RJ  RK  z,R  R   LH          Y     T T T                Q   [ @ T @ T @   @ Q   Y             @ T @ T @  LLKZ    J1  D1   JZKZ   1  DZ    JZDZH   Q LL [z   @ T @   @^,TL ]];kFr)   2  R JZDZ  ,@ 3 z,R ],[ ~, U3, V3, [^, [z, 174.61, J1 D1 [^ #3 @440 @V# @U3 [ @^  0  1  1  DZ T[ 392, KZJZ  z, RJ  RD  R  R function Fbyte 440, return   [ ]        T T T       [   1 [  ^,   [z [^ [U3 [~ [V3  !.reduce( (e,#3  @~ $}else if=&amp;Ffreq&lt;Math.@0 Bfor(Fs=`;Fs--;WD[   Fa_GString.fromCharCode(H[      J   K   L    N.map( (O(Fs/44100*Q      R3 T  U261.6V349.2W){X      Y                Z1 ^220`FsamplesjFtonekplayExported(z196|1  ~293.6Fwave= [ @392 [[            sArr     W =&lt;sinO       ZT @ T @  @U#[ @V        .length*&lt;PI*&amp;)[     RR ^,RK        &#39;</span><span class="p">;</span><span class="k">for</span><span class="p">(</span><span class="nx">Y</span> <span class="k">in</span> <span class="nx">$</span><span class="o">=</span><span class="s1">&#39;~|zkj`^ZYXWVUTRQONLKJHGFDB@&lt;&amp;$#!                             &#39;</span><span class="p">)</span><span class="kd">with</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">$</span><span class="p">[</span><span class="nx">Y</span><span class="p">]))</span><span class="nx">_</span><span class="o">=</span><span class="nx">join</span><span class="p">(</span><span class="nx">pop</span><span class="p">());</span><span class="nb">eval</span><span class="p">(</span><span class="nx">_</span><span class="p">)</span>
+
+<span class="nx">postMessage</span><span class="p">({</span><span class="s1">&#39;setAudio&#39;</span><span class="o">:</span> <span class="nx">a_audio</span><span class="p">})</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<p>($ is not jQuery, instead it uses the built-in selector: <code>$ = document.querySelector.bind(document)</code>)</p>
+
+<p>It&#39;s worth noting that there is still some lag due to the creation of the audio element, which you can&#39;t offload to the Web Worker because it doesn&#39;t have access to the <code>Audio()</code> object, or the <code>btoa</code> function for that matter (<a href="https://bugs.webkit.org/show_bug.cgi?id=55663">#55663</a>).</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=戦士 - Senshi (an MMO Battle-Royale inspired game)&amp;url=http://zolmeister.com/2013/09/senshi-mmo-battle-royale-inspired-html5.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2013/09/senshi-mmo-battle-royale-inspired-html5.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2013/09/senshi-mmo-battle-royale-inspired-html5.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

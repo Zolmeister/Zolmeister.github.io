@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2014-03-04">04 Mar 2014</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">The Pond at Mobile World Congress with Firefox OS</a></h1>
+
+        <section class="post-content">
+            <p><a href="http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg"><img src="http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg" style="max-width: 600px;"></a></p>
+
+<p>Last week I attended <a href="http://www.mobileworldcongress.com/">Mobile World Congress</a> in Barcelona, Spain after being invited by Mozilla to show off <a href="http://thepond.zolmeister.com/">The Pond</a> (<a href="http://www.zolmeister.com/2013/10/the-pond.html">blog post</a>). Originally Mozilla found me through my blog, and asked me to write a post about <a href="https://hacks.mozilla.org/2013/11/the-pond-building-a-multi-platform-html5-game/">The Pond on Mozilla Hacks</a>. For Mobile World Congress they were looking for app developers to help showcase <a href="http://www.mozilla.org/en-US/firefox/os/">Firefox OS</a>, which is where I came in.</p>
+
+<p>Before heading out though, I decided to update the app in a few areas:</p>
+
+<h4>Memory Management Update</h4>
+
+<p>The first thing I looked at was memory management, and attempted to <a href="http://www.html5rocks.com/en/tutorials/speed/static-mem-pools/">achieve static memory</a> via object pooling. Unfortunately things didn&#39;t go smoothly, though decreasing allocations inside core inner loops aided greatly in reducing the rate at which the garbage collector ran.</p>
+
+<p><img src="http://2.bp.blogspot.com/-BzPPfLE2g1E/UxVzSkY-uXI/AAAAAAAACZQ/Ut9sna2USVo/s1600/Selection_089.png" alt=""></p>
+
+<h4>Device Scaling via devicePixelRatio</h4>
+
+<p>If you&#39;re not familiar with mobile web, the following meta tag is used to properly scale websites:</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width,user-scalable=no&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>However, the problem with this approach is that it scales the canvas as well, causing the rendering to be low resolution. The solution is to scale the canvas size relative to the device pixel ratio, increasing the rendering resolution without changing the physical size of the canvas:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">devPixelRatio</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">devicePixelRatio</span> <span class="o">||</span> <span class="mi">1</span>
+<span class="nx">$canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">*</span> <span class="nx">devPixelRatio</span>
+<span class="nx">$canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span> <span class="o">*</span> <span class="nx">devPixelRatio</span>
+<span class="nx">ctx</span> <span class="o">=</span> <span class="nx">$canv</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;2d&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Background Music
+A while back I created a game called <a href="http://avabranch.zolmeister.com/">Avabranch</a>, wherein I used a background sound track I found on <a href="https://soundcloud.com/">Sound Cloud</a>. The author of that track, <a href="https://soundcloud.com/chrissij">Chrissi Jackson</a>, got in touch with me and offered to create an audio track for The Pond. She did a fantastic job, and got it to me just in time, with the commit going in less than 3 hours before the conference.</p>
+
+<p><audio controls="controls" src="http://thepond.zolmeister.com/assets/bg.ogg"></audio></p>
+
+<p>Mobile World Congress
+Surprisingly, the vast majority (I&#39;d say ~90%) of attendees were business people and not developers. Even more surprising was the crazy world of meetings which manifested itself at the conference by means of physical meeting rooms. The first hall was entirely dedicated to meeting rooms, and more were spread out throughout the rest of the halls. That being said, I personally got to speak with some amazing people, including the guy behind <a href="http://js13kgames.com/">js13k games</a> (for which I wrote <a href="http://www.zolmeister.com/2013/09/senshi-mmo-battle-royale-inspired-html5.html">Senshi</a>), someone from <a href="http://www.aviary.com/">Aviary</a>, and a few people from <a href="http://line.me/en/">Line</a>.</p>
+
+<p>Many people were interested in The Pond, which I demoed for those that came to the Firefox OS booth. Additionally, I got to show a few people <a href="http://www.zolmeister.com/2014/01/zoggle-rewritten-using-angularjs.html">Zoggle</a>, and got some great responses (Spanish Zoggle might be coming soon!). Overall most people seemed to enjoy the games and were really interested in the technology behind them.</p>
+
+<p>There were also a few interesting products at MWC, including some <a href="https://www.tizen.org/">Tizen</a> and <a href="http://www.ubuntu.com/phone">Ubuntu mobile</a> devices and a handful of smart watches which were fun to play with. However, both were trumped by the recently announced <a href="http://reviews.cnet.com/8301-13970_7-57619338-78/with-firefox-os-mozilla-begins-the-$25-smartphone-push/">$25 Firefox OS phone</a> (which I tested out). The potential impact of the phone is huge, and look forward to the challenge of developing for such a low-end device.
+Barcelona</p>
+
+<p>And finally I also got to spend some time exploring the beautiful city of Barcelona:<br>
+<img src="http://2.bp.blogspot.com/-zNUgYc9KmIY/UxWB3ydhYAI/AAAAAAAACZg/zl9l8DD9mlg/s1600/IMG_20140225_122545.jpg" style="max-width:500px">
+<img src="http://1.bp.blogspot.com/-T0V6WO9TU-U/UxWB4HjY4sI/AAAAAAAACZk/6CmSqRvnDQE/s1600/IMG_20140225_131112.jpg" style="max-width: 500px"></p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=The Pond at Mobile World Congress with Firefox OS&amp;url=http://zolmeister.com/2014/03/the-pond-at-mobile-world-congress-on.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2014/03/the-pond-at-mobile-world-congress-on.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2014/03/the-pond-at-mobile-world-congress-on.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

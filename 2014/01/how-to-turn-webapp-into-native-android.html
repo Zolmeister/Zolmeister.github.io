@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2014-01-04">04 Jan 2014</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">How to turn a WebApp into a native Android application in 5 minutes</a></h1>
+
+        <section class="post-content">
+            <p><a href="http://cordova.apache.org/"><img src="http://3.bp.blogspot.com/-SqDxnYTAGTY/Usee4n4AOjI/AAAAAAAABk0/qTGCfkblXak/s320/logo_full.png" alt=""></a>
+<a href="http://zoggle.zolmeister.com/#/"><img src="http://1.bp.blogspot.com/Gu7hOx36GhsxPmZR914AqcYS5wKUxSUNMyxcu_sT79ILntSQyoFa6cfouuNZ8T6exg=h900-rw" width="300"></a></p>
+
+<p>While re-writing my game <a href="http://zoggle.zolmeister.com/#/">Zoggle</a>&nbsp;(Blog post coming soon)&nbsp;I decided to use Cordova (PhoneGap) to create a new mobile application for the game.
+So without further ado, here is how to turn a website into a native mobile Android application in less than 5 minutes.</p>
+
+<h4>Step 0 - Prerequisite: Installing Cordova CLI, and the Android SDK tools</h4>
+
+<p>To install the Cordova CLI, you first need to install Node.js version 0.10+.
+It is imperative that the version is 0.10+ or you will be unhappy.
+<a href="http://nodejs.org/">http://nodejs.org/</a></p>
+
+<p>Next run this command to install the Cordova CLI:
+<code>sudo npm install -g cordova</code></p>
+
+<p>Alright, now let&#39;s install the Android SDK tools
+<a href="http://developer.android.com/sdk/installing/index.html">http://developer.android.com/sdk/installing/index.html</a></p>
+
+<h4>Step 1 - Hello World application</h4>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># go into your project</span>
+<span class="nb">cd </span>myapp
+<span class="c"># create a mobileapp folder for your app</span>
+cordova create mobileapp com.whatever.appname AppName
+<span class="nb">cd </span>mobileapp
+<span class="c"># compile the app</span>
+cordova build
+<span class="c"># now, plug in your testing device, and let&#39;s run our test app on it</span>
+cordova run android
+<span class="c"># if you don&#39;t have a device handy you can use an emulator (much slower)</span>
+<span class="c">## cordova emulate android</span>
+
+<span class="c"># install plugins for alerts and network information</span>
+<span class="c"># used to alert the user if they are not connected to the internet</span>
+cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-dialogs.git
+cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
+</code></pre></div>
+<h4>Step 2 - Portrait mode only</h4>
+
+<p>Now let&#39;s edit our android manifest to force the app to stay in portrait mode, edit:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">platforms/android/AndroidManifest.xml
+</code></pre></div>
+<p>and add this config to it:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">android:screenOrientation=&quot;portrait&quot;
+</code></pre></div>
+<h4>Step 3 - Content</h4>
+
+<p>Finally we get to adding our website. Edit your index.html to look similar to mine:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">www/index.html
+</code></pre></div><div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+
+  <span class="nt">&lt;title&gt;</span>Zoggle<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span> <span class="na">src=</span><span class="s">&quot;cordova.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;script&gt;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;deviceready&quot;</span><span class="p">,</span> <span class="nx">onDeviceReady</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+  <span class="kd">function</span> <span class="nx">onDeviceReady</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//navigator.splashscreen.hide();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">network</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="nx">Connection</span><span class="p">.</span><span class="nx">NONE</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">networkError</span><span class="p">()</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">loadApp</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">loadApp</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="o">=</span><span class="s2">&quot;http://zoggle.zolmeister.com&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">networkError</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">navigator</span><span class="p">.</span><span class="nx">notification</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Zoggle requires an internet connection&#39;</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">$net</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">)</span>
+    <span class="nx">$net</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;Zoggle requires an internet connection&#39;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">$net</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="nt">&lt;/script&gt;</span>
+
+  <span class="nt">&lt;style&gt;</span>
+  <span class="nt">body</span> <span class="p">{</span>
+    <span class="k">padding</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+    <span class="k">background</span><span class="o">:</span> <span class="m">#23252e</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#01ced3</span><span class="p">;</span>
+    <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nt">div</span> <span class="p">{</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">20px</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+<h4>Step 3 - Icons</h4>
+
+<p>Lastly we need to add icons for our application.</div><div>You will find all icons here:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">platforms</span><span class="o">/</span><span class="nx">android</span><span class="o">/</span><span class="nx">res</span>
+</code></pre></div>
+<p>Just replace them with your icon (of the correct size).
+And that&#39;s it. Now lets look into compiling for release on the app store.</p>
+
+<h4>Step 4 - Publishing!</h4>
+
+<p>First, we need to remove debug mode (and in my case update the app version).
+Open up the Android Manifest</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">platforms/android/AndroidManifest.xml
+</code></pre></div>
+<p>and change the line from</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">android:debuggable=&quot;true&quot;
+</code></pre></div>
+<p>to</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">android:debuggable=&quot;false&quot;
+</code></pre></div>
+<p>Now we can generate a release version of the APK</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cordova build --release
+</code></pre></div>
+<p>Your APK file should be located here:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">platforms/android/bin/MyApp-release-unsigned.apk
+</code></pre></div>
+<p>To submit it to the app store, we need to sign it (cryptographically). This page details how to do that:
+<a href="http://developer.android.com/tools/publishing/app-signing.html">http://developer.android.com/tools/publishing/app-signing.html</a>
+but the short version is this:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># generate a keystore</span>
+keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize <span class="m">2048</span> -validity 10000
+<span class="c"># sign the apk</span>
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore MyApp-release-unsigned.apk alias_name
+<span class="c"># zip-align the apk</span>
+zipalign -v <span class="m">4</span> MyApp-release-unsigned.apk MyApp.apk
+</code></pre></div>
+<p>And that&#39;s it! You can now upload that APK to Google play and publish your application.</p>
+
+<h4>Bonus - Splash Screen</h4>
+
+<p>I created a splash screen for Zoggle, but the game loaded so quickly that it became unnecessary. However it was a bit tricky, so I&#39;ll go ahead and explain the process.</p>
+
+<p>First install the cordova plugin</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-splashscreen.git
+</code></pre></div>
+<p>Then edit your main activity Java file. Mine was here:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">platforms/android/src/com/zolmeister/zoggle/Zoggle.java
+</code></pre></div>
+<p>And add this line:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">super.setIntegerProperty(&quot;splashscreen&quot;, R.drawable.splash);
+</code></pre></div>
+<p>Then, in the app code above (www/index.html), uncomment the following line:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">navigator.splashscreen.hide();
+</code></pre></div>
+<p>which will hide the splashscreen once the app loads.</p>
+
+<h4>Creating a splash screen image</h4>
+
+<p>Splash screen images are not regular images, instead they are 9-patch images. This allows them to stretch to meet different screen sizes.
+Here is a great video introduction to how they work:</p>
+
+<p><a href="http://www.youtube.com/watch?v=MQRA9nwxU7g">http://www.youtube.com/watch?v=MQRA9nwxU7g</a>
+The Android SDK tools come with a tool called <strong>draw9patch</strong>, which you can read about here:
+<a href="http://developer.android.com/tools/help/draw9patch.html">http://developer.android.com/tools/help/draw9patch.html</a></p>
+
+<p>It&#39;s not the easiest to use, but it works. Simply run it, open your image, and zoom in on an edge of your image. The 1 pixel transparent border on your image will be the guide which lets the device know how to stretch the image.</p>
+
+<p>Here is mine:
+<a href="http://3.bp.blogspot.com/-8jYRqjOZV6M/Uselr6UrlBI/AAAAAAAABlE/-JycdsZD1Ew/s1600/splash.9.png"><img src="http://3.bp.blogspot.com/-8jYRqjOZV6M/Uselr6UrlBI/AAAAAAAABlE/-JycdsZD1Ew/s400/splash.9.png" alt=""></a></p>
+
+<p>The black lines mean the the content there WILL BE STRETCHED (so long to figure this out...). This means if you don&#39;t want your logo to be distorted, draw the sections around the outside of your logo.
+Lastly, make sure your image ends in &#39;.9.png&#39; to let the device know that it is a 9-patch image. Then simply put it inside the folder next to your icon:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">platforms/android/res/drawable/splash.9.png
+</code></pre></div>
+<p><strong>Done!</strong>
+<strong>Now go check out <a href="http://zoggle.zolmeister.com/#/">Zoggle</a>!</strong></p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=How to turn a WebApp into a native Android application in 5 minutes&amp;url=http://zolmeister.com/2014/01/how-to-turn-webapp-into-native-android.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2014/01/how-to-turn-webapp-into-native-android.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2014/01/how-to-turn-webapp-into-native-android.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

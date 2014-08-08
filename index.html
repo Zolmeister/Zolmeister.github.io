@@ -1,20 +1,42 @@
----
-layout: default
-title: Home
-cover: false
-about: 'about.html'
-logo: '/assets/images/profile.png'
----
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<header class="site-head" {% if page.cover %} style="background-image: url({{ page.cover }})"{% endif %}>
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <header class="site-head" >
     <div class="vertical">
         <div class="site-head-content" class="inner">
-            {% if page.logo %}
-                <a class="blog-logo" href="{{ site.baseurl }}">
-                    <img src="{{ page.logo }}" alt="Z" />
+            
+                <a class="blog-logo" href="">
+                    <img src="/assets/images/profile.png" alt="Z" />
                 </a>
-            {% endif %}
-            <h1 class="blog-title">{{ site.name }}</h1>
+            
+            <h1 class="blog-title">Zolmeister</h1>
                 <a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
                 <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
                 <a target="_blank" href="https://clay.io">Clay.io</a>
@@ -25,37 +47,288 @@ logo: '/assets/images/profile.png'
 
 <main class="content" role="main">
 
-    {% for post in paginator.posts %}
+    
 
     <article class="post">
         <header class="post-header">
-            <span class="post-meta"><time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date_to_string }}</time> {{!tags prefix="on "}}</span>
-            <h2 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+            <span class="post-meta"><time datetime="2014-07-19">19 Jul 2014</time> </span>
+            <h2 class="post-title"><a href="/2014/07/cto-cofounder-clay-io.html">CTO/Co-Founder Clay.io</a></h2>
 
         </header>
         <section class="post-excerpt">
-            {{ post.excerpt }}
+            <p><a href="http://clay.io"><img src="/assets/images/clayio.png" alt="Clay.io"></a></p>
+
+<h4>tl;dr</h4>
+
+<p>I have joined <a href="http://clay.io">Clay.io</a> as CTO/Co-Founder,
+after we raised a ~$500k seed round,
+and just 6 months after <a href="http://zolmeister.com/2014/01/dropping-out-of-high-school-to-join.html">dropping out of high school</a>
+and moving to San Francisco to join <a href="http://nomic.com">Nomic</a>.</p>
+
         </section>
     </article>
 
-    {% endfor %}
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2014-04-11">11 Apr 2014</time> </span>
+            <h2 class="post-title"><a href="/2014/04/zethos-35-million-in-1kb.html">Zethos - $3.5 million in 1kb</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="http://zethos.zolmeister.com/"><img src="http://4.bp.blogspot.com/-fwxtkVefC2w/Ux0xB0zKv_I/AAAAAAAACcY/v4-MYpaENck/s1600/Selection_090.png" style="max-width: 600px"></a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2014-03-04">04 Mar 2014</time> </span>
+            <h2 class="post-title"><a href="/2014/03/the-pond-at-mobile-world-congress-on.html">The Pond at Mobile World Congress with Firefox OS</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg"><img src="http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg" style="max-width: 600px;"></a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2014-02-11">11 Feb 2014</time> </span>
+            <h2 class="post-title"><a href="/2014/02/dematerializer-blogging-for-developers.html">Dematerializer - Blogging for developers</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="http://dematerializer.zolmeister.com/#/"><img src="http://1.bp.blogspot.com/-eDTRKhEo3Nk/UvnTBuNfD8I/AAAAAAAAB3g/0Tp203WCTlQ/s1600/Selection_086.png" style="max-width: 600px"></a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2014-01-28">28 Jan 2014</time> </span>
+            <h2 class="post-title"><a href="/2014/01/dropping-out-of-high-school-to-join.html">Dropping out of High School to Join a Startup in San Francisco</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg"><img src="http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg" style="max-width:600px"></a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2014-01-16">16 Jan 2014</time> </span>
+            <h2 class="post-title"><a href="/2014/01/n-queens-problem-backtracking.html">N Queens Problem - Backtracking</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <style>
+.clearfix-7da63{clear:both}
+.board-b72b1{border:2px solid #404040;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
+.square-55d63{float:left;position:relative;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.white-1e1d7{background-color:#f0d9b5;color:#b58863}
+.black-3c85d{background-color:#b58863;color:#f0d9b5}
+.highlight1-32417,.highlight2-9c5d2{-webkit-box-shadow:inset 0 0 3px 3px #FF0;-moz-box-shadow:inset 0 0 3px 3px #FF0;box-shadow:inset 0 0 3px 3px #FF0}
+.notation-322f9{cursor:default;font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:14px;position:absolute}
+.alpha-d2270{bottom:1px;right:3px}
+.numeric-fc462{top:2px;left:2px}
+#board img { padding: 0; border: 0; -webkit-box-shadow: inherit; -moz-box-shadow: inherit;box-shadow: inherit; }
+</style>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2014-01-13">13 Jan 2014</time> </span>
+            <h2 class="post-title"><a href="/2014/01/promiz-micro-promises-in-228-bytes.html">Promiz Micro - Promises in 228 bytes (min+gzip)</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="https://github.com/Zolmeister/promiz"><img src="https://raw.github.com/Zolmeister/promiz/master/imgs/logo.png" alt=""></a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2014-01-07">07 Jan 2014</time> </span>
+            <h2 class="post-title"><a href="/2014/01/zoggle-rewritten-using-angularjs.html">Zoggle - Rewritten Using AngularJS</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="http://4.bp.blogspot.com/-2mf8hrqg5zw/UsdX3VlNL9I/AAAAAAAABkk/acSzRrCi4Xs/s1600/banner2.png"><img src="http://4.bp.blogspot.com/-2mf8hrqg5zw/UsdX3VlNL9I/AAAAAAAABkk/acSzRrCi4Xs/s640/banner2.png" alt=""></a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2014-01-04">04 Jan 2014</time> </span>
+            <h2 class="post-title"><a href="/2014/01/how-to-turn-webapp-into-native-android.html">How to turn a WebApp into a native Android application in 5 minutes</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="http://cordova.apache.org/"><img src="http://3.bp.blogspot.com/-SqDxnYTAGTY/Usee4n4AOjI/AAAAAAAABk0/qTGCfkblXak/s320/logo_full.png" alt=""></a>
+<a href="http://zoggle.zolmeister.com/#/"><img src="http://1.bp.blogspot.com/Gu7hOx36GhsxPmZR914AqcYS5wKUxSUNMyxcu_sT79ILntSQyoFa6cfouuNZ8T6exg=h900-rw" width="300"></a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2013-12-17">17 Dec 2013</time> </span>
+            <h2 class="post-title"><a href="/2013/12/nent.html">Nent</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="http://nent.zolmeister.com/"><img src="http://3.bp.blogspot.com/-SN9w-FENiWU/Uq5KczeWbsI/AAAAAAAABfI/xeQtg7f8eW4/s640/screenshot-game.png" alt=""></a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2013-10-15">15 Oct 2013</time> </span>
+            <h2 class="post-title"><a href="/2013/10/the-pond.html">The Pond</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="http://thepond.zolmeister.com/"><img src="http://4.bp.blogspot.com/-clTSEFA6cpA/UlcE3Rjk9UI/AAAAAAAAAp0/6m_tJC8GrJ0/s1600/screenshot-menu-640-400.png" alt=""></a></p>
+
+<h4>Update:</h4>
+
+<p>Read my guest post on&nbsp;<a href="https://hacks.mozilla.org/2013/11/the-pond-building-a-multi-platform-html5-game/">Mozilla Hacks</a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2013-09-26">26 Sep 2013</time> </span>
+            <h2 class="post-title"><a href="/2013/09/retinus-naive-bayes-machine-learning.html">Retin.us - Naive Bayes Machine Learning Basics</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="http://retin.us/"><img src="http://4.bp.blogspot.com/-HP1Cp_VMDKk/UjZwt6ifsLI/AAAAAAAAAo4/y0MGhH24gVw/s640/Selection_031.png" alt=""></a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2013-09-08">08 Sep 2013</time> </span>
+            <h2 class="post-title"><a href="/2013/09/senshi-mmo-battle-royale-inspired-html5.html">戦士 - Senshi (an MMO Battle-Royale inspired game)</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="http://senshi.zolmeister.com/"><img src="http://1.bp.blogspot.com/-j5eG97sWxOI/Uizyu9QnYkI/AAAAAAAAAoM/3hFSoyaRn5s/s640/Selection_029.png" alt=""></a></p>
+
+<h4><a href="http://senshi.zolmeister.com/">senshi.zolmeister.com</a></h4>
+
+<p>A real-time MMO Battle-Royale inspired game, with permadeath (names can never be reused).
+Source:&nbsp;<a href="https://github.com/Zolmeister/senshi">github.com/Zolmeister/senshi</a>&nbsp;-&nbsp;Sprite Attribution: <a href="http://opengameart.org/content/18x20-characters-walkattackcast-spritesheet">Ghosa</a>
+Audio editor:&nbsp;<a href="http://senshi.zolmeister.com/audio.html">senshi.zolmeister.com/audio.html</a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2013-08-26">26 Aug 2013</time> </span>
+            <h2 class="post-title"><a href="/2013/08/tanzania-africa-in-175-million-particles.html">Tanzania, Africa - In 1.75 Million Particles</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><iframe allowfullscreen="" frameborder="0" height="300" src="//tanzania.zolmeister.com" style="margin-left: -12px;" width="610"></iframe> Source:&nbsp;<a href="https://github.com/Zolmeister/tanzania">github.com/Zolmeister/tanzania</a>&nbsp;(page: <a href="http://tanzania.zolmeister.com/full">tanzania.zolmeister.com/full</a>)
+Note: Requires <a href="http://get.webgl.org/">WebGL</a></p>
+
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="2013-07-23">23 Jul 2013</time> </span>
+            <h2 class="post-title"><a href="/2013/07/promizjs.html">Promiz.js</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><a href="https://github.com/Zolmeister/promiz"><img src="https://raw.github.com/Zolmeister/promiz/master/imgs/logo.png" alt=""></a></p>
+
+        </section>
+    </article>
+
+    
 
     <nav class="pagination" role="pagination">
 
-        {% if paginator.previous_page %}
-          {% if paginator.previous_page == 1 %}
-          <a class="newer-posts" href="/" title="Previous Page">&laquo; Newer Posts</a>
-          {% else %}
-          <a class="newer-posts" href="/page{{ paginator.previous_page }}/" title="Previous Page">&laquo; Newer Posts</a>
-          {% endif %}
-        {% endif %}
+        
 
-        <span class="page-number"> Page {{paginator.page}} of {{paginator.total_pages}} </span>
+        <span class="page-number"> Page 1 of 3 </span>
 
-        {% if paginator.next_page %}
-        <a class="older-posts" href="/page{{ paginator.next_page }}/" title="Next Page">Older Posts &raquo;</a>
-        {% endif %}
+        
+        <a class="older-posts" href="/page2/" title="Next Page">Older Posts &raquo;</a>
+        
     </nav>
 
 
 </main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

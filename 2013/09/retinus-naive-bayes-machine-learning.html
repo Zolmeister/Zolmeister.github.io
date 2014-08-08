@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2013-09-26">26 Sep 2013</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">Retin.us - Naive Bayes Machine Learning Basics</a></h1>
+
+        <section class="post-content">
+            <p><a href="http://retin.us/"><img src="http://4.bp.blogspot.com/-HP1Cp_VMDKk/UjZwt6ifsLI/AAAAAAAAAo4/y0MGhH24gVw/s640/Selection_031.png" alt=""></a></p>
+
+<h4><a href="http://retin.us/">Retin.us</a>&nbsp;- My&nbsp;Personal&nbsp;RSS Reader (<a href="https://github.com/Zolmeister/Retinus">source</a>)</h4>
+
+<p>It&#39;s been a while since my last update on Retinus (<a href="http://www.zolmeister.com/2013/06/retinus-new-way-to-consume-rss.html">original post</a>). Not much has changed since then, the codebase has been quite robust and hasn&#39;t needed any maintenance. However I did promise in the previous post that I would go over how I built it, so I figured it would be a good time to go over the feature I added recently instead, which is a predicted article interest notification system using <a href="http://en.wikipedia.org/wiki/Naive_Bayes_classifier">Naive Bayes</a> classification.</p>
+
+<p><a href="http://1.bp.blogspot.com/-41F1eF5QBbI/UjZ1jlJNB5I/AAAAAAAAApI/Q1jKzdUoIgE/s1600/retinus_ml1.png"><img src="http://1.bp.blogspot.com/-41F1eF5QBbI/UjZ1jlJNB5I/AAAAAAAAApI/Q1jKzdUoIgE/s1600/retinus_ml1.png" alt=""></a></p>
+
+<p>There is a close up of what it looks like.
+Green means that I will probably be interested in this article,
+and Red means that I will probably not be interested in the article. Simple.</p>
+
+<p>I actually had a similar system in the form of a chrome extension for Google Reader (back when that was still a thing). The way it works it that it analyses patterns in my history, specifically it looks at the title, summary, and target links of articles which I have clicked on in the past (indicating interest), and it compares that to new articles for similarity. If there seems to be a correlation with the current article and what I clicked in the past, the classifier (Naive Bayes) returns a positive correlation, and I mark the article as interesting.</p>
+
+<p>Now, before I go on, I will preface with the fact that this feature is currently turned on for everyone, however it classifies only based on my history. The reason for this is</p>
+
+<ol>
+<li> I am the only heavy user of my reader, which means I am the only one with enough click history to make accurate predictions for. And</li>
+<li> Computing and storing predictions is expensive (storage, memory, and computation), and I simply don&#39;t have the resources to maintain that kind of service for everyone (pro version?).</li>
+</ol>
+
+<p>Anyways, lets begin with an introduction to Naive Bayes classification and go over basically how it works. I recommend you read other sources as well (and watch <a href="https://www.youtube.com/watch?v=8yvBqhm92xA">this video</a>), but I will try to explain it from a high-level programmer perspective.</p>
+
+<p>Naive Bayes works by assuming that all &#39;features&#39; are independent (that&#39;s the Naive part). A &#39;feature&#39; is an input. For example, lets say I have a <del>cat</del> dog with brown fur and floppy ears. Well then I may have two features I can use to compare him to other dogs - fur color (1) and ear floppiness (2). I can measure how floppy his ears are (and get a float/int) or I can measure if his ears are floppy (and get a boolean) (same for fur). However, we have to assume that these are independent. The fact that the dog is brown does not affect if his ears will be floppy (remember, Naive). It may be that in fact the features really are related (brown dogs have floppy ears) however, we ignore this fact in order to make computation reasonable (it&#39;s a CPU intensive computation).</p>
+
+<p>Now, lets see how we can extract &#39;features&#39; from text. Lets take the following string: <code>The dog sat down and the dog was happy.</code> Alright, we can now break down the string into individual words (each word is a feature) (this is where you tokenize words, and can do thing like remove punctuation and add word combinations).</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="s1">&#39;the&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s1">&#39;dog&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s1">&#39;sat&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s1">&#39;down&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s1">&#39;and&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s1">&#39;was&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s1">&#39;happy&#39;</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Now, lets add another sentence to compare it to, and also label out two sentences differently.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// dog sentences</span>
+<span class="s1">&#39;dog&#39;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s1">&#39;the&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sat&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;and&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;was&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;happy&#39;</span><span class="o">:</span><span class="mi">1</span>
+<span class="p">},</span>
+<span class="c1">// cat sentences: the cats like scratching</span>
+<span class="s1">&#39;cat&#39;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s1">&#39;the&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;cats&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;like&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;scratching&#39;</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ok, now we can try to classify a new sentence: &#39;the animal lay down at my feet&#39;</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="s1">&#39;the&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;animal&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;lay&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;down&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;at&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;my&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;feet&#39;</span><span class="o">:</span><span class="mi">1</span>
+<span class="p">}</span>
+<span class="c1">// dog-ness score</span>
+<span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">4</span> <span class="p">(</span><span class="s1">&#39;the&#39;</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;lay&#39;</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="p">)</span>
+<span class="c1">// cat ness score</span>
+<span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">(</span><span class="s1">&#39;the&#39;</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>And we can then see that the sentence is more &#39;dog-like&#39; than &#39;cat-like&#39; because it&#39;s score is higher when comparing to the dog sentence history. Now obviously we haven&#39;t taken into account total sentences per class, or normalization of variables, or other things which would give us better results, but you get the idea. Here is a proper implementation of what I just described in <a href="https://github.com/NaturalNode/apparatus/blob/master/lib/apparatus/classifier/bayes_classifier.js">~100 lines of javascript</a>. That bit of code comes straight out of the library which I used to do the classifications.</p>
+
+<p>While I think it&#39;s important to understand generally whats going on in an algorithm like this, I don&#39;t find it so interesting to re-write what others have already done (as it can get quite complicated, especially with how you group words together, and <a href="http://en.wikipedia.org/wiki/Stemming">stemming</a>). So I opted to use the &#39;<a href="https://github.com/NaturalNode/natural">natural</a>&#39; language processing library, which has a built in Naive Bayes classifier.</p>
+
+<p>In addition the the Bayes classifier, it also has a Logistic Regression classifier which I looked at, and I also found this <a href="http://en.wikipedia.org/wiki/Support_vector_machine">SVM</a> library <a href="https://github.com/NaturalNode/natural">svmjs</a>&nbsp;which I tried as well (it didn&#39;t really work out). I&#39;ll explain both real quick.</p>
+
+<p>The Logistic Regression classifier was horribly slow compared to the Bayes classifier, because logistic regression does not assume that the &#39;features&#39; (words) are independent of each other. The results were also not that much better than the Naive Bayes, so I decided not to use it. The way this type of classifier works (<a href="https://github.com/NaturalNode/apparatus/blob/master/lib/apparatus/classifier/logistic_regression_classifier.js">~150 lines source</a>) is, well, I&#39;m not really sure. I think about it like a super multi-dimensional graph, where each word lives in N dimensional space and input documents create lines in this space, and then to classify we create a line out of our input document and compare it to other lines in the space (I hope that made sense).</p>
+
+<p><a href="http://www.alivelearn.net/wp-content/uploads/2009/10/svm_linear_2class.png"><img src="http://www.alivelearn.net/wp-content/uploads/2009/10/svm_linear_2class.png" alt=""></a></p>
+
+<p>In addition to the logistic regression, I tried to use a Support vector machine (svm) to try to combine the results of many classifiers into a new, more accurate classifier. Besides the fact that the SVM library I chose to use didn&#39;t even work correctly (probably my fault), the SVM led to results that were sub-optimal for my particular problem (more on this in a sec). The way the SVM works, is that it takes an input matrix (array) of features and then tries to fit new matrices into either one of two groups (binary classification) by comparing it to &nbsp;matrices in its history.</p>
+
+<p>Like so:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// train</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>  <span class="mi">1</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>  <span class="mi">1</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span><span class="mi">1</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="c1">// test</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div>
+<p>Now, as I mentioned before, I have 3 separate feature sets for rss feed items: title, summary, and link
+My final solution was this:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">classifier1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">natural</span><span class="p">.</span><span class="nx">BayesClassifier</span><span class="p">()</span> <span class="c1">// summary</span>
+<span class="kd">var</span> <span class="nx">classifier2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">natural</span><span class="p">.</span><span class="nx">BayesClassifier</span><span class="p">()</span> <span class="c1">// title</span>
+<span class="kd">var</span> <span class="nx">classifier3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">natural</span><span class="p">.</span><span class="nx">BayesClassifier</span><span class="p">()</span> <span class="c1">// links</span>
+
+<span class="c1">// in a loop</span>
+ <span class="c1">// train history based on hostname</span>
+  <span class="kd">var</span> <span class="nx">hostname</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">link</span><span class="p">).</span><span class="nx">hostname</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\./g</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+  <span class="nx">classifier3</span><span class="p">.</span><span class="nx">addDocument</span><span class="p">([</span><span class="nx">hostname</span><span class="p">],</span> <span class="nx">isInteresting</span><span class="p">)</span>
+
+  <span class="c1">// bayes text classifiers</span>
+  <span class="nx">classifier1</span><span class="p">.</span><span class="nx">addDocument</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">summary</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">(),</span> <span class="nx">isInteresting</span><span class="p">)</span>
+  <span class="nx">classifier2</span><span class="p">.</span><span class="nx">addDocument</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">(),</span> <span class="nx">isInteresting</span><span class="p">)</span>
+
+<span class="c1">// test</span>
+<span class="kd">var</span> <span class="nx">tag1</span> <span class="o">=</span> <span class="nx">classifier1</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">docs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">summary</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span>
+<span class="kd">var</span> <span class="nx">tag2</span> <span class="o">=</span> <span class="nx">classifier2</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">docs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">title</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span>
+<span class="kd">var</span> <span class="nx">tag3</span> <span class="o">=</span> <span class="nx">classifier3</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">hostname</span><span class="p">)</span>
+
+<span class="nx">result</span> <span class="o">=</span> <span class="p">(</span><span class="nx">tag1</span> <span class="o">===</span> <span class="s1">&#39;true&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">tag3</span> <span class="o">===</span> <span class="s1">&#39;true&#39;</span> <span class="o">||</span> <span class="nx">tag2</span> <span class="o">===</span> <span class="s1">&#39;true&#39;</span>  <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">)</span>
+</code></pre></div>
+<p>Which gave me ~60% accuracy, with ~20% false negatives (I had ~4000 documents in my training set, and I separated 200 extra documents for testing, meaning that the classifiers were not trained on the 200 selected documents meant to check their accuracy). I care a lot about false negatives because a false negative means that an article was marked as uninteresting, when in fact I would have actually been interested in reading it. When I applied the SVM or combination Bayes classifier:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">classifierSum</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">natural</span><span class="p">.</span><span class="nx">BayesClassifier</span><span class="p">()</span> <span class="c1">// total</span>
+
+<span class="c1">// in a loop</span>
+ <span class="kd">var</span> <span class="nx">tag1</span> <span class="o">=</span> <span class="nx">classifier1</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">summary</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span>
+ <span class="kd">var</span> <span class="nx">tag2</span> <span class="o">=</span> <span class="nx">classifier2</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span>
+ <span class="kd">var</span> <span class="nx">tag3</span> <span class="o">=</span> <span class="nx">classifier3</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">hostname</span><span class="p">)</span>
+
+ <span class="nx">classifierSum</span><span class="p">.</span><span class="nx">addDocument</span><span class="p">([</span><span class="nx">tag1</span><span class="p">,</span><span class="nx">tag2</span><span class="p">,</span><span class="nx">tag3</span><span class="p">],</span> <span class="nx">isInteresting</span><span class="p">)</span>
+
+<span class="c1">// test</span>
+<span class="kd">var</span> <span class="nx">tag1</span> <span class="o">=</span> <span class="nx">classifier1</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">summary</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span>
+<span class="kd">var</span> <span class="nx">tag2</span> <span class="o">=</span> <span class="nx">classifier2</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span>
+<span class="kd">var</span> <span class="nx">tag3</span> <span class="o">=</span> <span class="nx">classifier3</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">hostname</span><span class="p">)</span>
+
+<span class="nx">result</span> <span class="o">=</span> <span class="nx">classifierSum</span><span class="p">.</span><span class="nx">classify</span><span class="p">([</span><span class="nx">tag1</span><span class="p">,</span> <span class="nx">tag2</span><span class="p">,</span> <span class="nx">tag3</span><span class="p">])</span>
+</code></pre></div>
+<p>I ended up with 90% accuracy, but also 100% false negatives (it marked everything as uninteresting). 90% is technically better than 60%, but having so many false negatives was not optimal for my problem.</p>
+
+<p>That about covers the machine learning aspect of Retin.us so far, over the next few weeks I will be assessing its accuracy, and may eventually use it to pre-filter out uninteresting articles so as to save me time. As for the rest of the software stack, basically it uses <a href="https://github.com/balderdashy/sails">Sails.js</a>&nbsp;(<a href="http://sailsjs.org/#!">home page</a>), <a href="http://www.mongodb.org/">MongoDB</a>, and <a href="http://backbonejs.org/">Backbone</a>&nbsp;(the Sails version is quite outdated, but the backbone code is <a href="https://github.com/Zolmeister/Retinus/tree/master/assets/js">decent</a> to learn from).</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Retin.us - Naive Bayes Machine Learning Basics&amp;url=http://zolmeister.com/2013/09/retinus-naive-bayes-machine-learning.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2013/09/retinus-naive-bayes-machine-learning.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2013/09/retinus-naive-bayes-machine-learning.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

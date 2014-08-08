@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2012-09-08">08 Sep 2012</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">How not to write a massively multi-player game</a></h1>
+
+        <section class="post-content">
+            <p><br></p>
+
+<h4>Welcome to Page Explorer!</h4>
+
+<p><del>Click [here](javascript:(function(){var%20s=document.createElement() to join!</del>&nbsp;(no longer up)<br>
+<del>Click [here](javascript:(function(){var%20s=document.createElement()&nbsp;(again)&nbsp;to join! (yes, bug)</del><br>
+Now hit the CAPS LOCK key (to toggle view state)<br>
+After you have joined here are the controls:</p>
+
+<p><a href="http://1.bp.blogspot.com/-254J_x8iPIU/UEwu6X5yYHI/AAAAAAAAAVo/epFhspyE52c/s1600/page-explorer-dude.png"><img src="http://1.bp.blogspot.com/-254J_x8iPIU/UEwu6X5yYHI/AAAAAAAAAVo/epFhspyE52c/s1600/page-explorer-dude.png" alt=""></a></p>
+
+<ul>
+<li>  Ctrl = Jump</li>
+<li>  arrow keys = move</li>
+<li>  Down = Descend a level</li>
+<li>  Ctrl + up = pull up</li>
+<li>  CAPS LOCK = toggle game (visible/hidden)</li>
+<li>  T = chat (just start typing and the text will appear top-left, then enter to submit)</li>
+</ul>
+
+<p>Want to explore&nbsp;somewhere&nbsp;else? Drag this link: <a href="javascript:(function()%7Bvar%20s=document.createElement()%20to%20your%20bookmarks%20bar,%20then%20click%20on%20it%20when%20your%20on%20the%20site%20you%20want%20to%20join%20(may%20have%20to%20click%20it%20twice,%20also%20chrome%20blocks%20it%20in%20https%20pages).%0A%22Wow%20this%20is%20so%20cool!%20How%20can%20I%20get%20the%20source?%22%20-%20on%20%5Bgithub%5D(https://github.com/Zolmeister/Page-Explorer">Page Explorer</a>!
+Alright, lets break it down!
+A few words of warning before I begin, this game is one of my most poorly written and broken games of all. This was a great learning experience in what not to do with a game, and I hope that you will learn something too.</p>
+
+<p>First let me explain how this app works on a general level.</div><div></p>
+
+<ol>
+<li> User injects script onto page</li>
+<li> script loads all the assets</li>
+<li> all assets load</li>
+<li> script connects using <a href="http://socket.io/">Socket.io</a> to the master <a href="http://nodejs.org/">Node.js</a> server</li>
+<li> The server puts the user in a room based on the website they&#39;re on</li>
+<li> users position, name, and animation state are sent to the server</li>
+<li> server relays info to all clients in room</li>
+<li> GO TO 6</li>
+</ol>
+
+<p>This part actually makes sense, and what makes Page Explorer cool is that you can run it on any page you want. This also happens to be what makes it fail, due to different page layouts of the same site from different users makes them appear to float in mid air and other such bugs which are largely out of my control.</p>
+
+<p>Ok lets start at the beginning of the code (or rather the first part that I wrote and where things wen&#39;t horribly wrong). I decided to write a skeletal animation system. Those look like this:
+<a href="http://animadead.sourceforge.net/images/selection.gif"><img src="http://animadead.sourceforge.net/images/selection.gif" alt=""></a>
+Basically a bunch of nodes connected to each other. This allows me to draw the player once and animate him freely. If you&#39;re confused, this video might help:&nbsp;<a href="http://www.youtube.com/watch?v=34cBGjCKkgU">http://www.youtube.com/watch?v=34cBGjCKkgU</a></p>
+
+<p>The issue here is that everything is absolute positioned instead of being relative to one another. The correct way to do it would have been to use a <a href="http://en.wikipedia.org/wiki/Pole_and_polar">Polar system</a> (angle, distance) instead of a&nbsp;<a href="http://en.wikipedia.org/wiki/Cartesian_coordinate_system">Cartesian&nbsp;system</a> (x,y).</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">skeleton</span> <span class="o">=</span> <span class="p">[{</span>
+ <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;rot&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+ <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="mi">279</span><span class="p">,</span>
+ <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="mi">266</span><span class="p">,</span>
+ <span class="s2">&quot;skin&quot;</span><span class="o">:</span> <span class="p">{},</span>
+ <span class="s2">&quot;parent&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+ <span class="s2">&quot;children&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="p">},</span> <span class="p">{</span>
+ <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;head&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;rot&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+ <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="mi">282</span><span class="p">,</span>
+ <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="mi">150</span><span class="p">,</span>
+ <span class="s2">&quot;skin&quot;</span><span class="o">:</span> <span class="p">{</span>
+   <span class="s2">&quot;self&quot;</span><span class="o">:</span> <span class="p">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;head&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;x&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+     <span class="s2">&quot;y&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">20</span>
+   <span class="p">},</span>
+   <span class="s2">&quot;bone&quot;</span><span class="o">:</span> <span class="s2">&quot;neck&quot;</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;parent&quot;</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+ <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+ <span class="s2">&quot;children&quot;</span><span class="o">:</span> <span class="p">[]</span>
+<span class="p">},</span> <span class="p">...</span>
+</code></pre></div>
+<p>My next step was creating an editor, in order to create everything (ie, draw the bones and connections and add skins etc.). Problem was that I was lazy. I ended up <strong>hard-coding the base skeletal system</strong> and the animation system involved saving a skeletal state to localstorage when done. There was no &quot;undo&quot; button, and I&nbsp;couldn&#39;t&nbsp;edit multiple animations at a time. To get it into my code I copy pasted the giant list of skeletal positions into my source. This is where spending just a bit more time in creating a good editor would have saved me tons of work. (I could post the source for my editor but i&#39;d rather not... it&#39;s hideous).</p>
+
+<p>My next mistake was in&nbsp;separating&nbsp;the user (you) from everybody else. I had to <strong>duplicate everything</strong> (physics, drawing, etc) in my code (that&#39;s bad - never duplicate code).&nbsp;This also caused me to keep all of the game code related to the player in one file (main.js - <strong>651</strong> lines) and then duplicate it in another file (socket.js - <strong>173</strong> lines). Yes, main.js should not contain all the code that it does and it was an absolute pain to debug.</p>
+
+<p>My animation sequence seems ok at first, but it is definitely broken. Here is what it looks like:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">movePlay</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">playQueue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">playing</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">sameFrame</span><span class="p">(</span><span class="nx">playQueue</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">playQueue</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="nx">playQueue</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="nx">updatedQueue</span><span class="p">();</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">playQueue</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">curS</span> <span class="o">=</span> <span class="nx">playQueue</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">i</span><span class="p">];</span>
+      <span class="kd">var</span> <span class="nx">tarS</span> <span class="o">=</span> <span class="nx">playQueue</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="nx">i</span><span class="p">];</span> <span class="c1">//have to align within 60 frames</span>
+      <span class="kd">var</span> <span class="nx">xDistance</span> <span class="o">=</span> <span class="nx">curS</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">tarS</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">yDistance</span> <span class="o">=</span> <span class="nx">curS</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">tarS</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">rotDistance</span> <span class="o">=</span> <span class="nx">curS</span><span class="p">.</span><span class="nx">rot</span> <span class="o">-</span> <span class="nx">tarS</span><span class="p">.</span><span class="nx">rot</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">framesLeft</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">-</span> <span class="nx">currentFrame</span> <span class="o">%</span> <span class="mi">10</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">curS</span><span class="p">.</span><span class="nx">x</span> <span class="o">!=</span> <span class="nx">tarS</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span> <span class="nx">curS</span><span class="p">.</span><span class="nx">x</span> <span class="o">+=</span> <span class="nx">xDistance</span> <span class="o">/</span> <span class="nx">framesLeft</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">curS</span><span class="p">.</span><span class="nx">y</span> <span class="o">!=</span> <span class="nx">tarS</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span> <span class="nx">curS</span><span class="p">.</span><span class="nx">y</span> <span class="o">+=</span> <span class="nx">yDistance</span> <span class="o">/</span> <span class="nx">framesLeft</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">curS</span><span class="p">.</span><span class="nx">rot</span> <span class="o">!=</span> <span class="nx">tarS</span><span class="p">.</span><span class="nx">rot</span><span class="p">)</span> <span class="nx">curS</span><span class="p">.</span><span class="nx">rot</span> <span class="o">+=</span> <span class="nx">rotDistance</span> <span class="o">/</span> <span class="nx">framesLeft</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">framesLeft</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">curS</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">tarS</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+        <span class="nx">curS</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">tarS</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+        <span class="nx">curS</span><span class="p">.</span><span class="nx">rot</span> <span class="o">=</span> <span class="nx">tarS</span><span class="p">.</span><span class="nx">rot</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The basis for this animation function is that it takes at least 2 frames (states of skeletons) and then motion-tweens them by one step when it&#39;s called. The issue (if it wasn&#39;t obvious) is that it doesn&#39;t support speed-change in tweens. This means that lets say I wanted the player to punch really fast (1 frame fist back, next frame fist forward), it would play really slow because my play-rate (10 steps - <strong>var framesLeft=10-currentFrame%10;</strong>) is constant. From one frame to the next is always the same amount of time. Instead, it should be set by the editor and be a value in the animation sequence (# steps the animation should take).</p>
+
+<p>Another issue (which I didn&#39;t realize till too late) was my abundant use of global variables (maybe my&nbsp;separate&nbsp;var.js file should have given me a hint).</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">player</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+<span class="nx">player</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">playC</span> <span class="o">=</span> <span class="nx">player</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">selectedBone</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">assetsList</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;head&quot;</span><span class="p">,</span> <span class="s2">&quot;left arm&quot;</span><span class="p">,</span> <span class="s2">&quot;left foot&quot;</span><span class="p">,</span> <span class="s2">&quot;left forearm&quot;</span><span class="p">,</span> <span class="s2">&quot;left hand&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;left leg&quot;</span><span class="p">,</span> <span class="s2">&quot;left thigh&quot;</span><span class="p">,</span> <span class="s2">&quot;neck&quot;</span><span class="p">,</span> <span class="s2">&quot;right arm&quot;</span><span class="p">,</span> <span class="s2">&quot;right foot&quot;</span><span class="p">,</span> <span class="s2">&quot;right forearm&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;right hand&quot;</span><span class="p">,</span> <span class="s2">&quot;right leg&quot;</span><span class="p">,</span> <span class="s2">&quot;right thigh&quot;</span><span class="p">,</span> <span class="s2">&quot;spine&quot;</span><span class="p">,</span> <span class="s2">&quot;joint&quot;</span><span class="p">,</span> <span class="s2">&quot;joint2&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;hat1&quot;</span><span class="p">,</span> <span class="s2">&quot;hat2&quot;</span><span class="p">,</span> <span class="s2">&quot;hat3&quot;</span><span class="p">,</span> <span class="s2">&quot;hat4&quot;</span><span class="p">,</span> <span class="s2">&quot;hat5&quot;</span><span class="p">,</span> <span class="s2">&quot;hat6&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">keysPressed</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">assetCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">assetCallback</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">assets</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">playQueue</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="nx">prompt</span><span class="p">(</span><span class="s2">&quot;name?&quot;</span><span class="p">);</span>
+<span class="nx">localStorage</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">chats</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">hidden</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">chatting</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">currentChat</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">passingThrough</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">others</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">myHat</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="kd">var</span> <span class="nx">bgCtx</span> <span class="o">=</span> <span class="nx">bgCanvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">currentFrame</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">locked</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">showBone</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">jumping</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">climbing</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">grav</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">deltaTime</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">blocks</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">lastTimestamp</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="nx">dir</span><span class="o">:</span> <span class="s2">&quot;right&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The solution to this is simple enough. I should have created a Game class which had these values associated with it, as well as&nbsp;separating&nbsp;values that control game state (ie. passingThrough, chatting, hidden etc.) from values controlling player state (jumping, climbing etc.).</p>
+
+<p>Well, I hope that you found something useful in all that I did wrong. Bottom line is <strong>Don&#39;t Half-Ass Your Code</strong>. Do it right from the start (never say &quot;I&#39;ll fix it later&quot; or &quot;I&#39;ll get back to it eventually&quot; - especially in the&nbsp;beginning).</p>
+
+<p>Cheers!</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=How not to write a massively multi-player game&amp;url=http://zolmeister.com/2012/09/how-not-to-write-massively-multi-player.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2012/09/how-not-to-write-massively-multi-player.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2012/09/how-not-to-write-massively-multi-player.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

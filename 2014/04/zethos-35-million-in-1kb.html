@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2014-04-11">11 Apr 2014</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">Zethos - $3.5 million in 1kb</a></h1>
+
+        <section class="post-content">
+            <p><a href="http://zethos.zolmeister.com/"><img src="http://4.bp.blogspot.com/-fwxtkVefC2w/Ux0xB0zKv_I/AAAAAAAACcY/v4-MYpaENck/s1600/Selection_090.png" style="max-width: 600px"></a></p>
+
+<p><a href="http://zethos.zolmeister.com/">Zethos</a> is my $3.5 million dollar entry to <a href="http://js1k.com/2014-dragons/">js1k 2014</a>. It&#39;s a speed reading tool, allowing almost anyone to read at 500 words per minute (the average person reading 250wpm <a href="http://en.wikipedia.org/wiki/Speed_reading">[1]</a>). By keeping the text centered within the readers view, the reader is able to reduce costly eye movements and increase their reading speed.</p>
+
+<p>Zethos was inspired by <a href="http://www.spritzinc.com/">Spritz</a>, who recently raised a <a href="http://techcrunch.com/2014/03/10/spritz-seed/">$3.5 million seed round</a> for their speed-reading technology. However their software is closed and their system is not developer friendly so I decided to make my own. Without further ado, here is what $3.5 million code looks like:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Logic</span>
+  <span class="c1">// strings will be broken out into words</span>
+  <span class="c1">// find the focus point of the word</span>
+  <span class="c1">// if, when the word is shifted to its focus point</span>
+  <span class="c1">//   one end prodtrudes from either end more than 7 chars</span>
+  <span class="c1">//   re-run parser after hyphenating the words</span>
+
+  <span class="c1">// focus point</span>
+  <span class="c1">// start in middle of word (default focus point)</span>
+  <span class="c1">// move left until you hit a vowel, then stop</span>
+
+  <span class="c1">// hyphenating</span>
+  <span class="c1">//    if &lt;= 7 chars</span>
+  <span class="c1">//      return self</span>
+  <span class="c1">//    if &lt;= 10</span>
+  <span class="c1">//    return x, {3}</span>
+  <span class="c1">//    if &lt;= 14 chars</span>
+  <span class="c1">//    return {7},{7}</span>
+  <span class="c1">//    else</span>
+  <span class="c1">//    return {7},hyphenated{x}</span>
+
+  <span class="nx">hyphenate</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">with</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">length</span> <span class="o">&lt;=</span> <span class="mi">7</span> <span class="o">?</span> <span class="nx">str</span> <span class="o">:</span> <span class="nx">length</span> <span class="o">&lt;=</span> <span class="mi">10</span> <span class="o">?</span> <span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;- &#39;</span><span class="o">+</span><span class="nx">slice</span><span class="p">(</span><span class="nx">length</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">:</span> <span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;- &#39;</span><span class="o">+</span><span class="nx">hyphenate</span><span class="p">(</span><span class="nx">slice</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+  <span class="p">}</span>
+
+  <span class="c1">// return 2d array with word and focus point</span>
+  <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/[\s\n]+/</span><span class="p">).</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">words</span><span class="p">,</span> <span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">with</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// focus point</span>
+      <span class="nx">focus</span> <span class="o">=</span> <span class="p">(</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">|</span><span class="mi">0</span>
+
+      <span class="k">for</span><span class="p">(</span><span class="nx">j</span><span class="o">=</span><span class="nx">focus</span><span class="p">;</span><span class="nx">j</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span><span class="nx">j</span><span class="o">--</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="sr">/[aeiou]/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">[</span><span class="nx">j</span><span class="p">]))</span> <span class="p">{</span>
+          <span class="nx">focus</span> <span class="o">=</span> <span class="nx">j</span>
+          <span class="k">break</span>
+        <span class="p">}</span>
+
+      <span class="nx">t</span> <span class="o">=</span> <span class="mi">60000</span><span class="o">/</span><span class="mi">500</span> <span class="c1">// 500 wpm</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="nx">t</span><span class="o">+=</span><span class="nx">t</span><span class="o">/</span><span class="mi">4</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="o">~</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
+        <span class="nx">t</span><span class="o">+=</span><span class="nx">t</span><span class="o">/</span><span class="mi">2</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="sr">/[\.!\?;]$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>
+        <span class="nx">t</span><span class="o">+=</span> <span class="nx">t</span><span class="o">*</span><span class="mf">1.5</span>
+
+      <span class="k">return</span> <span class="nx">length</span> <span class="o">&gt;=</span> <span class="mi">15</span> <span class="o">||</span> <span class="nx">length</span> <span class="o">-</span> <span class="nx">focus</span> <span class="o">&gt;</span> <span class="mi">7</span> <span class="o">?</span> <span class="nx">words</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="nx">hyphenate</span><span class="p">(</span><span class="nx">str</span><span class="p">)))</span> <span class="o">:</span> <span class="nx">words</span><span class="p">.</span><span class="nx">concat</span><span class="p">([[</span><span class="nx">str</span><span class="p">,</span> <span class="nx">focus</span><span class="p">,</span> <span class="nx">t</span><span class="p">]])</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="p">[])</span>
+<span class="p">}</span>
+
+<span class="nx">p</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">index</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="nx">input</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">textContent</span><span class="p">);</span>
+  <span class="nx">playing</span> <span class="o">=</span> <span class="o">!</span><span class="nx">playing</span>
+  <span class="nx">playing</span> <span class="o">&amp;&amp;</span> <span class="nx">loop</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="nx">loop</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">w</span> <span class="o">=</span> <span class="nx">input</span><span class="p">[</span><span class="nx">index</span><span class="o">++</span><span class="p">]</span> <span class="o">||</span> <span class="nx">p</span><span class="p">()</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="nx">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&amp;nbsp;&#39;</span><span class="p">)</span><span class="o">+</span><span class="nx">w</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nx">w</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="s1">&#39;&lt;v&gt;&#39;</span><span class="o">+</span><span class="nx">w</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">+</span><span class="s1">&#39;&lt;/v&gt;&#39;</span><span class="o">+</span><span class="nx">w</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">slice</span><span class="p">(</span><span class="nx">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+  <span class="nx">playing</span> <span class="o">&amp;&amp;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">loop</span><span class="p">,</span> <span class="nx">w</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="nx">p</span><span class="p">()</span>
+</code></pre></div>
+<p>I&#39;ve done <a href="http://www.zolmeister.com/2012/06/javascript-golfing.html">Javascript Golfing before</a>, so getting this code to fit in at less than 1kb was trivial. With the help of <a href="https://github.com/Zolmeister/zethos/blob/master/Gruntfile.js">Grunt</a>, I was easily able to compile my code by running it through the Google <a href="https://developers.google.com/closure/compiler/">Closure Compiler</a> and then <a href="http://www.iteral.com/jscrush/">JSCrush</a>. They key to the code however is it&#39;s recursive nature. The self-calling methods allow the code to be extremely concise and not reliant on a buffer or global variables. The Hyphenate method for example will recursively hyphenate the word it&#39;s given based on length for arbitrarily sized words using recursion.</p>
+
+<p>As far as implementation goes, the part that could be most improved for production applications would be to add proper hyphenation. There&#39;s a paper written about <a href="http://tug.org/docs/liang/liang-thesis.pdf">algorithmic hyphenation</a>, and even an <a href="https://www.npmjs.org/package/hypher">npm library</a> to do this, however fitting it in 1kb was not feasible.</p>
+
+<p>Lastly, my first js1k attempt this year did not work out. It was intended to be a neural network handwriting recognition engine (<a href="https://github.com/Zolmeister/tinynet">TinyNet</a>), but unfortunately the weights of the network proved to be highly non-compressible.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Zethos - $3.5 million in 1kb&amp;url=http://zolmeister.com/2014/04/zethos-35-million-in-1kb.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2014/04/zethos-35-million-in-1kb.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2014/04/zethos-35-million-in-1kb.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

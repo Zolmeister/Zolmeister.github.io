@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2013-05-29">29 May 2013</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">CharityVid - Server Configuration</a></h1>
+
+        <section class="post-content">
+            <p><a href="http://charityvid.org/"><img src="http://charityvid.org/img/logo.png" alt=""></a>
+In this post, I will focus on how I run and update the&nbsp;<a href="http://charityvid.org/">CharityVid.org</a>&nbsp;servers, using the following tools:</p>
+
+<ul>
+<li>  <a href="https://github.com/LearnBoost/up">Up</a> &nbsp;- live reload tool</li>
+<li>  <a href="http://nginx.org/">nginx</a>&nbsp;(pronounced Engine X)</li>
+<li>  <a href="http://docs.fabfile.org/en/1.6/">fabric</a></li>
+</ul>
+
+<p>Lets start with Up. Up allows us to do live reloads of the site, while&nbsp;simultaneously&nbsp;load balancing across many&nbsp;processes. This makes it quite robust and keeps the server from going down. If one thread fails, another will just take over, no problem. Here is how I launch it:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     up -w app.js -p 3100 -n 2 -k -T charityvid
+</code></pre></div>
+<p>CharityVid runs on <a href="http://expressjs.com/">express.js</a>, however unlike a normal express application we do not start the server ourselves. Instead we let Up handle it:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js">     <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">()</span>
+     <span class="p">...</span>
+     <span class="nx">app</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+       <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Server</span><span class="p">(</span><span class="nx">app</span><span class="p">)</span>
+     <span class="p">})</span>
+</code></pre></div>
+<p>Now after launching, Up will watch (-w) app.js for changes, listen on port (-p) 3100, with 2 (-n) threads, &nbsp;spawn new workers on death (-k), and have a title (-T) of charityvid for the process view. If we want to issue the reload command, then we call:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">kill -s SIGUSR2 $(cat /var/run/charityvid.pid)
+</code></pre></div>
+<p>At this point, we have our server running on port 3100, now we need to expose it to the outside world on port 80.&nbsp;To do this, we will use nginx, which will also provide caching support by sitting between our express server and the internet. Here is what a basic nginx config file looks like:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     worker_processes 1;
+     error_log logs/error.log;
+     pid    logs/nginx.pid;
+     events {
+       worker_connections 1024;
+     }
+     http {
+       include    mime.types;
+       default_type application/octet-stream;
+       sendfile    on;
+       keepalive_timeout 65;
+       gzip on;
+     #charityvid.org
+       server {
+         listen    80;
+         server_name charityvid.org www.charityvid.org;
+         location / {
+           proxy_set_header Host $http_host;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection &quot;upgrade&quot;;
+           proxy_pass  http://127.0.0.1:3100;
+         }
+       }
+     }
+</code></pre></div>
+<p>If you installed from source, start nginx by calling:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">/usr/local/nginx/sbin/./nginx
+</code></pre></div>
+<p>Now we have our nginx acting as a proxy between port 3100 and port 80, for the charityvid hostnames. This is also useful because if we wanted to run multiple apps on one IP (which I do), you can have them all on port 80 but listening for different hostnames (effectively URLs).</p>
+
+<p>Finally, we want to automate the deployment process. This is what fabric is for. With fabric we can issue commands to our remote server using python. A basic config looks like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     from __future__ import with_statement
+     from fabric.api import *
+     def ec2():
+       env.user=&#39;ubuntu&#39;
+       env.hosts=[&#39;ubuntu@123.123.123.123&#39;]
+     def update(app):
+       with cd(&#39;/home/&#39;+env.user+&#39;/websites&#39;):
+         if app==&quot;charityvid&quot;:
+           run(&#39;cd charityvid &amp;&amp; git pull&#39;)
+           sudo(&#39;kill -s SIGUSR2 $(cat /var/run/charityvid.pid)&#39;)
+     def nginx():
+       sudo(&#39;/usr/local/nginx/sbin/./nginx&#39;)
+     def init():
+       start(&#39;charityvid&#39;)
+</code></pre></div>
+<p>We can then issue the update command like so:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">fab ec2 update:charityvid
+</code></pre></div>
+<p>This will pull from the git repo (prod branch), and then send the command to Up to update. For more information on the automation used here, reference my blog post on <a href="http://www.zolmeister.com/2012/12/how-to-deploy-nodejs-applications.html">Upstart</a>, which outlines how we can use <a href="http://upstart.ubuntu.com/">upstart</a>&nbsp;to daemonize our server process without using screen (or byobu).</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=CharityVid - Server Configuration&amp;url=http://zolmeister.com/2013/05/charityvid-server-configuration.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2013/05/charityvid-server-configuration.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2013/05/charityvid-server-configuration.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

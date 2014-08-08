@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2012-10-24">24 Oct 2012</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">Back-light Music LEDs</a></h1>
+
+        <section class="post-content">
+            <p><a href="http://1.bp.blogspot.com/-OFSn--cd2dQ/UIdrY6kyN1I/AAAAAAAAAX8/_JEaGnLWr3Q/s1600/setup.jpg"><img src="http://1.bp.blogspot.com/-OFSn--cd2dQ/UIdrY6kyN1I/AAAAAAAAAX8/_JEaGnLWr3Q/s640/setup.jpg" alt=""></a></p>
+
+<h4>tl;dr</h4>
+
+<p>The LED lamp behind my monitor pulsates with the audio from my computer. Video is at the bottom.
+<a href="https://github.com/Zolmeister/AudioMan">The Code</a> (warning, ugly code ahead)</p>
+
+<h4>Setup:</h4>
+
+<p>So the way the led lamp works, is that it is hooked up to an arduino which connects over USB to my tower. My computer is running a python script which sends the arduino the value of brightness to set the lamp at, based on the audio output of the music.</p>
+
+<p>PulseAudio -&gt; python -&gt; arduino -&gt; LED lamp</p>
+
+<h4>Getting the audio output into python:</h4>
+
+<p>This was probably the most silly issue that I had to deal with, because it seemed so simple in terms of what I needed to do, but took a ton of trial and error and lots of failing. Let me save you the trouble. You may have heard of <a href="http://jackaudio.org/">JACK</a>. JACK is a pain, takes a lot of work, and for me it didn&#39;t work at all. Save yourself the trouble and stay away from JACK. I use <a href="http://www.freedesktop.org/wiki/Software/PulseAudio">PulseAudio</a> for my sound system as it works &nbsp;with my USB headphones (they&#39;re virtual 7.1 surround sound and have drivers that only work on windows XP). Setting up my headphones is a pain, but worth it because of the fuzz (the part that goes over my ears is fuzzy which makes them extremely comfortable). Ok, enough background, here is the secret:</p>
+
+<ul>
+<li>  Open Pulse Audio Volume control (pavucontrol).</li>
+<li>  Open Sound Recorder.</li>
+<li>  Start recording, and go to the &quot;Recording&quot; tab of the volume controller</li>
+<li>  Click on the input, and change it to &quot;Monitor of XXX&quot; (where XXX is your audio device)</li>
+<li>  Done! (Just remember to do this for the python script while running it for the first time)</li>
+</ul>
+
+<h4>Python and beat detection:</h4>
+
+<p>You can check out the code <a href="https://github.com/Zolmeister/AudioMan">here</a>. Basically it uses the <a href="http://people.csail.mit.edu/hubert/pyaudio/">pyaudio</a> library to record audio, write streaming data chunks to a temporary wav file (this could be improved upon), and use some magic to get amplitude data from the wav file. Then it normalizes the amplitude over the 0-255 range of LED brightness for the arduino, smooths the curve slightly, and sends the amplitude over to the arduino at 115200 baud (not sure if this is too much/not enough, but it worked for me - 9600 baud hung because it was too slow).</p>
+
+<p><strong>Beat detection snippet (thanks <a href="http://ricardocabello.com/blog/post/677">Mr.Doob</a> and <a href="http://www.deanmcnamee.com/">Dean McNamee</a>)</strong></p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">w</span> <span class="o">=</span> <span class="n">wave</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">WAVE_OUTPUT_FILENAME</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
+<span class="n">summ</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">value</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">amps</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">getnframes</span><span class="p">()):</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s">&#39;&lt;h&#39;</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">readframes</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+  <span class="n">summ</span> <span class="o">+=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">1470</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">summ</span> <span class="o">/</span> <span class="mf">1470.0</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">amps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="n">summ</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tarW</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">amps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">1.0</span><span class="o">/</span><span class="n">delta</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="c"># this method normalized the data and sends it to the arduino</span>
+    <span class="n">sendVal</span><span class="p">(</span><span class="n">tarW</span><span class="p">)</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">value</span>
+</code></pre></div>
+<p>My normalization algorithm for the value consists of storing the last 100 values of data and dividing new data by the max of the last X values (all values before a reset) to get a value between 0 and 1, which I then multiply by 255 to get 0-255. After a period of low values (ie. silence), detected by the store of last 100 values, the&nbsp;minimum&nbsp;and maximum values reset to allow for a new song which may not fit the amplitude of the previous song. I smooth the data by averaging the current point with the previous point.</p>
+
+<h4>Arduino LED fading (pwm):</h4>
+
+<p>So the arduino UNO that I have has 6 pwm digital I/O pins, which allows me to dim LEDs attached to those pins. After that, just running an analogWrite() on them with a value between 0-255 will dim the LED accordingly. One thing I did have trouble with though was sending the 0-255 number over serial from python, which I fixed by using a buffer and made the python always write out 3 character strings of data and used the atoi() command (ascii to int) to get the values back out.</p>
+
+<h4>The lamp:</h4>
+
+<p>I hooked up 12 LEDs, 6 pairs of 2 LEDs hooked up in parallel connected to one of six pwm I/O pins. After lots of frustration regarding the illumination of the LEDs (I used a dremel to diffuse the LEDs, and ended up arcing them as shown below), I finally got it to work. I just can&#39;t let the arduino fall off because the wires going to it come out easily (design issue, but hey it works).</p>
+
+<p><a href="http://4.bp.blogspot.com/-IlfyYj4ZvM4/UIdrYTVbR3I/AAAAAAAAAX0/PR0QRVM_DNw/s1600/lamp.jpg"><img src="http://4.bp.blogspot.com/-IlfyYj4ZvM4/UIdrYTVbR3I/AAAAAAAAAX0/PR0QRVM_DNw/s640/lamp.jpg" alt=""></a></div></p>
+
+<h4>The result:</h4>
+
+<iframe allowfullscreen="allowfullscreen" frameborder="0" height="480" src="http://www.youtube.com/embed/V7WKf7O7V5E" width="640"></iframe>
+
+<p>(yes I have 5 monitors, song: Bopalong, Kinobe)</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Back-light Music LEDs&amp;url=http://zolmeister.com/2012/10/back-light-music-leds.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2012/10/back-light-music-leds.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2012/10/back-light-music-leds.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

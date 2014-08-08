@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2013-08-26">26 Aug 2013</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">Tanzania, Africa - In 1.75 Million Particles</a></h1>
+
+        <section class="post-content">
+            <p><iframe allowfullscreen="" frameborder="0" height="300" src="//tanzania.zolmeister.com" style="margin-left: -12px;" width="610"></iframe> Source:&nbsp;<a href="https://github.com/Zolmeister/tanzania">github.com/Zolmeister/tanzania</a>&nbsp;(page: <a href="http://tanzania.zolmeister.com/full">tanzania.zolmeister.com/full</a>)
+Note: Requires <a href="http://get.webgl.org/">WebGL</a></p>
+
+<p>Alright, let me explain what you&#39;re looking at. If you fullscreen the app and have a 1080p monitor (1920x1080), then 1.75 million particles (1,753,920) will be generated and animated in real-time per image. Handling 1.75 million particles is no walk in the park, and without a decently fast GPU it may be quite slow. While it may not seem that complicated (as I thought at first), there is in fact a ridiculous amount of intense code involved. Lets begin!</p>
+
+<p>So, I just came back from a vacation in Tanzania, Africa where I summited <a href="http://en.wikipedia.org/wiki/Mount_Kilimanjaro">Mt. Kilimanjaro</a>&nbsp;(the highest free-standing mountain in the world - 5,895 meters), went on safari, and spent a week at the beach in Zanzibar. During my trip, I took ~2k photos, of which I selected ~150 (plus a few from friends I went with). I take pride in my photos, and I wanted to showcase them in a special way, so I decided to make a particle-based image viewer.</p>
+
+<p><a href="http://2.bp.blogspot.com/-MOF5_MZSSlY/UhvcFJ2al8I/AAAAAAAAAno/_6lpiRz9MRs/s1600/108.jpg"><img src="http://2.bp.blogspot.com/-MOF5_MZSSlY/UhvcFJ2al8I/AAAAAAAAAno/_6lpiRz9MRs/s320/108.jpg" alt=""></a></p>
+
+<p>My first attempt was to try to use the HTML5 canvas object. This failed quickly and spectacularly, taking about a minute to render a single frame. This is because I was generating 1.75mil objects, each with an x, y, and color attribute, and then trying to update all of those objects x,y coordinated every frame.</p>
+
+<p><a href="http://4.bp.blogspot.com/-57OvkZK0FyA/UhvcHwhLgtI/AAAAAAAAAnw/TBu4rfhPTeA/s1600/96.jpg"><img src="http://4.bp.blogspot.com/-57OvkZK0FyA/UhvcHwhLgtI/AAAAAAAAAnw/TBu4rfhPTeA/s320/96.jpg" alt=""></a></p>
+
+<p>For those that don&#39;t know, you get 16ms to do math every frame. This is the magic number which equates to a 60fps video stream, which also happens to align with most monitors refresh rates (60Hz), so even if you went over 60fps it wouldn&#39;t render any faster.</p>
+
+<p>Let me put it this way. You can&#39;t even increment a number to 1.75mil in 16ms, and that&#39;s without doing any operations (on my cpu it took 1162ms). So the question is, how do you animate (change the x,y coordinates) 1.75mil particles? The GPU. GPUs, unlike CPUs, are really good at doing lots of small calculations in parallel. For example, your CPU probably has 4 cores, but your GPU may have 32, 64, or even 128 cores.</p>
+
+<p>In order to take advantage of the GPUs ability to do massively parallel computing, we are going to need to use WebGL, and specifically the GLSL OpenGL shading language. I opted to use the great <a href="http://threejs.org/">Three.js</a>&nbsp;WebGL framework. Three.js has quite poor documentation, but it has a great community and lots of examples to learn from. These examples were especially helpful (yes, to manually inspect the uncommented unintuitive source)</p>
+
+<ul>
+<li>  <a href="http://www.mrdoob.com/lab/javascript/webgl/particles/magicdust.html">Magic Dust</a> (<a href="http://www.mrdoob.com/">Mr.doob</a>)</li>
+<li>  <a href="http://nucleal.com/">nucleal</a> (I found this after I started working, and was extremely impressed)</li>
+<li>  <a href="http://jsfiddle.net/yfSwK/27/">this jsfiddle</a>&nbsp;(extremely helpful)</li>
+<li>  <a href="http://www.mrdoob.com/lab/javascript/webgl/particles/particles_zz85.html">Particles_zz85</a>&nbsp;(Mr.doob - GPU calculations)</li>
+<li>  <a href="http://dl.dropboxusercontent.com/u/7508542/sandbox/particles/particles.html">Mr.doob sandbox particle project</a>&nbsp;(Mr.doob - CPU calculations)</li>
+<li>  These Particle System examples: <a href="http://stemkoski.github.io/Three.js/ParticleSystem-Dynamic.html">Dynamic</a>, <a href="http://stemkoski.github.io/Three.js/ParticleSystem-Attributes.html">Attribute</a>, <a href="http://stemkoski.github.io/Three.js/ParticleSystem-Shader.html">Shader</a></li>
+<li>  <a href="http://www.clicktorelease.com/code/perlin/explosion.html">Perlin Noise Fireball</a> (<a href="http://www.clicktorelease.com/blog/vertex-displacement-noise-3d-webgl-glsl-three-js">blog post</a>)</li>
+<li>  <a href="http://threejs.org/examples/webgl_buffergeometry.html">BufferGeometry Example</a></li>
+<li>  <a href="http://jsfiddle.net/SSnKk/1/">this other jsfiddle</a>
+I also learned a lot from these amazing tutorials: <a href="http://aerotwist.com/tutorials">aerotwist.com/tutorials</a></li>
+</ul>
+
+<p>Deviation: Here&#39;s how I took my 2k photos and picked a few.
+<a href="https://gist.github.com/Zolmeister/6337546">python script</a> to save select images while viewing them as a slide show
+Image resize + crop bash script:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> file in *.jpg<span class="p">;</span> <span class="k">do</span>
+  convert -size 1624x1080 <span class="nv">$file</span> -resize <span class="s1">&#39;1624x1080^&#39;</span> -crop <span class="s1">&#39;1624x1080+0+0&#39;</span> -quality <span class="m">90</span> +profile <span class="s1">&#39;*&#39;</span> <span class="nv">$file</span>
+<span class="k">done</span>
+</code></pre></div>
+<p>Thumbnail bash script:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> file in *.jpg<span class="p">;</span> <span class="k">do</span>
+  convert <span class="nv">$file</span> -resize 120x -quality <span class="m">90</span> +profile <span class="s1">&#39;*&#39;</span> thumb/<span class="nv">$file</span>
+<span class="k">done</span>
+</code></pre></div>
+<p>File rename bash script:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> file in *.jpg<span class="p">;</span> <span class="k">do</span>
+  mv <span class="s2">&quot;$file&quot;</span> <span class="s2">&quot;$file.tmp.jpg&quot;</span>
+<span class="k">done</span>
+<span class="nv">x</span><span class="o">=</span>0
+<span class="k">for</span> file in *.jpg<span class="p">;</span> <span class="k">do</span>
+  <span class="o">((</span>x++<span class="o">))</span>
+  mv <span class="s2">&quot;$file&quot;</span> <span class="s2">&quot;$x.jpg&quot;</span>
+<span class="k">done</span>
+</code></pre></div>
+<p>Alright, back to javascript. Let me explain a bit about how the GPU and WebGL work. You give WebGL a list of vertices (objects with x, y, z coordinates) that make up a 3D object mesh, and you give it a texture to be mapped to the vertices, this gives you a colorful 3D object. With a <a href="http://threejs.org/docs/#Reference/Objects/ParticleSystem">ParticleSystem</a>, you get a mesh (vertices) and you give it a texture that is applied per vertex. This means you cannot add or remove particles easily (though you can hide them from view), so you need create a mesh with as many vertices as you will need particles.</p>
+
+<p>So, what happens is that these two things, the vertices and the texture, get passed into the Vertex Shader, and the Fragment Shader. First, everything goes to the Vertex Shader. The Vertex Shader may alter the position of vertices and move stuff around (this is important, as it will let us do animation on the GPU). Then the Fragment Shader takes over, and applies color to all the parts of the object, using the vertices as guides for how to color things (for shadows for example). Here is a <a href="http://aerotwist.com/tutorials/an-introduction-to-shaders-part-1/">great tutorial</a>.</p>
+
+<p>Shaders are coded in a language called GLSL. Yeah, that already sounds scary. But it&#39;s not too bad once you spend a few hours banging your head against a wall. Here is what my (shortend) vertex shader looks like:</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">id=</span><span class="s">&#39;vertexshader&#39;</span> <span class="na">type=</span><span class="s">&#39;x-shader/x-vertex&#39;</span><span class="nt">&gt;</span>
+  <span class="nx">varying</span> <span class="nx">vec3</span> <span class="nx">vColor</span><span class="p">;</span>
+  <span class="nx">uniform</span> <span class="kr">float</span> <span class="nx">amplitude</span><span class="p">;</span>
+  <span class="nx">uniform</span> <span class="kr">int</span> <span class="nx">transition</span><span class="p">;</span>
+  <span class="nx">uniform</span> <span class="kr">int</span> <span class="nx">fullscreen</span><span class="p">;</span>
+
+  <span class="k">void</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="nx">vColor</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+    <span class="nx">vec3</span> <span class="nx">newPosition</span> <span class="o">=</span> <span class="nx">position</span><span class="p">;</span>
+    <span class="nx">newPosition</span> <span class="o">=</span> <span class="nx">newPosition</span> <span class="o">*</span> <span class="p">(</span><span class="nx">amplitude</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">+</span> <span class="nx">amplitude</span> <span class="o">*</span> <span class="nx">newPosition</span><span class="p">;</span>
+    <span class="nx">vec4</span> <span class="nx">mvPosition</span> <span class="o">=</span> <span class="nx">modelViewMatrix</span> <span class="o">*</span> <span class="nx">vec4</span><span class="p">(</span> <span class="nx">newPosition</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">);</span>
+    <span class="nx">gl_PointSize</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+    <span class="nx">gl_Position</span> <span class="o">=</span> <span class="nx">projectionMatrix</span> <span class="o">*</span> <span class="nx">mvPosition</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div>
+<p>And here is what my fragment shader looks like:</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">id=</span><span class="s">&#39;fragmentshader&#39;</span> <span class="na">type=</span><span class="s">&#39;x-shader/x-fragment&#39;</span><span class="nt">&gt;</span>
+  <span class="nx">varying</span> <span class="nx">vec3</span> <span class="nx">vColor</span><span class="p">;</span>
+
+  <span class="k">void</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">gl_FragColor</span> <span class="o">=</span> <span class="nx">vec4</span><span class="p">(</span><span class="nx">vColor</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div>
+<p>Easy. GLSL has 3 main variables that get passed from javascript to the GPU.</p>
+
+<ul>
+<li>  varying - passed from the vertex shader to the fragment shader (used to pass attributes)</li>
+<li>  attribute - passed from JS to vertex shader only (per-vertex values)</li>
+<li>  uniform - global constant set by JS<div>Sometimes you can get away with doing a particle system by updating an &#39;attribute&#39; variable for each particle, however this isn&#39;t feasible for us.</li>
+</ul>
+
+<p>The way I will do animation (there are many ways), is to update a uniform (global constant) with a number from 0 to 1 depending on the frame I&#39;m at. I will use the &#39;sine&#39; function to do this, which will give me a smooth sequence from 0 to 1 and then back to 0 again.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// update the frame counter</span>
+<span class="nx">frame</span> <span class="o">+=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="mf">0.02</span><span class="p">;</span>
+
+<span class="c1">// update the amplitude based on the frame</span>
+<span class="nx">uniforms</span><span class="p">.</span><span class="nx">amplitude</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">frame</span><span class="p">))</span>
+</code></pre></div>
+<p>Now, all I need to do to get cool animations is have each particle move with respect the the amplitude from its original location. Here is the second effect in the app (in the vertex shader):</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">newPosition</span> <span class="o">=</span> <span class="nx">newPosition</span> <span class="o">*</span> <span class="p">(</span><span class="nx">amplitude</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">+</span> <span class="nx">amplitude</span> <span class="o">*</span> <span class="nx">newPosition</span> <span class="o">/</span> <span class="mf">1.0</span><span class="p">;</span>
+<span class="nx">newPosition</span> <span class="o">=</span> <span class="nx">newPosition</span> <span class="o">*</span> <span class="p">(</span><span class="nx">amplitude</span> <span class="o">*</span> <span class="nx">abs</span><span class="p">(</span><span class="nx">sin</span><span class="p">(</span><span class="nx">distance</span><span class="p">(</span><span class="nx">newPosition</span><span class="p">,</span> <span class="nx">vec3</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">))</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">))</span><span class="o">+</span> <span class="mf">1.0</span><span class="p">);</span>
+</code></pre></div>
+<p>Now, as far as the fragment shader goes, you see I am updating the color from an attribute set by Three.js (<code>color</code>), which is the color per-pixel from the image to the vertex. This (I think) is quite inefficient (but fast enough for me), and the optimal way (I think) is to pass the image directly as a texture2D variable and let the fragment shader look at that to determine its color (<a href="http://nucleal.com/">nucleal.com/</a>&nbsp;does that I think). However I couldn&#39;t &nbsp;figure out how to do this.</p>
+
+<p>Here is the Three.js code for using a custom vertex and fragment shader:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js">    <span class="nx">uniforms</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="c1">// This dictates the point of the animation sequence</span>
+      <span class="nx">amplitude</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="c1">// float</span>
+        <span class="nx">value</span><span class="o">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="c1">// Dictates the transition animation. Ranges from 0-9</span>
+      <span class="nx">transition</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="c1">// int</span>
+        <span class="nx">value</span><span class="o">:</span> <span class="mi">0</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Load custom shaders</span>
+    <span class="kd">var</span> <span class="nx">vShader</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#vertexshader&#39;</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">fShader</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#fragmentshader&#39;</span><span class="p">)</span>
+
+    <span class="nx">material</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">ShaderMaterial</span><span class="p">({</span>
+      <span class="nx">uniforms</span><span class="o">:</span> <span class="nx">uniforms</span><span class="p">,</span>
+      <span class="nx">vertexShader</span><span class="o">:</span> <span class="nx">vShader</span><span class="p">.</span><span class="nx">text</span><span class="p">(),</span>
+      <span class="nx">fragmentShader</span><span class="o">:</span> <span class="nx">fShader</span><span class="p">.</span><span class="nx">text</span><span class="p">(),</span>
+      <span class="nx">vertexColors</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">depthTest</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nx">transparent</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">})</span>
+
+    <span class="nx">particles</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">ParticleSystem</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">material</span><span class="p">)</span>
+    <span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">particles</span><span class="p">)</span>
+</code></pre></div>
+<p>Now, we&#39;re missing the <code>geometry</code> part of the particle system, as well as a way to display the particles with a 1:1 pixel ratio to the screen. The latter is solved by some field-of-view voodoo code:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">PerspectiveCamera</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="nx">width</span> <span class="o">/</span> <span class="nx">height</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="c1">// position camera for a 1:1 pixel unit ratio</span>
+<span class="kd">var</span> <span class="nx">vFOV</span> <span class="o">=</span> <span class="nx">camera</span><span class="p">.</span><span class="nx">fov</span> <span class="o">*</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span> <span class="c1">// convert VERTICAL fov to radians</span>
+<span class="kd">var</span> <span class="nx">targetZ</span> <span class="o">=</span> <span class="nx">height</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">tan</span><span class="p">(</span><span class="nx">vFOV</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c1">// add 2 to fix rendering artifacts</span>
+<span class="nx">camera</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">z</span> <span class="o">=</span> <span class="nx">targetZ</span> <span class="o">+</span> <span class="mi">2</span>
+</code></pre></div>
+<p>And the former is solved with a giant for-loop (Don&#39;t actually do this)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">geometry</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Geometry</span><span class="p">()</span>
+<span class="kd">var</span> <span class="nx">vertices</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="mi">750</span><span class="p">,</span><span class="mi">000</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="nx">vertices</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Vertex</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">i</span><span class="o">*</span><span class="mi">20</span> <span class="o">%</span> <span class="p">(</span><span class="nx">i</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
+<span class="p">}</span>
+<span class="nx">geometry</span><span class="p">.</span><span class="nx">vertices</span> <span class="o">=</span> <span class="nx">vertices</span>
+</code></pre></div>
+<p>There are many things wrong with the code above (it won&#39;t even compile), but the most important part is to notice that it&#39;s pushing a NEW object every time it runs, and this is happening over 1million times. This loop is extremely slow, takes up hundreds of megabytes of memory, and breaks the garbage collector (but more on that later). Not to mention that you can&#39;t have a loading bar because it blocks the UI thread. Oh yeah, don&#39;t forget about colors! (This code is also ridiculously slow)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">geometry</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Geometry</span><span class="p">()</span>
+<span class="kd">var</span> <span class="nx">colors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="mi">750</span><span class="p">,</span><span class="mi">000</span><span class="o">*</span><span class="mi">3</span><span class="p">;</span><span class="nx">i</span><span class="o">+</span><span class="mi">3</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">col</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Color</span><span class="p">()</span>
+  <span class="nx">col</span><span class="p">.</span><span class="nx">setRGB</span><span class="p">(</span><span class="nx">imgData</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">imgData</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">imgData</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">}</span>
+<span class="nx">geometry</span><span class="p">.</span><span class="nx">colors</span> <span class="o">=</span> <span class="nx">colors</span>
+</code></pre></div>
+<p>The first thing that came to mind that would fix both problems at once (sort of) is to use <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers">Web Workers</a>. However, when passing data to and from web workers it gets JSON.stringify &#39;d, which is horribly slow and takes forever (but there&#39;s another way - more later).</p>
+
+<p>We can speed things up by using plain objects instead of Three.js objects (they seemed to work the same):</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">col</span> <span class="o">=</span> <span class="p">{</span><span class="nx">r</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">g</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">3</span><span class="p">}</span>
+</code></pre></div>
+<p>This is considerably faster, but still not fast enough. Well, it was fast enough for me for a bit, but then the app started randomly crashing. Turns out, I was using over 1GB of memory. No, I wasn&#39;t leaking memory, the problem was instead that the Garbage Collector could not run and crashed the app.</p>
+
+<p>Here is a great video on <a href="http://www.youtube.com/watch?v=x9Jlu_h_Lyw">Memory management in the browser</a> from GoogleIO, and I&#39;ll explain a little bit about GC. Javascript is a GC&#39;d (Garbage Collected) language, which means you don&#39;t have to de-allocate memory you use. Instead what happens is you get 2 memory chunks. The first is short-term memory, and the second is long-term memory. Short term memory is collected often, and objects that survive long enough (aren&#39;t collected) move into long-term memory. In order to determine what memory can be collected safely, The garbage collector goes through every object and checks what objects can be reached from that object (an object graph if you will, as a tree with nodes). So when the GC runs on our app with 3million+ objects, it crashes.</p>
+
+<p>Finally, after much headache, user <code>bai</code> on #three.js (freenode IRC) saved the day with the suggestion to use BufferGeometry in Three.js instead of just Geometry. BufferGeometry is exactly what I needed, as it exposes the raw typed javascript arrays used by WebGl, which means a huge performance increase and drastically reduced memory usage. I&#39;m talking about going from 1GB of memory to 16MB.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// BufferGeometry is MUCH more memory efficient</span>
+<span class="nx">geometry</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">BufferGeometry</span><span class="p">()</span>
+<span class="nx">geometry</span><span class="p">.</span><span class="nx">dynamic</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="kd">var</span> <span class="nx">imgWidth</span> <span class="o">=</span> <span class="nx">imgSize</span><span class="p">.</span><span class="nx">width</span>
+<span class="kd">var</span> <span class="nx">imgHeight</span> <span class="o">=</span> <span class="nx">imgSize</span><span class="p">.</span><span class="nx">height</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nx">imgWidth</span> <span class="o">*</span> <span class="nx">imgHeight</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="nx">geometry</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">itemSize</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nx">array</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="o">&lt;</span><span class="k">this</span> <span class="nx">comes</span> <span class="nx">from</span> <span class="nx">web</span> <span class="nx">workers</span><span class="o">&gt;</span><span class="p">),</span>
+  <span class="nx">numItems</span><span class="o">:</span> <span class="nx">num</span>
+<span class="p">}</span>
+<span class="nx">geometry</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">itemSize</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nx">array</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">num</span><span class="p">),</span>
+  <span class="nx">numItems</span><span class="o">:</span> <span class="nx">num</span>
+<span class="p">}</span>
+
+<span class="c1">//update colors</span>
+<span class="nx">geometry</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">needsUpdate</span> <span class="o">=</span> <span class="kc">true</span>
+</code></pre></div>
+<p>Ok. At this point, I had a reasonably fast application, but it still had a few rough edges. Specifically, with the blocking UI thread when loading a new image (read the image pixel by pixel and update the geometry.attributes.color array - 1.75mil pixels). See, Javascript is single threaded, so when you have a long running loop, the whole webpage freezes up. This is where Web Workers come in (I told you they would be back).</p>
+
+<p>Web workers spawn a new OS thread, which means no UI blocking. However we still have the issue of having to send data via objecting cloning. Turns out that there are special objects which are transferable (specifically ArrayBuffer objects), which pass by reference (vs copy) except that the catch is that they are removed from the original thread. eg. I pass an array to a worker, and I can no longer read it from my main thread, but I can in the worker thread. In order to understand how to take advantage of this, we need to understand <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">javascript typed arrays</a>.</p>
+
+<p>Typed arrays in javascript consist of a read-only ArrayBuffer object, and a <code>viewer</code> which allows you to write data to the ArrayBuffer behind the scenes. For example, if I have an ArrayBuffer, I can create a viewer on top of it (cheaply) Uint8ClampedArray(ArrayBuffer), which lets me read and write data to the buffer. Now, lets look at how I pass the ArrayBuffers back and forth between the web worker thread and the main thread to offload heavy work.
+(web worker code)</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">id=</span><span class="s">&#39;imageworker&#39;</span> <span class="na">type=</span><span class="s">&#39;text/js-worker&#39;</span><span class="nt">&gt;</span>
+<span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">pixels</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint8ClampedArray</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">pixels</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">outputBuffer</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">len</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="o">*</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="nx">pixels</span><span class="p">[</span><span class="nx">i</span><span class="o">*</span><span class="mi">4</span><span class="p">]</span> <span class="o">/</span> <span class="mi">255</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">pixels</span><span class="p">[</span><span class="nx">i</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">255</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">pixels</span><span class="p">[</span><span class="nx">i</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">255</span>
+  <span class="p">}</span>
+
+  <span class="nx">postMessage</span><span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">buffer</span><span class="p">,</span> <span class="p">[</span><span class="nx">arr</span><span class="p">.</span><span class="nx">buffer</span><span class="p">])</span>
+  <span class="k">return</span> <span class="nx">close</span><span class="p">()</span>
+
+<span class="p">};</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div>
+<p>(main thread code)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">loadImage</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">()</span>
+  <span class="nx">img</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;canvas&#39;</span><span class="p">)</span>
+    <span class="nx">imgWidth</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">width</span>
+    <span class="nx">imgHeight</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">height</span>
+
+    <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;2d&#39;</span><span class="p">)</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">imgWidth</span><span class="p">,</span> <span class="nx">imgHeight</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">pixels</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">getImageData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">height</span><span class="p">).</span><span class="nx">data</span>
+    <span class="kd">var</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Blob</span><span class="p">([</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#imageworker&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()],</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;text/javascript&quot;</span>
+    <span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">worker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Worker</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">))</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s1">&#39;imageLoad&#39;</span><span class="p">)</span>
+
+    <span class="nx">worker</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s1">&#39;imageLoad&#39;</span><span class="p">)</span>
+
+      <span class="nx">workerBuffer</span> <span class="o">=</span> <span class="nx">geometry</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">array</span>
+      <span class="nx">geometry</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">array</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+      <span class="nx">cb</span> <span class="o">&amp;&amp;</span> <span class="nx">cb</span><span class="p">()</span>
+    <span class="p">};</span>
+
+    <span class="nx">worker</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">({</span>
+      <span class="nx">pixels</span><span class="o">:</span> <span class="nx">pixels</span><span class="p">.</span><span class="nx">buffer</span><span class="p">,</span>
+      <span class="nx">outputBuffer</span><span class="o">:</span> <span class="nx">workerBuffer</span><span class="p">.</span><span class="nx">buffer</span><span class="p">,</span>
+      <span class="nx">len</span><span class="o">:</span> <span class="nx">pixels</span><span class="p">.</span><span class="nx">length</span>
+    <span class="p">},</span> <span class="p">[</span><span class="nx">pixels</span><span class="p">.</span><span class="nx">buffer</span><span class="p">,</span> <span class="nx">workerBuffer</span><span class="p">.</span><span class="nx">buffer</span><span class="p">])</span>
+
+  <span class="p">}</span>
+  <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;imgs/&#39;</span> <span class="o">+</span> <span class="nx">num</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>(Bonus: console.time(), console.timeEnd() - useful timing shortcuts)</p>
+
+<p>And that&#39;s it! It wasn&#39;t easy, but I definitely learned a lot.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Tanzania, Africa - In 1.75 Million Particles&amp;url=http://zolmeister.com/2013/08/tanzania-africa-in-175-million-particles.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2013/08/tanzania-africa-in-175-million-particles.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2013/08/tanzania-africa-in-175-million-particles.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

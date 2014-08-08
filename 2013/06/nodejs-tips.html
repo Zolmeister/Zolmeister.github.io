@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2013-06-27">27 Jun 2013</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">Node.js Tips</a></h1>
+
+        <section class="post-content">
+            <p>Here are some useful notes regarding Node.js development.</p>
+
+<h4>npm --save</h4>
+
+<p>When I first learned how to use npm, the process was like this:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm install &lt;package&gt;
+vi package.json <span class="c"># edit the dependencies manually, and have the package version be &#39;*&#39;</span>
+</code></pre></div>
+<p>which was a huge pain. Turns out, there is a great command-line flag which will add the module to package.json automatically.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm install &lt;package&gt; --save <span class="c"># save to package.json with version</span>
+npm install &lt;package&gt; --save-dev <span class="c"># save to dev dependencies</span>
+</code></pre></div>
+<h4>npm local install</h4>
+
+<p>Installing dependencies globally (-g) can be quite scary because by default you have to sudo the command. In order to bypass this, we can compile npm to install locally to our home folder, and then add that folder to our path (.local directory). (<a href="http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html">source</a>)</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">wget http://nodejs.org/dist/v0.10.12/node-v0.10.12.tar.gz
+tar zxvf node-v0.10.12.tar.gz
+<span class="nb">cd </span>node-v0.10.12
+
+./configure --prefix<span class="o">=</span>~/.local
+make
+make install
+
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.local/bin:<span class="nv">$PATH</span>
+</code></pre></div>
+<h4>npm publish</h4>
+
+<p>Publishing a module on npm couldn&#39;t be easier (take from this&nbsp;<a href="https://gist.github.com/coolaj86/1318304">gist</a>):</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm <span class="nb">set </span>init.author.name <span class="s2">&quot;Your Name&quot;</span>
+npm <span class="nb">set </span>init.author.email <span class="s2">&quot;you@example.com&quot;</span>
+npm <span class="nb">set </span>init.author.url <span class="s2">&quot;http://yourblog.com&quot;</span>
+
+npm adduser
+
+<span class="nb">cd</span> /path/to/your-project
+npm init
+
+npm publish .
+</code></pre></div>
+<h4>--expose-gc</span></h4>
+
+<p>The V8 javascript garbage collector in node.js is usually pretty good, however there may be some times when you need fine control over the collection yourself. In those cases, this command is quite useful:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">node --expose-gc app.js
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">global.gc(); # within app.js
+</code></pre></div>
+<h4>npm link</h4>
+
+<p>Sometimes I find myself needing to modify an npm module, either to fix a bug or add a feature. In order to test my local modifications, and use my version across apps easily, I can use <code>npm link</code>:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git  clone git@github.com:Zolmeister/Polish.js.git
+<span class="nb">cd </span>Polish.js
+npm link
+
+<span class="nb">cd</span> ~/path/to/app
+npm link polish <span class="c"># instead of npm install polish</span>
+</code></pre></div>
+<h4>Bonus - Great modules:</h4>
+
+<p><a href="https://github.com/learnboost/socket.io/">socket.io</a> - realtime websockets magic<br>
+<a href="https://github.com/mikeal/request">request</a>&nbsp;- making http requests easier (like the <a href="https://github.com/kennethreitz/requests">python library</a>)<br>
+<a href="https://github.com/jaredhanson/passport">passport</a> - user authentication<br>
+<a href="https://github.com/kriskowal/q">Q</a> - great <a href="http://blog.parse.com/2013/01/29/whats-so-great-about-javascript-promises/">promise</a> library<br>
+<a href="https://github.com/caolan/async">async</a> - if you&#39;re not cool enough for promises<br>
+<a href="http://lodash.com/">lodash</a> - better than <a href="http://underscorejs.org/">underscore</a><br>
+<a href="https://github.com/jprichardson/node-fs-extra">fs-extra</a> - lets you actually copy/paste/rm -rf files/folders properly<br>
+<a href="https://github.com/gett/mongojs">mongojs</a> - great library for working with mongodb<br>
+<a href="http://blog.nodejitsu.com/6-must-have-nodejs-modules">nodejitsu reccomendations</a></div>  </p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Node.js Tips&amp;url=http://zolmeister.com/2013/06/nodejs-tips.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2013/06/nodejs-tips.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2013/06/nodejs-tips.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2013-12-17">17 Dec 2013</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">Nent</a></h1>
+
+        <section class="post-content">
+            <p><a href="http://nent.zolmeister.com/"><img src="http://3.bp.blogspot.com/-SN9w-FENiWU/Uq5KczeWbsI/AAAAAAAABfI/xeQtg7f8eW4/s640/screenshot-game.png" alt=""></a></p>
+
+<p><a href="http://nent.zolmeister.com/">Nent</a>&nbsp;(<a href="https://github.com/Zolmeister/Nent">Source</a>)</span></p>
+
+<p>Nent is a asteroids-esque game, with upgrades and meta-ball fluid effects. It is also my submission to <a href="http://www.ludumdare.com/compo/ludum-dare-28/?action=preview&amp;amp;uid=29241">Ludum Dare 28</a>, a 48hr game jam competition for which the theme was &#39;You only get one&#39;. This is my first time participating in <a href="https://twitter.com/search?q=%23ld48">#LD48</a>, and it has been quite the experience. To get a sense of how it felt, here is my GitHub punch-card showing my commits over the 48 hour period:</p>
+
+<p><a href="http://1.bp.blogspot.com/-gFIsh3UrPJ0/Uq5ujGv3bSI/AAAAAAAABfY/eAmCEtCTIk4/s1600/nent-github.png"><img src="http://1.bp.blogspot.com/-gFIsh3UrPJ0/Uq5ujGv3bSI/AAAAAAAABfY/eAmCEtCTIk4/s640/nent-github.png" alt=""></a></p>
+
+<p>The most difficult part of creating the game was not coding, but actually coming up with a decent idea in the first place. The theme (&#39;You only get one&#39;) is pretty vague and open to interpretation, and there were many ways to go about it (which makes coming up with an idea that much harder). In the end, after thinking about it for over 2 hours, I finally decided to just make something that looked decent and worry about mechanics and theme later.</p>
+
+<p>Before I get into some of the interesting technical bits, I want to go over the tools that I used for creating this game. Instead of my normal web IDE, I opted to use <a href="http://www.lighttable.com/">LightTable</a>&nbsp;which greatly increased coding productivity through its JavaScript injection magic. For image editing (the power-ups) I used <a href="http://www.gimp.org/">GIMP</a>&nbsp;which is my main tool for any sort of image manipulation/creation. And lastly I used <a href="http://lmms.sourceforge.net/">LMMS</a>&nbsp;(Linux MultiMedia Studio),&nbsp;a free music composition tool, to create the music for the game. This was my first real attempt at creating digital music and I found it both enlightening and horribly difficult. For anyone looking to try out LMMS I recommend this video <a href="http://www.youtube.com/watch?v=AzT4X8vweaE">tutorial</a> to get started.</p>
+
+<p>Now I&#39;m going to go ahead and dive right into the most interesting aspect of the game, the liquid effects between object collision. This is done using the same technique as for metaballs. Metaballs (<a href="http://jsfiddle.net/loktar/TscNZ/">demo</a>) work by combining gradients and then sampling the result. For example, here is what the game looks like before processing:</p>
+
+<p><a href="http://3.bp.blogspot.com/-4n33E1EyjLU/Uq_l7JqFriI/AAAAAAAABfo/584slxoY7ZA/s1600/Selection_059.png"><img src="http://3.bp.blogspot.com/-4n33E1EyjLU/Uq_l7JqFriI/AAAAAAAABfo/584slxoY7ZA/s400/Selection_059.png" alt=""></a></p>
+
+<p>Ignoring the background color for a second, the gradients are created by changing the alpha values (opacity) of the color as they spread out. This is done using HTML5 canvas gradients:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">grad</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">createRadialGradient</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+<span class="nx">grad</span><span class="p">.</span><span class="nx">addColorStop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">color</span><span class="p">.</span><span class="nx">alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">rgbaString</span><span class="p">())</span>
+<span class="nx">grad</span><span class="p">.</span><span class="nx">addColorStop</span><span class="p">(.</span><span class="mi">4</span><span class="p">,</span> <span class="nx">color</span><span class="p">.</span><span class="nx">alpha</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">rgbaString</span><span class="p">())</span>
+<span class="nx">grad</span><span class="p">.</span><span class="nx">addColorStop</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">color</span><span class="p">.</span><span class="nx">alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">rgbaString</span><span class="p">())</span>
+<span class="nx">canvasContext</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">grad</span>
+</code></pre></div>
+<p>Now, we iterate over every pixel and determine if the alpha value for that pixel is above a &#39;threshold&#39;. Remember that when we have overlapping gradients, their alpha values will sum. This gives the following effect:</p>
+
+<p><a href="http://1.bp.blogspot.com/-FsOSU9va_BE/Uq_l-c_FUyI/AAAAAAAABgA/iHu5R3r3TNU/s1600/Selection_061.png"><img src="http://1.bp.blogspot.com/-FsOSU9va_BE/Uq_l-c_FUyI/AAAAAAAABgA/iHu5R3r3TNU/s400/Selection_061.png" alt=""></a></p>
+
+<p>However, what we soon notice is that the CPU is getting pegged at 100% (1 core). This is because as our canvas gets larger, our iteration is taking exponentially longer. Here is the original code (used in the demo):</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">imageData</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">getImageData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nx">width</span><span class="p">,</span><span class="nx">height</span><span class="p">),</span>
+        <span class="nx">pix</span> <span class="o">=</span> <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">pix</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">pix</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">&lt;</span><span class="nx">threshold</span><span class="p">){</span>
+    <span class="nx">pix</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">/=</span><span class="mi">6</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">pix</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">&gt;</span><span class="nx">threshold</span><span class="o">/</span><span class="mi">4</span><span class="p">){</span>
+      <span class="nx">pix</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></div>
+<p>As pix.length increases, it takes much longer to go through the loop. This eventually reaches the point where we will not get this computation in under 16ms (required to get 60FPS). Luckily, I came up with a solution. If you remember my slideshow project, where I animated <a href="http://www.zolmeister.com/2013/08/tanzania-africa-in-175-million-particles.html">1.75 million particles in real-time</a>, I was able to leverage the GPU shaders to greatly improve rendering performance. I am going to do the same here, using a library called Glsl.js (<a href="https://github.com/gre/glsl.js">https://github.com/gre/glsl.js</a>). This library greatly simplifies the process of using GLSL (opengl shading language) shaders, and applying them to the canvas that I am already using (no need to re-write code in WebGL).</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">GAME</span><span class="p">.</span><span class="nx">glsl</span> <span class="o">=</span> <span class="nx">Glsl</span><span class="p">({</span>
+  <span class="nx">canvas</span><span class="o">:</span> <span class="nx">GAME</span><span class="p">.</span><span class="nx">outCanv</span><span class="p">,</span>
+  <span class="nx">fragment</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#fragment&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(),</span>
+  <span class="nx">variables</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">canv</span><span class="o">:</span> <span class="nx">GAME</span><span class="p">.</span><span class="nx">canv</span>
+  <span class="p">},</span>
+  <span class="nx">update</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">delta</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">animate</span><span class="p">(</span><span class="nx">time</span><span class="p">)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">sync</span><span class="p">(</span><span class="s1">&#39;canv&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>And now the shader code, which replaces the &#39;for&#39; loop over the pixels:</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">id=</span><span class="s">&quot;fragment&quot;</span> <span class="na">type=</span><span class="s">&quot;x-shader/x-fragment&quot;</span><span class="nt">&gt;</span>
+    <span class="nx">precision</span> <span class="nx">mediump</span> <span class="kr">float</span><span class="p">;</span>
+    <span class="nx">uniform</span> <span class="nx">vec2</span> <span class="nx">resolution</span><span class="p">;</span>
+    <span class="nx">uniform</span> <span class="nx">sampler2D</span> <span class="nx">canv</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nx">main</span> <span class="p">(</span><span class="k">void</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">vec2</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">gl_FragCoord</span><span class="p">.</span><span class="nx">xy</span> <span class="o">/</span> <span class="nx">resolution</span><span class="p">.</span><span class="nx">xy</span><span class="p">;</span>
+      <span class="nx">vec4</span> <span class="nx">col</span> <span class="o">=</span> <span class="nx">texture2D</span><span class="p">(</span><span class="nx">canv</span><span class="p">,</span> <span class="nx">p</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">col</span><span class="p">.</span><span class="nx">a</span> <span class="o">&lt;</span> <span class="mf">0.85</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">col</span><span class="p">.</span><span class="nx">a</span> <span class="o">/=</span> <span class="mf">4.0</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="nx">col</span><span class="p">.</span><span class="nx">a</span> <span class="o">&gt;</span> <span class="nx">threshold</span><span class="o">/</span><span class="mf">4.0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">col</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="nx">gl_FragColor</span> <span class="o">=</span> <span class="nx">col</span><span class="p">;</span>
+
+    <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div>
+<p>Now let&#39;s see what it looks like:</p>
+
+<p><a href="http://4.bp.blogspot.com/-59cJhc-huso/Uq_l-xitVuI/AAAAAAAABgE/85CUdl0RKOk/s1600/Selection_060.png"><img src="http://4.bp.blogspot.com/-59cJhc-huso/Uq_l-xitVuI/AAAAAAAABgE/85CUdl0RKOk/s400/Selection_060.png" alt=""></a></p>
+
+<p>Oh no, that doesn&#39;t look right. Something odd is going on here. I&#39;ll go ahead and skip my adventure into blender land, and get right into the solution. The canvas, by default, uses composite blending. This means that it will absorb any colors underneath the canvas as part of the final canvas colors. Our web page has a background, with alpha 1.0, which causes every pixel to register in our metaball filter. To avoid this, we must modify the Glsl.js library, and add the following piece of code to change the default blending behavior (line 602, in the load() function):</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">gl</span><span class="p">.</span><span class="nx">blendFunc</span><span class="p">(</span><span class="nx">gl</span><span class="p">.</span><span class="nx">SRC_ALPHA</span><span class="p">,</span> <span class="nx">gl</span><span class="p">.</span><span class="nx">ONE_MINUS_SRC_ALPHA</span><span class="p">);</span>
+<span class="nx">gl</span><span class="p">.</span><span class="nx">enable</span><span class="p">(</span><span class="nx">gl</span><span class="p">.</span><span class="nx">BLEND</span><span class="p">);</span>
+</code></pre></div>
+<p>And that&#39;s it! Now our game will render properly.
+In addition to utilizing shaders, this game also uses fixed-interval time-step physics, which you can read more about in my post on <a href="http://www.zolmeister.com/2013/10/the-pond.html">The Pond</a>.</p>
+
+<p>Looking to optimize the game more (for mobile devices for example), there is still a pretty large bottleneck regarding the canvas-to-webgl texture conversion each frame.</p>
+
+<p><a href="http://1.bp.blogspot.com/-CslGBS0fk08/Uq_l-Tsl-uI/AAAAAAAABf8/mn0RXlQFiSw/s1600/Selection_062.png"><img src="http://1.bp.blogspot.com/-CslGBS0fk08/Uq_l-Tsl-uI/AAAAAAAABf8/mn0RXlQFiSw/s1600/Selection_062.png" alt=""></a></p>
+
+<p>This could be solved by moving the entire game drawing process to the GPU shaders, and forgoing the canvas all together. However the task is non-trivial, and I did not have enough time during the 48hrs to be able to attempt it.</p>
+
+<p>Participating in Ludum Dare was awesome, and I look forward to doing it again soon.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Nent&amp;url=http://zolmeister.com/2013/12/nent.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2013/12/nent.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2013/12/nent.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>
