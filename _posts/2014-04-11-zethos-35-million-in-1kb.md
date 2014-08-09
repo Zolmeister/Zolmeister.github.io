@@ -3,7 +3,7 @@ layout: post
 title:  "Zethos - $3.5 million in 1kb"
 date:   2014-04-11
 ---
-[<img src="http://4.bp.blogspot.com/-fwxtkVefC2w/Ux0xB0zKv_I/AAAAAAAACcY/v4-MYpaENck/s1600/Selection_090.png" style="max-width: 600px">](http://zethos.zolmeister.com/)
+[<img src="http://4.bp.blogspot.com/-fwxtkVefC2w/Ux0xB0zKv_I/AAAAAAAACcY/v4-MYpaENck/s1600/Selection_090.png">](http://zethos.zolmeister.com/)
 
 [Zethos](http://zethos.zolmeister.com/) is my $3.5 million dollar entry to [js1k 2014](http://js1k.com/2014-dragons/). It's a speed reading tool, allowing almost anyone to read at 500 words per minute (the average person reading 250wpm [[1]](http://en.wikipedia.org/wiki/Speed_reading)). By keeping the text centered within the readers view, the reader is able to reduce costly eye movements and increase their reading speed.
 

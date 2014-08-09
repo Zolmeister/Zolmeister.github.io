@@ -4,7 +4,7 @@ title:  "Dematerializer - Blogging for developers"
 date:   2014-02-11
 ---
 
-[<img src="http://1.bp.blogspot.com/-eDTRKhEo3Nk/UvnTBuNfD8I/AAAAAAAAB3g/0Tp203WCTlQ/s1600/Selection_086.png" style="max-width: 600px">](http://dematerializer.zolmeister.com/#/)
+[<img src="http://1.bp.blogspot.com/-eDTRKhEo3Nk/UvnTBuNfD8I/AAAAAAAAB3g/0Tp203WCTlQ/s1600/Selection_086.png">](http://dematerializer.zolmeister.com/#/)
 
 #### [Dematerializer](http://dematerializer.zolmeister.com/#/) ([Source](https://github.com/Zolmeister/dematerializer))
 Inspired by [Ghost](https://ghost.org/), Dematerializer was my submission to [Static Showdown](http://www.staticshowdown.com/app/teams/55dbeca986f875e1d1cb4d51e2fc42e4/entry), a 48hr hackathon with a twist; the app must be static (i.e. no custom back-end). At first it seemed like a huge restriction, however after exploring services like&nbsp;[Firebase](https://www.firebase.com/)&nbsp;(a websockets enabled database-as-a-service) I realized that almost anything was possible.

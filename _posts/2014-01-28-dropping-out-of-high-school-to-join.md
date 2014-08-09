@@ -4,7 +4,7 @@ title:  "Dropping out of High School to Join a Startup in San Francisco"
 date:   2014-01-28
 ---
 
-[<img src="http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg" style="max-width:600px">](http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg)
+[<img src="http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg">](http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg)
 
 #### TL;DR
 I dropped out of high school and got a job at [Nomic](https://nomic.com/) as a software developer in San Francisco, after turning down an on-site interview with Google. This is my story.

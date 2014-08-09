@@ -3,7 +3,7 @@ layout: post
 title:  "The Pond at Mobile World Congress with Firefox OS"
 date:   2014-03-04
 ---
-[<img src="http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg" style="max-width: 600px;">](http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg)
+[<img src="http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg">](/2014/03/the-pond-at-mobile-world-congress-on.html)
 
 Last week I attended [Mobile World Congress](http://www.mobileworldcongress.com/) in Barcelona, Spain after being invited by Mozilla to show off [The Pond](http://thepond.zolmeister.com/) ([blog post](http://www.zolmeister.com/2013/10/the-pond.html)). Originally Mozilla found me through my blog, and asked me to write a post about [The Pond on Mozilla Hacks](https://hacks.mozilla.org/2013/11/the-pond-building-a-multi-platform-html5-game/). For Mobile World Congress they were looking for app developers to help showcase [Firefox OS](http://www.mozilla.org/en-US/firefox/os/), which is where I came in.
 
@@ -46,5 +46,5 @@ There were also a few interesting products at MWC, including some [Tizen](https:
 Barcelona
 
 And finally I also got to spend some time exploring the beautiful city of Barcelona:  
-<img src="http://2.bp.blogspot.com/-zNUgYc9KmIY/UxWB3ydhYAI/AAAAAAAACZg/zl9l8DD9mlg/s1600/IMG_20140225_122545.jpg" style="max-width:500px">
-<img src="http://1.bp.blogspot.com/-T0V6WO9TU-U/UxWB4HjY4sI/AAAAAAAACZk/6CmSqRvnDQE/s1600/IMG_20140225_131112.jpg" style="max-width: 500px">
+<img src="http://2.bp.blogspot.com/-zNUgYc9KmIY/UxWB3ydhYAI/AAAAAAAACZg/zl9l8DD9mlg/s1600/IMG_20140225_122545.jpg">
+<img src="http://1.bp.blogspot.com/-T0V6WO9TU-U/UxWB4HjY4sI/AAAAAAAACZk/6CmSqRvnDQE/s1600/IMG_20140225_131112.jpg">

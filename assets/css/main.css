@@ -12,7 +12,7 @@ body {font-size: 1.9rem;}
 
 /* Reduce font size and add line-height*/
 pre{
-	font-size: 0.75em;  
+	font-size: 0.75em;
 	line-height: 1.4em;
 }
 
@@ -33,3 +33,6 @@ img.profile {
   	border-radius: 50px;
 }
 
+img {
+	max-width: 100%;
+}

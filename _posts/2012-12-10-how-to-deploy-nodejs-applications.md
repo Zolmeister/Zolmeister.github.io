@@ -4,7 +4,7 @@ title:  "How to deploy node.js applications"
 date:   2012-12-10
 ---
 
-[<img src="http://www.ascendtraining.com/blog/wp-content/uploads/2012/11/aws.png" style="max-width:400px">](http://www.ascendtraining.com/blog/wp-content/uploads/2012/11/aws.png)
+[<img src="http://www.ascendtraining.com/blog/wp-content/uploads/2012/11/aws.png">](http://www.ascendtraining.com/blog/wp-content/uploads/2012/11/aws.png)
 
 I am currently running 5&nbsp;websites on my free (1 year) Amazon EC2 [micro instace](http://aws.amazon.com/ec2/pricing/?_encoding=UTF8&camp=1789&creative=9325&linkCode=ur2&tag=zolmeister-20)![](http://www.assoc-amazon.com/e/ir?t=zolmeister-20&l=ur2&o=1). Every one of these urls corresponds to a&nbsp;separate&nbsp;node.js service running on the server:  
 [http://zoggle.zolmeister.com/](http://zoggle.zolmeister.com/)  
