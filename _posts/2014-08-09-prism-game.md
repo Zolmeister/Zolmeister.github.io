@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Prism"
-date:   2014-07-15
+date:   2014-08-09
 ---
 [![Prism Game](https://raw.githubusercontent.com/Zolmeister/prism/master/images/440x280.png)](http://prism.clay.io/)  
 [Prism](http://prism.clay.io/) ([source](https://github.com/Zolmeister/prism)) is a [2048](http://gabrielecirulli.github.io/2048/) clone, using colors instead of numbers.
