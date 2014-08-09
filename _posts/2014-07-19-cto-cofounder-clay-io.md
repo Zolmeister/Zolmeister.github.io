@@ -34,13 +34,13 @@ working on his vision for what Clay.io can become, a vision which I share and ho
 #### How I got here
 [![The Pond](/assets/images/the-pond-playing.png)](http://thepond.zolmeister.com/)
 The story of how I found Austin begins just four days before moving to San Francisco.
-I had recently submitted [The Pond](http://localhost:4000/2013/10/the-pond.html) to Clay.io, and written a guest post about it on [Mozilla Hacks](https://hacks.mozilla.org/2013/11/the-pond-building-a-multi-platform-html5-game/).
+I had recently submitted [The Pond](/2013/10/the-pond.html) to Clay.io, and written a guest post about it on [Mozilla Hacks](https://hacks.mozilla.org/2013/11/the-pond-building-a-multi-platform-html5-game/).
 Austin noticed my game, and the fact that I lived in Austin, TX, and invited me to lunch.
 We spoke at length about the mobile web game industry (whose biggest obstacle is performance in my opinion),
 and also about web games in general.  
 
 Our conversation was great, but although Austin seemed to be looking for a developer,
-I was moving out to [San Francisco](http://localhost:4000/2014/01/dropping-out-of-high-school-to-join.html) and was quite excited to start my new career at Nomic.  
+I was moving out to [San Francisco](/2014/01/dropping-out-of-high-school-to-join.html) and was quite excited to start my new career at Nomic.  
 
 A few months later Austin reached out to me again, saying he was looking for a co-founder to help
 take Clay.io to the next level. He knew I needed a salary, and also that I was
