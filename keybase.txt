@@ -1,0 +1,64 @@
+==================================================================
+https://keybase.io/zolmeister
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://zolmeister.com
+  * I am zolmeister (https://keybase.io/zolmeister) on keybase.
+  * I have a public key with fingerprint 29B1 BB4C 362A 2C14 C19E  4C33 43AA D778 81AE 0EB0
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "29b1bb4c362a2c14c19e4c3343aad77881ae0eb0",
+            "host": "keybase.io",
+            "key_id": "43aad77881ae0eb0",
+            "uid": "20fd06f6fa0b12e5cfbc72990fee3b00",
+            "username": "zolmeister"
+        },
+        "service": {
+            "hostname": "zolmeister.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1407965924,
+    "expire_in": 157680000,
+    "prev": "f35e5b624db8a67c1dce3e51966b6916aa35df501f6c6c502b2f442f75bff795",
+    "seqno": 7,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1
+
+owFtkV1IFFEUx3dtS1KzksACH+JGkbbKfOzM7GzGUlYkGwR9GZWuc2furMO6M9vs
+rOsH2weSZJRafjwkRp+SGamUT1EqbgUalCVUZg9WYCi0BSIkht2Reqr7cjnn/P7/
+cw6nYcUSS4I17+7b8jP3U7utw/2z0HJgemyqCkBNqgCuKuBHi5+sqD6kB3VFNYAL
+UDwkIXSINEsJlEg6RJJHOKIdtCBIHOd0kgIiECSAHZRoIVOBbaAQQjmKhnM48CoS
+zv6HDy8WKEKWCFZmZYGAJIUYUYYiR/E8ISNEQ2IRDCFdFQII05VaaQApIQPpIGoH
+OF+miMic2mz+D5MjagGsD+qaoYlaKa6VGEbQZUqNiqDJRhD0/nHxQkWV8O5YUIb0
+kKKpwEViUjQU05Z0EBzPMjzlsANUHlR05FVMguFYJ4Gf2QaVYUuZZhADWcohQafA
+ciIpiYhGDMmzLGR5khUEmpFkhiBlVmRFhqAgJTsclMwxUJY5ngHmXidUDbg4PKbg
+w5YhxacKRlhHIJpUa82wWawJlmVLE8zzWZKWr/p71OjaxAV/2ktv3kqQEv/wtNH/
+s+toT68wP7n707rrz5u/u3MK2UH3+g3XmlsXAqK7JmOTJ7JzqjC9zvjYP9jnCbVu
+UX/sB91FfTMDlfSQ3xPv7Zm2/zqfa3SM0r7Nqbqn2lMXe5hunCp4cONITNjhvjWf
+2fWloPPm1WNpr7ZfGpqL7suur8pv3Lbm4It48sb4s9XRraPj+SnRoayv31DkdKG1
+rX3XcPRw1m1bJ9tb03YnvhCpzC5oafI1nTxb+7l075OuudyBCzMTgnF8NnPbyJ7B
+3CJ9xHZvtuzyo/L69+Ppr1uKD02o7RRILh6tTuy4OBZWYm/QuXePrzRM5tfQtlg4
+/Bs=
+=HI7h
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/zolmeister
+
+==================================================================
