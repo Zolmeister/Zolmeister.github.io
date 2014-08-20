@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Jekyll - Blogging for Developers"
-date:   2014-08-09
+date:   2014-08-20
 ---
 
 [![](/assets/images/blog-header.png)](/2014/08/jekyll-blogging-for-developers.html)
