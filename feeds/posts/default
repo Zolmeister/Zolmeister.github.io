@@ -8,7 +8,76 @@
     <title>Zolmeister</title>
     <link>http://zolmeister.com</link>
     <description>Zolmeister - Blog</description>
-    <pubDate>Sat, 09 Aug 2014 00:00:00 -0700</pubDate>
+    <pubDate>Wed, 20 Aug 2014 00:00:00 -0700</pubDate>
+    <item>
+      <title>Jekyll - Blogging for Developers</title>
+      <link>http://zolmeister.com/2014/08/jekyll-blogging-for-developers.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;/2014/08/jekyll-blogging-for-developers.html&quot;&gt;&lt;img src=&quot;/assets/images/blog-header.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You may have noticed that this blog moved from &lt;a href=&quot;http://zolmeister.blogspot.com/&quot;&gt;Blogger&lt;/a&gt;
+to a &lt;a href=&quot;https://github.com/rosario/kasper&quot;&gt;Ghost themed&lt;/a&gt; &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll website&lt;/a&gt;
+hosted on &lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub pages&lt;/a&gt;. It&amp;#39;s been a long time coming,
+and I couldn&amp;#39;t be more happy with how things turned out.&lt;/p&gt;
+
+&lt;h3&gt;Jekyll on GitHub&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://pages.github.com/&quot;&gt;Jekyll&lt;/a&gt; is a static site generator, which allows you
+to create websites with markdown easily.
+&lt;a href=&quot;https://github.com/Zolmeister/Zolmeister.github.io/tree/src/_posts&quot;&gt;All of my posts&lt;/a&gt;
+can thus be written in markdown, with code highlighting and version control thanks to GitHub hosting.&lt;/p&gt;
+
+&lt;p&gt;To get started, all you need is to find an open source theme that you like
+(e.g. &lt;a href=&quot;https://github.com/rosario/kasper&quot;&gt;Kapsper&lt;/a&gt;), clone it, and run &lt;code&gt;jekyll serve&lt;/code&gt; (after installing Jekyll).
+Because the posts are written in markdown, you can use your
+&lt;a href=&quot;http://dillinger.io/&quot;&gt;favorite markdown editor&lt;/a&gt; to write your posts in, or just your editors &lt;a href=&quot;https://atom.io/packages/markdown-preview&quot;&gt;markdown preview&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;Free Hosting&lt;/h3&gt;
+
+&lt;p&gt;Hosting on GitHub is completely free (for your first site), and works seamlessly with Jekyll, until you need a plugin.
+This was the case with &lt;a href=&quot;https://github.com/agelber/jekyll-rss&quot;&gt;Jekyll RSS&lt;/a&gt;
+which is a plugin that generates an RSS feed from my blog posts.  &lt;/p&gt;
+
+&lt;p&gt;In order to get plugins to work, you need to compile in a separate git branch,
+and then deploy to &lt;code&gt;master&lt;/code&gt;. Here is my source branch:
+&lt;a href=&quot;https://github.com/Zolmeister/Zolmeister.github.io/tree/src&quot;&gt;Zolmeister.github.io/tree/src&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is the &lt;code&gt;publish.sh&lt;/code&gt; script I wrote to make publishing quicker (DO NOT EDIT ON THE MASTER BRANCH):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+jekyll build
+mv _site/ /tmp/
+git checkout master
+rm -r *
+cp -r /tmp/_site/* .
+rm -r /tmp/_site/
+git add . -A
+git commit -am&lt;span class=&quot;s1&quot;&gt;&amp;#39;publish&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Other platforms&lt;/h3&gt;
+
+&lt;p&gt;I considered many other platforms before stumbling across Jekyll.
+Namely &lt;a href=&quot;https://ghost.org/&quot;&gt;Ghost&lt;/a&gt;, &lt;a href=&quot;https://medium.com/&quot;&gt;Medium&lt;/a&gt;,
+and &lt;a href=&quot;https://svbtle.com/&quot;&gt;Svbtle&lt;/a&gt;.
+Both Medium and Svbtle control the display of posts, which is a big downside,
+but they are extremely simple to use just for writing.&lt;/p&gt;
+
+&lt;p&gt;Ghost was most interesting,
+and my inspiration for a &lt;a href=&quot;http://localhost:4000/2014/02/dematerializer-blogging-for-developers.html&quot;&gt;Blogging for Developers&lt;/a&gt;
+hackathon project. However, it&amp;#39;s development has been slow in coming partially due
+to a &lt;a href=&quot;https://github.com/TryGhost/Ghost/issues?q=milestone%3A%220.4+Ember.js%22&quot;&gt;rewrite in Ember.js&lt;/a&gt;
+which took about 4 months. I simply couldn&amp;#39;t wait this long, and without free
+time to contribute to the project I had to abandon the idea of using it.&lt;/p&gt;
+
+&lt;h3&gt;Closing thoughts&lt;/h3&gt;
+
+&lt;p&gt;Blogging is a passion of mine. It brings me joy to catalog my activity to help me reflect
+on the projects I have worked on. I believe it makes me a stronger developer and
+has been a motivating force behind a lot of the open source work that I do.
+I would recommend technical blogging to every developer, no matter what projects you work on.&lt;/p&gt;
+</description>
+      <pubDate>Wed, 20 Aug 2014 00:00:00 -0700</pubDate>
+      <dc:date>2014-08-20T00:00:00-07:00</dc:date>
+    </item>
     <item>
       <title>Prism</title>
       <link>http://zolmeister.com/2014/08/prism-game.html</link>
@@ -4519,6 +4588,6 @@ It specifies what express is doing with the 404 cases:&lt;/p&gt;
       <pubDate>Sat, 14 Apr 2012 00:00:00 -0700</pubDate>
       <dc:date>2012-04-14T00:00:00-07:00</dc:date>
     </item>
-    <dc:date>2014-08-09T00:00:00-07:00</dc:date>
+    <dc:date>2014-08-20T00:00:00-07:00</dc:date>
   </channel>
 </rss>
