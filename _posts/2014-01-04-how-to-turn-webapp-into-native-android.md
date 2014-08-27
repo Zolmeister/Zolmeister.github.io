@@ -11,6 +11,7 @@ While re-writing my game [Zoggle](http://zoggle.zolmeister.com/#/)&nbsp;(Blog po
 So without further ado, here is how to turn a website into a native mobile Android application in less than 5 minutes.
 
 #### Step 0 - Prerequisite: Installing Cordova CLI, and the Android SDK tools
+
 To install the Cordova CLI, you first need to install Node.js version 0.10+.
 It is imperative that the version is 0.10+ or you will be unhappy.
 [http://nodejs.org/](http://nodejs.org/)
@@ -29,6 +30,8 @@ cd myapp
 # create a mobileapp folder for your app
 cordova create mobileapp com.whatever.appname AppName
 cd mobileapp
+# add android
+cordova platform add android
 # compile the app
 cordova build
 # now, plug in your testing device, and let's run our test app on it
@@ -43,18 +46,21 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-networ
 ```
 
 #### Step 2 - Portrait mode only
+
 Now let's edit our android manifest to force the app to stay in portrait mode, edit:
 
 ```
 platforms/android/AndroidManifest.xml
 ```
-and add this config to it:
+
+and add this config to it (on <activity>):
 
 ```
 android:screenOrientation="portrait"
 ```
 
 #### Step 3 - Content
+
 Finally we get to adding our website. Edit your index.html to look similar to mine:
 
 ```
@@ -80,7 +86,7 @@ www/index.html
   }
 
   function loadApp() {
-    window.location="http://zoggle.zolmeister.com";
+    navigator.app.loadUrl("http://zoggle.zolmeister.com")
   }
 
   function networkError() {
@@ -109,41 +115,30 @@ www/index.html
 ```
 
 #### Step 3 - Icons
-Lastly we need to add icons for our application.</div><div>You will find all icons here:
+
+Lastly we need to add icons for our application.  
+You will find all icons here:
 
 ```js
 platforms/android/res
 ```
-Just replace them with your icon (of the correct size).
+Just replace them with your icon (of the correct size).  
 And that's it. Now lets look into compiling for release on the app store.
 
 #### Step 4 - Publishing!
-First, we need to remove debug mode (and in my case update the app version).
-Open up the Android Manifest
 
-```
-platforms/android/AndroidManifest.xml
-```
-and change the line from
-
-```
-android:debuggable="true"
-```
-to
-
-```
-android:debuggable="false"
-```
 Now we can generate a release version of the APK
 
 ```
 cordova build --release
 ```
+
 Your APK file should be located here:
 
 ```
-platforms/android/bin/MyApp-release-unsigned.apk
+platforms/android/ant-build/MyApp-release-unsigned.apk
 ```
+
 To submit it to the app store, we need to sign it (cryptographically). This page details how to do that:
 [http://developer.android.com/tools/publishing/app-signing.html](http://developer.android.com/tools/publishing/app-signing.html)
 but the short version is this:
@@ -160,6 +155,7 @@ zipalign -v 4 MyApp-release-unsigned.apk MyApp.apk
 And that's it! You can now upload that APK to Google play and publish your application.
 
 #### Bonus - Splash Screen
+
 I created a splash screen for Zoggle, but the game loaded so quickly that it became unnecessary. However it was a bit tricky, so I'll go ahead and explain the process.
 
 First install the cordova plugin
@@ -167,24 +163,29 @@ First install the cordova plugin
 ```
 cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-splashscreen.git
 ```
+
 Then edit your main activity Java file. Mine was here:
 
 ```
 platforms/android/src/com/zolmeister/zoggle/Zoggle.java
 ```
+
 And add this line:
 
 ```
 super.setIntegerProperty("splashscreen", R.drawable.splash);
 ```
+
 Then, in the app code above (www/index.html), uncomment the following line:
 
 ```
 navigator.splashscreen.hide();
 ```
+
 which will hide the splashscreen once the app loads.
 
 #### Creating a splash screen image
+
 Splash screen images are not regular images, instead they are 9-patch images. This allows them to stretch to meet different screen sizes.
 Here is a great video introduction to how they work:
 
@@ -203,5 +204,6 @@ Lastly, make sure your image ends in '.9.png' to let the device know that it is 
 ```
 platforms/android/res/drawable/splash.9.png
 ```
+
 **Done!**
 **Now go check out [Zoggle](http://zoggle.zolmeister.com/#/)!**
