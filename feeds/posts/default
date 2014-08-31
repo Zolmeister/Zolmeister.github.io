@@ -1437,6 +1437,8 @@ It is imperative that the version is 0.10+ or you will be unhappy.
 &lt;span class=&quot;c&quot;&gt;# create a mobileapp folder for your app&lt;/span&gt;
 cordova create mobileapp com.whatever.appname AppName
 &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;mobileapp
+&lt;span class=&quot;c&quot;&gt;# add android&lt;/span&gt;
+cordova platform add android
 &lt;span class=&quot;c&quot;&gt;# compile the app&lt;/span&gt;
 cordova build
 &lt;span class=&quot;c&quot;&gt;# now, plug in your testing device, and let&amp;#39;s run our test app on it&lt;/span&gt;
@@ -1454,7 +1456,7 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-networ
 &lt;p&gt;Now let&amp;#39;s edit our android manifest to force the app to stay in portrait mode, edit:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;platforms/android/AndroidManifest.xml
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and add this config to it:&lt;/p&gt;
+&lt;p&gt;and add this config to it (on &lt;activity&gt;):&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;android:screenOrientation=&amp;quot;portrait&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;Step 3 - Content&lt;/h4&gt;
@@ -1479,7 +1481,7 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-networ
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
   &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;loadApp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;http://zoggle.zolmeister.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;navigator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loadUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;http://zoggle.zolmeister.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
   &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;networkError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -1508,29 +1510,20 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-networ
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;Step 3 - Icons&lt;/h4&gt;
 
-&lt;p&gt;Lastly we need to add icons for our application.&lt;/div&gt;&lt;div&gt;You will find all icons here:&lt;/p&gt;
+&lt;p&gt;Lastly we need to add icons for our application.&lt;br&gt;
+You will find all icons here:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;platforms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;android&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Just replace them with your icon (of the correct size).
+&lt;p&gt;Just replace them with your icon (of the correct size).&lt;br&gt;
 And that&amp;#39;s it. Now lets look into compiling for release on the app store.&lt;/p&gt;
 
 &lt;h4&gt;Step 4 - Publishing!&lt;/h4&gt;
 
-&lt;p&gt;First, we need to remove debug mode (and in my case update the app version).
-Open up the Android Manifest&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;platforms/android/AndroidManifest.xml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and change the line from&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;android:debuggable=&amp;quot;true&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;to&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;android:debuggable=&amp;quot;false&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now we can generate a release version of the APK&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cordova build --release
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Your APK file should be located here:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;platforms/android/bin/MyApp-release-unsigned.apk
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;platforms/android/ant-build/MyApp-release-unsigned.apk
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;To submit it to the app store, we need to sign it (cryptographically). This page details how to do that:
 &lt;a href=&quot;http://developer.android.com/tools/publishing/app-signing.html&quot;&gt;http://developer.android.com/tools/publishing/app-signing.html&lt;/a&gt;

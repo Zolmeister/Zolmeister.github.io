@@ -74,6 +74,8 @@ It is imperative that the version is 0.10+ or you will be unhappy.
 <span class="c"># create a mobileapp folder for your app</span>
 cordova create mobileapp com.whatever.appname AppName
 <span class="nb">cd </span>mobileapp
+<span class="c"># add android</span>
+cordova platform add android
 <span class="c"># compile the app</span>
 cordova build
 <span class="c"># now, plug in your testing device, and let&#39;s run our test app on it</span>
@@ -91,7 +93,7 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-networ
 <p>Now let&#39;s edit our android manifest to force the app to stay in portrait mode, edit:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">platforms/android/AndroidManifest.xml
 </code></pre></div>
-<p>and add this config to it:</p>
+<p>and add this config to it (on <activity>):</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">android:screenOrientation=&quot;portrait&quot;
 </code></pre></div>
 <h4>Step 3 - Content</h4>
@@ -116,7 +118,7 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-networ
   <span class="p">}</span>
 
   <span class="kd">function</span> <span class="nx">loadApp</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="o">=</span><span class="s2">&quot;http://zoggle.zolmeister.com&quot;</span><span class="p">;</span>
+    <span class="nx">navigator</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">loadUrl</span><span class="p">(</span><span class="s2">&quot;http://zoggle.zolmeister.com&quot;</span><span class="p">)</span>
   <span class="p">}</span>
 
   <span class="kd">function</span> <span class="nx">networkError</span><span class="p">()</span> <span class="p">{</span>
@@ -145,29 +147,20 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-networ
 </code></pre></div>
 <h4>Step 3 - Icons</h4>
 
-<p>Lastly we need to add icons for our application.</div><div>You will find all icons here:</p>
+<p>Lastly we need to add icons for our application.<br>
+You will find all icons here:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">platforms</span><span class="o">/</span><span class="nx">android</span><span class="o">/</span><span class="nx">res</span>
 </code></pre></div>
-<p>Just replace them with your icon (of the correct size).
+<p>Just replace them with your icon (of the correct size).<br>
 And that&#39;s it. Now lets look into compiling for release on the app store.</p>
 
 <h4>Step 4 - Publishing!</h4>
 
-<p>First, we need to remove debug mode (and in my case update the app version).
-Open up the Android Manifest</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">platforms/android/AndroidManifest.xml
-</code></pre></div>
-<p>and change the line from</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">android:debuggable=&quot;true&quot;
-</code></pre></div>
-<p>to</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">android:debuggable=&quot;false&quot;
-</code></pre></div>
 <p>Now we can generate a release version of the APK</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">cordova build --release
 </code></pre></div>
 <p>Your APK file should be located here:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">platforms/android/bin/MyApp-release-unsigned.apk
+<div class="highlight"><pre><code class="language-text" data-lang="text">platforms/android/ant-build/MyApp-release-unsigned.apk
 </code></pre></div>
 <p>To submit it to the app store, we need to sign it (cryptographically). This page details how to do that:
 <a href="http://developer.android.com/tools/publishing/app-signing.html">http://developer.android.com/tools/publishing/app-signing.html</a>
