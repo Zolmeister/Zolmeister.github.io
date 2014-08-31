@@ -53,7 +53,7 @@ Now let's edit our android manifest to force the app to stay in portrait mode, e
 platforms/android/AndroidManifest.xml
 ```
 
-and add this config to it (on <activity>):
+and add this config to it (on `<activity>`):
 
 ```
 android:screenOrientation="portrait"
