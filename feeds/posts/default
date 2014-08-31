@@ -1456,7 +1456,7 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-networ
 &lt;p&gt;Now let&amp;#39;s edit our android manifest to force the app to stay in portrait mode, edit:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;platforms/android/AndroidManifest.xml
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and add this config to it (on &lt;activity&gt;):&lt;/p&gt;
+&lt;p&gt;and add this config to it (on &lt;code&gt;&amp;lt;activity&amp;gt;&lt;/code&gt;):&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;android:screenOrientation=&amp;quot;portrait&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;Step 3 - Content&lt;/h4&gt;
