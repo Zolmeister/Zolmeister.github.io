@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Fuco - A Coloring Game"
-date:   2014-08-30
+date:   2014-09-01
 ---
 
 [![fuco](/assets/images/fuco_logo.png)](http://fuco.zolmeister.com)
