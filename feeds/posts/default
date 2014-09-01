@@ -8,10 +8,10 @@
     <title>Zolmeister</title>
     <link>http://zolmeister.com</link>
     <description>Zolmeister - Blog</description>
-    <pubDate>Sat, 30 Aug 2014 00:00:00 -0700</pubDate>
+    <pubDate>Mon, 01 Sep 2014 00:00:00 -0700</pubDate>
     <item>
       <title>Fuco - A Coloring Game</title>
-      <link>http://zolmeister.com/2014/08/Fuco-a-coloring-game.html</link>
+      <link>http://zolmeister.com/2014/09/Fuco-a-coloring-game.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://fuco.zolmeister.com&quot;&gt;&lt;img src=&quot;/assets/images/fuco_logo.png&quot; alt=&quot;fuco&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://fuco.zolmeister.com/&quot;&gt;Web&lt;/a&gt; |
@@ -101,8 +101,8 @@ and them inlined the SVG into the HTML.&lt;/p&gt;
   &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;strokeWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;2px&amp;#39;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
-      <pubDate>Sat, 30 Aug 2014 00:00:00 -0700</pubDate>
-      <dc:date>2014-08-30T00:00:00-07:00</dc:date>
+      <pubDate>Mon, 01 Sep 2014 00:00:00 -0700</pubDate>
+      <dc:date>2014-09-01T00:00:00-07:00</dc:date>
     </item>
     <item>
       <title>Jekyll - Blogging for Developers</title>
@@ -4676,6 +4676,6 @@ It specifies what express is doing with the 404 cases:&lt;/p&gt;
       <pubDate>Sat, 14 Apr 2012 00:00:00 -0700</pubDate>
       <dc:date>2012-04-14T00:00:00-07:00</dc:date>
     </item>
-    <dc:date>2014-08-30T00:00:00-07:00</dc:date>
+    <dc:date>2014-09-01T00:00:00-07:00</dc:date>
   </channel>
 </rss>
