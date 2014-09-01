@@ -29,6 +29,9 @@ Being my second time participating I should have had better time management.
 However I made most of the game on Sunday (pulling an all-nighter, being awake during the [earthquake](http://america.aljazeera.com/articles/2014/8/24/san-francisco-earthquake.html) at 3am):
 [![timeline](/assets/images/fuco_github_timeline.png)](https://github.com/Zolmeister/fuco)
 
+<iframe frameborder=0 src="http://fuco.zolmeister.com" style="width: 300px; height: 500px; margin: 0 auto"></iframe>
+<br>
+
 #### Negative coloring without shaders
 
 When you play the game, you'll notice that coloring the correct area below will erase the
