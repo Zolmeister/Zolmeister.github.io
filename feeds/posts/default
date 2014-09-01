@@ -37,6 +37,10 @@ which meant no WebGL (due to iOS support). Because I wrote platform-agnostic cod
 However I made most of the game on Sunday (pulling an all-nighter, being awake during the &lt;a href=&quot;http://america.aljazeera.com/articles/2014/8/24/san-francisco-earthquake.html&quot;&gt;earthquake&lt;/a&gt; at 3am):
 &lt;a href=&quot;https://github.com/Zolmeister/fuco&quot;&gt;&lt;img src=&quot;/assets/images/fuco_github_timeline.png&quot; alt=&quot;timeline&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
+&lt;iframe frameborder=0 src=&quot;http://fuco.zolmeister.com&quot; style=&quot;width: 300px; height: 500px; margin: 0 auto&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
 &lt;h4&gt;Negative coloring without shaders&lt;/h4&gt;
 
 &lt;p&gt;When you play the game, you&amp;#39;ll notice that coloring the correct area below will erase the
