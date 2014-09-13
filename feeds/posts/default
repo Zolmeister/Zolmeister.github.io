@@ -8,7 +8,110 @@
     <title>Zolmeister</title>
     <link>http://zolmeister.com</link>
     <description>Zolmeister - Blog</description>
-    <pubDate>Mon, 01 Sep 2014 00:00:00 -0700</pubDate>
+    <pubDate>Sat, 13 Sep 2014 00:00:00 -0700</pubDate>
+    <item>
+      <title>Developing on Linux</title>
+      <link>http://zolmeister.com/2014/09/developing-on-linux.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/dotfiles&quot;&gt;&lt;img src=&quot;/assets/images/desktop.png&quot; alt=&quot;desktop&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;a href=&quot;https://github.com/Zolmeister/dotfiles&quot;&gt;dotfiles&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h2&gt;i3 - Tiling Window Manager&lt;/h2&gt;
+
+&lt;p&gt;A tiling window manager is a type of window manager that arranges your windows as tiles,
+usually in such a way that makes managing them more efficient via keyboard shortcuts.
+&lt;a href=&quot;http://i3wm.org/&quot;&gt;i3&lt;/a&gt; is my window manager of choice, after having used &lt;a href=&quot;http://xmonad.org/&quot;&gt;xmonad&lt;/a&gt;
+for a long time, i3 provides more flexibility and ease of configuration.&lt;/p&gt;
+
+&lt;p&gt;Here is a &lt;a href=&quot;https://www.youtube.com/watch?v=Wx0eNaGzAZU&quot;&gt;great sceencast&lt;/a&gt; which will help you understand the power of tiling window managers.
+i3 does a great job of managing multiple workspaces, even across multiple monitors.
+While developing I actively use 7 distinct workspaces across two monitors (soon probably three)
+and having an efficient way of transitioning (&lt;code&gt;alt-#&lt;/code&gt;) is critical to maintaining my workflow speed.&lt;/p&gt;
+
+&lt;p&gt;Here is a bit of config that I added to i3 (see dotfiles for the full version)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# Zolmeister
+# disabled status bar (see above)
+# screen lock with ctrl + sup + l
+bindsym Control+mod4+l exec i3lock -c 000000 -i ~/Pictures/Z/Z-bg.png
+# set border to 1
+new_window 1pixel
+# hide border if 1 window
+hide_edge_borders both
+# Resize Containers, Vim-style                            ($mod+Control+[hjkl])
+bindsym $mod+Control+j resize grow height 5 px or 5 ppt
+bindsym $mod+Control+k resize shrink height 5 px or 5 ppt
+bindsym $mod+Control+l resize grow width 5 px or 5 ppt
+bindsym $mod+Control+h resize shrink width 5 px or 5 ppt
+
+# custom colors
+# class                 border  backgr. text    indicator
+client.focused                #1793D0    #1793D0    #FFFFFF
+client.focused_inactive    #333333    #333333    #999999
+client.unfocused            #333333    #333333    #999999
+client.urgent                #FF0000    #8C5665    #FF0000
+
+# background image
+exec --no-startup-id nitrogen --restore
+
+# fix media keys and gtk theme issues
+exec gnome-settings-daemon &amp;amp;
+
+# fix deb file installation
+exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;ZSH + Powerline Shell&lt;/h2&gt;
+
+&lt;p&gt;Most shells today run [Bash](http://en.wikipedia.org/wiki/Bash&lt;em&gt;(Unix&lt;/em&gt;shell)
+however &lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot;&gt;ZSH&lt;/a&gt; is an alternative which
+has great autocompletion and &lt;a href=&quot;http://www.slideshare.net/jaguardesignstudio/why-zsh-is-cooler-than-your-shell-16194692&quot;&gt;other nifty feature&lt;/a&gt;
+For my &lt;code&gt;.zshrc&lt;/code&gt; file, check my dotfiles.&lt;/p&gt;
+
+&lt;p&gt;In addition, the ZSH framework &lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot;&gt;oh-my-zsh&lt;/a&gt;
+provides some amazing features and
+&lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh/wiki/Cheatsheet&quot;&gt;shortcuts&lt;/a&gt;,
+definitely work checking out.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/milkbikis/powerline-shell&quot;&gt;Powerline shell&lt;/a&gt; is a beautiful
+shell extension which takes care of drawing your prompt. I have customized it
+based on my ZSH theme to include additional git hints (like ±).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot;&gt;&lt;img src=&quot;/assets/images/shell.png&quot; alt=&quot;shell&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Atom.io&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://atom.io/&quot;&gt;Atom.io&lt;/a&gt; is without a doubt the best editor I have ever used.
+I have used &lt;a href=&quot;http://www.aptana.com/&quot;&gt;Aptana&lt;/a&gt; (good, but bloated),
+&lt;a href=&quot;http://www.sublimetext.com/&quot;&gt;Sublime Text&lt;/a&gt; (excellent, but not open source),
+and &lt;a href=&quot;http://brackets.io/?lang=en&quot;&gt;Brackets&lt;/a&gt; (ok, missing quite a few features) extensively.
+None of them compare to Atom (I refuse to use an editor that is not open-source, as
+my editor is a core part of my development workflow and I must have full control over it).&lt;/p&gt;
+
+&lt;p&gt;Some day I may switch to VIM/Emacs, but have been quite happy with my working speed in Atom.&lt;/p&gt;
+
+&lt;h2&gt;Hardware&lt;/h2&gt;
+
+&lt;p&gt;After &lt;a href=&quot;http://zolmeister.com/2014/07/cto-cofounder-clay-io.html&quot;&gt;joining Clay.io&lt;/a&gt;
+I have finally gotten around to building another desktop. The only spec requirements I had
+were a Linux friendly GPU (Nvidia), 32GB of RAM, and 4k monitor support.&lt;/p&gt;
+
+&lt;p&gt;Here is the build (&lt;a href=&quot;http://secure.newegg.com/WishList/PublicWishDetail.aspx?WishListNumber=25084652&quot;&gt;newegg wishlist&lt;/a&gt;, missing PSU + case):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=0JC-0007-00009&quot;&gt;28&amp;quot; 4K monitor&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16820148800&quot;&gt;32GB DDR3 RAM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369&quot;&gt;i7 4790K&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16820148820&quot;&gt;256GB SSD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16814127748&quot;&gt;GeForce GTX 760&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.amazon.com/gp/product/B003J89V0A/ref=oh_aui_detailpage_o03_s00?ie=UTF8&amp;amp;psc=1&quot;&gt;1000W PSU&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16822148834&quot;&gt;2TB HD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16824009316&quot;&gt;21.5&amp;quot; monitor&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16811146061&quot;&gt;NZXT ATX Mid Tower&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16813157372&quot;&gt;ASRock Motherboard&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      <pubDate>Sat, 13 Sep 2014 00:00:00 -0700</pubDate>
+      <dc:date>2014-09-13T00:00:00-07:00</dc:date>
+    </item>
     <item>
       <title>Fuco - A Coloring Game</title>
       <link>http://zolmeister.com/2014/09/Fuco-a-coloring-game.html</link>
@@ -1954,6 +2057,8 @@ In addition to utilizing shaders, this game also uses fixed-interval time-step p
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Bonus: I tried to integrate a &lt;a href=&quot;http://en.wikipedia.org/wiki/Metaballs&quot;&gt;metaballs&lt;/a&gt; effect into the game, but it didn&amp;#39;t work out. Check out this jsfiddle for a great example of &lt;a href=&quot;http://jsfiddle.net/loktar/TscNZ/&quot;&gt;metaballs&lt;/a&gt; (&lt;a href=&quot;http://www.somethinghitme.com/2012/06/06/2d-metaballs-with-canvas/&quot;&gt;blog post&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Update (Sep 11, 2014): &lt;a href=&quot;https://www.youtube.com/watch?v=azqBULCfAFk&quot;&gt;Inspirational Video&lt;/a&gt;&lt;/p&gt;
 </description>
       <pubDate>Tue, 15 Oct 2013 00:00:00 -0700</pubDate>
       <dc:date>2013-10-15T00:00:00-07:00</dc:date>
@@ -4680,6 +4785,6 @@ It specifies what express is doing with the 404 cases:&lt;/p&gt;
       <pubDate>Sat, 14 Apr 2012 00:00:00 -0700</pubDate>
       <dc:date>2012-04-14T00:00:00-07:00</dc:date>
     </item>
-    <dc:date>2014-09-01T00:00:00-07:00</dc:date>
+    <dc:date>2014-09-13T00:00:00-07:00</dc:date>
   </channel>
 </rss>

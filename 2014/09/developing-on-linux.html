@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2014-09-13">13 Sep 2014</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">Developing on Linux</a></h1>
+
+        <section class="post-content">
+            <p><a href="https://github.com/Zolmeister/dotfiles"><img src="/assets/images/desktop.png" alt="desktop"></a></p>
+
+<h3><a href="https://github.com/Zolmeister/dotfiles">dotfiles</a></h3>
+
+<h2>i3 - Tiling Window Manager</h2>
+
+<p>A tiling window manager is a type of window manager that arranges your windows as tiles,
+usually in such a way that makes managing them more efficient via keyboard shortcuts.
+<a href="http://i3wm.org/">i3</a> is my window manager of choice, after having used <a href="http://xmonad.org/">xmonad</a>
+for a long time, i3 provides more flexibility and ease of configuration.</p>
+
+<p>Here is a <a href="https://www.youtube.com/watch?v=Wx0eNaGzAZU">great sceencast</a> which will help you understand the power of tiling window managers.
+i3 does a great job of managing multiple workspaces, even across multiple monitors.
+While developing I actively use 7 distinct workspaces across two monitors (soon probably three)
+and having an efficient way of transitioning (<code>alt-#</code>) is critical to maintaining my workflow speed.</p>
+
+<p>Here is a bit of config that I added to i3 (see dotfiles for the full version)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># Zolmeister
+# disabled status bar (see above)
+# screen lock with ctrl + sup + l
+bindsym Control+mod4+l exec i3lock -c 000000 -i ~/Pictures/Z/Z-bg.png
+# set border to 1
+new_window 1pixel
+# hide border if 1 window
+hide_edge_borders both
+# Resize Containers, Vim-style                            ($mod+Control+[hjkl])
+bindsym $mod+Control+j resize grow height 5 px or 5 ppt
+bindsym $mod+Control+k resize shrink height 5 px or 5 ppt
+bindsym $mod+Control+l resize grow width 5 px or 5 ppt
+bindsym $mod+Control+h resize shrink width 5 px or 5 ppt
+
+# custom colors
+# class                 border  backgr. text    indicator
+client.focused                #1793D0    #1793D0    #FFFFFF
+client.focused_inactive    #333333    #333333    #999999
+client.unfocused            #333333    #333333    #999999
+client.urgent                #FF0000    #8C5665    #FF0000
+
+# background image
+exec --no-startup-id nitrogen --restore
+
+# fix media keys and gtk theme issues
+exec gnome-settings-daemon &amp;
+
+# fix deb file installation
+exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &amp;
+</code></pre></div>
+<h2>ZSH + Powerline Shell</h2>
+
+<p>Most shells today run [Bash](http://en.wikipedia.org/wiki/Bash<em>(Unix</em>shell)
+however <a href="https://github.com/robbyrussell/oh-my-zsh">ZSH</a> is an alternative which
+has great autocompletion and <a href="http://www.slideshare.net/jaguardesignstudio/why-zsh-is-cooler-than-your-shell-16194692">other nifty feature</a>
+For my <code>.zshrc</code> file, check my dotfiles.</p>
+
+<p>In addition, the ZSH framework <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>
+provides some amazing features and
+<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Cheatsheet">shortcuts</a>,
+definitely work checking out.</p>
+
+<p><a href="https://github.com/milkbikis/powerline-shell">Powerline shell</a> is a beautiful
+shell extension which takes care of drawing your prompt. I have customized it
+based on my ZSH theme to include additional git hints (like ±).</p>
+
+<p><a href="https://github.com/robbyrussell/oh-my-zsh"><img src="/assets/images/shell.png" alt="shell"></a></p>
+
+<h2>Atom.io</h2>
+
+<p><a href="https://atom.io/">Atom.io</a> is without a doubt the best editor I have ever used.
+I have used <a href="http://www.aptana.com/">Aptana</a> (good, but bloated),
+<a href="http://www.sublimetext.com/">Sublime Text</a> (excellent, but not open source),
+and <a href="http://brackets.io/?lang=en">Brackets</a> (ok, missing quite a few features) extensively.
+None of them compare to Atom (I refuse to use an editor that is not open-source, as
+my editor is a core part of my development workflow and I must have full control over it).</p>
+
+<p>Some day I may switch to VIM/Emacs, but have been quite happy with my working speed in Atom.</p>
+
+<h2>Hardware</h2>
+
+<p>After <a href="http://zolmeister.com/2014/07/cto-cofounder-clay-io.html">joining Clay.io</a>
+I have finally gotten around to building another desktop. The only spec requirements I had
+were a Linux friendly GPU (Nvidia), 32GB of RAM, and 4k monitor support.</p>
+
+<p>Here is the build (<a href="http://secure.newegg.com/WishList/PublicWishDetail.aspx?WishListNumber=25084652">newegg wishlist</a>, missing PSU + case):</p>
+
+<ul>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=0JC-0007-00009">28&quot; 4K monitor</a></li>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16820148800">32GB DDR3 RAM</a></li>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369">i7 4790K</a></li>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16820148820">256GB SSD</a></li>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16814127748">GeForce GTX 760</a></li>
+<li><a href="http://www.amazon.com/gp/product/B003J89V0A/ref=oh_aui_detailpage_o03_s00?ie=UTF8&amp;psc=1">1000W PSU</a></li>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16822148834">2TB HD</a></li>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16824009316">21.5&quot; monitor</a></li>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16811146061">NZXT ATX Mid Tower</a></li>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16813157372">ASRock Motherboard</a></li>
+</ul>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://github.com/claydotio">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Developing on Linux&amp;url=http://zolmeister.com/2014/09/developing-on-linux.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2014/09/developing-on-linux.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2014/09/developing-on-linux.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>
