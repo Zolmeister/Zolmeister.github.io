@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Real Developers Run Linux"
-date:   2014-08-20
+title:  "Developing on Linux"
+date:   2014-09-13
 ---
 [![desktop](/assets/images/desktop.png)](https://github.com/Zolmeister/dotfiles)
 
