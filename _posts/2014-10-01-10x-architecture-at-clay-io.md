@@ -73,7 +73,7 @@ has been critical to preventing unnecessary breakage and downtime of our product
 
 [![MySQL](/assets/images/mysql-logo.jpg)](http://www.mysql.com/)
 
-[MySQL](http://www.mysql.com/) is a production-harded relational SQL database.
+[MySQL](http://www.mysql.com/) is a production-hardened relational SQL database.
 The vast majority of our data currently resides inside a Master-Slave MySQL cluster.
 We have one master, and two slave servers which serve most of our queries for our users.
 Eventually we may have to move tables or shard the single master server, but hopefully not for a while.
