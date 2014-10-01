@@ -8,7 +8,172 @@
     <title>Zolmeister</title>
     <link>http://zolmeister.com</link>
     <description>Zolmeister - Blog</description>
-    <pubDate>Sat, 13 Sep 2014 00:00:00 -0700</pubDate>
+    <pubDate>Wed, 01 Oct 2014 00:00:00 -0700</pubDate>
+    <item>
+      <title>10x: Architecture at Clay.io</title>
+      <link>http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html</link>
+      <description>&lt;p&gt;&lt;img src=&quot;/assets/images/clay-architecture-1.png&quot; alt=&quot;Clay.io&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;This is the first post in my new series &lt;code&gt;10x&lt;/code&gt;, where I share my experiences
+and how we do things at &lt;a href=&quot;http://clay.io/&quot;&gt;Clay.io&lt;/a&gt; to develop at scale with a small team.
+If you find these things interesting, we&amp;#39;re hiring - &lt;a href=&quot;mailto:zoli@clay.io&quot;&gt;zoli@clay.io&lt;/a&gt; .&lt;/p&gt;
+
+&lt;h2&gt;The Cloud&lt;/h2&gt;
+
+&lt;h4&gt;CloudFlare&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.cloudflare.com/&quot;&gt;&lt;img src=&quot;/assets/images/cloudflare-logo.png&quot; alt=&quot;CloudFlare&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.cloudflare.com/&quot;&gt;CloudFlare&lt;/a&gt; handles all of our DNS, and acts as a distributed caching
+proxy with some additional DDOS protection features. It also handles SSL.&lt;/p&gt;
+
+&lt;h4&gt;Amazon EC2 + VPC + NAT server&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://aws.amazon.com/&quot;&gt;&lt;img src=&quot;/assets/images/aws-logo.png&quot; alt=&quot;Amazon Web Services&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Almost all of our servers live on Amazon EC2, most are either medium or large instances.
+We also use Amazon VPC to host some of our servers inside of a private network,
+inaccessible from the outside world. In order to get into this private network we have
+a NAT server, which also serves as our VPN endpoint which we use when working
+with our internal network. (&lt;a href=&quot;http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario2.html&quot;&gt;guide&lt;/a&gt;, &lt;a href=&quot;https://openvpn.net/index.php/open-source/documentation/howto.html&quot;&gt;OpenVPN&lt;/a&gt;)&lt;/p&gt;
+
+&lt;h4&gt;Amazon S3&lt;/h4&gt;
+
+&lt;p&gt;We use Amazon S3 as our CDN backend, which hosts all of our static content.
+We use a separate domain for this: &lt;code&gt;cdn.wtf&lt;/code&gt; for security and performance
+reasons (cookie-less domain).&lt;/p&gt;
+
+&lt;h4&gt;HAProxy&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.haproxy.org/&quot;&gt;HAProxy&lt;/a&gt; is an extremely performant reverse-proxy which we use to route traffic to
+our different services. This work is non-trivial due to the nature of Clay.io and its
+platform support concerns (and legacy code support), which I will go into detail in a later article.&lt;/p&gt;
+
+&lt;p&gt;We currently have a single HAProxy server on an m3.medium instance, but will upgrade as traffic increases.
+In addition, we may add Amazon ELB in front to scale horizontally if necessary.&lt;/p&gt;
+
+&lt;h4&gt;App Server - Docker&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.docker.com/&quot;&gt;&lt;img src=&quot;/assets/images/docker-logo.png&quot; alt=&quot;Docker&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; is tool to manage Linux containers, which are similar to Virtual Machines
+except with less overhead (and without some isolation and security guarantees).
+The key to Docker is that code shipped inside of a container should run the same
+no matter what the host machine looks like.&lt;/p&gt;
+
+&lt;p&gt;We currently run most of our computational services on an &lt;code&gt;app server&lt;/code&gt; via Docker.
+This server can easily be replicated to meet elastic demand, and services can be moved on and off easily.
+Eventually we hope to manage these app servers with a tool like Kubernetes. (See bottom of post)&lt;/p&gt;
+
+&lt;h4&gt;Staging App Server - Docker&lt;/h4&gt;
+
+&lt;p&gt;Our staging environment server is identical to our application server, and
+runs the exact same docker binaries that we run in production. This environment
+has been critical to preventing unnecessary breakage and downtime of our production systems.&lt;/p&gt;
+
+&lt;h2&gt;Data&lt;/h2&gt;
+
+&lt;h4&gt;MySQL&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.mysql.com/&quot;&gt;&lt;img src=&quot;/assets/images/mysql-logo.jpg&quot; alt=&quot;MySQL&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.mysql.com/&quot;&gt;MySQL&lt;/a&gt; is a production-harded relational SQL database.
+The vast majority of our data currently resides inside a Master-Slave MySQL cluster.
+We have one master, and two slave servers which serve most of our queries for our users.
+Eventually we may have to move tables or shard the single master server, but hopefully not for a while.&lt;/p&gt;
+
+&lt;h4&gt;Logstash&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://logstash.net/&quot;&gt;&lt;img src=&quot;/assets/images/logstash-logo.png&quot; alt=&quot;logstash&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://logstash.net/&quot;&gt;Logstash&lt;/a&gt; is a log aggregation tool, with Kibana integration for analysis.
+It basically handles all of our application logs, and gives us a place to check
+for errors when something goes wrong. It saves us from having to SSH into a machine to check logs.&lt;/p&gt;
+
+&lt;h4&gt;MongoDB&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.mongodb.org/&quot;&gt;&lt;img src=&quot;/assets/images/mongoDB-logo.png&quot; alt=&quot;MongoDB&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.mongodb.org/&quot;&gt;MongoDB&lt;/a&gt; is a NoSQL document storage database.
+We currently use mongodb for some of our developer endpoints, and for our A/B testing
+framework &lt;a href=&quot;https://github.com/claydotio/flak-cannon&quot;&gt;Flak Cannon&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4&gt;Memcached&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://memcached.org/&quot;&gt;Memcached&lt;/a&gt; is a key-value store, used mostly for caching. In many ways it is similar to Redis.
+We currently use Memcached in our legacy webapp for caching MySQL query results.
+Eventually we would like to replace this with Redis.&lt;/p&gt;
+
+&lt;h2&gt;DevOps&lt;/h2&gt;
+
+&lt;h4&gt;Ansible&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.ansible.com/home&quot;&gt;&lt;img src=&quot;/assets/images/ansible-logo.png&quot; alt=&quot;Ansible&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.ansible.com/home&quot;&gt;Ansible&lt;/a&gt; has been our tool of choice for managing our servers. It&amp;#39;s simple enough for most developers to learn quickly
+and be comfortable working with, and has been critical for automating many of the processes normally
+managed by an operations team.&lt;/p&gt;
+
+&lt;h2&gt;Other Services&lt;/h2&gt;
+
+&lt;h4&gt;GitHub&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt; - Great source code management, enough said.&lt;/p&gt;
+
+&lt;h4&gt;Uptime Robot&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://uptimerobot.com/&quot;&gt;Uptime Robot&lt;/a&gt; is a &lt;strong&gt;free&lt;/strong&gt; monitoring service which we use to monitor our healthchecks and endpoints.
+If anything goes down, it will email and text message us within 5min.&lt;/p&gt;
+
+&lt;h4&gt;Drone.io&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://drone.io/&quot;&gt;Drone.io&lt;/a&gt; is a continuous integration service, which we use to continuously run our
+test suites for our various projects. It is similar to TravisCI, and has recently
+released an open source self-hostable version.&lt;/p&gt;
+
+&lt;h4&gt;Docker Registry&lt;/h4&gt;
+
+&lt;p&gt;We currently use the official &lt;a href=&quot;https://registry.hub.docker.com/&quot;&gt;Docker registry&lt;/a&gt; to manage our docker containers.
+It&amp;#39;s similar to GitHub, except for Docker containers.&lt;/p&gt;
+
+&lt;h4&gt;New Relic&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://newrelic.com/&quot;&gt;New Relic&lt;/a&gt; is a server and application monitoring service, which we mostly use to
+monitor our servers to let us know when a machine is running out of disk or memory&lt;/p&gt;
+
+&lt;h4&gt;Google Analytics&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.google.com/analytics/&quot;&gt;Google Analytics&lt;/a&gt; is our main website analytics tracking tool.
+For tracking our site specific features, we use the custom events features.&lt;/p&gt;
+
+&lt;h4&gt;Google Apps&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.google.com/enterprise/apps/business/&quot;&gt;Google Apps&lt;/a&gt; provides email for our domain clay.io, and gives our organization a shared
+Google Drive setup.&lt;/p&gt;
+
+&lt;h4&gt;Last Pass&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://lastpass.com/&quot;&gt;Last Pass&lt;/a&gt; is a password management service which allows us to share company
+credentials for all of the other above services easily amongst the team.&lt;/p&gt;
+
+&lt;h2&gt;The Future&lt;/h2&gt;
+
+&lt;p&gt;While we are currently happy with our setup today, we hope to improve it in the coming months.
+This initial infrastructure version is missing some features which weren&amp;#39;t necessary enough
+to justify spending time on, but we will eventually need to come back to them as we scale.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/GoogleCloudPlatform/kubernetes&quot;&gt;Kubernetes&lt;/a&gt; is looking to be an amazing project and tool for managing Docker containers at scale.
+We will be following it&amp;#39;s development closely and hopefully put it into production as the project matures.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://aws.amazon.com/glacier/&quot;&gt;Amazon Glacier&lt;/a&gt; is another technology we have been looking at for doing database backups,
+and hope to implement that in the near future.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://rethinkdb.com/&quot;&gt;RethinkDB&lt;/a&gt;, while quite immature, is also quite an interesting project. We will definitely be following it&amp;#39;s
+progress and may eventually move some of our data into it as we move away from MySQL.&lt;/p&gt;
+</description>
+      <pubDate>Wed, 01 Oct 2014 00:00:00 -0700</pubDate>
+      <dc:date>2014-10-01T00:00:00-07:00</dc:date>
+    </item>
     <item>
       <title>Developing on Linux</title>
       <link>http://zolmeister.com/2014/09/developing-on-linux.html</link>
@@ -4785,6 +4950,6 @@ It specifies what express is doing with the 404 cases:&lt;/p&gt;
       <pubDate>Sat, 14 Apr 2012 00:00:00 -0700</pubDate>
       <dc:date>2012-04-14T00:00:00-07:00</dc:date>
     </item>
-    <dc:date>2014-09-13T00:00:00-07:00</dc:date>
+    <dc:date>2014-10-01T00:00:00-07:00</dc:date>
   </channel>
 </rss>

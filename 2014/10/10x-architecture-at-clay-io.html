@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2014-10-01">01 Oct 2014</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">10x: Architecture at Clay.io</a></h1>
+
+        <section class="post-content">
+            <p><img src="/assets/images/clay-architecture-1.png" alt="Clay.io"></p>
+
+<p>This is the first post in my new series <code>10x</code>, where I share my experiences
+and how we do things at <a href="http://clay.io/">Clay.io</a> to develop at scale with a small team.
+If you find these things interesting, we&#39;re hiring - <a href="mailto:zoli@clay.io">zoli@clay.io</a> .</p>
+
+<h2>The Cloud</h2>
+
+<h4>CloudFlare</h4>
+
+<p><a href="https://www.cloudflare.com/"><img src="/assets/images/cloudflare-logo.png" alt="CloudFlare"></a></p>
+
+<p><a href="https://www.cloudflare.com/">CloudFlare</a> handles all of our DNS, and acts as a distributed caching
+proxy with some additional DDOS protection features. It also handles SSL.</p>
+
+<h4>Amazon EC2 + VPC + NAT server</h4>
+
+<p><a href="http://aws.amazon.com/"><img src="/assets/images/aws-logo.png" alt="Amazon Web Services"></a></p>
+
+<p>Almost all of our servers live on Amazon EC2, most are either medium or large instances.
+We also use Amazon VPC to host some of our servers inside of a private network,
+inaccessible from the outside world. In order to get into this private network we have
+a NAT server, which also serves as our VPN endpoint which we use when working
+with our internal network. (<a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario2.html">guide</a>, <a href="https://openvpn.net/index.php/open-source/documentation/howto.html">OpenVPN</a>)</p>
+
+<h4>Amazon S3</h4>
+
+<p>We use Amazon S3 as our CDN backend, which hosts all of our static content.
+We use a separate domain for this: <code>cdn.wtf</code> for security and performance
+reasons (cookie-less domain).</p>
+
+<h4>HAProxy</h4>
+
+<p><a href="http://www.haproxy.org/">HAProxy</a> is an extremely performant reverse-proxy which we use to route traffic to
+our different services. This work is non-trivial due to the nature of Clay.io and its
+platform support concerns (and legacy code support), which I will go into detail in a later article.</p>
+
+<p>We currently have a single HAProxy server on an m3.medium instance, but will upgrade as traffic increases.
+In addition, we may add Amazon ELB in front to scale horizontally if necessary.</p>
+
+<h4>App Server - Docker</h4>
+
+<p><a href="https://www.docker.com/"><img src="/assets/images/docker-logo.png" alt="Docker"></a></p>
+
+<p><a href="https://www.docker.com/">Docker</a> is tool to manage Linux containers, which are similar to Virtual Machines
+except with less overhead (and without some isolation and security guarantees).
+The key to Docker is that code shipped inside of a container should run the same
+no matter what the host machine looks like.</p>
+
+<p>We currently run most of our computational services on an <code>app server</code> via Docker.
+This server can easily be replicated to meet elastic demand, and services can be moved on and off easily.
+Eventually we hope to manage these app servers with a tool like Kubernetes. (See bottom of post)</p>
+
+<h4>Staging App Server - Docker</h4>
+
+<p>Our staging environment server is identical to our application server, and
+runs the exact same docker binaries that we run in production. This environment
+has been critical to preventing unnecessary breakage and downtime of our production systems.</p>
+
+<h2>Data</h2>
+
+<h4>MySQL</h4>
+
+<p><a href="http://www.mysql.com/"><img src="/assets/images/mysql-logo.jpg" alt="MySQL"></a></p>
+
+<p><a href="http://www.mysql.com/">MySQL</a> is a production-harded relational SQL database.
+The vast majority of our data currently resides inside a Master-Slave MySQL cluster.
+We have one master, and two slave servers which serve most of our queries for our users.
+Eventually we may have to move tables or shard the single master server, but hopefully not for a while.</p>
+
+<h4>Logstash</h4>
+
+<p><a href="http://logstash.net/"><img src="/assets/images/logstash-logo.png" alt="logstash"></a></p>
+
+<p><a href="http://logstash.net/">Logstash</a> is a log aggregation tool, with Kibana integration for analysis.
+It basically handles all of our application logs, and gives us a place to check
+for errors when something goes wrong. It saves us from having to SSH into a machine to check logs.</p>
+
+<h4>MongoDB</h4>
+
+<p><a href="http://www.mongodb.org/"><img src="/assets/images/mongoDB-logo.png" alt="MongoDB"></a></p>
+
+<p><a href="http://www.mongodb.org/">MongoDB</a> is a NoSQL document storage database.
+We currently use mongodb for some of our developer endpoints, and for our A/B testing
+framework <a href="https://github.com/claydotio/flak-cannon">Flak Cannon</a>.</p>
+
+<h4>Memcached</h4>
+
+<p><a href="http://memcached.org/">Memcached</a> is a key-value store, used mostly for caching. In many ways it is similar to Redis.
+We currently use Memcached in our legacy webapp for caching MySQL query results.
+Eventually we would like to replace this with Redis.</p>
+
+<h2>DevOps</h2>
+
+<h4>Ansible</h4>
+
+<p><a href="http://www.ansible.com/home"><img src="/assets/images/ansible-logo.png" alt="Ansible"></a></p>
+
+<p><a href="http://www.ansible.com/home">Ansible</a> has been our tool of choice for managing our servers. It&#39;s simple enough for most developers to learn quickly
+and be comfortable working with, and has been critical for automating many of the processes normally
+managed by an operations team.</p>
+
+<h2>Other Services</h2>
+
+<h4>GitHub</h4>
+
+<p><a href="https://github.com/">GitHub</a> - Great source code management, enough said.</p>
+
+<h4>Uptime Robot</h4>
+
+<p><a href="https://uptimerobot.com/">Uptime Robot</a> is a <strong>free</strong> monitoring service which we use to monitor our healthchecks and endpoints.
+If anything goes down, it will email and text message us within 5min.</p>
+
+<h4>Drone.io</h4>
+
+<p><a href="https://drone.io/">Drone.io</a> is a continuous integration service, which we use to continuously run our
+test suites for our various projects. It is similar to TravisCI, and has recently
+released an open source self-hostable version.</p>
+
+<h4>Docker Registry</h4>
+
+<p>We currently use the official <a href="https://registry.hub.docker.com/">Docker registry</a> to manage our docker containers.
+It&#39;s similar to GitHub, except for Docker containers.</p>
+
+<h4>New Relic</h4>
+
+<p><a href="http://newrelic.com/">New Relic</a> is a server and application monitoring service, which we mostly use to
+monitor our servers to let us know when a machine is running out of disk or memory</p>
+
+<h4>Google Analytics</h4>
+
+<p><a href="http://www.google.com/analytics/">Google Analytics</a> is our main website analytics tracking tool.
+For tracking our site specific features, we use the custom events features.</p>
+
+<h4>Google Apps</h4>
+
+<p><a href="http://www.google.com/enterprise/apps/business/">Google Apps</a> provides email for our domain clay.io, and gives our organization a shared
+Google Drive setup.</p>
+
+<h4>Last Pass</h4>
+
+<p><a href="https://lastpass.com/">Last Pass</a> is a password management service which allows us to share company
+credentials for all of the other above services easily amongst the team.</p>
+
+<h2>The Future</h2>
+
+<p>While we are currently happy with our setup today, we hope to improve it in the coming months.
+This initial infrastructure version is missing some features which weren&#39;t necessary enough
+to justify spending time on, but we will eventually need to come back to them as we scale.</p>
+
+<p><a href="https://github.com/GoogleCloudPlatform/kubernetes">Kubernetes</a> is looking to be an amazing project and tool for managing Docker containers at scale.
+We will be following it&#39;s development closely and hopefully put it into production as the project matures.</p>
+
+<p><a href="http://aws.amazon.com/glacier/">Amazon Glacier</a> is another technology we have been looking at for doing database backups,
+and hope to implement that in the near future.</p>
+
+<p><a href="http://rethinkdb.com/">RethinkDB</a>, while quite immature, is also quite an interesting project. We will definitely be following it&#39;s
+progress and may eventually move some of our data into it as we move away from MySQL.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="https://github.com/claydotio">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=10x: Architecture at Clay.io&amp;url=http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>
