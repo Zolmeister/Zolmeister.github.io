@@ -3538,7 +3538,7 @@ Recall the stack:&lt;/p&gt;
 &lt;p&gt;Ok, so we have a 128 byte buffer. Remember that there is extra stuff above it in the stack, so we need to add some extra bytes to our overflow (12). Our exploit string looks like this:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;cat &amp;lt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;python -c &lt;span class=&quot;s1&quot;&gt;&amp;#39;print &amp;quot;A&amp;quot;*140&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; ./rop3
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now lets add a return address. Specifically, lets add the address that points to the &lt;system&gt; call.&lt;/p&gt;
+&lt;p&gt;Now lets add a return address. Specifically, lets add the address that points to the &lt;code&gt;&amp;lt;system&amp;gt;&lt;/code&gt; call.&lt;/p&gt;
 
 &lt;p&gt;This is what we need to accomplish in C which will give us a shell: &lt;code&gt;system(&amp;quot;/bin/sh&amp;quot;);&lt;/code&gt;&lt;/p&gt;
 
@@ -3610,7 +3610,7 @@ Recall the stack:&lt;/p&gt;
     &lt;span class=&quot;n&quot;&gt;vulnerable_function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;So, probably not how you were suppose to solve it (based on the source code), but it works. With ROP4, were not given &lt;system&gt;, but we are given &lt;execlp&gt;. execlp takes 3 parameters: &lt;code&gt;char *file, char *arg, NULL&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;So, probably not how you were suppose to solve it (based on the source code), but it works. With ROP4, were not given &lt;code&gt;&amp;lt;system&amp;gt;&lt;/code&gt;, but we are given &lt;code&gt;&amp;lt;execlp&amp;gt;&lt;/code&gt;. execlp takes 3 parameters: &lt;code&gt;char *file, char *arg, NULL&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Our goal then is to run this (not really though, as you will learn later): &lt;code&gt;execlp(&amp;quot;/bin/sh&amp;quot;,&amp;quot;/bin/sh&amp;quot;,NULL);&lt;/code&gt;&lt;/p&gt;
 

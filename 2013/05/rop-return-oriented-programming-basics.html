@@ -81,7 +81,7 @@ Recall the stack:</p>
 <p>Ok, so we have a 128 byte buffer. Remember that there is extra stuff above it in the stack, so we need to add some extra bytes to our overflow (12). Our exploit string looks like this:</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">cat &lt;<span class="o">(</span>python -c <span class="s1">&#39;print &quot;A&quot;*140&#39;</span><span class="o">)</span> - <span class="p">|</span> ./rop3
 </code></pre></div>
-<p>Now lets add a return address. Specifically, lets add the address that points to the <system> call.</p>
+<p>Now lets add a return address. Specifically, lets add the address that points to the <code>&lt;system&gt;</code> call.</p>
 
 <p>This is what we need to accomplish in C which will give us a shell: <code>system(&quot;/bin/sh&quot;);</code></p>
 
@@ -153,7 +153,7 @@ Recall the stack:</p>
     <span class="n">vulnerable_function</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>So, probably not how you were suppose to solve it (based on the source code), but it works. With ROP4, were not given <system>, but we are given <execlp>. execlp takes 3 parameters: <code>char *file, char *arg, NULL</code></p>
+<p>So, probably not how you were suppose to solve it (based on the source code), but it works. With ROP4, were not given <code>&lt;system&gt;</code>, but we are given <code>&lt;execlp&gt;</code>. execlp takes 3 parameters: <code>char *file, char *arg, NULL</code></p>
 
 <p>Our goal then is to run this (not really though, as you will learn later): <code>execlp(&quot;/bin/sh&quot;,&quot;/bin/sh&quot;,NULL);</code></p>
 
