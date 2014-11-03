@@ -41,7 +41,7 @@ Ok, so we have a 128 byte buffer. Remember that there is extra stuff above it in
 ```bash
 cat <(python -c 'print "A"*140') - | ./rop3
 ```
-Now lets add a return address. Specifically, lets add the address that points to the <system> call.
+Now lets add a return address. Specifically, lets add the address that points to the `<system>` call.
 
 This is what we need to accomplish in C which will give us a shell: `system("/bin/sh");`
 
@@ -129,7 +129,7 @@ int main(int argc, char** argv) {
 }
 ```
 
-So, probably not how you were suppose to solve it (based on the source code), but it works. With ROP4, were not given <system>, but we are given <execlp>. execlp takes 3 parameters: `char *file, char *arg, NULL`
+So, probably not how you were suppose to solve it (based on the source code), but it works. With ROP4, were not given `<system>`, but we are given `<execlp>`. execlp takes 3 parameters: `char *file, char *arg, NULL`
 
 Our goal then is to run this (not really though, as you will learn later): `execlp("/bin/sh","/bin/sh",NULL); `
 
