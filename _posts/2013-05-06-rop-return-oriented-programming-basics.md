@@ -203,9 +203,9 @@ Normally [ASLR](http://en.wikipedia.org/wiki/Address_space_layout_randomization)
 #### Update:
 Finding the environment variable with a mangled stack can be tough, so I figured out a more robust solution. Instead of using an environment variable, lets just make a new command and use strings from libc to call it. This is what I mean:
 
-1\. remember rop4s.sh?, make a copy of it and name it "ch"
-2\. now edit your [PATH](http://www.cyberciti.biz/faq/howto-print-path-variable/)&nbsp;and add the directory of your "ch" shell script file
-3\. now you can call "ch" from the command line, and it should run your script
+  1. remember rop4s.sh?, make a copy of it and name it "ch"
+  2. now edit your [PATH](http://www.cyberciti.biz/faq/howto-print-path-variable/)&nbsp;and add the directory of your "ch" shell script file
+  3. now you can call "ch" from the command line, and it should run your script
 
 Now lets see how the code looks:
 
