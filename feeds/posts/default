@@ -3667,9 +3667,11 @@ cat /problems/ROP_4_887f7f28b1f64d7e/key
 
 &lt;p&gt;Finding the environment variable with a mangled stack can be tough, so I figured out a more robust solution. Instead of using an environment variable, lets just make a new command and use strings from libc to call it. This is what I mean:&lt;/p&gt;
 
-&lt;p&gt;1. remember rop4s.sh?, make a copy of it and name it &amp;quot;ch&amp;quot;
-2. now edit your &lt;a href=&quot;http://www.cyberciti.biz/faq/howto-print-path-variable/&quot;&gt;PATH&lt;/a&gt;&amp;nbsp;and add the directory of your &amp;quot;ch&amp;quot; shell script file
-3. now you can call &amp;quot;ch&amp;quot; from the command line, and it should run your script&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;remember rop4s.sh?, make a copy of it and name it &amp;quot;ch&amp;quot;&lt;/li&gt;
+&lt;li&gt;now edit your &lt;a href=&quot;http://www.cyberciti.biz/faq/howto-print-path-variable/&quot;&gt;PATH&lt;/a&gt;&amp;nbsp;and add the directory of your &amp;quot;ch&amp;quot; shell script file&lt;/li&gt;
+&lt;li&gt;now you can call &amp;quot;ch&amp;quot; from the command line, and it should run your script&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;Now lets see how the code looks:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;     # first we need a string from libc that isn&amp;#39;t already a command (I chose &amp;quot;ch&amp;quot;)

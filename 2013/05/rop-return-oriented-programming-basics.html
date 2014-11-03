@@ -210,9 +210,11 @@ cat /problems/ROP_4_887f7f28b1f64d7e/key
 
 <p>Finding the environment variable with a mangled stack can be tough, so I figured out a more robust solution. Instead of using an environment variable, lets just make a new command and use strings from libc to call it. This is what I mean:</p>
 
-<p>1. remember rop4s.sh?, make a copy of it and name it &quot;ch&quot;
-2. now edit your <a href="http://www.cyberciti.biz/faq/howto-print-path-variable/">PATH</a>&nbsp;and add the directory of your &quot;ch&quot; shell script file
-3. now you can call &quot;ch&quot; from the command line, and it should run your script</p>
+<ol>
+<li>remember rop4s.sh?, make a copy of it and name it &quot;ch&quot;</li>
+<li>now edit your <a href="http://www.cyberciti.biz/faq/howto-print-path-variable/">PATH</a>&nbsp;and add the directory of your &quot;ch&quot; shell script file</li>
+<li>now you can call &quot;ch&quot; from the command line, and it should run your script</li>
+</ol>
 
 <p>Now lets see how the code looks:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">     # first we need a string from libc that isn&#39;t already a command (I chose &quot;ch&quot;)
