@@ -8,7 +8,61 @@
     <title>Zolmeister</title>
     <link>http://zolmeister.com</link>
     <description>Zolmeister - Blog</description>
-    <pubDate>Wed, 01 Oct 2014 00:00:00 -0700</pubDate>
+    <pubDate>Sat, 25 Oct 2014 00:00:00 -0700</pubDate>
+    <item>
+      <title>10x: Logging at Clay.io</title>
+      <link>http://zolmeister.com/2014/10/10x-logging-at-clay-io.html</link>
+      <description>&lt;p&gt;&lt;img src=&quot;/assets/images/logstash_logo.png&quot; alt=&quot;logstash logo&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Managing 20+ servers as a small team is no easy task, and when things go wrong
+(they always do) figuring out what happened quickly is essential. Of course
+we can&amp;#39;t ssh into each machine, that would take ages, so instead we use &lt;a href=&quot;http://logstash.net/&quot;&gt;Logstash&lt;/a&gt;
+to aggregate our logs.&lt;/p&gt;
+
+&lt;p&gt;This is the second post in my &lt;code&gt;10x&lt;/code&gt; series, and if you missed last episode: &lt;a href=&quot;http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html&quot;&gt;Architecture at Clay.io&lt;/a&gt;.
+And don&amp;#39;t forget, Clay.io is hiring: &lt;a href=&quot;mailto:zoli@clay.io&quot;&gt;zoli@clay.io&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4&gt;Logstash overview&lt;/h4&gt;
+
+&lt;p&gt;Logstash deployments have two parts. The aggregate server (or cluster), and the
+client servers. The aggregate server runs the main &lt;code&gt;logstash&lt;/code&gt; binary, while the
+client servers run &lt;code&gt;logstash-forwarder&lt;/code&gt; to ships logs to the &lt;code&gt;logstash&lt;/code&gt; instance.
+Here is a diagram of our setup:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scribe.png&quot; alt=&quot;scribe&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that &lt;code&gt;logstash-forwarder&lt;/code&gt; doesn&amp;#39;t rotate logs. Log rotation is the process of
+storing older logs (usually compressed) into buckets (either of size or by date)
+and then eventually expiring them. The (aptly named) tool for the job here is
+the &lt;a href=&quot;http://linuxcommand.org/man_pages/logrotate8.html&quot;&gt;&lt;code&gt;logrotate&lt;/code&gt;&lt;/a&gt; linux utility.&lt;/p&gt;
+
+&lt;h4&gt;Investigating logs&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/logstash_screenshot.png&quot; alt=&quot;kibana&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;The logstash daemon runs &lt;a href=&quot;http://www.elasticsearch.org/&quot;&gt;ElasticSearch&lt;/a&gt; and
+&lt;a href=&quot;http://www.elasticsearch.org/overview/kibana/&quot;&gt;Kibana&lt;/a&gt; to analyze logs.
+You can apply many filters and create complex queries into your log data
+this way because of ElasticSearch.&lt;/p&gt;
+
+&lt;p&gt;Note that you cannot expose ElasticSearch ports publicly or your server will
+get hacked (!). This happened to us, and our solution was to move our infrastructure
+to &lt;a href=&quot;http://aws.amazon.com/vpc/&quot;&gt;Amazon VPC&lt;/a&gt; so that the only way to get to the logs
+is to be inside of our privileged network.&lt;/p&gt;
+
+&lt;h4&gt;Journalist + Scribe&lt;/h4&gt;
+
+&lt;p&gt;At Clay.io we have open-sourced our Docker containers so that anyone can deploy
+a distributed logging system themselves in just a few seconds.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Logstash&lt;/code&gt; Server: &lt;a href=&quot;https://github.com/claydotio/journalist-public&quot;&gt;clay/journalist-public&lt;/a&gt;&lt;br&gt;
+&lt;code&gt;Logstash-forwarder&lt;/code&gt; Server: &lt;a href=&quot;https://github.com/claydotio/scribe-public&quot;&gt;clay/scribe-public&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Good Luck!&lt;/p&gt;
+</description>
+      <pubDate>Sat, 25 Oct 2014 00:00:00 -0700</pubDate>
+      <dc:date>2014-10-25T00:00:00-07:00</dc:date>
+    </item>
     <item>
       <title>10x: Architecture at Clay.io</title>
       <link>http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html</link>
@@ -4952,6 +5006,6 @@ It specifies what express is doing with the 404 cases:&lt;/p&gt;
       <pubDate>Sat, 14 Apr 2012 00:00:00 -0700</pubDate>
       <dc:date>2012-04-14T00:00:00-07:00</dc:date>
     </item>
-    <dc:date>2014-10-01T00:00:00-07:00</dc:date>
+    <dc:date>2014-10-25T00:00:00-07:00</dc:date>
   </channel>
 </rss>
