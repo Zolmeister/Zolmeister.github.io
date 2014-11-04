@@ -11,6 +11,10 @@ This is the first post in my new series `10x`, where I share my experiences
 and how we do things at [Clay.io](http://clay.io/) to develop at scale with a small team.
 If you find these things interesting, we're hiring - [zoli@clay.io](mailto:zoli@clay.io) .
 
+Update:
+
+  - [10x: Logging at Clay.io](http://zolmeister.com/2014/10/10x-logging-at-clay-io.html)
+
 ## The Cloud
 
 #### CloudFlare
