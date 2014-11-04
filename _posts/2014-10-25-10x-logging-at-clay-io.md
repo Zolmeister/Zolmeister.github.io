@@ -19,7 +19,7 @@ And don't forget, Clay.io is hiring: [zoli@clay.io](mailto:zoli@clay.io)
 
 Logstash deployments have two parts. The aggregate server (or cluster), and the
 client servers. The aggregate server runs the main `logstash` binary, while the
-client servers run `logstash-forwarder` which ships logs to the `logstash` instance.
+client servers run `logstash-forwarder` to ships logs to the `logstash` instance.
 Here is a diagram of our setup:
 
 ![scribe](/assets/images/scribe.png)
@@ -37,11 +37,11 @@ the [`logrotate`](http://linuxcommand.org/man_pages/logrotate8.html) linux utili
 The logstash daemon runs [ElasticSearch](http://www.elasticsearch.org/) and
 [Kibana](http://www.elasticsearch.org/overview/kibana/) to analyze logs.
 You can apply many filters and create complex queries into your log data
-this way because of the power of ElasticSearch.
+this way because of ElasticSearch.
 
-Note that you cannot expose ElasticSearch ports publicly, or your server will
+Note that you cannot expose ElasticSearch ports publicly or your server will
 get hacked (!). This happened to us, and our solution was to move our infrastructure
-to [Amazon VPC](http://aws.amazon.com/vpc/) so that the only way to analyze our logs
+to [Amazon VPC](http://aws.amazon.com/vpc/) so that the only way to get to the logs
 is to be inside of our privileged network.
 
 
