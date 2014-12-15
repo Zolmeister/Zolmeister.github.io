@@ -8,7 +8,178 @@
     <title>Zolmeister</title>
     <link>http://zolmeister.com</link>
     <description>Zolmeister - Blog</description>
-    <pubDate>Sat, 25 Oct 2014 00:00:00 -0700</pubDate>
+    <pubDate>Mon, 15 Dec 2014 00:00:00 -0800</pubDate>
+    <item>
+      <title>10x: Docker at Clay.io</title>
+      <link>http://zolmeister.com/2014/12/10x-docker-at-clay-io.html</link>
+      <description>&lt;p&gt;&lt;img src=&quot;/assets/images/docker_logo.png&quot; alt=&quot;docker logo&quot;&gt;&lt;/p&gt;
+
+&lt;h2&gt;Intro&lt;/h2&gt;
+
+&lt;p&gt;At &lt;a href=&quot;http://clay.io/&quot;&gt;Clay&lt;/a&gt;, our deploy process is fun. Seriously. Because we use Docker.&lt;/p&gt;
+
+&lt;p&gt;Docker is a containerization tool that allows for easy application isolation and deployment.
+The basic idea is that Docker runs your application in a virtualized isolated environment,
+similar to a virtual machine, but without the overhead. You start with a &amp;#39;base image&amp;#39;,
+and then describe how to create a &amp;#39;container&amp;#39; using a Dockerfile.&lt;/p&gt;
+
+&lt;p&gt;If you missed previous &lt;code&gt;10x&lt;/code&gt; posts:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html&quot;&gt;Architecture&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://zolmeister.com/2014/10/10x-logging-at-clay-io.html&quot;&gt;Logging&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Also, we&amp;#39;re hiring - &lt;a href=&quot;mailto:zoli@clay.io&quot;&gt;zoli@clay.io&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/docker-diagram.png&quot; alt=&quot;docker diagram&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Our deploy process looks like this:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Merge all code to be shipped into git &lt;code&gt;master&lt;/code&gt; branch&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git tag&lt;/code&gt; for release (eg. v1.0.0)&lt;/li&gt;
+&lt;li&gt;Build docker image (code lock)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker tag&lt;/code&gt; for release (eg. v1.0.0)&lt;/li&gt;
+&lt;li&gt;Push docker image to the registry&lt;/li&gt;
+&lt;li&gt;Update staging cluster container versions (zero downtime)
+
+&lt;ul&gt;
+&lt;li&gt;Make sure backup container is running&lt;/li&gt;
+&lt;li&gt;Upgrade master container&lt;/li&gt;
+&lt;li&gt;Wait for new master to be up&lt;/li&gt;
+&lt;li&gt;Upgrade backup container&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Update production cluster container versions (zero downtime)
+
+&lt;ul&gt;
+&lt;li&gt;(see above process)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This process guarantees that we are running the exact same code in staging and production,
+and allows us to roll back to the last docker container release version if anything goes wrong.&lt;/p&gt;
+
+&lt;h2&gt;Clay.io Dockerfiles&lt;/h2&gt;
+
+&lt;p&gt;Here is an example Dockerfile from our mobile app (&lt;a href=&quot;https://github.com/claydotio/clay-mobile/blob/master/Dockerfile&quot;&gt;source&lt;/a&gt;):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-docker&quot; data-lang=&quot;docker&quot;&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; dockerfile/nodejs:latest
+
+&lt;span class=&quot;c&quot;&gt;# Install Git&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;RUN&lt;/span&gt; apt-get install -y git
+
+&lt;span class=&quot;c&quot;&gt;# Add source&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ADD&lt;/span&gt; ./node_modules /opt/clay-mobile/node_modules
+&lt;span class=&quot;k&quot;&gt;ADD&lt;/span&gt; . /opt/clay-mobile
+
+&lt;span class=&quot;k&quot;&gt;WORKDIR&lt;/span&gt; /opt/clay-mobile
+
+&lt;span class=&quot;c&quot;&gt;# Install app deps&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;RUN&lt;/span&gt; npm install
+
+&lt;span class=&quot;k&quot;&gt;CMD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;npm&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;start&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The file is self-explanatory. It simply copies the source code from the current directory into the container.
+Environment variables will be used to introduce sensitive / dynamic configuration.
+One important note is that &lt;code&gt;npm start&lt;/code&gt; actually compiles and minifies the code for production:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// package.json&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&amp;quot;scripts&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;build&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;node_modules/gulp/bin/gulp.js build&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;start&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;npm run build &amp;amp;&amp;amp;&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;              ./node_modules/pm2/bin/pm2 start ./bin/server.coffee&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;                -i max&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;                --name clay_mobile&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;                --no-daemon&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;                -o /var/log/clay/clay_mobile.log&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;                -e /var/log/clay/clay_mobile.error.log&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This is because we need to re-build the static files with the production environment variables.
+For more examples, checkout our GitHub: &lt;a href=&quot;https://github.com/claydotio&quot;&gt;github.com/clay.io&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Basic Deployment of A Docker Image&lt;/h2&gt;
+
+&lt;p&gt;At Clay, we host our images on the &lt;a href=&quot;https://registry.hub.docker.com/repos/clay/&quot;&gt;docker registry&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Because of Docker, deploying our applications to staging and production environments is trivial.
+This is the entire process (untagged container, to staging - automated with &lt;a href=&quot;http://www.ansible.com/home&quot;&gt;Ansible&lt;/a&gt;):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Local machine / Build server&lt;/span&gt;
+docker build -t clay/mobile .
+docker push clay/mobile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Staging / Production server&lt;/span&gt;
+docker pull clay/mobile
+docker run
+    --restart on-failure
+    -v /var/log/clay:/var/log/clay
+    -p 50000:3000
+    -e &lt;span class=&quot;nv&quot;&gt;CLAY_MOBILE_HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;XXXX
+    -e &lt;span class=&quot;nv&quot;&gt;CLAY_API_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;XXXX
+    -e &lt;span class=&quot;nv&quot;&gt;FC_API_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;XXXX
+    -e &lt;span class=&quot;nv&quot;&gt;NODE_ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;production
+    -e &lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3000
+    --name mobile
+    -d
+    -t clay/mobile:VERSION
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;(Note: Ports 49,152 - 65,535 are generally used for private applications)&lt;/p&gt;
+
+&lt;h2&gt;Zero-Downtime Updates&lt;/h2&gt;
+
+&lt;p&gt;If you noticed in the above start script, we use &lt;a href=&quot;https://github.com/Unitech/pm2&quot;&gt;PM2&lt;/a&gt; to handle clustering multiple server processes.
+PM2 supports zero-downtime code updates, however because it is inside the container and we never change code within a container at runtime, we don&amp;#39;t use it.
+PM2 is used simply to take advantage of multiple server cores.&lt;/p&gt;
+
+&lt;p&gt;The key to zero-downtime updates is to run two server processes. A master process, and a backup process.
+We do this by assigning different ports to two container deployments:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;docker run ... -e &lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;50000&lt;/span&gt; --name mobile
+docker run ... -e &lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;50001&lt;/span&gt; --name mobile-backup
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.haproxy.org/&quot;&gt;HAProxy&lt;/a&gt; handles re-routing traffic to the backup server when the master goes down:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# example haproxy.cfg
+
+backend mobile
+  mode http
+  balance roundrobin
+  server app1 x.x.x.x:50000 check
+  server app1b x.x.x.x:50001 check backup
+  server app2 x.x.x.x:50000 check
+  server app2b x.x.x.x:50001 check backup
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;A future post on HAProxy will go into more details on how we use HAProxy to load balance across our servers.&lt;/p&gt;
+
+&lt;p&gt;The following deploy process is fully automated by Ansible:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Verify backup healthy container status (Ansible)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker pull clay/mobile:v1.0.0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Kill master container (network requests re-route automatically to the backup)
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker rm -f mobile&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Update master container, and restart
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker run ...&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Once the master container comes back up, network requests will move back to the master&lt;/li&gt;
+&lt;li&gt;Kill and update the backup container
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker rm -f mobile-backup &amp;amp;&amp;amp; docker run ...&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If anything goes wrong, simply revert to an older image version:&lt;br&gt;
+&lt;code&gt;docker run -t clay/mobile:v0.0.12&lt;/code&gt;.&lt;/p&gt;
+</description>
+      <pubDate>Mon, 15 Dec 2014 00:00:00 -0800</pubDate>
+      <dc:date>2014-12-15T00:00:00-08:00</dc:date>
+    </item>
     <item>
       <title>10x: Logging at Clay.io</title>
       <link>http://zolmeister.com/2014/10/10x-logging-at-clay-io.html</link>
@@ -5012,6 +5183,6 @@ It specifies what express is doing with the 404 cases:&lt;/p&gt;
       <pubDate>Sat, 14 Apr 2012 00:00:00 -0700</pubDate>
       <dc:date>2012-04-14T00:00:00-07:00</dc:date>
     </item>
-    <dc:date>2014-10-25T00:00:00-07:00</dc:date>
+    <dc:date>2014-12-15T00:00:00-08:00</dc:date>
   </channel>
 </rss>
