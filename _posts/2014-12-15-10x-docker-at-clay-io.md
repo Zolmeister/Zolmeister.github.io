@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "10x: Docker at Clay.io"
-date:   2014-12-13
+date:   2014-12-15
 ---
 
 
@@ -92,7 +92,7 @@ For more examples, checkout our GitHub: [github.com/clay.io](https://github.com/
 
 ## Basic Deployment of A Docker Image
 
-At Clay, we host our images on the [docker registry](https://registry.hub.docker.com/repos/clay/)
+At Clay, we host our images on the [docker registry](https://registry.hub.docker.com/repos/clay/).
 
 Because of Docker, deploying our applications to staging and production environments is trivial.
 This is the entire process (untagged container, to staging - automated with [Ansible](http://www.ansible.com/home)):
@@ -154,8 +154,8 @@ A future post on HAProxy will go into more details on how we use HAProxy to load
 
 The following deploy process is fully automated by Ansible:
 
-  1. Verify backup healthy container status
-    - `docker pull clay/mobile:v1.0.0`
+  1. Verify backup healthy container status (Ansible)
+  1. `docker pull clay/mobile:v1.0.0`
   1. Kill master container (network requests re-route automatically to the backup)
     - `docker rm -f mobile`
   1. Update master container, and restart
