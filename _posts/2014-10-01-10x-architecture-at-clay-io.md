@@ -14,6 +14,7 @@ If you find these things interesting, we're hiring - [zoli@clay.io](mailto:zoli@
 Update:
 
   - [10x: Logging at Clay.io](http://zolmeister.com/2014/10/10x-logging-at-clay-io.html)
+  - [10x: Docker at Clay.io](http://zolmeister.com/2014/12/10x-docker-at-clay-io.html)
 
 ## The Cloud
 
