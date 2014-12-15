@@ -23,15 +23,6 @@ The basic idea is that Docker runs your application in a virtualized isolated en
 similar to a virtual machine, but without the overhead. You start with a &amp;#39;base image&amp;#39;,
 and then describe how to create a &amp;#39;container&amp;#39; using a Dockerfile.&lt;/p&gt;
 
-&lt;p&gt;If you missed previous &lt;code&gt;10x&lt;/code&gt; posts:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html&quot;&gt;Architecture&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://zolmeister.com/2014/10/10x-logging-at-clay-io.html&quot;&gt;Logging&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Also, we&amp;#39;re hiring - &lt;a href=&quot;mailto:zoli@clay.io&quot;&gt;zoli@clay.io&lt;/a&gt;&lt;/p&gt;
-
 &lt;h2&gt;Overview&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/docker-diagram.png&quot; alt=&quot;docker diagram&quot;&gt;&lt;/p&gt;
@@ -176,6 +167,17 @@ backend mobile
 
 &lt;p&gt;If anything goes wrong, simply revert to an older image version:&lt;br&gt;
 &lt;code&gt;docker run -t clay/mobile:v0.0.12&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Closing&lt;/h2&gt;
+
+&lt;p&gt;If you missed previous &lt;code&gt;10x&lt;/code&gt; posts:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html&quot;&gt;Architecture&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://zolmeister.com/2014/10/10x-logging-at-clay-io.html&quot;&gt;Logging&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Also, we&amp;#39;re hiring - &lt;a href=&quot;mailto:zoli@clay.io&quot;&gt;zoli@clay.io&lt;/a&gt;&lt;/p&gt;
 </description>
       <pubDate>Mon, 15 Dec 2014 00:00:00 -0800</pubDate>
       <dc:date>2014-12-15T00:00:00-08:00</dc:date>
