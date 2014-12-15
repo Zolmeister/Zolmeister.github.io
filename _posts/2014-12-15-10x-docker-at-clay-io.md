@@ -16,13 +16,6 @@ The basic idea is that Docker runs your application in a virtualized isolated en
 similar to a virtual machine, but without the overhead. You start with a 'base image',
 and then describe how to create a 'container' using a Dockerfile.
 
-If you missed previous `10x` posts:
-
-  - [Architecture](http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html)
-  - [Logging](http://zolmeister.com/2014/10/10x-logging-at-clay-io.html)
-
-Also, we're hiring - [zoli@clay.io](mailto:zoli@clay.io)
-
 ## Overview
 
 ![docker diagram](/assets/images/docker-diagram.png)
@@ -166,3 +159,13 @@ The following deploy process is fully automated by Ansible:
 
 If anything goes wrong, simply revert to an older image version:  
 `docker run -t clay/mobile:v0.0.12`.
+
+
+## Closing
+
+If you missed previous `10x` posts:
+
+  - [Architecture](http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html)
+  - [Logging](http://zolmeister.com/2014/10/10x-logging-at-clay-io.html)
+
+Also, we're hiring - [zoli@clay.io](mailto:zoli@clay.io)
