@@ -134,7 +134,7 @@ Cool, I can get around the 50 character limit by setting values to `__builtins__
      x.__class__.__base__.__subclasses__()
      Return Value: [<type 'type'>, <type 'weakref'>, <type 'weakcallableproxy'>, <type 'weakproxy'>,...
 ```
-Ok, I have a long list of values there, but now I have to find out if I can use them to get a shell. Some special values I noticed were:&nbsp;<type 'file'>,&nbsp;<type 'module'>, <type 'zipimport.zipimporter'>. Lets look at file first:
+Ok, I have a long list of values there, but now I have to find out if I can use them to get a shell. Some special values I noticed were:&nbsp;`<type 'file'>`,&nbsp;`<type 'module'>`, `<type 'zipimport.zipimporter'>`. Lets look at file first:
 
 ```
      #setup variable 'w' to access the values
