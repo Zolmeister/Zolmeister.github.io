@@ -152,7 +152,7 @@ Ok, I have a long list of values there, but now I have to find out if I can use 
      # read it back
      w[40]('/tmp/test').read()
 ```
-Cool. Too bad we don't know the name of the key file (otherwise we could just read it in). Lets look at <module> next:
+Cool. Too bad we don't know the name of the key file (otherwise we could just read it in). Lets look at `<module>` next:
 
 ```
      w[47]
