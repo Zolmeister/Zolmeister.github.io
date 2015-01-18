@@ -4058,7 +4058,7 @@ os.system(&amp;#39;cat *&amp;#39;)
      # read it back
      w[40](&amp;#39;/tmp/test&amp;#39;).read()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Cool. Too bad we don&amp;#39;t know the name of the key file (otherwise we could just read it in). Lets look at &lt;module&gt; next:&lt;/p&gt;
+&lt;p&gt;Cool. Too bad we don&amp;#39;t know the name of the key file (otherwise we could just read it in). Lets look at &lt;code&gt;&amp;lt;module&amp;gt;&lt;/code&gt; next:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;     w[47]
      Return Value: &amp;lt;type &amp;#39;module&amp;#39;&amp;gt;
      w[47](&amp;#39;os&amp;#39;)
