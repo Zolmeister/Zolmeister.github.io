@@ -4042,7 +4042,7 @@ os.system(&amp;#39;cat *&amp;#39;)
      x.__class__.__base__.__subclasses__()
      Return Value: [&amp;lt;type &amp;#39;type&amp;#39;&amp;gt;, &amp;lt;type &amp;#39;weakref&amp;#39;&amp;gt;, &amp;lt;type &amp;#39;weakcallableproxy&amp;#39;&amp;gt;, &amp;lt;type &amp;#39;weakproxy&amp;#39;&amp;gt;,...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Ok, I have a long list of values there, but now I have to find out if I can use them to get a shell. Some special values I noticed were:&amp;nbsp;&lt;type 'file'&gt;,&amp;nbsp;&lt;type 'module'&gt;, &lt;type 'zipimport.zipimporter'&gt;. Lets look at file first:&lt;/p&gt;
+&lt;p&gt;Ok, I have a long list of values there, but now I have to find out if I can use them to get a shell. Some special values I noticed were:&amp;nbsp;&lt;code&gt;&amp;lt;type &amp;#39;file&amp;#39;&amp;gt;&lt;/code&gt;,&amp;nbsp;&lt;code&gt;&amp;lt;type &amp;#39;module&amp;#39;&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;type &amp;#39;zipimport.zipimporter&amp;#39;&amp;gt;&lt;/code&gt;. Lets look at file first:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;     #setup variable &amp;#39;w&amp;#39; to access the values
      __builtins__[&amp;#39;ww&amp;#39;]=().__class__.__base__
      __builtins__[&amp;#39;w&amp;#39;]=ww.__subclasses__()

