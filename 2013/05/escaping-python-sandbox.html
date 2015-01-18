@@ -230,7 +230,7 @@ Then I found this <a href="http://nedbatchelder.com/blog/201302/finding_python_3
      <span class="n">modules</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
      <span class="k">del</span> <span class="n">modules</span>
 </code></pre></div>
-<p>Now the results are less, but still quite&nbsp;numerous. Based on the information previously learned from <a href="http://blog.delroth.net/2013/03/escaping-a-python-sandbox-ndh-2013-quals-writeup/">this guy</a>, I realized that the key was to get into an objects <code>__enter__</code>. Scrolling though the&nbsp;indices&nbsp; we see that warnings.catch<em>warnings (previously caused an exception) can be accessed through its `</em><em>enter</em>_` param (without invoking it). This looks quite promising, and using one of the strings from the search, we get this:</p>
+<p>Now the results are less, but still quite&nbsp;numerous. Based on the information previously learned from <a href="http://blog.delroth.net/2013/03/escaping-a-python-sandbox-ndh-2013-quals-writeup/">this guy</a>, I realized that the key was to get into an objects <code>__enter__</code>. Scrolling though the&nbsp;indices&nbsp; we see that <code>warnings.catch_warnings</code> (previously caused an exception) can be accessed through its <code>__enter__</code> param (without invoking it). This looks quite promising, and using one of the strings from the search, we get this:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">     # target, with 50 character max per line
      # warnings.catch_warnings.__enter__.__func__.__globals__[&#39;linecache&#39;].checkcache.__globals__[&#39;os&#39;]
      w[53]
