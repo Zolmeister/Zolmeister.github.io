@@ -228,7 +228,7 @@ Well, as it turns out, those are false positives (they return the local broken `
      modules.clear()
      del modules
 ```
-Now the results are less, but still quite&nbsp;numerous. Based on the information previously learned from [this guy](http://blog.delroth.net/2013/03/escaping-a-python-sandbox-ndh-2013-quals-writeup/), I realized that the key was to get into an objects `__enter__`. Scrolling though the&nbsp;indices&nbsp; we see that warnings.catch_warnings (previously caused an exception) can be accessed through its `__enter__` param (without invoking it). This looks quite promising, and using one of the strings from the search, we get this:
+Now the results are less, but still quite&nbsp;numerous. Based on the information previously learned from [this guy](http://blog.delroth.net/2013/03/escaping-a-python-sandbox-ndh-2013-quals-writeup/), I realized that the key was to get into an objects `__enter__`. Scrolling though the&nbsp;indices&nbsp; we see that `warnings.catch_warnings` (previously caused an exception) can be accessed through its `__enter__` param (without invoking it). This looks quite promising, and using one of the strings from the search, we get this:
 
 ```
      # target, with 50 character max per line
