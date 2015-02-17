@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>10x: Service Discovery at Clay.io - Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2015-02-17">17 Feb 2015</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">10x: Service Discovery at Clay.io</a></h1>
+
+        <section class="post-content">
+            <p><img src="/assets/images/synapse.png" alt="synapse architecture"></p>
+
+<h4>Architecture</h4>
+
+<p><a href="http://en.wikipedia.org/wiki/Service-oriented_architecture">Service Oriented Architectures</a>
+can be one of the most iterable and available software configurations for building almost any product.
+There are many challenges that come with these systems, probably the biggest of which is service discovery.
+This is how your services will communicate with each other. For our service discovery, we turn again to Docker. If you haven&#39;t read how
+we do deploys: <a href="http://zolmeister.com/2014/12/10x-docker-at-clay-io.html">Docker at Clay.io</a></p>
+
+<h2>Tutorial</h2>
+
+<p>Synapse (<a href="https://github.com/claydotio/synapse">https://github.com/claydotio/synapse</a>) is a daemon which dynamically configures a local HAproxy configuration which routes
+requests to services within your cluster. It watches Amazon EC2 (or another endpoint) for services, specified in a configuration file.
+We use the <code>ec2tag</code> watcher, which easily lets us add servers to our cluster by tagging them.</p>
+
+<h4>HAProxy</h4>
+
+<p>Alright, so let&#39;s start with the services. They will be talking to each other via the local
+<a href="http://www.haproxy.org/">HAProxy</a> instance. Because services run inside docker, we need to specify the host IP
+for services to look for services at a specific port.</p>
+
+<p>Here, we use <a href="http://www.ansible.com/home">Ansible</a> to pass the local IP and port to service running on that machine.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">SERVICE_API=http://{ ansible_default_ipv4.address }:{ service_port }
+</code></pre></div>
+<p>For a service to use another service, they simply make calls to that IP/port.
+The key here is that the IP is the local machine IP, which is handled by HAProxy.
+We have released an HAProxy docker container which watches a mounted config file,
+and updates automatically on changes:<br>
+<a href="https://github.com/claydotio/haproxy">https://github.com/claydotio/haproxy</a></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">docker run
+    --restart always
+    --name haproxy
+    -v /var/log:/var/log
+    -v /etc/haproxy:/etc/haproxy
+    -d
+    -p 50001:50001
+    -p 50002:50002
+    -p 50003:50003
+    -p 50004:50004
+    ...
+    -p 1937:1937
+    -t clay/haproxy
+</code></pre></div>
+<p>By default, we use the <a href="https://github.com/claydotio/haproxy/blob/master/noop.cfg">noop config</a> at <code>/etc/haproxy</code>, which gets mounted inside the docker container and watched for changes. We will be mounting the same haproxy config inside our synapse container in a moment. It&#39;s important to note that if this container goes down, all services on the machine will be cut off from all other services. For that reason, we have allocated additional ports to the container for use with new services in the future (as they cannot be <a href="http://stackoverflow.com/questions/19897743/exposing-a-port-on-a-live-docker-container">dynamically allocated</a>).</p>
+
+<h4>Synapse</h4>
+
+<p>Ok, now it&#39;s time to actually set up synapse.</p>
+
+<p>Running synapse (thanks to our public Docker container) is easy.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">docker run
+    --restart always
+    --name synapse
+    -v /var/log:/var/log
+    -v /etc/synapse:/etc/synapse
+    -v /etc/haproxy:/etc/haproxy
+    -e AWS_ACCESS_KEY_ID=XXX
+    -e AWS_SECRET_ACCESS_KEY=XXX
+    -e AWS_REGION=XXX
+    -d
+    -t clay/synapse
+    synapse -c /etc/synapse/synapse.conf.json
+</code></pre></div>
+<p>Notice how we are mounting a synapse config, and an haproxy config inside the container. The HAProxy config is our noop config from before (because it will be auto-generated by synapse), but let&#39;s look into configuring synapse.</p>
+
+<p>Configuring synapse can be a bit tricky, as the <a href="https://github.com/claydotio/synapse">documentation</a> could be better. Here is an example config that should explain everything that&#39;s missing in the docs:</p>
+
+<p><a href="https://github.com/claydotio/synapse/blob/master/example.synapse.conf.json">source</a></p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="s2">&quot;services&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;myservice&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;discovery&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// use amazon ec2 tags</span>
+        <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ec2tag&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tag_name&quot;</span><span class="o">:</span> <span class="s2">&quot;servicename&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tag_value&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+        <span class="c1">// if this is too low, Amazon will rate-limit and block requests</span>
+        <span class="s2">&quot;check_interval&quot;</span><span class="o">:</span> <span class="mf">120.0</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;haproxy&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// This is the port other services will use to talk to this service</span>
+        <span class="c1">// e.g. http://10.0.1.10:50003</span>
+        <span class="s2">&quot;port&quot;</span><span class="o">:</span> <span class="mi">50003</span><span class="p">,</span>
+        <span class="s2">&quot;listen&quot;</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s2">&quot;mode http&quot;</span>
+        <span class="p">],</span>
+        <span class="c1">// This is the port that the service exposes itself</span>
+        <span class="s2">&quot;server_port_override&quot;</span><span class="o">:</span> <span class="s2">&quot;50001&quot;</span><span class="p">,</span>
+        <span class="c1">// This is our custom (non-documented) config for our backup server</span>
+        <span class="c1">// See http://zolmeister.com/2014/12/10x-docker-at-clay-io.html</span>
+        <span class="c1">// for details on how our zero-downtime deploys work</span>
+        <span class="s2">&quot;server_backup_port&quot;</span><span class="o">:</span> <span class="s2">&quot;50002&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;server_options&quot;</span><span class="o">:</span> <span class="s2">&quot;check&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="c1">// See the manual for details on parameters:</span>
+  <span class="c1">// http://cbonte.github.io/haproxy-dconv/configuration-1.5.html</span>
+  <span class="s2">&quot;haproxy&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="c1">// This is never used because HAProxy runs in a separate container</span>
+    <span class="c1">// Reloads happen automatically via the file-watcher</span>
+    <span class="s2">&quot;reload_command&quot;</span><span class="o">:</span> <span class="s2">&quot;echo noop&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;config_file_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/etc/haproxy/haproxy.cfg&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;socket_file_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/var/haproxy/stats.sock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;do_writes&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">&quot;do_reloads&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">&quot;do_socket&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="c1">// By default, this is localhost, however because HAProxy is running</span>
+    <span class="c1">// inside of a container, we need to expose it to the host machine</span>
+    <span class="s2">&quot;bind_address&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;global&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">&quot;daemon&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;user    haproxy&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;group   haproxy&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;chroot  /var/lib/haproxy&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;maxconn 4096&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;log     127.0.0.1 local0&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;log     127.0.0.1 local1 notice&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;defaults&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">&quot;log            global&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;mode           http&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;maxconn        2000&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;retries        3&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;timeout        connect 5s&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;timeout        client  1m&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;timeout        server  1m&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;option         redispatch&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;balance        roundrobin&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;default-server inter 2s rise 3 fall 2&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;option         dontlognull&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;option         dontlog-normal&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;extra_sections&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;listen stats :1937&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;stats enable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stats uri /&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stats realm Haproxy Statistics&quot;</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4>Conclusion</h4>
+
+<p>That&#39;s all there is to it. Special thanks to Airbnb for open-sourcing their tool,
+which allowed us to set up service discovery in a simple and scalable way. For those
+not on Amazon EC2, there is a <a href="http://zookeeper.apache.org/">Zookeeper</a> watcher (which we did not want to deal with),
+and hopefully soon an etcd watcher:<br>
+<a href="https://github.com/airbnb/synapse/pull/58">https://github.com/airbnb/synapse/pull/58</a></p>
+
+<p>Once that&#39;s merged, we may move to using <a href="https://github.com/airbnb/nerve">Nerve</a> with <a href="https://github.com/coreos/etcd">etcd</a> instead of EC2 tags to handle service announcement. For reference, I&#39;ll leave this etcd example docker information here:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">curl https://discovery.etcd.io/new?size=3
+docker run
+    --restart always
+    --name etcd
+    -d
+    -p 2379:2379
+    -p 2380:2380
+    -v /opt/etcd:/opt/etcd
+    -v /var/log:/var/log
+    -v /etc/ssl/certs:/etc/ssl/certs
+    quay.io/coreos/etcd:v2.0.0
+    -data-dir /opt/etcd
+    -name etcd-unique-name
+    -listen-client-urls http://0.0.0.0:2379
+    -listen-peer-urls http://0.0.0.0:2380
+    -advertise-client-urls http://localhost:2379
+    -initial-advertise-peer-urls http://localhost:2380
+    -discovery https://discovery.etcd.io/XXXXXXXXXXXX
+    -initial-cluster-token cluster-token-here
+</code></pre></div>
+<p>(see <a href="https://coreos.com/docs/cluster-management/setup/cluster-discovery/">discovery docs</a> for url)</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="http://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=10x: Service Discovery at Clay.io&amp;url=http://zolmeister.com/2015/02/10x-service-discovery-at-clay-io.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2015/02/10x-service-discovery-at-clay-io.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2015/02/10x-service-discovery-at-clay-io.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>
