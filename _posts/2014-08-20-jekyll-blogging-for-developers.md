@@ -54,7 +54,7 @@ Both Medium and Svbtle control the display of posts, which is a big downside,
 but they are extremely simple to use just for writing.
 
 Ghost was most interesting,
-and my inspiration for a [Blogging for Developers](http://localhost:4000/2014/02/dematerializer-blogging-for-developers.html)
+and my inspiration for a [Blogging for Developers](http://zolmeister.com/2014/02/dematerializer-blogging-for-developers.html)
 hackathon project. However, it's development has been slow in coming partially due
 to a [rewrite in Ember.js](https://github.com/TryGhost/Ghost/issues?q=milestone%3A%220.4+Ember.js%22)
 which took about 4 months. I simply couldn't wait this long, and without free
