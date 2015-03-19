@@ -208,6 +208,8 @@ and then describe how to create a &amp;#39;container&amp;#39; using a Dockerfile
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/docker-diagram.png&quot; alt=&quot;docker diagram&quot;&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; &lt;a href=&quot;https://gist.github.com/Zolmeister/aa0cf06678170a39c3c0&quot;&gt;Example Ansible Config&lt;/a&gt; (may not follow best practices)&lt;/p&gt;
+
 &lt;p&gt;Our deploy process looks like this:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -1192,7 +1194,7 @@ I made some great connections, and learned a ton. I have since moved to a Live/W
 &lt;p&gt;Background Music
 A while back I created a game called &lt;a href=&quot;http://avabranch.zolmeister.com/&quot;&gt;Avabranch&lt;/a&gt;, wherein I used a background sound track I found on &lt;a href=&quot;https://soundcloud.com/&quot;&gt;Sound Cloud&lt;/a&gt;. The author of that track, &lt;a href=&quot;https://soundcloud.com/chrissij&quot;&gt;Chrissi Jackson&lt;/a&gt;, got in touch with me and offered to create an audio track for The Pond. She did a fantastic job, and got it to me just in time, with the commit going in less than 3 hours before the conference.&lt;/p&gt;
 
-&lt;p&gt;&lt;audio controls=&quot;controls&quot; src=&quot;http://thepond.zolmeister.com/assets/bg.ogg&quot;&gt;&lt;/audio&gt;&lt;/p&gt;
+&lt;audio controls=&quot;controls&quot; src=&quot;http://thepond.zolmeister.com/assets/bg.ogg&quot;&gt;&lt;/audio&gt;
 
 &lt;p&gt;Mobile World Congress
 Surprisingly, the vast majority (I&amp;#39;d say ~90%) of attendees were business people and not developers. Even more surprising was the crazy world of meetings which manifested itself at the conference by means of physical meeting rooms. The first hall was entirely dedicated to meeting rooms, and more were spread out throughout the rest of the halls. That being said, I personally got to speak with some amazing people, including the guy behind &lt;a href=&quot;http://js13kgames.com/&quot;&gt;js13k games&lt;/a&gt; (for which I wrote &lt;a href=&quot;http://www.zolmeister.com/2013/09/senshi-mmo-battle-royale-inspired-html5.html&quot;&gt;Senshi&lt;/a&gt;), someone from &lt;a href=&quot;http://www.aviary.com/&quot;&gt;Aviary&lt;/a&gt;, and a few people from &lt;a href=&quot;http://line.me/en/&quot;&gt;Line&lt;/a&gt;.&lt;/p&gt;
