@@ -20,7 +20,7 @@ and then describe how to create a 'container' using a Dockerfile.
 
 ![docker diagram](/assets/images/docker-diagram.png)
 
-#### Update: [Example Ansible Config](https://gist.github.com/Zolmeister/aa0cf06678170a39c3c0) (may not follow best practices)
+**Update:** [Example Ansible Config](https://gist.github.com/Zolmeister/aa0cf06678170a39c3c0) (may not follow best practices)
 
 Our deploy process looks like this:
 
