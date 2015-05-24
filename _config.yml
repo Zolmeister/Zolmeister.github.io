@@ -7,7 +7,7 @@ rss_path: feeds/posts/
 rss_name: default
 
 markdown: redcarpet
-pygments: true
+highlighter: pygments
 logo: false
 paginate: 15
 
