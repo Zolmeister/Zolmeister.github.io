@@ -8,7 +8,212 @@
     <title>Zolmeister</title>
     <link>http://zolmeister.com</link>
     <description>Zolmeister - Blog</description>
-    <pubDate>Tue, 17 Feb 2015 00:00:00 -0800</pubDate>
+    <pubDate>Sun, 24 May 2015 00:00:00 -0700</pubDate>
+    <item>
+      <title>Zorium v1.0.0 (╯°□°)╯︵ ┻━┻</title>
+      <link>http://zolmeister.com/2015/05/zorium.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;https://zorium.org/&quot;&gt;&lt;img src=&quot;/assets/images/zorium_logo_728.png&quot; alt=&quot;zorium&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;The CoffeeScript Web Framework&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://zorium.org/&quot;&gt;Zorium&lt;/a&gt; (&lt;a href=&quot;https://github.com/Zorium/zorium&quot;&gt;source&lt;/a&gt;) is the web framework we use at &lt;a href=&quot;http://clay.io/&quot;&gt;Clay.io&lt;/a&gt;.&lt;br&gt;
+Today it has finally reached version v1.0.0 (╯°□°)╯︵ ┻━┻  &lt;/p&gt;
+
+&lt;p&gt;This has been one of the most challenging projects I&amp;#39;ve worked on, with many great lessons learned.
+What follows is how Zorium came to be what it is today, and an explanation of design decisions in the framework.&lt;/p&gt;
+
+&lt;p&gt;With Zorium (or any framework), the code is the easy part. The hard part is the design and architecture of an application.
+This is where Zorium stands out from the rest. Just start with &lt;a href=&quot;https://github.com/Zorium/zorium-seed&quot;&gt;Zorium Seed&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For the full documentation: &lt;a href=&quot;https://zorium.org&quot;&gt;https://zorium.org&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Special thanks to &lt;a href=&quot;https://github.com/Matt-Esch&quot;&gt;Matt Esch&lt;/a&gt; and &lt;a href=&quot;https://github.com/Raynos&quot;&gt;Jake Verbaten&lt;/a&gt;, without whom Zorium would not exist.&lt;/p&gt;
+
+&lt;h4&gt;Example&lt;/h4&gt;
+
+&lt;p&gt;Because every framework should start with code:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffee&quot; data-lang=&quot;coffee&quot;&gt;&lt;span class=&quot;nv&quot;&gt;z = &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;zorium&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;constructor: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@state = &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;name: &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Zorium&amp;#39;&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;render: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;=&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;@state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;div.zorium&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;p.text&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&amp;quot;The Future is &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;div&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# &amp;lt;div class=&amp;quot;zorium&amp;quot;&amp;gt;&amp;lt;p class=&amp;quot;text&amp;quot;&amp;gt;The Future is Zorium&amp;lt;/p&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Notice:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Components are just CoffeeScript classes&lt;/li&gt;
+&lt;li&gt;There is no magic pre-processor (i.e. JSX)&lt;/li&gt;
+&lt;li&gt;It&amp;#39;s simple, intuitive, and idiomatic. No magic.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;API Overview&lt;/h4&gt;
+
+&lt;p&gt;The two most important methods in Zorium are &lt;code&gt;z()&lt;/code&gt; and &lt;code&gt;z.state()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;z()&lt;/code&gt; is simply an extension of &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom/blob/master/virtual-hyperscript/README.md&quot;&gt;virtual-hyperscript&lt;/a&gt;, which understands Zorium components.
+The most difficult implementation detail here was constructing an in-memory cached tree for efficient rendering.
+Eventually this was solved with &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom/blob/master/docs/thunk.md&quot;&gt;Thunks&lt;/a&gt; and traversing the virtual-tree (&lt;a href=&quot;https://github.com/Zorium/zorium/blob/master/src/z.coffee#L55&quot;&gt;source&lt;/a&gt;).&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffee&quot; data-lang=&quot;coffee&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# Component composition example&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Brick&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;render: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;({name}) -&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.z-brick&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&amp;quot;Hello &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;House&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;constructor: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@$brick = &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Brick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;render: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;=&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.z-house&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;@$brick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;name: &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Zorium&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;z.state()&lt;/code&gt; creates an instance of &lt;a href=&quot;https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md&quot;&gt;Rx.BehaviorSubject()&lt;/a&gt;,
+with a &lt;code&gt;set()&lt;/code&gt; method for diffing the current value (and also some lazy-ness to make async more efficient).&lt;/p&gt;
+
+&lt;p&gt;Originally a simpler model using &lt;a href=&quot;https://github.com/Raynos/observ-struct&quot;&gt;observ-struct&lt;/a&gt; was used, however it did not provide a declarative syntax for dealing with complex streams of data.  &lt;/p&gt;
+
+&lt;p&gt;e.g. We want to display the number of likes of the users favorite game.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If the user changes their favorite game, the value should update.&lt;/li&gt;
+&lt;li&gt;If another user likes the game, the value should update.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffee&quot; data-lang=&quot;coffee&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# Note that we assume the models update themselves and emit streams.&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;numLikes: &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Models&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getMe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;flatMapLatest&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;({favoriteGameId}) -&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Models&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Game&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getById&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;favoriteGameId&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;(game) -&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;game&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;numLikes&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Zorium Paper&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://zorium.org/paper&quot;&gt;https://zorium.org/paper&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Zorium/zorium-paper&quot;&gt;Zorium Paper&lt;/a&gt; was the first npm-installable set of components for Zorium. Here&amp;#39;s what it looks like to use it:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffee&quot; data-lang=&quot;coffee&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# npm install zorium-paper&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;Button = &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;zorium-paper/button&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Clicker&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;constructor: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@$button = &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;render: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.z-clicker&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;@$button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$content: &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Click Me&amp;#39;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;isRaised: &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The key to using and npm module and maintaining efficient css (separable styles for production) is to use &lt;a href=&quot;http://webpack.github.io/&quot;&gt;webpack&lt;/a&gt;.
+Webpack lets Zorium components declaratively define styles which can be efficiently loaded using webpack without resorting to inefficient inlining or other duplication.&lt;/p&gt;
+
+&lt;p&gt;Just having webpack is not enough though. Without shadow-dom we don&amp;#39;t have true CSS isolation. In order to let developers use  semantic classes without conflicting with each other, a namespace pattern was developed:&lt;/p&gt;
+
+&lt;p&gt;(&lt;a href=&quot;https://zorium.org/best-practices/stylus&quot;&gt;full docs&lt;/a&gt;)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffee&quot; data-lang=&quot;coffee&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;./index.styl&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BigDrawer&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;render: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.z-big-drawer&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# namespace&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.blue&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;blue&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sass&quot; data-lang=&quot;sass&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// index.styl&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// namespace&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.z-big-drawer&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// direct children only&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.blue&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;blue&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;User-land components should use the &lt;code&gt;z-&lt;/code&gt; prefix, while library authors should namespace under a different prefix.&lt;/p&gt;
+
+&lt;h4&gt;Server Side Rendering&lt;/h4&gt;
+
+&lt;p&gt;Efficient server-side rendering is non-trivial. It requires application code to be written statelessly, and thus needs to be considered from the start of a project.
+In fact, the state issue was so elusive, it wasn&amp;#39;t until after Zorium v1.0.0-rc15 that I realized a &lt;a href=&quot;https://github.com/Zorium/zorium/commit/87fdfa82d0da7583a5473c57b4d1b1f6599019b1&quot;&gt;critical mistake&lt;/a&gt; I had made regarding concurrent requests.  &lt;/p&gt;
+
+&lt;p&gt;After realizing my mistake, I decided to take a page from React, and implement a simpler &lt;code&gt;z.renderToString()&lt;/code&gt; (with async support).&lt;br&gt;
+Note that the server simply acts as a pre-renderer. Do not write server-side business logic here.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffee&quot; data-lang=&quot;coffee&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# server-side&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;app = &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;express&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;(req, res, next) -&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;renderToString&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;App&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;(html) -&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;lt;!DOCTYPE html&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;(err) -&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;lt;!DOCTYPE html&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The built in router, &lt;code&gt;z.router&lt;/code&gt;, attempts to expose an express-like api. Note the difference in where &lt;code&gt;new App()&lt;/code&gt; is called, as client-side you want a stateful App for transitions.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffee&quot; data-lang=&quot;coffee&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$app = &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;App&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;router&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;(req, res) -&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Sometimes it will be necessary to split code between node and client-side. Use &lt;code&gt;window?&lt;/code&gt; to check:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffee&quot; data-lang=&quot;coffee&quot;&gt;&lt;span class=&quot;nv&quot;&gt;Promise = &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Avoid webpack include&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;_Promise = &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;promiz&amp;#39;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_Promise&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Zorium&amp;#39;s boldest claim is probably that you can achieve nearly 100% code re-use for client and server-side code. Normally with other frameworks database requests are made and injected at different initialization points within the application.  &lt;/p&gt;
+
+&lt;p&gt;This doesn&amp;#39;t scale well for complex nested structures and requires duplicate effort in marshalling data. Zorium uses lazy-states and a platform-agnostic request library to create a seamless transition from client-side code to server-side code.&lt;/p&gt;
+
+&lt;p&gt;This area is probably the most complex because developers usually don&amp;#39;t have to worry about state in this way. (e.g. creating singletons client-side is fine, but server-side will cause elusive caching bugs)&lt;/p&gt;
+
+&lt;h4&gt;Comparison to other virtual-dom libraries&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/zorium_icon_256.png&quot; alt=&quot;zorium icon&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;The Zorium framework is a collection of patterns, which are expressed in &lt;a href=&quot;https://github.com/Zorium/zorium-seed&quot;&gt;Zorium Seed&lt;/a&gt;. However, as a library is has some key differences from other popular virtual-dom libraries.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://facebook.github.io/react/&quot;&gt;React&lt;/a&gt; - The Facebook-backed library that started it all.&lt;br&gt;
+
+&lt;ul&gt;
+&lt;li&gt;React source-code is a convoluted mess. Extending it is nearly impossible. [1]&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;The &lt;a href=&quot;https://facebook.github.io/flux/docs/overview.html&quot;&gt;Flux&lt;/a&gt; architecture is unnecessarily complex. [2]&lt;/li&gt;
+&lt;li&gt;React still has some clear deficiencies with complex animations. [3]&lt;/li&gt;
+&lt;li&gt;The React API makes questionable design choices. [4][5][6]&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://lhorie.github.io/mithril/&quot;&gt;Mithril&lt;/a&gt; - A micro vritual-dom library which seemed quite promising.
+
+&lt;ul&gt;
+&lt;li&gt;We initially used this at Clay for a few months (in a fork), but eventually got rid of it entirely.&lt;/li&gt;
+&lt;li&gt;Source-code is quite complicated, making extending difficult.&lt;/li&gt;
+&lt;li&gt;Manual state-management and rendering updates hurt scalability as our projects grew.&lt;/li&gt;
+&lt;li&gt;Lack of structured best-practices lead to a lot of guessing and implementation mistakes.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Both React and Mithril use different virtual-dom implementations.
+Zorium uses the &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&gt;virtual-dom&lt;/a&gt; library, which is the standard behind many other virtual-dom frameworks (e.g. &lt;a href=&quot;https://github.com/Raynos/mercury&quot;&gt;Mercury&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;1: Seriously, &lt;a href=&quot;https://github.com/facebook/react/blob/52752446760dee0bc7232b4146f5a309ac57f065/src/renderers/shared/reconciler/ReactDefaultBatchingStrategy.js&quot;&gt;this&lt;/a&gt; &lt;a href=&quot;https://github.com/facebook/react/blob/52752446760dee0bc7232b4146f5a309ac57f065/src/renderers/dom/client/ReactReconcileTransaction.js&quot;&gt;is&lt;/a&gt; &lt;a href=&quot;https://github.com/facebook/react/blob/52752446760dee0bc7232b4146f5a309ac57f065/src/renderers/shared/reconciler/ReactCompositeComponent.js&quot;&gt;incomprehensible&lt;/a&gt;. (vs &lt;a href=&quot;https://github.com/Zorium/zorium/blob/master/src/render.coffee&quot;&gt;z.render()&lt;/a&gt; for example)&lt;br&gt;
+2: Because Zorium supports &lt;a href=&quot;https://github.com/Reactive-Extensions/RxJS&quot;&gt;RxJS&lt;/a&gt; Observables in state, async code is declaratively directional (and streaming) and thus avoids the data-binding issues Flux is said to address.&lt;br&gt;
+3: Inter-component communication with animations is nearly impossible (without an event-bus and side-effects), whereas Zorium simply uses RxJS observables to handle complex communications in a declarative way.&lt;br&gt;
+4: &lt;code&gt;React.createClass()&lt;/code&gt; (and extending React.Component) means non-idiomatic initialization. (vs. explicitly calling &lt;code&gt;new Component()&lt;/code&gt;)&lt;br&gt;
+5: JSX magic is not idiomatic code.&lt;br&gt;
+6: Mixins are also a mistake, they are opaque and imperative.  &lt;/p&gt;
+</description>
+      <pubDate>Sun, 24 May 2015 00:00:00 -0700</pubDate>
+      <dc:date>2015-05-24T00:00:00-07:00</dc:date>
+    </item>
     <item>
       <title>10x: Service Discovery at Clay.io</title>
       <link>http://zolmeister.com/2015/02/10x-service-discovery-at-clay-io.html</link>
@@ -5369,6 +5574,6 @@ It specifies what express is doing with the 404 cases:&lt;/p&gt;
       <pubDate>Sat, 14 Apr 2012 00:00:00 -0700</pubDate>
       <dc:date>2012-04-14T00:00:00-07:00</dc:date>
     </item>
-    <dc:date>2015-02-17T00:00:00-08:00</dc:date>
+    <dc:date>2015-05-24T00:00:00-07:00</dc:date>
   </channel>
 </rss>

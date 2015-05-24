@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zorium v1.0.0 (╯°□°)╯︵ ┻━┻ - Zolmeister</title>
+    <meta name="description" content="Zolmeister- Blog" />
+    <link href='http://zolmeister.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Zolmeister - Atom" href="http://www.zolmeister.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="Zolmeister - RSS" href="http://www.zolmeister.com/feeds/posts/default?alt=rss" />
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Zolmeister</span>
+                
+            </a>
+        </header>
+
+        <span class="post-meta">
+        	<time datetime="2015-05-24">24 May 2015</time>
+        	<!--
+        		on
+	        	
+	        -->
+       	</span>
+
+        <h1 class="post-title"><a href="">Zorium v1.0.0 (╯°□°)╯︵ ┻━┻</a></h1>
+
+        <section class="post-content">
+            <p><a href="https://zorium.org/"><img src="/assets/images/zorium_logo_728.png" alt="zorium"></a></p>
+
+<h3>The CoffeeScript Web Framework</h3>
+
+<p><a href="https://zorium.org/">Zorium</a> (<a href="https://github.com/Zorium/zorium">source</a>) is the web framework we use at <a href="http://clay.io/">Clay.io</a>.<br>
+Today it has finally reached version v1.0.0 (╯°□°)╯︵ ┻━┻  </p>
+
+<p>This has been one of the most challenging projects I&#39;ve worked on, with many great lessons learned.
+What follows is how Zorium came to be what it is today, and an explanation of design decisions in the framework.</p>
+
+<p>With Zorium (or any framework), the code is the easy part. The hard part is the design and architecture of an application.
+This is where Zorium stands out from the rest. Just start with <a href="https://github.com/Zorium/zorium-seed">Zorium Seed</a>.</p>
+
+<p>For the full documentation: <a href="https://zorium.org">https://zorium.org</a></p>
+
+<p>Special thanks to <a href="https://github.com/Matt-Esch">Matt Esch</a> and <a href="https://github.com/Raynos">Jake Verbaten</a>, without whom Zorium would not exist.</p>
+
+<h4>Example</h4>
+
+<p>Because every framework should start with code:</p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nv">z = </span><span class="nx">require</span> <span class="s">&#39;zorium&#39;</span>
+
+<span class="k">class</span> <span class="nx">AppComponent</span>
+  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
+    <span class="vi">@state = </span><span class="nx">z</span><span class="p">.</span><span class="nx">state</span>
+      <span class="nv">name: </span><span class="s">&#39;Zorium&#39;</span>
+
+  <span class="nv">render: </span><span class="nf">=&gt;</span>
+    <span class="p">{</span><span class="nx">name</span><span class="p">}</span> <span class="o">=</span> <span class="nx">@state</span><span class="p">.</span><span class="nx">getValue</span><span class="p">()</span>
+
+    <span class="nx">z</span> <span class="s">&#39;div.zorium&#39;</span><span class="p">,</span>
+      <span class="nx">z</span> <span class="s">&#39;p.text&#39;</span><span class="p">,</span>
+        <span class="s">&quot;The Future is </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+
+<span class="nx">z</span><span class="p">.</span><span class="nx">render</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s">&#39;div&#39;</span><span class="p">),</span> <span class="k">new</span> <span class="nx">AppComponent</span><span class="p">()</span>
+<span class="c1"># &lt;div class=&quot;zorium&quot;&gt;&lt;p class=&quot;text&quot;&gt;The Future is Zorium&lt;/p&gt;&lt;/div&gt;</span>
+</code></pre></div>
+<p>Notice:</p>
+
+<ul>
+<li>Components are just CoffeeScript classes</li>
+<li>There is no magic pre-processor (i.e. JSX)</li>
+<li>It&#39;s simple, intuitive, and idiomatic. No magic.</li>
+</ul>
+
+<h4>API Overview</h4>
+
+<p>The two most important methods in Zorium are <code>z()</code> and <code>z.state()</code>.</p>
+
+<p><code>z()</code> is simply an extension of <a href="https://github.com/Matt-Esch/virtual-dom/blob/master/virtual-hyperscript/README.md">virtual-hyperscript</a>, which understands Zorium components.
+The most difficult implementation detail here was constructing an in-memory cached tree for efficient rendering.
+Eventually this was solved with <a href="https://github.com/Matt-Esch/virtual-dom/blob/master/docs/thunk.md">Thunks</a> and traversing the virtual-tree (<a href="https://github.com/Zorium/zorium/blob/master/src/z.coffee#L55">source</a>).</p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1"># Component composition example</span>
+<span class="k">class</span> <span class="nx">Brick</span>
+  <span class="nv">render: </span><span class="nf">({name}) -&gt;</span>
+    <span class="nx">z</span> <span class="s">&#39;.z-brick&#39;</span><span class="p">.</span>
+      <span class="s">&quot;Hello </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+
+<span class="k">class</span> <span class="nx">House</span>
+  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
+    <span class="vi">@$brick = </span><span class="k">new</span> <span class="nx">Brick</span><span class="p">()</span>
+  <span class="nv">render: </span><span class="nf">=&gt;</span>
+    <span class="nx">z</span> <span class="s">&#39;.z-house&#39;</span><span class="p">,</span>
+      <span class="nx">z</span> <span class="nx">@$brick</span><span class="p">,</span> <span class="p">{</span><span class="nv">name: </span><span class="s">&#39;Zorium&#39;</span><span class="p">}</span>
+</code></pre></div>
+<p><code>z.state()</code> creates an instance of <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md">Rx.BehaviorSubject()</a>,
+with a <code>set()</code> method for diffing the current value (and also some lazy-ness to make async more efficient).</p>
+
+<p>Originally a simpler model using <a href="https://github.com/Raynos/observ-struct">observ-struct</a> was used, however it did not provide a declarative syntax for dealing with complex streams of data.  </p>
+
+<p>e.g. We want to display the number of likes of the users favorite game.</p>
+
+<ul>
+<li>If the user changes their favorite game, the value should update.</li>
+<li>If another user likes the game, the value should update.</li>
+</ul>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1"># Note that we assume the models update themselves and emit streams.</span>
+<span class="nx">z</span><span class="p">.</span><span class="nx">state</span> <span class="p">{</span>
+  <span class="nv">numLikes: </span><span class="nx">Models</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">getMe</span><span class="p">().</span><span class="nx">flatMapLatest</span> <span class="nf">({favoriteGameId}) -&gt;</span>
+      <span class="k">return</span> <span class="nx">Models</span><span class="p">.</span><span class="nx">Game</span><span class="p">.</span><span class="nx">getById</span> <span class="nx">favoriteGameId</span>
+    <span class="p">.</span><span class="nx">map</span> <span class="nf">(game) -&gt;</span>
+      <span class="k">return</span> <span class="nx">game</span><span class="p">.</span><span class="nx">numLikes</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4>Zorium Paper</h4>
+
+<p><a href="https://zorium.org/paper">https://zorium.org/paper</a></p>
+
+<p><a href="https://github.com/Zorium/zorium-paper">Zorium Paper</a> was the first npm-installable set of components for Zorium. Here&#39;s what it looks like to use it:</p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1"># npm install zorium-paper</span>
+<span class="nv">Button = </span><span class="nx">require</span> <span class="s">&#39;zorium-paper/button&#39;</span>
+
+<span class="k">class</span> <span class="nx">Clicker</span>
+  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
+    <span class="vi">@$button = </span><span class="k">new</span> <span class="nx">Button</span><span class="p">()</span>
+  <span class="nv">render: </span><span class="nf">-&gt;</span>
+    <span class="nx">z</span> <span class="s">&#39;.z-clicker&#39;</span><span class="p">,</span>
+      <span class="nx">z</span> <span class="nx">@$button</span><span class="p">,</span>
+        <span class="nv">$content: </span><span class="s">&#39;Click Me&#39;</span>
+        <span class="nv">isRaised: </span><span class="kc">true</span>
+</code></pre></div>
+<p>The key to using and npm module and maintaining efficient css (separable styles for production) is to use <a href="http://webpack.github.io/">webpack</a>.
+Webpack lets Zorium components declaratively define styles which can be efficiently loaded using webpack without resorting to inefficient inlining or other duplication.</p>
+
+<p>Just having webpack is not enough though. Without shadow-dom we don&#39;t have true CSS isolation. In order to let developers use  semantic classes without conflicting with each other, a namespace pattern was developed:</p>
+
+<p>(<a href="https://zorium.org/best-practices/stylus">full docs</a>)</p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="k">if</span> <span class="nb">window</span><span class="o">?</span>
+  <span class="nx">require</span> <span class="s">&#39;./index.styl&#39;</span>
+
+<span class="k">class</span> <span class="nx">BigDrawer</span>
+  <span class="nv">render: </span><span class="nf">-&gt;</span>
+    <span class="nx">z</span> <span class="s">&#39;.z-big-drawer&#39;</span><span class="p">,</span> <span class="c1"># namespace</span>
+      <span class="nx">z</span> <span class="s">&#39;.blue&#39;</span><span class="p">,</span> <span class="s">&#39;blue&#39;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-sass" data-lang="sass"><span class="c1">// index.styl</span>
+
+<span class="c1">// namespace</span>
+<span class="nc">.z-big-drawer</span>
+  <span class="c1">// direct children only</span>
+  <span class="o">&gt;</span> <span class="nc">.blue</span>
+    <span class="na">background</span><span class="o">:</span> <span class="nb">blue</span>
+</code></pre></div>
+<p>User-land components should use the <code>z-</code> prefix, while library authors should namespace under a different prefix.</p>
+
+<h4>Server Side Rendering</h4>
+
+<p>Efficient server-side rendering is non-trivial. It requires application code to be written statelessly, and thus needs to be considered from the start of a project.
+In fact, the state issue was so elusive, it wasn&#39;t until after Zorium v1.0.0-rc15 that I realized a <a href="https://github.com/Zorium/zorium/commit/87fdfa82d0da7583a5473c57b4d1b1f6599019b1">critical mistake</a> I had made regarding concurrent requests.  </p>
+
+<p>After realizing my mistake, I decided to take a page from React, and implement a simpler <code>z.renderToString()</code> (with async support).<br>
+Note that the server simply acts as a pre-renderer. Do not write server-side business logic here.</p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1"># server-side</span>
+<span class="nv">app = </span><span class="nx">express</span><span class="p">()</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span> <span class="nf">(req, res, next) -&gt;</span>
+  <span class="nx">z</span><span class="p">.</span><span class="nx">renderToString</span> <span class="nx">z</span> <span class="k">new</span> <span class="nx">App</span><span class="p">(),</span> <span class="p">{</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">}</span>
+  <span class="p">.</span><span class="nx">then</span> <span class="nf">(html) -&gt;</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span> <span class="s">&#39;&lt;!DOCTYPE html&gt;&#39;</span> <span class="o">+</span> <span class="nx">html</span>
+  <span class="p">.</span><span class="nx">catch</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">html</span>
+      <span class="nx">log</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">send</span> <span class="s">&#39;&lt;!DOCTYPE html&gt;&#39;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nx">html</span>
+    <span class="k">else</span>
+      <span class="nx">next</span> <span class="nx">err</span>
+</code></pre></div>
+<p>The built in router, <code>z.router</code>, attempts to expose an express-like api. Note the difference in where <code>new App()</code> is called, as client-side you want a stateful App for transitions.</p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nv">$app = </span><span class="k">new</span> <span class="nx">App</span><span class="p">()</span>
+<span class="nx">z</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">use</span> <span class="nf">(req, res) -&gt;</span>
+  <span class="p">{</span><span class="nx">path</span><span class="p">,</span> <span class="nx">query</span><span class="p">}</span> <span class="o">=</span> <span class="nx">req</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span> <span class="nx">z</span> <span class="nx">$app</span><span class="p">,</span> <span class="p">{</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">}</span>
+</code></pre></div>
+<p>Sometimes it will be necessary to split code between node and client-side. Use <code>window?</code> to check:</p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nv">Promise = </span><span class="k">if</span> <span class="nb">window</span><span class="o">?</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">Promise</span>
+<span class="k">else</span>
+  <span class="c1"># Avoid webpack include</span>
+  <span class="nv">_Promise = </span><span class="s">&#39;promiz&#39;</span>
+  <span class="nx">require</span> <span class="nx">_Promise</span>
+</code></pre></div>
+<p>Zorium&#39;s boldest claim is probably that you can achieve nearly 100% code re-use for client and server-side code. Normally with other frameworks database requests are made and injected at different initialization points within the application.  </p>
+
+<p>This doesn&#39;t scale well for complex nested structures and requires duplicate effort in marshalling data. Zorium uses lazy-states and a platform-agnostic request library to create a seamless transition from client-side code to server-side code.</p>
+
+<p>This area is probably the most complex because developers usually don&#39;t have to worry about state in this way. (e.g. creating singletons client-side is fine, but server-side will cause elusive caching bugs)</p>
+
+<h4>Comparison to other virtual-dom libraries</h4>
+
+<p><img src="/assets/images/zorium_icon_256.png" alt="zorium icon"></p>
+
+<p>The Zorium framework is a collection of patterns, which are expressed in <a href="https://github.com/Zorium/zorium-seed">Zorium Seed</a>. However, as a library is has some key differences from other popular virtual-dom libraries.</p>
+
+<ul>
+<li><a href="https://facebook.github.io/react/">React</a> - The Facebook-backed library that started it all.<br>
+
+<ul>
+<li>React source-code is a convoluted mess. Extending it is nearly impossible. [1]<br></li>
+<li>The <a href="https://facebook.github.io/flux/docs/overview.html">Flux</a> architecture is unnecessarily complex. [2]</li>
+<li>React still has some clear deficiencies with complex animations. [3]</li>
+<li>The React API makes questionable design choices. [4][5][6]</li>
+</ul></li>
+<li><a href="https://lhorie.github.io/mithril/">Mithril</a> - A micro vritual-dom library which seemed quite promising.
+
+<ul>
+<li>We initially used this at Clay for a few months (in a fork), but eventually got rid of it entirely.</li>
+<li>Source-code is quite complicated, making extending difficult.</li>
+<li>Manual state-management and rendering updates hurt scalability as our projects grew.</li>
+<li>Lack of structured best-practices lead to a lot of guessing and implementation mistakes.</li>
+</ul></li>
+</ul>
+
+<p>Both React and Mithril use different virtual-dom implementations.
+Zorium uses the <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> library, which is the standard behind many other virtual-dom frameworks (e.g. <a href="https://github.com/Raynos/mercury">Mercury</a>).</p>
+
+<p>1: Seriously, <a href="https://github.com/facebook/react/blob/52752446760dee0bc7232b4146f5a309ac57f065/src/renderers/shared/reconciler/ReactDefaultBatchingStrategy.js">this</a> <a href="https://github.com/facebook/react/blob/52752446760dee0bc7232b4146f5a309ac57f065/src/renderers/dom/client/ReactReconcileTransaction.js">is</a> <a href="https://github.com/facebook/react/blob/52752446760dee0bc7232b4146f5a309ac57f065/src/renderers/shared/reconciler/ReactCompositeComponent.js">incomprehensible</a>. (vs <a href="https://github.com/Zorium/zorium/blob/master/src/render.coffee">z.render()</a> for example)<br>
+2: Because Zorium supports <a href="https://github.com/Reactive-Extensions/RxJS">RxJS</a> Observables in state, async code is declaratively directional (and streaming) and thus avoids the data-binding issues Flux is said to address.<br>
+3: Inter-component communication with animations is nearly impossible (without an event-bus and side-effects), whereas Zorium simply uses RxJS observables to handle complex communications in a declarative way.<br>
+4: <code>React.createClass()</code> (and extending React.Component) means non-idiomatic initialization. (vs. explicitly calling <code>new Component()</code>)<br>
+5: JSX magic is not idiomatic code.<br>
+6: Mixins are also a mistake, they are opaque and imperative.  </p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Zolmeister"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Zoli Kahan </h4>
+                    	<!-- Author Bio -->
+                    	<p>
+                    		<a target="_blank" href="http://insignia.zolmeister.com">Projects</a> |
+                        <a target="_blank" href="https://github.com/Zolmeister">GitHub</a> |
+                        <a target="_blank" href="http://clay.io">Clay.io</a>
+                    	</p>
+                    </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Zorium v1.0.0 (╯°□°)╯︵ ┻━┻&amp;url=http://zolmeister.com/2015/05/zorium.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://zolmeister.com/2015/05/zorium.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://zolmeister.com/2015/05/zorium.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            
+            <section class="disqus">
+        	    <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+
+            </section>
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30570115-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>
