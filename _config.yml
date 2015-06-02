@@ -1,6 +1,6 @@
 name: Zolmeister
 description: Zolmeister - Blog
-meta_description: "Zolmeister- Blog"
+meta_description: "Zolmeister - Blog - by Zoli Kahan"
 
 permalink: :year/:month/:title.html
 rss_path: feeds/posts/
