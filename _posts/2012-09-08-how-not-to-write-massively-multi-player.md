@@ -7,8 +7,8 @@ date:   2012-09-08
 
 <br>
 #### Welcome to Page Explorer!
-<del>Click [here](javascript:(function(){var%20s=document.createElement() to join!</del>&nbsp;(no longer up)  
-<del>Click [here](javascript:(function(){var%20s=document.createElement()&nbsp;(again)&nbsp;to join! (yes, bug)</del>  
+<del>Click here to join!</del>&nbsp;(no longer up)  
+<del>Click here&nbsp;(again)&nbsp;to join! (yes, bug)</del>  
 Now hit the CAPS LOCK key (to toggle view state)  
 After you have joined here are the controls:
 
@@ -21,7 +21,7 @@ After you have joined here are the controls:
 *   CAPS LOCK = toggle game (visible/hidden)
 *   T = chat (just start typing and the text will appear top-left, then enter to submit)
 
-Want to explore&nbsp;somewhere&nbsp;else? Drag this link: [Page Explorer](javascript:(function(){var%20s=document.createElement() to your bookmarks bar, then click on it when your on the site you want to join (may have to click it twice, also chrome blocks it in https pages).
+Want to explore&nbsp;somewhere&nbsp;else? Drag this link: <del>Page Explorer</del> to your bookmarks bar, then click on it when your on the site you want to join (may have to click it twice, also chrome blocks it in https pages).
 "Wow this is so cool! How can I get the source?" - on [github](https://github.com/Zolmeister/Page-Explorer)!
 Alright, lets break it down!
 A few words of warning before I begin, this game is one of my most poorly written and broken games of all. This was a great learning experience in what not to do with a game, and I hope that you will learn something too.
