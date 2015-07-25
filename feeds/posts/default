@@ -5160,8 +5160,8 @@ Enter &lt;a href=&quot;http://upstart.ubuntu.com/&quot;&gt;upstart&lt;/a&gt;, th
 
 &lt;h4&gt;Welcome to Page Explorer!&lt;/h4&gt;
 
-&lt;p&gt;&lt;del&gt;Click [here](javascript:(function(){var%20s=document.createElement() to join!&lt;/del&gt;&amp;nbsp;(no longer up)&lt;br&gt;
-&lt;del&gt;Click [here](javascript:(function(){var%20s=document.createElement()&amp;nbsp;(again)&amp;nbsp;to join! (yes, bug)&lt;/del&gt;&lt;br&gt;
+&lt;p&gt;&lt;del&gt;Click here to join!&lt;/del&gt;&amp;nbsp;(no longer up)&lt;br&gt;
+&lt;del&gt;Click here&amp;nbsp;(again)&amp;nbsp;to join! (yes, bug)&lt;/del&gt;&lt;br&gt;
 Now hit the CAPS LOCK key (to toggle view state)&lt;br&gt;
 After you have joined here are the controls:&lt;/p&gt;
 
@@ -5176,7 +5176,8 @@ After you have joined here are the controls:&lt;/p&gt;
 &lt;li&gt;  T = chat (just start typing and the text will appear top-left, then enter to submit)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Want to explore&amp;nbsp;somewhere&amp;nbsp;else? Drag this link: &lt;a href=&quot;javascript:(function()%7Bvar%20s=document.createElement()%20to%20your%20bookmarks%20bar,%20then%20click%20on%20it%20when%20your%20on%20the%20site%20you%20want%20to%20join%20(may%20have%20to%20click%20it%20twice,%20also%20chrome%20blocks%20it%20in%20https%20pages).%0A%22Wow%20this%20is%20so%20cool!%20How%20can%20I%20get%20the%20source?%22%20-%20on%20%5Bgithub%5D(https://github.com/Zolmeister/Page-Explorer&quot;&gt;Page Explorer&lt;/a&gt;!
+&lt;p&gt;Want to explore&amp;nbsp;somewhere&amp;nbsp;else? Drag this link: &lt;del&gt;Page Explorer&lt;/del&gt; to your bookmarks bar, then click on it when your on the site you want to join (may have to click it twice, also chrome blocks it in https pages).
+&amp;quot;Wow this is so cool! How can I get the source?&amp;quot; - on &lt;a href=&quot;https://github.com/Zolmeister/Page-Explorer&quot;&gt;github&lt;/a&gt;!
 Alright, lets break it down!
 A few words of warning before I begin, this game is one of my most poorly written and broken games of all. This was a great learning experience in what not to do with a game, and I hope that you will learn something too.&lt;/p&gt;
 
