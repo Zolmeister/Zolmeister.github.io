@@ -2011,6 +2011,8 @@ function moveTo(solution) {
       <link>http://zolmeister.com/2014/01/promiz-micro-promises-in-228-bytes.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/promiz&quot;&gt;&lt;img src=&quot;https://raw.github.com/Zolmeister/promiz/master/imgs/logo.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; &lt;a href=&quot;https://github.com/Zolmeister/promiz&quot;&gt;Promiz&lt;/a&gt; is now an ES6 Promise polyfill. Check out the repo for more.&lt;/p&gt;
+
 &lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/promiz&quot;&gt;Promiz.js&lt;/a&gt; (&lt;a href=&quot;http://www.zolmeister.com/2013/07/promizjs.html&quot;&gt;original post&lt;/a&gt;) is a (now) completely &lt;a href=&quot;http://promises-aplus.github.io/promises-spec/&quot;&gt;Promises/A+&lt;/a&gt; spec compliant library that fits in 590 bytes (min+gzip). In addition, the new&amp;nbsp;&lt;a href=&quot;https://github.com/Zolmeister/promiz#promiz-micro&quot;&gt;Promiz Micro&lt;/a&gt; comes in at 228 bytes (min+gzip) and provides an amazingly clean API.&lt;/p&gt;
 
 &lt;h4&gt;Promiz Micro:&lt;/h4&gt;
