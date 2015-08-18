@@ -6,6 +6,8 @@ date:   2014-01-13
 
 [![](https://raw.github.com/Zolmeister/promiz/master/imgs/logo.png)](https://github.com/Zolmeister/promiz)
 
+**Update:** [Promiz](https://github.com/Zolmeister/promiz) is now an ES6 Promise polyfill. Check out the repo for more.
+
 [Promiz.js](https://github.com/Zolmeister/promiz) ([original post](http://www.zolmeister.com/2013/07/promizjs.html)) is a (now) completely [Promises/A+](http://promises-aplus.github.io/promises-spec/) spec compliant library that fits in 590 bytes (min+gzip). In addition, the new&nbsp;[Promiz Micro](https://github.com/Zolmeister/promiz#promiz-micro) comes in at 228 bytes (min+gzip) and provides an amazingly clean API.
 
 #### Promiz Micro:
