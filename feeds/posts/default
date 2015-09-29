@@ -3557,7 +3557,7 @@ Image resize + crop bash script:&lt;/p&gt;
     <item>
       <title>CharityVid - User Auth, Jasmine Testing, and Dust.js</title>
       <link>https://zolmeister.com/2013/07/charityvid-user-auth-jasmine-testing.html</link>
-      <description>&lt;p&gt;This is the last (official) post in my &lt;a href=&quot;http://charityvid.org/&quot;&gt;CharityVid&lt;/a&gt; series. I&amp;#39;m going to try and cram 3 big topics into one post, so lets see how it goes.&lt;/p&gt;
+      <description>&lt;p&gt;This is the last (official) post in my CharityVid series. I&amp;#39;m going to try and cram 3 big topics into one post, so lets see how it goes.&lt;/p&gt;
 
 &lt;h3&gt;User Authentication&lt;/h3&gt;
 
@@ -3836,7 +3836,7 @@ npm link polish &lt;span class=&quot;c&quot;&gt;# instead of npm install polish&
     <item>
       <title>CharityVid - Front-end Optimization</title>
       <link>https://zolmeister.com/2013/06/charityvid-front-end-optimization.html</link>
-      <description>&lt;p&gt;I&amp;#39;ve written a lot about the &lt;a href=&quot;http://www.zolmeister.com/2013/05/charityvid-server-configuration.html&quot;&gt;backend&lt;/a&gt; behind &lt;a href=&quot;http://charityvid.org/&quot;&gt;CharityVid&lt;/a&gt;, but there is quite a bit of front things that get overlooked when developing a web application. Specifically, front end optimization (eg. page load times, browser compatibility, server latency, etc.) Let&amp;#39;s begin with page load.&lt;/p&gt;
+      <description>&lt;p&gt;I&amp;#39;ve written a lot about the &lt;a href=&quot;http://www.zolmeister.com/2013/05/charityvid-server-configuration.html&quot;&gt;backend&lt;/a&gt; behind CharityVid, but there is quite a bit of front things that get overlooked when developing a web application. Specifically, front end optimization (eg. page load times, browser compatibility, server latency, etc.) Let&amp;#39;s begin with page load.&lt;/p&gt;
 
 &lt;p&gt;There are many good tools for measuring page load times, but these are my favorite:&lt;/p&gt;
 
@@ -3941,8 +3941,8 @@ npm link polish &lt;span class=&quot;c&quot;&gt;# instead of npm install polish&
     <item>
       <title>CharityVid - Server Configuration</title>
       <link>https://zolmeister.com/2013/05/charityvid-server-configuration.html</link>
-      <description>&lt;p&gt;&lt;a href=&quot;http://charityvid.org/&quot;&gt;&lt;img src=&quot;http://charityvid.org/img/logo.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;
-In this post, I will focus on how I run and update the&amp;nbsp;&lt;a href=&quot;http://charityvid.org/&quot;&gt;CharityVid.org&lt;/a&gt;&amp;nbsp;servers, using the following tools:&lt;/p&gt;
+      <description>&lt;p&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-nFJjOIwV1bM/UWscXbfPO1I/AAAAAAAAAcA/RRgsCCYqYKU/s1600/logo.png&quot; alt=&quot;&quot;&gt;
+In this post, I will focus on how I run and update the&amp;nbsp;CharityVid.org&amp;nbsp;servers, using the following tools:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;  &lt;a href=&quot;https://github.com/LearnBoost/up&quot;&gt;Up&lt;/a&gt; &amp;nbsp;- live reload tool&lt;/li&gt;
@@ -4022,7 +4022,7 @@ In this post, I will focus on how I run and update the&amp;nbsp;&lt;a href=&quot
     <item>
       <title>CharityVid - Prepping for scale</title>
       <link>https://zolmeister.com/2013/05/charityvid-prepping-for-scale.html</link>
-      <description>&lt;p&gt;&lt;a href=&quot;http://charityvid.org/img/logo.png&quot;&gt;&lt;img src=&quot;http://charityvid.org/img/logo.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;
+      <description>&lt;p&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-nFJjOIwV1bM/UWscXbfPO1I/AAAAAAAAAcA/RRgsCCYqYKU/s1600/logo.png&quot; alt=&quot;&quot;&gt;
 In this post, I will outline how I setup horizontal scaling on &lt;a href=&quot;http://aws.amazon.com/ec2/?_encoding=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=ur2&amp;amp;tag=zolmeister-20&quot;&gt;AWS EC2&lt;/a&gt;&lt;img src=&quot;http://www.assoc-amazon.com/e/ir?t=zolmeister-20&amp;amp;l=ur2&amp;amp;o=1&quot; alt=&quot;&quot;&gt;, and also how I added server monitoring tools to watch my servers. I will go over:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -4078,7 +4078,7 @@ In this post, I will outline how I setup horizontal scaling on &lt;a href=&quot;
     <item>
       <title>Polish.js - Making JavaScript Better</title>
       <link>https://zolmeister.com/2013/05/polishjs-making-javascript-better.html</link>
-      <description>&lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/Polish.js&quot;&gt;&lt;img src=&quot;https://raw.github.com/Zolmeister/Polish.js/master/polish-logo.png&quot; alt=&quot;Polish.js&quot; title=&quot;Polish.js&quot;&gt;&lt;/a&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/Zolmeister/Polish.js&quot;&gt;Polish.js&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/Polish.js&quot;&gt;&lt;img src=&quot;https://raw.github.com/Zolmeister/Polish.js/master/polish-logo.png&quot; alt=&quot;Polish.js&quot;&gt;&lt;/a&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/Zolmeister/Polish.js&quot;&gt;Polish.js&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;JavaScript is pretty great, but it&amp;#39;s not perfect. So I made it better by adding some extra functionality.
 (note. I add 2 global functions, range and zip because they are amazing, but the rest is either scoped under the Polish namespace, or added onto the default object properties.)&lt;/p&gt;
@@ -4666,13 +4666,13 @@ Then I found this &lt;a href=&quot;http://nedbatchelder.com/blog/201302/finding_
     <item>
       <title>CharityVid - A new way to donate to charity</title>
       <link>https://zolmeister.com/2013/04/charityvid-new-way-to-donate-to-charity.html</link>
-      <description>&lt;p&gt;&lt;a href=&quot;http://charityvid.org/&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-nFJjOIwV1bM/UWscXbfPO1I/AAAAAAAAAcA/RRgsCCYqYKU/s1600/logo.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;  &lt;/p&gt;
+      <description>&lt;p&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-nFJjOIwV1bM/UWscXbfPO1I/AAAAAAAAAcA/RRgsCCYqYKU/s1600/logo.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://charityvid.org/&quot;&gt;CharityVid&lt;/a&gt; allows anybody to donate to a charity of their choice absolutely free, no credit card required. The only thing we ask is that they watch a short sponsored YouTube video, and that&amp;#39;s it.&lt;/p&gt;
+&lt;p&gt;CharityVid allows anybody to donate to a charity of their choice absolutely free, no credit card required. The only thing we ask is that they watch a short sponsored YouTube video, and that&amp;#39;s it.&lt;/p&gt;
 
 &lt;p&gt;I&amp;#39;ve been working on CharityVid for a couple months now, and now finally I&amp;#39;m putting it out there for the world to see. Building it has been extremely interesting from both a&amp;nbsp;business&amp;nbsp;and technical perspective, and I plan to start a mini series here about some of the key&amp;nbsp;technical&amp;nbsp;details that make up the site. I plan on covering:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://charityvid.org/&quot;&gt;&lt;img src=&quot;http://4.bp.blogspot.com/-oU5NKBOUxX0/UWssGZgAQBI/AAAAAAAAAcY/o2a5sHXth1g/s320/charityvid.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://4.bp.blogspot.com/-oU5NKBOUxX0/UWssGZgAQBI/AAAAAAAAAcY/o2a5sHXth1g/s320/charityvid.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;  using an AWS load balancer&lt;/li&gt;
@@ -4693,7 +4693,7 @@ Then I found this &lt;a href=&quot;http://nedbatchelder.com/blog/201302/finding_
     <item>
       <title>ZFeed</title>
       <link>https://zolmeister.com/2013/03/zfeed.html</link>
-      <description>&lt;h2&gt;&lt;del&gt;&lt;a href=&quot;#null&quot;&gt;ZFeed.zolmeister.com&lt;/a&gt;&lt;/del&gt;&amp;nbsp;(&lt;a href=&quot;https://github.com/Zolmeister/ZFeed&quot;&gt;Source&lt;/a&gt;)&lt;/h2&gt;
+      <description>&lt;h2&gt;&lt;del&gt;ZFeed.zolmeister.com&lt;/del&gt;&amp;nbsp;(&lt;a href=&quot;https://github.com/Zolmeister/ZFeed&quot;&gt;Source&lt;/a&gt;)&lt;/h2&gt;
 
 &lt;p&gt;ZFeed is an app I wrote for the &lt;a href=&quot;http://www.hackathon.io/sails-hackathon&quot;&gt;Sails.js hackathon&lt;/a&gt;. Basically It&amp;#39;s a front-end that I find useful for consuming my Google Reader RSS feed. I have all of my subscriptions in one feed, and every day I go through and read/glance at every single article in it (~70 per day). However, I had a few issues with how Google was showing me my articles, so I decided to take matters into my own hands.&lt;/p&gt;
 
@@ -4862,7 +4862,7 @@ Then I found this &lt;a href=&quot;http://nedbatchelder.com/blog/201302/finding_
 &lt;a href=&quot;http://games.zolmeister.com/&quot;&gt;http://games.zolmeister.com/&lt;/a&gt;&lt;br&gt;
 &lt;a href=&quot;http://avabranch.zolmeister.com/&quot;&gt;http://avabranch.zolmeister.com/&lt;/a&gt;&lt;br&gt;
 &lt;a href=&quot;http://gallery.zolmeister.com/&quot;&gt;http://gallery.zolmeister.com/&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;http://charityvid.org/&quot;&gt;http://charityvid.org/&lt;/a&gt;  &lt;/p&gt;
+http://charityvid.org/&lt;/p&gt;
 
 &lt;p&gt;Let me preface this by saying that the way I deployed my sites before was the following:&lt;/p&gt;
 
@@ -4891,7 +4891,7 @@ Enter &lt;a href=&quot;http://upstart.ubuntu.com/&quot;&gt;upstart&lt;/a&gt;, th
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;What this conf file says is that on service start, log the&amp;nbsp;process&amp;#39;s&amp;nbsp;pid (in case we need to kill it), set node to production mode, cd into the site directory (this is necessary because of&amp;nbsp;issues with express.js template loading), and finally start the app. Notice that I start the app with the &amp;quot;up&amp;quot; command, and that I am piping 2&amp;gt;&amp;amp;1 (std err to std out) and appending (&amp;gt;&amp;gt;) it to the log file. The &amp;quot;up&amp;quot; command comes from the &lt;a href=&quot;https://github.com/LearnBoost/up&quot;&gt;up node module&lt;/a&gt;&amp;nbsp;which does auto-updating and load balancing. The alternative to &amp;quot;up&amp;quot; is &lt;a href=&quot;https://github.com/isaacs/node-supervisor&quot;&gt;node-supervisor&lt;/a&gt;&amp;nbsp;which doesn&amp;#39;t do load balancing but can be run on any application out of the box (without the&amp;nbsp;modification&amp;nbsp;required by &amp;quot;up&amp;quot;).&lt;/p&gt;
 
-&lt;p&gt;Ok, so now we have a way to start all of our applications, but how to route all the connections to the right place (remember all our apps are on one server with one IP address). Normally you would use &lt;a href=&quot;http://nginx.org/&quot;&gt;NGINX&lt;/a&gt; (pronounced &amp;quot;engine x&amp;quot;), but the stable branch doesn&amp;#39;t support websockets (used by &lt;a href=&quot;http://zoggle.zolmeister.com/&quot;&gt;http://zoggle.zolmeister.com&lt;/a&gt;) so I decided to go with the simple &lt;a href=&quot;https://github.com/nodejitsu/node-http-proxy&quot;&gt;node-http-proxy&lt;/a&gt; module. The documentation is a bit lacking, but I was able to get all the sites routed, including websockets support and ssl support (for&amp;nbsp;&lt;a href=&quot;https://charityvid.org/&quot;&gt;https://charityvid.org/&lt;/a&gt;). Here is what my app.js file looks like for my &amp;quot;gateway&amp;quot; application:&lt;/p&gt;
+&lt;p&gt;Ok, so now we have a way to start all of our applications, but how to route all the connections to the right place (remember all our apps are on one server with one IP address). Normally you would use &lt;a href=&quot;http://nginx.org/&quot;&gt;NGINX&lt;/a&gt; (pronounced &amp;quot;engine x&amp;quot;), but the stable branch doesn&amp;#39;t support websockets (used by &lt;a href=&quot;http://zoggle.zolmeister.com/&quot;&gt;http://zoggle.zolmeister.com&lt;/a&gt;) so I decided to go with the simple &lt;a href=&quot;https://github.com/nodejitsu/node-http-proxy&quot;&gt;node-http-proxy&lt;/a&gt; module. The documentation is a bit lacking, but I was able to get all the sites routed, including websockets support and ssl support (for&amp;nbsp;https://charityvid.org/). Here is what my app.js file looks like for my &amp;quot;gateway&amp;quot; application:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;http&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;httpProxy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;http-proxy&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;fs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;fs&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
@@ -5340,7 +5340,7 @@ Note: All of these games and more can be found here: &lt;a href=&quot;https://ga
 
 &lt;h4&gt;Third Attempt, &lt;a href=&quot;https://games.zolmeister.com/twotowers(miniv2).html&quot;&gt;Two Towers&lt;/a&gt;:&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://games.zolmeister.com/twotowers(miniv2).html&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-bUXMZCyCPes/T-lOu80EaPI/AAAAAAAAATQ/2k9X1CX1XeY/s200/twotowers.png&quot; alt=&quot;&quot; title=&quot;Two Towers&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://games.zolmeister.com/twotowers(miniv2).html&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-bUXMZCyCPes/T-lOu80EaPI/AAAAAAAAATQ/2k9X1CX1XeY/s200/twotowers.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;After feeling good about my pong implementation, I decided I wanted to make something new and original. I settled on a game where the player spawns objects to attack an enemy base. Another constraint I wanted to have was to keep it below 1KB (it&amp;#39;s &lt;a href=&quot;https://games.zolmeister.com/twotowers(miniv2).html&quot;&gt;1008 bytes&amp;nbsp;currently&lt;/a&gt;), so that it could be compared to the applications at&amp;nbsp;&lt;a href=&quot;http://js1k.com/&quot;&gt;http://js1k.com&lt;/a&gt;&amp;nbsp;(definitely check this out, there are some truly amazing apps people created). This time I did not lose the original non-compressed source:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt; &lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;2d&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -5442,15 +5442,15 @@ Good Luck!&lt;/p&gt;
     <item>
       <title>Zoggle</title>
       <link>https://zolmeister.com/2012/04/zoggle.html</link>
-      <description>&lt;p&gt;Welcome to my guide to &lt;a href=&quot;http://zoggle.zolmeister.com/&quot; title=&quot;Zoggle&quot;&gt;Zoggle&lt;/a&gt;. Zoggle is not affiliated with&amp;nbsp;&lt;a href=&quot;http://en.wikipedia.org/wiki/Boggle&quot; title=&quot;Boggle&quot;&gt;Boggle&lt;/a&gt;.
+      <description>&lt;p&gt;Welcome to my guide to &lt;a href=&quot;http://zoggle.zolmeister.com/&quot;&gt;Zoggle&lt;/a&gt;. Zoggle is not affiliated with&amp;nbsp;&lt;a href=&quot;http://en.wikipedia.org/wiki/Boggle&quot;&gt;Boggle&lt;/a&gt;.
 Zoggle is available...&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;On my website&amp;nbsp; &lt;a href=&quot;http://zoggle.zolmeister.com/&quot; title=&quot;Zoggle&quot;&gt;Zoggle&lt;/a&gt;. (Works on iOS add to home screen)&lt;/li&gt;
-&lt;li&gt;On the &lt;a href=&quot;https://chrome.google.com/webstore/detail/makbpnhaoldbpinpacbppcefmonaimlf&quot; title=&quot;Zoggle - Chrome Web Store&quot;&gt;Chrome Web Store (FREE)&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;On the &lt;a href=&quot;https://play.google.com/store/apps/details?id=zolmeister.zman.zoggle&quot; title=&quot;Zoggle - Play Market&quot;&gt;Android App (Play) Store (FREE)&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;On &lt;a href=&quot;http://apps.facebook.com/zoggle-&quot; title=&quot;Zoggle - Facebook&quot;&gt;facebook&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;On &lt;a href=&quot;https://plus.google.com/112485611194577551761&quot; title=&quot;Zoggle - Google+&quot;&gt;Google+&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;On my website&amp;nbsp; &lt;a href=&quot;http://zoggle.zolmeister.com/&quot;&gt;Zoggle&lt;/a&gt;. (Works on iOS add to home screen)&lt;/li&gt;
+&lt;li&gt;On the &lt;a href=&quot;https://chrome.google.com/webstore/detail/makbpnhaoldbpinpacbppcefmonaimlf&quot;&gt;Chrome Web Store (FREE)&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;On the &lt;a href=&quot;https://play.google.com/store/apps/details?id=zolmeister.zman.zoggle&quot;&gt;Android App (Play) Store (FREE)&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;On &lt;a href=&quot;http://apps.facebook.com/zoggle-&quot;&gt;facebook&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;On &lt;a href=&quot;https://plus.google.com/112485611194577551761&quot;&gt;Google+&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4&gt;How to play:&lt;/h4&gt;
@@ -5470,16 +5470,16 @@ Length : Points
 
 &lt;h4&gt;Problem #1, Real-Time Gaming Data In The Browser:&lt;/h4&gt;
 
-&lt;p&gt;This wasn&amp;#39;t actually a problem I had because I already had a solution in mind. The key to solving this problem is to use &lt;a href=&quot;http://nodejs.org/&quot; title=&quot;Node.js&quot;&gt;Node.js&lt;/a&gt; (with the &lt;a href=&quot;http://expressjs.com/&quot; title=&quot;Express.js&quot;&gt;Express.js&lt;/a&gt; web framework) and &lt;a href=&quot;http://en.wikipedia.org/wiki/WebSocket&quot; title=&quot;Websockets&quot;&gt;Websockets&lt;/a&gt; (&lt;a href=&quot;http://socket.io/&quot; title=&quot;Socket.io&quot;&gt;socket.io&lt;/a&gt;), hosted on &lt;a href=&quot;http://aws.amazon.com/ec2/&quot; title=&quot;Amazon EC2&quot;&gt;Amazon EC2&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This wasn&amp;#39;t actually a problem I had because I already had a solution in mind. The key to solving this problem is to use &lt;a href=&quot;http://nodejs.org/&quot;&gt;Node.js&lt;/a&gt; (with the &lt;a href=&quot;http://expressjs.com/&quot;&gt;Express.js&lt;/a&gt; web framework) and &lt;a href=&quot;http://en.wikipedia.org/wiki/WebSocket&quot;&gt;Websockets&lt;/a&gt; (&lt;a href=&quot;http://socket.io/&quot;&gt;socket.io&lt;/a&gt;), hosted on &lt;a href=&quot;http://aws.amazon.com/ec2/&quot;&gt;Amazon EC2&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h4&gt;Problem #2, The Board Solving Algorithm:&lt;/h4&gt;
 
-&lt;p&gt;The computer generates a random board of letters in a 2-dimensional grid. The next step is to figure out all of the words possible for that given grid. For reference I looked at &lt;a href=&quot;http://stackoverflow.com/questions/746082/how-to-find-list-of-possible-words-from-a-letter-matrix-boggle-solver#746955&quot; title=&quot;Stack Overflow - Boggle Algorithm&quot;&gt;this page&lt;/a&gt;. My solution ended up being slower than the python implementation (200ms vs 80ms), but it was still fast enough to be production worthy.
+&lt;p&gt;The computer generates a random board of letters in a 2-dimensional grid. The next step is to figure out all of the words possible for that given grid. For reference I looked at &lt;a href=&quot;http://stackoverflow.com/questions/746082/how-to-find-list-of-possible-words-from-a-letter-matrix-boggle-solver#746955&quot;&gt;this page&lt;/a&gt;. My solution ended up being slower than the python implementation (200ms vs 80ms), but it was still fast enough to be production worthy.
 The basic steps to my algorithm:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Reduce the size of the dictionary to only contain words possibly made by the grid. This basically consisted of removing all words that contained a letter not on the board. This took my dictionary from 100k, to ~2k.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Flood_fill&quot; title=&quot;Flood Fill&quot;&gt;Flood fill&lt;/a&gt; the board grid starting at the the first letter of the dictionary words to see if they can be made. Flood fill works by recursively &amp;quot;filling&amp;quot; adjacent grid cells. All this means is that I make sure that for example the 2nd filled grid cell contains the 2nd letter of the dictionary word, otherwise return.
+&lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Flood_fill&quot;&gt;Flood fill&lt;/a&gt; the board grid starting at the the first letter of the dictionary words to see if they can be made. Flood fill works by recursively &amp;quot;filling&amp;quot; adjacent grid cells. All this means is that I make sure that for example the 2nd filled grid cell contains the 2nd letter of the dictionary word, otherwise return.
 Flood Fill Graphic:
 &lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/8/89/Recursive_Flood_Fill_8_%28aka%29.gif&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
 &lt;/ol&gt;

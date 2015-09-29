@@ -56,15 +56,15 @@
         <h1 class="post-title"><a href="">Zoggle</a></h1>
 
         <section class="post-content">
-            <p>Welcome to my guide to <a href="http://zoggle.zolmeister.com/" title="Zoggle">Zoggle</a>. Zoggle is not affiliated with&nbsp;<a href="http://en.wikipedia.org/wiki/Boggle" title="Boggle">Boggle</a>.
+            <p>Welcome to my guide to <a href="http://zoggle.zolmeister.com/">Zoggle</a>. Zoggle is not affiliated with&nbsp;<a href="http://en.wikipedia.org/wiki/Boggle">Boggle</a>.
 Zoggle is available...</p>
 
 <ul>
-<li>On my website&nbsp; <a href="http://zoggle.zolmeister.com/" title="Zoggle">Zoggle</a>. (Works on iOS add to home screen)</li>
-<li>On the <a href="https://chrome.google.com/webstore/detail/makbpnhaoldbpinpacbppcefmonaimlf" title="Zoggle - Chrome Web Store">Chrome Web Store (FREE)</a>.</li>
-<li>On the <a href="https://play.google.com/store/apps/details?id=zolmeister.zman.zoggle" title="Zoggle - Play Market">Android App (Play) Store (FREE)</a>.</li>
-<li>On <a href="http://apps.facebook.com/zoggle-" title="Zoggle - Facebook">facebook</a>.</li>
-<li>On <a href="https://plus.google.com/112485611194577551761" title="Zoggle - Google+">Google+</a>.</li>
+<li>On my website&nbsp; <a href="http://zoggle.zolmeister.com/">Zoggle</a>. (Works on iOS add to home screen)</li>
+<li>On the <a href="https://chrome.google.com/webstore/detail/makbpnhaoldbpinpacbppcefmonaimlf">Chrome Web Store (FREE)</a>.</li>
+<li>On the <a href="https://play.google.com/store/apps/details?id=zolmeister.zman.zoggle">Android App (Play) Store (FREE)</a>.</li>
+<li>On <a href="http://apps.facebook.com/zoggle-">facebook</a>.</li>
+<li>On <a href="https://plus.google.com/112485611194577551761">Google+</a>.</li>
 </ul>
 
 <h4>How to play:</h4>
@@ -84,16 +84,16 @@ Length : Points
 
 <h4>Problem #1, Real-Time Gaming Data In The Browser:</h4>
 
-<p>This wasn&#39;t actually a problem I had because I already had a solution in mind. The key to solving this problem is to use <a href="http://nodejs.org/" title="Node.js">Node.js</a> (with the <a href="http://expressjs.com/" title="Express.js">Express.js</a> web framework) and <a href="http://en.wikipedia.org/wiki/WebSocket" title="Websockets">Websockets</a> (<a href="http://socket.io/" title="Socket.io">socket.io</a>), hosted on <a href="http://aws.amazon.com/ec2/" title="Amazon EC2">Amazon EC2</a>.</p>
+<p>This wasn&#39;t actually a problem I had because I already had a solution in mind. The key to solving this problem is to use <a href="http://nodejs.org/">Node.js</a> (with the <a href="http://expressjs.com/">Express.js</a> web framework) and <a href="http://en.wikipedia.org/wiki/WebSocket">Websockets</a> (<a href="http://socket.io/">socket.io</a>), hosted on <a href="http://aws.amazon.com/ec2/">Amazon EC2</a>.</p>
 
 <h4>Problem #2, The Board Solving Algorithm:</h4>
 
-<p>The computer generates a random board of letters in a 2-dimensional grid. The next step is to figure out all of the words possible for that given grid. For reference I looked at <a href="http://stackoverflow.com/questions/746082/how-to-find-list-of-possible-words-from-a-letter-matrix-boggle-solver#746955" title="Stack Overflow - Boggle Algorithm">this page</a>. My solution ended up being slower than the python implementation (200ms vs 80ms), but it was still fast enough to be production worthy.
+<p>The computer generates a random board of letters in a 2-dimensional grid. The next step is to figure out all of the words possible for that given grid. For reference I looked at <a href="http://stackoverflow.com/questions/746082/how-to-find-list-of-possible-words-from-a-letter-matrix-boggle-solver#746955">this page</a>. My solution ended up being slower than the python implementation (200ms vs 80ms), but it was still fast enough to be production worthy.
 The basic steps to my algorithm:</p>
 
 <ol>
 <li>Reduce the size of the dictionary to only contain words possibly made by the grid. This basically consisted of removing all words that contained a letter not on the board. This took my dictionary from 100k, to ~2k.</li>
-<li><a href="https://en.wikipedia.org/wiki/Flood_fill" title="Flood Fill">Flood fill</a> the board grid starting at the the first letter of the dictionary words to see if they can be made. Flood fill works by recursively &quot;filling&quot; adjacent grid cells. All this means is that I make sure that for example the 2nd filled grid cell contains the 2nd letter of the dictionary word, otherwise return.
+<li><a href="https://en.wikipedia.org/wiki/Flood_fill">Flood fill</a> the board grid starting at the the first letter of the dictionary words to see if they can be made. Flood fill works by recursively &quot;filling&quot; adjacent grid cells. All this means is that I make sure that for example the 2nd filled grid cell contains the 2nd letter of the dictionary word, otherwise return.
 Flood Fill Graphic:
 <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Recursive_Flood_Fill_8_%28aka%29.gif" alt=""></li>
 </ol>
