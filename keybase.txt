@@ -4,56 +4,65 @@ https://keybase.io/zolmeister
 
 I hereby claim:
 
-  * I am an admin of http://zolmeister.com
+  * I am an admin of https://zolmeister.com
   * I am zolmeister (https://keybase.io/zolmeister) on keybase.
   * I have a public key with fingerprint 29B1 BB4C 362A 2C14 C19E  4C33 43AA D778 81AE 0EB0
 
-To claim this, I am signing this object:
+To do so, I am signing this object:
 
 {
     "body": {
         "key": {
+            "eldest_kid": "010192a7556b938580ff6ca3917d61cfc85de63cecb0f4dccdfa31bfdf6f3b45f93e0a",
             "fingerprint": "29b1bb4c362a2c14c19e4c3343aad77881ae0eb0",
             "host": "keybase.io",
             "key_id": "43aad77881ae0eb0",
+            "kid": "010192a7556b938580ff6ca3917d61cfc85de63cecb0f4dccdfa31bfdf6f3b45f93e0a",
             "uid": "20fd06f6fa0b12e5cfbc72990fee3b00",
             "username": "zolmeister"
         },
+        "revoke": {
+            "sig_ids": [
+                "eb88b2cff3ddc53ba85b862b10da322eee1af139764cc6547d399269f3a01e620f"
+            ]
+        },
         "service": {
             "hostname": "zolmeister.com",
-            "protocol": "http:"
+            "protocol": "https:"
         },
         "type": "web_service_binding",
         "version": 1
     },
-    "ctime": 1407965924,
+    "ctime": 1443493583,
     "expire_in": 157680000,
-    "prev": "f35e5b624db8a67c1dce3e51966b6916aa35df501f6c6c502b2f442f75bff795",
-    "seqno": 7,
+    "prev": "d8350d54eca5077e4248379f4088ba020f3f12ad47c7adcd605b969433950405",
+    "seqno": 10,
     "tag": "signature"
 }
 
-with the aforementioned key, yielding the PGP signature:
+which yields the signature:
 
 -----BEGIN PGP MESSAGE-----
 Version: GnuPG v1
 
-owFtkV1IFFEUx3dtS1KzksACH+JGkbbKfOzM7GzGUlYkGwR9GZWuc2furMO6M9vs
-rOsH2weSZJRafjwkRp+SGamUT1EqbgUalCVUZg9WYCi0BSIkht2Reqr7cjnn/P7/
-cw6nYcUSS4I17+7b8jP3U7utw/2z0HJgemyqCkBNqgCuKuBHi5+sqD6kB3VFNYAL
-UDwkIXSINEsJlEg6RJJHOKIdtCBIHOd0kgIiECSAHZRoIVOBbaAQQjmKhnM48CoS
-zv6HDy8WKEKWCFZmZYGAJIUYUYYiR/E8ISNEQ2IRDCFdFQII05VaaQApIQPpIGoH
-OF+miMic2mz+D5MjagGsD+qaoYlaKa6VGEbQZUqNiqDJRhD0/nHxQkWV8O5YUIb0
-kKKpwEViUjQU05Z0EBzPMjzlsANUHlR05FVMguFYJ4Gf2QaVYUuZZhADWcohQafA
-ciIpiYhGDMmzLGR5khUEmpFkhiBlVmRFhqAgJTsclMwxUJY5ngHmXidUDbg4PKbg
-w5YhxacKRlhHIJpUa82wWawJlmVLE8zzWZKWr/p71OjaxAV/2ktv3kqQEv/wtNH/
-s+toT68wP7n707rrz5u/u3MK2UH3+g3XmlsXAqK7JmOTJ7JzqjC9zvjYP9jnCbVu
-UX/sB91FfTMDlfSQ3xPv7Zm2/zqfa3SM0r7Nqbqn2lMXe5hunCp4cONITNjhvjWf
-2fWloPPm1WNpr7ZfGpqL7suur8pv3Lbm4It48sb4s9XRraPj+SnRoayv31DkdKG1
-rX3XcPRw1m1bJ9tb03YnvhCpzC5oafI1nTxb+7l075OuudyBCzMTgnF8NnPbyJ7B
-3CJ9xHZvtuzyo/L69+Ppr1uKD02o7RRILh6tTuy4OBZWYm/QuXePrzRM5tfQtlg4
-/Bs=
-=HI7h
+owGtkltoXEUcxnfTxtpNI4WW+JJ6mTyESNjOnLmcM1u0lAiSSioUsWix61zTQ7J7
+1nPObpKGBGMRqaUYERGkICgYVIytBe1CW7TxUqmXB4sxKC1aSEgrVLxUAxWcE/RJ
+H52XYWa+/+/75j8z3b4m15Lve2N+dGr2lmP588sy99D66wvjQEZ6DJTGwZBZncyw
+NklaHgo1KAGIIOKe8CllkuOABtBapgTmyNcMKasCqg3DyigJLdFKaSswklZbZrEk
+1HJsoAC9wIbVQRPX4rCaOqzHJZKSKMw84SlEFOLGrTDBQmjfDwIkDDQSusL9UZJV
+uHBSJKYYRm7PLcqr8f5D/z/nrq/iPGg1ZO5MQIk8Q5WVyvc4h9YYLGHmW09MXBUV
+49QHouGKCZPUxGCiF8SmEQ2ZrLNJOOhiJ6C0FxgZBNJT1mKtFcVSBFQGzJMIaoE9
+zxiDhEWY+4woxSjxNebcY9xiAZFhLg941LGdZyNUq/CsT//yL6qo4rLV4iiNVDTs
+zvanaS0pZbnS5lgtU48YWf6bU5ZhVbuHciUNEydhVAUl5KQqDTMwIgQTjmmAe4EZ
+rYWxKYeZgvosgG5kRqbhkDrAFGpKjBIU+r4hHgmwzy2B7tYCuvTYIk9o4itfaKUZ
+pJIzTjDmFBJIQXazx6uRYztoKgYd0zWvKtJ6bMBE4VC+c20u35K7qbUl+8K5wvqN
+//zrt6/cnHuxmFt76c87jxe+Y7NbRw5vvuu9a1++Mn349IeV5YNdSz2DM9ufhwMr
+Hc/NX803npxbGtgUr8yc2dy+sqW/c+H33U9NnDx/z7U9Dyy98P2a7Xfftumbyda3
+Gtvu//VIs/j6mH/hSve3xdnpC4W29sWLPTsXO2ac12i97cTJqcd6/kgeyTXViaEz
+Rw/KrrO98/LdhQ8u41s7WGHXhuUjRx+crG/duOvcocudd/RPdi+iiR2tO6a+Ln/h
+t352qtT8eDFtW7ftnR9uf/qTJ+b2bXnm0uf199ft7r/3bN8NteHZncdf7X75xp5f
+mm0jXXuPffXmw1c/LXwEzvWl97UE6sfKwM8/9bw2d/H6gVPjL/32Fw==
+=ORmE
 -----END PGP MESSAGE-----
 
 And finally, I am proving ownership of this host by posting or

@@ -11,8 +11,8 @@ highlighter: pygments
 logo: false
 paginate: 15
 
-#baseurl: 'http://zolmeister.com'
+#baseurl: 'https://zolmeister.com'
 
 # Details for the RSS feed generator
-url:            'http://zolmeister.com'
+url:            'https://zolmeister.com'
 author:         'Zoli Kahan'

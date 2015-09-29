@@ -8,10 +8,10 @@ date:   2012-06-26
 
 #### What is Javascript Golfing?
 Well, Javascript golfing is the&nbsp;process&nbsp;of writing the smallest amount of javascript code to do something awesome. It tests your ability to reduce, reuse, and recycle for the purpose of achieving the tiniest footprint possible. Also, it's fun!
-Note: All of these games and more can be found here: [Games.Zolmeister.com](http://games.zolmeister.com/)
+Note: All of these games and more can be found here: [Games.Zolmeister.com](https://games.zolmeister.com/)
 
-#### First attempt, [Snake](http://games.zolmeister.com/snake/tinySnake/):
-My first attempt at golfing was inspired by [MXSnake](http://www.strille.net/works/snake_game_1Kb.php) (back when I didn't even&nbsp;know&nbsp;it was called golfing). Here is my version: [tinySnake](http://games.zolmeister.com/snake/tinySnake/) (686 bytes). Kind of large, not too pretty and nothing really special, except my key events which I think are quite unique.
+#### First attempt, [Snake](https://games.zolmeister.com/snake/tinySnake/):
+My first attempt at golfing was inspired by [MXSnake](http://www.strille.net/works/snake_game_1Kb.php) (back when I didn't even&nbsp;know&nbsp;it was called golfing). Here is my version: [tinySnake](https://games.zolmeister.com/snake/tinySnake/) (686 bytes). Kind of large, not too pretty and nothing really special, except my key events which I think are quite unique.
 
 ```js
 onkeydown = function (a) {
@@ -23,13 +23,13 @@ onkeydown = function (a) {
 
 I realized that the key presses should be directly tied to the movement variables of the snake, so I used the keyCode itself to set the movement (I think it could be done even more elegantly, but it's a start).
 
-#### Second attempt, [Pong](http://games.zolmeister.com/pong.html):
-My second attempt at golfing was inspired by an [article](http://alokmenghrajani.github.com/tron/) on hacker-news I read about, where someone made tron in 219 bytes(!). Instead of trying to best them though, I made [Pong (451 bytes)](http://games.zolmeister.com/pong.html) instead. (Screen is blank until you hit a key, W and A for p1 movement and UP and DOWN for p2 movement). Sadly I don't have the original non-compressed code, but my technique for compression mimicked the tron game.
+#### Second attempt, [Pong](https://games.zolmeister.com/pong.html):
+My second attempt at golfing was inspired by an [article](http://alokmenghrajani.github.com/tron/) on hacker-news I read about, where someone made tron in 219 bytes(!). Instead of trying to best them though, I made [Pong (451 bytes)](https://games.zolmeister.com/pong.html) instead. (Screen is blank until you hit a key, W and A for p1 movement and UP and DOWN for p2 movement). Sadly I don't have the original non-compressed code, but my technique for compression mimicked the tron game.
 
-#### Third Attempt, [Two Towers](http://games.zolmeister.com/twotowers(miniv2).html):
-[![](http://1.bp.blogspot.com/-bUXMZCyCPes/T-lOu80EaPI/AAAAAAAAATQ/2k9X1CX1XeY/s200/twotowers.png "Two Towers")](http://games.zolmeister.com/twotowers(miniv2).html)
+#### Third Attempt, [Two Towers](https://games.zolmeister.com/twotowers(miniv2).html):
+[![](http://1.bp.blogspot.com/-bUXMZCyCPes/T-lOu80EaPI/AAAAAAAAATQ/2k9X1CX1XeY/s200/twotowers.png "Two Towers")](https://games.zolmeister.com/twotowers(miniv2).html)
 
-After feeling good about my pong implementation, I decided I wanted to make something new and original. I settled on a game where the player spawns objects to attack an enemy base. Another constraint I wanted to have was to keep it below 1KB (it's [1008 bytes&nbsp;currently](http://games.zolmeister.com/twotowers(miniv2).html)), so that it could be compared to the applications at&nbsp;[http://js1k.com](http://js1k.com/)&nbsp;(definitely check this out, there are some truly amazing apps people created). This time I did not lose the original non-compressed source:
+After feeling good about my pong implementation, I decided I wanted to make something new and original. I settled on a game where the player spawns objects to attack an enemy base. Another constraint I wanted to have was to keep it below 1KB (it's [1008 bytes&nbsp;currently](https://games.zolmeister.com/twotowers(miniv2).html)), so that it could be compared to the applications at&nbsp;[http://js1k.com](http://js1k.com/)&nbsp;(definitely check this out, there are some truly amazing apps people created). This time I did not lose the original non-compressed source:
 
 ```js
  C = c.getContext('2d')
