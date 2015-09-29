@@ -6,12 +6,12 @@
   xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
   <channel>
     <title>Zolmeister</title>
-    <link>http://zolmeister.com</link>
+    <link>https://zolmeister.com</link>
     <description>Zolmeister - Blog</description>
     <pubDate>Sun, 24 May 2015 00:00:00 -0700</pubDate>
     <item>
       <title>Zorium v1.0.0 (╯°□°)╯︵ ┻━┻</title>
-      <link>http://zolmeister.com/2015/05/zorium.html</link>
+      <link>https://zolmeister.com/2015/05/zorium.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;https://zorium.org/&quot;&gt;&lt;img src=&quot;/assets/images/zorium_logo_728.png&quot; alt=&quot;zorium&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3&gt;The CoffeeScript Web Framework&lt;/h3&gt;
@@ -216,7 +216,7 @@ Zorium uses the &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&
     </item>
     <item>
       <title>10x: Service Discovery at Clay.io</title>
-      <link>http://zolmeister.com/2015/02/10x-service-discovery-at-clay-io.html</link>
+      <link>https://zolmeister.com/2015/02/10x-service-discovery-at-clay-io.html</link>
       <description>&lt;p&gt;&lt;img src=&quot;/assets/images/synapse.png&quot; alt=&quot;synapse architecture&quot;&gt;&lt;/p&gt;
 
 &lt;h4&gt;Architecture&lt;/h4&gt;
@@ -397,7 +397,7 @@ docker run
     </item>
     <item>
       <title>10x: Docker at Clay.io</title>
-      <link>http://zolmeister.com/2014/12/10x-docker-at-clay-io.html</link>
+      <link>https://zolmeister.com/2014/12/10x-docker-at-clay-io.html</link>
       <description>&lt;p&gt;&lt;img src=&quot;/assets/images/docker_logo.png&quot; alt=&quot;docker logo&quot;&gt;&lt;/p&gt;
 
 &lt;h2&gt;Intro&lt;/h2&gt;
@@ -572,7 +572,7 @@ backend mobile
     </item>
     <item>
       <title>10x: Logging at Clay.io</title>
-      <link>http://zolmeister.com/2014/10/10x-logging-at-clay-io.html</link>
+      <link>https://zolmeister.com/2014/10/10x-logging-at-clay-io.html</link>
       <description>&lt;p&gt;&lt;img src=&quot;/assets/images/logstash_logo.png&quot; alt=&quot;logstash logo&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;Managing 20+ servers as a small team is no easy task, and when things go wrong
@@ -626,7 +626,7 @@ a distributed logging system themselves in just a few seconds.&lt;/p&gt;
     </item>
     <item>
       <title>10x: Architecture at Clay.io</title>
-      <link>http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html</link>
+      <link>https://zolmeister.com/2014/10/10x-architecture-at-clay-io.html</link>
       <description>&lt;p&gt;&lt;img src=&quot;/assets/images/clay-architecture-1.png&quot; alt=&quot;Clay.io&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;This is the first post in my new series &lt;code&gt;10x&lt;/code&gt;, where I share my experiences
@@ -798,7 +798,7 @@ progress and may eventually move some of our data into it as we move away from M
     </item>
     <item>
       <title>Developing on Linux</title>
-      <link>http://zolmeister.com/2014/09/developing-on-linux.html</link>
+      <link>https://zolmeister.com/2014/09/developing-on-linux.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/dotfiles&quot;&gt;&lt;img src=&quot;/assets/images/desktop.png&quot; alt=&quot;desktop&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3&gt;&lt;a href=&quot;https://github.com/Zolmeister/dotfiles&quot;&gt;dotfiles&lt;/a&gt;&lt;/h3&gt;
@@ -901,7 +901,7 @@ were a Linux friendly GPU (Nvidia), 32GB of RAM, and 4k monitor support.&lt;/p&g
     </item>
     <item>
       <title>Fuco - A Coloring Game</title>
-      <link>http://zolmeister.com/2014/09/Fuco-a-coloring-game.html</link>
+      <link>https://zolmeister.com/2014/09/Fuco-a-coloring-game.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://fuco.zolmeister.com&quot;&gt;&lt;img src=&quot;/assets/images/fuco_logo.png&quot; alt=&quot;fuco&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://fuco.zolmeister.com/&quot;&gt;Web&lt;/a&gt; |
@@ -1000,7 +1000,7 @@ and them inlined the SVG into the HTML.&lt;/p&gt;
     </item>
     <item>
       <title>Jekyll - Blogging for Developers</title>
-      <link>http://zolmeister.com/2014/08/jekyll-blogging-for-developers.html</link>
+      <link>https://zolmeister.com/2014/08/jekyll-blogging-for-developers.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;/2014/08/jekyll-blogging-for-developers.html&quot;&gt;&lt;img src=&quot;/assets/images/blog-header.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;You may have noticed that this blog moved from &lt;a href=&quot;http://zolmeister.blogspot.com/&quot;&gt;Blogger&lt;/a&gt;
@@ -1069,7 +1069,7 @@ I would recommend technical blogging to every developer, no matter what projects
     </item>
     <item>
       <title>Prism</title>
-      <link>http://zolmeister.com/2014/08/prism-game.html</link>
+      <link>https://zolmeister.com/2014/08/prism-game.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://prism.clay.io/&quot;&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Zolmeister/prism/master/images/440x280.png&quot; alt=&quot;Prism Game&quot;&gt;&lt;/a&gt;&lt;br&gt;
 &lt;a href=&quot;http://prism.clay.io/&quot;&gt;Prism&lt;/a&gt; (&lt;a href=&quot;https://github.com/Zolmeister/prism&quot;&gt;source&lt;/a&gt;) is a &lt;a href=&quot;http://gabrielecirulli.github.io/2048/&quot;&gt;2048&lt;/a&gt; clone, using colors instead of numbers.
 It was created by &lt;a href=&quot;http://austinhallock.com&quot;&gt;Austin&lt;/a&gt; and myself in about a day, mostly for the purposes of
@@ -1203,7 +1203,7 @@ which I wrote in contest with &lt;a href=&quot;https://github.com/allouis/minive
     </item>
     <item>
       <title>CTO/Co-Founder Clay.io</title>
-      <link>http://zolmeister.com/2014/07/cto-cofounder-clay-io.html</link>
+      <link>https://zolmeister.com/2014/07/cto-cofounder-clay-io.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://clay.io&quot;&gt;&lt;img src=&quot;/assets/images/clayio.png&quot; alt=&quot;Clay.io&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4&gt;tl;dr&lt;/h4&gt;
@@ -1285,7 +1285,7 @@ I made some great connections, and learned a ton. I have since moved to a Live/W
     </item>
     <item>
       <title>Zethos - $3.5 million in 1kb</title>
-      <link>http://zolmeister.com/2014/04/zethos-35-million-in-1kb.html</link>
+      <link>https://zolmeister.com/2014/04/zethos-35-million-in-1kb.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://zethos.zolmeister.com/&quot;&gt;&lt;img src=&quot;http://4.bp.blogspot.com/-fwxtkVefC2w/Ux0xB0zKv_I/AAAAAAAACcY/v4-MYpaENck/s1600/Selection_090.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://zethos.zolmeister.com/&quot;&gt;Zethos&lt;/a&gt; is my $3.5 million dollar entry to &lt;a href=&quot;http://js1k.com/2014-dragons/&quot;&gt;js1k 2014&lt;/a&gt;. It&amp;#39;s a speed reading tool, allowing almost anyone to read at 500 words per minute (the average person reading 250wpm &lt;a href=&quot;http://en.wikipedia.org/wiki/Speed_reading&quot;&gt;[1]&lt;/a&gt;). By keeping the text centered within the readers view, the reader is able to reduce costly eye movements and increase their reading speed.&lt;/p&gt;
@@ -1372,7 +1372,7 @@ I made some great connections, and learned a ton. I have since moved to a Live/W
     </item>
     <item>
       <title>The Pond at Mobile World Congress with Firefox OS</title>
-      <link>http://zolmeister.com/2014/03/the-pond-at-mobile-world-congress-on.html</link>
+      <link>https://zolmeister.com/2014/03/the-pond-at-mobile-world-congress-on.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;/2014/03/the-pond-at-mobile-world-congress-on.html&quot;&gt;&lt;img src=&quot;http://2.bp.blogspot.com/-yLV0_IB2btc/UxVqdiPpSQI/AAAAAAAACZA/tFAbgWeJj_E/s1600/ffos-booth.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Last week I attended &lt;a href=&quot;http://www.mobileworldcongress.com/&quot;&gt;Mobile World Congress&lt;/a&gt; in Barcelona, Spain after being invited by Mozilla to show off &lt;a href=&quot;http://thepond.zolmeister.com/&quot;&gt;The Pond&lt;/a&gt; (&lt;a href=&quot;http://www.zolmeister.com/2013/10/the-pond.html&quot;&gt;blog post&lt;/a&gt;). Originally Mozilla found me through my blog, and asked me to write a post about &lt;a href=&quot;https://hacks.mozilla.org/2013/11/the-pond-building-a-multi-platform-html5-game/&quot;&gt;The Pond on Mozilla Hacks&lt;/a&gt;. For Mobile World Congress they were looking for app developers to help showcase &lt;a href=&quot;http://www.mozilla.org/en-US/firefox/os/&quot;&gt;Firefox OS&lt;/a&gt;, which is where I came in.&lt;/p&gt;
@@ -1418,7 +1418,7 @@ Barcelona&lt;/p&gt;
     </item>
     <item>
       <title>Dematerializer - Blogging for developers</title>
-      <link>http://zolmeister.com/2014/02/dematerializer-blogging-for-developers.html</link>
+      <link>https://zolmeister.com/2014/02/dematerializer-blogging-for-developers.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://dematerializer.zolmeister.com/#/&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-eDTRKhEo3Nk/UvnTBuNfD8I/AAAAAAAAB3g/0Tp203WCTlQ/s1600/Selection_086.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4&gt;&lt;a href=&quot;http://dematerializer.zolmeister.com/#/&quot;&gt;Dematerializer&lt;/a&gt; (&lt;a href=&quot;https://github.com/Zolmeister/dematerializer&quot;&gt;Source&lt;/a&gt;)&lt;/h4&gt;
@@ -1489,7 +1489,7 @@ Barcelona&lt;/p&gt;
     </item>
     <item>
       <title>Dropping out of High School to Join a Startup in San Francisco</title>
-      <link>http://zolmeister.com/2014/01/dropping-out-of-high-school-to-join.html</link>
+      <link>https://zolmeister.com/2014/01/dropping-out-of-high-school-to-join.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-Qy77wKAkNIQ/UuXM8nGUZMI/AAAAAAAAB2A/ZaxsJCGxirM/s1600/SF.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4&gt;TL;DR&lt;/h4&gt;
@@ -1853,7 +1853,7 @@ I accept Nomic&amp;#39;s offer.&lt;/p&gt;
     </item>
     <item>
       <title>N Queens Problem - Backtracking</title>
-      <link>http://zolmeister.com/2014/01/n-queens-problem-backtracking.html</link>
+      <link>https://zolmeister.com/2014/01/n-queens-problem-backtracking.html</link>
       <description>&lt;style&gt;
 .clearfix-7da63{clear:both}
 .board-b72b1{border:2px solid #404040;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
@@ -2008,7 +2008,7 @@ function moveTo(solution) {
     </item>
     <item>
       <title>Promiz Micro - Promises in 228 bytes (min+gzip)</title>
-      <link>http://zolmeister.com/2014/01/promiz-micro-promises-in-228-bytes.html</link>
+      <link>https://zolmeister.com/2014/01/promiz-micro-promises-in-228-bytes.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/promiz&quot;&gt;&lt;img src=&quot;https://raw.github.com/Zolmeister/promiz/master/imgs/logo.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; &lt;a href=&quot;https://github.com/Zolmeister/promiz&quot;&gt;Promiz&lt;/a&gt; is now an ES6 Promise polyfill. Check out the repo for more.&lt;/p&gt;
@@ -2177,7 +2177,7 @@ function moveTo(solution) {
     </item>
     <item>
       <title>Zoggle - Rewritten Using AngularJS</title>
-      <link>http://zolmeister.com/2014/01/zoggle-rewritten-using-angularjs.html</link>
+      <link>https://zolmeister.com/2014/01/zoggle-rewritten-using-angularjs.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://4.bp.blogspot.com/-2mf8hrqg5zw/UsdX3VlNL9I/AAAAAAAABkk/acSzRrCi4Xs/s1600/banner2.png&quot;&gt;&lt;img src=&quot;http://4.bp.blogspot.com/-2mf8hrqg5zw/UsdX3VlNL9I/AAAAAAAABkk/acSzRrCi4Xs/s640/banner2.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4&gt;Zoggle, the ultimate word game!&lt;/h4&gt;
@@ -2403,7 +2403,7 @@ function moveTo(solution) {
     </item>
     <item>
       <title>How to turn a WebApp into a native Android application in 5 minutes</title>
-      <link>http://zolmeister.com/2014/01/how-to-turn-webapp-into-native-android.html</link>
+      <link>https://zolmeister.com/2014/01/how-to-turn-webapp-into-native-android.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://cordova.apache.org/&quot;&gt;&lt;img src=&quot;http://3.bp.blogspot.com/-SqDxnYTAGTY/Usee4n4AOjI/AAAAAAAABk0/qTGCfkblXak/s320/logo_full.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;
 &lt;a href=&quot;http://zoggle.zolmeister.com/#/&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/Gu7hOx36GhsxPmZR914AqcYS5wKUxSUNMyxcu_sT79ILntSQyoFa6cfouuNZ8T6exg=h900-rw&quot; width=&quot;300&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -2572,7 +2572,7 @@ Lastly, make sure your image ends in &amp;#39;.9.png&amp;#39; to let the device 
     </item>
     <item>
       <title>Nent</title>
-      <link>http://zolmeister.com/2013/12/nent.html</link>
+      <link>https://zolmeister.com/2013/12/nent.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://nent.zolmeister.com/&quot;&gt;&lt;img src=&quot;http://3.bp.blogspot.com/-SN9w-FENiWU/Uq5KczeWbsI/AAAAAAAABfI/xeQtg7f8eW4/s640/screenshot-game.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://nent.zolmeister.com/&quot;&gt;Nent&lt;/a&gt;&amp;nbsp;(&lt;a href=&quot;https://github.com/Zolmeister/Nent&quot;&gt;Source&lt;/a&gt;)&lt;/span&gt;&lt;/p&gt;
@@ -2671,7 +2671,7 @@ In addition to utilizing shaders, this game also uses fixed-interval time-step p
     </item>
     <item>
       <title>The Pond</title>
-      <link>http://zolmeister.com/2013/10/the-pond.html</link>
+      <link>https://zolmeister.com/2013/10/the-pond.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://thepond.zolmeister.com/&quot;&gt;&lt;img src=&quot;http://4.bp.blogspot.com/-clTSEFA6cpA/UlcE3Rjk9UI/AAAAAAAAAp0/6m_tJC8GrJ0/s1600/screenshot-menu-640-400.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4&gt;Update:&lt;/h4&gt;
@@ -2854,7 +2854,7 @@ In addition to utilizing shaders, this game also uses fixed-interval time-step p
     </item>
     <item>
       <title>Retin.us - Naive Bayes Machine Learning Basics</title>
-      <link>http://zolmeister.com/2013/09/retinus-naive-bayes-machine-learning.html</link>
+      <link>https://zolmeister.com/2013/09/retinus-naive-bayes-machine-learning.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://retin.us/&quot;&gt;&lt;img src=&quot;http://4.bp.blogspot.com/-HP1Cp_VMDKk/UjZwt6ifsLI/AAAAAAAAAo4/y0MGhH24gVw/s640/Selection_031.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4&gt;&lt;a href=&quot;http://retin.us/&quot;&gt;Retin.us&lt;/a&gt;&amp;nbsp;- My&amp;nbsp;Personal&amp;nbsp;RSS Reader (&lt;a href=&quot;https://github.com/Zolmeister/Retinus&quot;&gt;source&lt;/a&gt;)&lt;/h4&gt;
@@ -2981,7 +2981,7 @@ My final solution was this:&lt;/p&gt;
     </item>
     <item>
       <title>戦士 - Senshi (an MMO Battle-Royale inspired game)</title>
-      <link>http://zolmeister.com/2013/09/senshi-mmo-battle-royale-inspired-html5.html</link>
+      <link>https://zolmeister.com/2013/09/senshi-mmo-battle-royale-inspired-html5.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://senshi.zolmeister.com/&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-j5eG97sWxOI/Uizyu9QnYkI/AAAAAAAAAoM/3hFSoyaRn5s/s640/Selection_029.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4&gt;&lt;a href=&quot;http://senshi.zolmeister.com/&quot;&gt;senshi.zolmeister.com&lt;/a&gt;&lt;/h4&gt;
@@ -3135,7 +3135,7 @@ In order to create the editor I followed the Chime Hero docs carefully, and from
     </item>
     <item>
       <title>Tanzania, Africa - In 1.75 Million Particles</title>
-      <link>http://zolmeister.com/2013/08/tanzania-africa-in-175-million-particles.html</link>
+      <link>https://zolmeister.com/2013/08/tanzania-africa-in-175-million-particles.html</link>
       <description>&lt;p&gt;&lt;iframe allowfullscreen=&quot;&quot; frameborder=&quot;0&quot; height=&quot;300&quot; src=&quot;//tanzania.zolmeister.com&quot; style=&quot;margin-left: -12px;&quot; width=&quot;610&quot;&gt;&lt;/iframe&gt; Source:&amp;nbsp;&lt;a href=&quot;https://github.com/Zolmeister/tanzania&quot;&gt;github.com/Zolmeister/tanzania&lt;/a&gt;&amp;nbsp;(page: &lt;a href=&quot;http://tanzania.zolmeister.com/full&quot;&gt;tanzania.zolmeister.com/full&lt;/a&gt;)
 Note: Requires &lt;a href=&quot;http://get.webgl.org/&quot;&gt;WebGL&lt;/a&gt;&lt;/p&gt;
 
@@ -3396,7 +3396,7 @@ Image resize + crop bash script:&lt;/p&gt;
     </item>
     <item>
       <title>Promiz.js</title>
-      <link>http://zolmeister.com/2013/07/promizjs.html</link>
+      <link>https://zolmeister.com/2013/07/promizjs.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/promiz&quot;&gt;&lt;img src=&quot;https://raw.github.com/Zolmeister/promiz/master/imgs/logo.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/promiz&quot;&gt;Promiz.js&lt;/a&gt; is a &lt;a href=&quot;http://promises-aplus.github.io/promises-spec/&quot;&gt;promises/A+&lt;/a&gt;&amp;nbsp;compliant library (mostly), which aims to have both a small footprint and have great performance (&amp;lt; 1Kb (625 bytes minified + gzip)). I wont go over why&amp;nbsp;&lt;a href=&quot;https://gist.github.com/domenic/3889970&quot;&gt;javascript&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;http://blog.parse.com/2013/01/29/whats-so-great-about-javascript-promises/&quot;&gt;promises&lt;/a&gt; &lt;a href=&quot;http://www.javascriptturnsmeon.com/promises-in-javascript/&quot;&gt;are&lt;/a&gt; &lt;a href=&quot;http://blog.jcoglan.com/2013/03/30/callbacks-are-imperative-promises-are-functional-nodes-biggest-missed-opportunity/&quot;&gt;amazing&lt;/a&gt;. Instead, I&amp;#39;m going to focus on what goes on behind the scenes and what it takes to create a promise library. But first, some benchmarks (see &lt;a href=&quot;https://github.com/Zolmeister/promiz/blob/master/bench.js&quot;&gt;bench.js&lt;/a&gt; for source - server side):
@@ -3556,7 +3556,7 @@ Image resize + crop bash script:&lt;/p&gt;
     </item>
     <item>
       <title>CharityVid - User Auth, Jasmine Testing, and Dust.js</title>
-      <link>http://zolmeister.com/2013/07/charityvid-user-auth-jasmine-testing.html</link>
+      <link>https://zolmeister.com/2013/07/charityvid-user-auth-jasmine-testing.html</link>
       <description>&lt;p&gt;This is the last (official) post in my &lt;a href=&quot;http://charityvid.org/&quot;&gt;CharityVid&lt;/a&gt; series. I&amp;#39;m going to try and cram 3 big topics into one post, so lets see how it goes.&lt;/p&gt;
 
 &lt;h3&gt;User Authentication&lt;/h3&gt;
@@ -3686,7 +3686,7 @@ Image resize + crop bash script:&lt;/p&gt;
     </item>
     <item>
       <title>Retin.us - A new way to consume RSS</title>
-      <link>http://zolmeister.com/2013/06/retinus-new-way-to-consume-rss.html</link>
+      <link>https://zolmeister.com/2013/06/retinus-new-way-to-consume-rss.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://retin.us/&quot;&gt;http://Retin.us&lt;/a&gt; &amp;nbsp;(&lt;a href=&quot;https://chrome.google.com/webstore/detail/retinus-checker/bkoakabmfkmnpjmohnmmjgogplofobdg&quot;&gt;chrome extension&lt;/a&gt;) (&lt;a href=&quot;https://github.com/Zolmeister/Retinus&quot;&gt;source&lt;/a&gt;)&lt;/p&gt;
 
 &lt;p&gt;Retin.us is not a Google Reader clone. Retin.us doesn&amp;#39;t star or share articles. Retin.us doesn&amp;#39;t &lt;code&gt;like&lt;/code&gt; things, nor does it show you pretty pictures in a collage.&lt;/p&gt;
@@ -3723,7 +3723,7 @@ Image resize + crop bash script:&lt;/p&gt;
     </item>
     <item>
       <title>Node.js Tips</title>
-      <link>http://zolmeister.com/2013/06/nodejs-tips.html</link>
+      <link>https://zolmeister.com/2013/06/nodejs-tips.html</link>
       <description>&lt;p&gt;Here are some useful notes regarding Node.js development.&lt;/p&gt;
 
 &lt;h4&gt;npm --save&lt;/h4&gt;
@@ -3796,7 +3796,7 @@ npm link polish &lt;span class=&quot;c&quot;&gt;# instead of npm install polish&
     </item>
     <item>
       <title>Scrolly - A beautiful custom scrollbar for every page</title>
-      <link>http://zolmeister.com/2013/06/scrolly-beautiful-custom-scrollbar-for.html</link>
+      <link>https://zolmeister.com/2013/06/scrolly-beautiful-custom-scrollbar-for.html</link>
       <description>&lt;style&gt;::-webkit-scrollbar {     width: 12px;     height: 12px; }   ::-webkit-scrollbar-track-piece {     background: #aaa; }   ::-webkit-scrollbar-thumb {     background: #7a7a7a;     border-radius: 2px; }  ::-webkit-scrollbar-corner       {     background: #999; }  ::-webkit-scrollbar-thumb:window-inactive {     background: #888; } &lt;/style&gt;
 
 &lt;p&gt;Scrolly is a chrome extension: &lt;a href=&quot;https://chrome.google.com/webstore/detail/scrolly/emfaieckcngoebaoegbicknffolghnej&quot;&gt;web store&lt;/a&gt; (&lt;a href=&quot;https://github.com/Zolmeister/Scrolly&quot;&gt;source&lt;/a&gt;) (live preview --&amp;gt;)&lt;/p&gt;
@@ -3835,7 +3835,7 @@ npm link polish &lt;span class=&quot;c&quot;&gt;# instead of npm install polish&
     </item>
     <item>
       <title>CharityVid - Front-end Optimization</title>
-      <link>http://zolmeister.com/2013/06/charityvid-front-end-optimization.html</link>
+      <link>https://zolmeister.com/2013/06/charityvid-front-end-optimization.html</link>
       <description>&lt;p&gt;I&amp;#39;ve written a lot about the &lt;a href=&quot;http://www.zolmeister.com/2013/05/charityvid-server-configuration.html&quot;&gt;backend&lt;/a&gt; behind &lt;a href=&quot;http://charityvid.org/&quot;&gt;CharityVid&lt;/a&gt;, but there is quite a bit of front things that get overlooked when developing a web application. Specifically, front end optimization (eg. page load times, browser compatibility, server latency, etc.) Let&amp;#39;s begin with page load.&lt;/p&gt;
 
 &lt;p&gt;There are many good tools for measuring page load times, but these are my favorite:&lt;/p&gt;
@@ -3920,7 +3920,7 @@ npm link polish &lt;span class=&quot;c&quot;&gt;# instead of npm install polish&
     </item>
     <item>
       <title>Avabranch Mobile</title>
-      <link>http://zolmeister.com/2013/06/avabranch-mobile.html</link>
+      <link>https://zolmeister.com/2013/06/avabranch-mobile.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://2.bp.blogspot.com/-t30m3ZqORso/UbQFf3YViKI/AAAAAAAAAhQ/3Q1-U8w_1RM/s1600/feature.png&quot;&gt;&lt;img src=&quot;http://2.bp.blogspot.com/-t30m3ZqORso/UbQFf3YViKI/AAAAAAAAAhQ/3Q1-U8w_1RM/s320/feature.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Last year I made a game called &lt;a href=&quot;http://avabranch.zolmeister.com/&quot;&gt;Avabranch&lt;/a&gt; for the &lt;a href=&quot;https://github.com/blog/1337-github-game-off-winners&quot;&gt;github gameoff &lt;/a&gt;(&lt;a href=&quot;http://www.zolmeister.com/2012/11/avabranch.html&quot;&gt;http://www.zolmeister.com/2012/11/avabranch.html&lt;/a&gt;). I decided to take a few hours and port it to mobile, so without further ado, here it is:&amp;nbsp;&lt;a href=&quot;http://avabranch.zolmeister.com/m/&quot;&gt;http://avabranch.zolmeister.com/m/&lt;/a&gt;&lt;/p&gt;
@@ -3940,7 +3940,7 @@ npm link polish &lt;span class=&quot;c&quot;&gt;# instead of npm install polish&
     </item>
     <item>
       <title>CharityVid - Server Configuration</title>
-      <link>http://zolmeister.com/2013/05/charityvid-server-configuration.html</link>
+      <link>https://zolmeister.com/2013/05/charityvid-server-configuration.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://charityvid.org/&quot;&gt;&lt;img src=&quot;http://charityvid.org/img/logo.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;
 In this post, I will focus on how I run and update the&amp;nbsp;&lt;a href=&quot;http://charityvid.org/&quot;&gt;CharityVid.org&lt;/a&gt;&amp;nbsp;servers, using the following tools:&lt;/p&gt;
 
@@ -4021,7 +4021,7 @@ In this post, I will focus on how I run and update the&amp;nbsp;&lt;a href=&quot
     </item>
     <item>
       <title>CharityVid - Prepping for scale</title>
-      <link>http://zolmeister.com/2013/05/charityvid-prepping-for-scale.html</link>
+      <link>https://zolmeister.com/2013/05/charityvid-prepping-for-scale.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://charityvid.org/img/logo.png&quot;&gt;&lt;img src=&quot;http://charityvid.org/img/logo.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;
 In this post, I will outline how I setup horizontal scaling on &lt;a href=&quot;http://aws.amazon.com/ec2/?_encoding=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=ur2&amp;amp;tag=zolmeister-20&quot;&gt;AWS EC2&lt;/a&gt;&lt;img src=&quot;http://www.assoc-amazon.com/e/ir?t=zolmeister-20&amp;amp;l=ur2&amp;amp;o=1&quot; alt=&quot;&quot;&gt;, and also how I added server monitoring tools to watch my servers. I will go over:&lt;/p&gt;
 
@@ -4077,7 +4077,7 @@ In this post, I will outline how I setup horizontal scaling on &lt;a href=&quot;
     </item>
     <item>
       <title>Polish.js - Making JavaScript Better</title>
-      <link>http://zolmeister.com/2013/05/polishjs-making-javascript-better.html</link>
+      <link>https://zolmeister.com/2013/05/polishjs-making-javascript-better.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/Polish.js&quot;&gt;&lt;img src=&quot;https://raw.github.com/Zolmeister/Polish.js/master/polish-logo.png&quot; alt=&quot;Polish.js&quot; title=&quot;Polish.js&quot;&gt;&lt;/a&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/Zolmeister/Polish.js&quot;&gt;Polish.js&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;JavaScript is pretty great, but it&amp;#39;s not perfect. So I made it better by adding some extra functionality.
@@ -4130,7 +4130,7 @@ In this post, I will outline how I setup horizontal scaling on &lt;a href=&quot;
     </item>
     <item>
       <title>ROP (Return Oriented Programming) - The Basics</title>
-      <link>http://zolmeister.com/2013/05/rop-return-oriented-programming-basics.html</link>
+      <link>https://zolmeister.com/2013/05/rop-return-oriented-programming-basics.html</link>
       <description>&lt;p&gt;If you&amp;nbsp;haven&amp;#39;t&amp;nbsp;read my blog post on &lt;a href=&quot;http://www.zolmeister.com/2013/05/buffer-overflows-basics.html&quot;&gt;buffer overflows&lt;/a&gt;, I recommend you read it to better understand this post. This is based on the CTF competition &lt;a href=&quot;https://picoctf.com/&quot;&gt;picoCTF&lt;/a&gt;, but should apply to most (basic) ROP problems.&lt;/p&gt;
 
 &lt;p&gt;What return oriented programming is all about:
@@ -4328,7 +4328,7 @@ cat /problems/ROP_4_887f7f28b1f64d7e/key
     </item>
     <item>
       <title>Escaping the Python Sandbox</title>
-      <link>http://zolmeister.com/2013/05/escaping-python-sandbox.html</link>
+      <link>https://zolmeister.com/2013/05/escaping-python-sandbox.html</link>
       <description>&lt;p&gt;(&lt;a href=&quot;http://www.zolmeister.com/2013/05/rop-return-oriented-programming-basics.html&quot;&gt;ROP&lt;/a&gt;, &lt;a href=&quot;http://www.zolmeister.com/2013/05/buffer-overflows-basics.html&quot;&gt;Overflow&lt;/a&gt;, &lt;a href=&quot;http://haeresy.tumblr.com/post/49835546090/format-2&quot;&gt;format 2&lt;/a&gt;, &lt;a href=&quot;http://haeresy.tumblr.com/post/49815517485/mildly-evil&quot;&gt;mildly evil&lt;/a&gt;, &lt;a href=&quot;http://haeresy.tumblr.com/post/49837209727/moreevil&quot;&gt;more evil&lt;/a&gt;,&amp;nbsp;&lt;a href=&quot;https://gist.github.com/11rcombs/5530361#file-aespaddingoracle-py&quot;&gt;broken cbc&lt;/a&gt;,&amp;nbsp;&lt;a href=&quot;https://gist.github.com/11rcombs/5530211&quot;&gt;evergreen&lt;/a&gt;&amp;nbsp;(&lt;a href=&quot;https://gist.github.com/Zolmeister/5530473&quot;&gt;2&lt;/a&gt;), &lt;a href=&quot;http://haeresy.tumblr.com/post/49832356680/black-hole&quot;&gt;black hole&lt;/a&gt;, &lt;a href=&quot;https://gist.github.com/11rcombs/5530290&quot;&gt;broken rsa&lt;/a&gt;, &lt;a href=&quot;https://gist.github.com/Zolmeister/5530477&quot;&gt;chromatophoria&lt;/a&gt;(&lt;a href=&quot;https://gist.github.com/11rcombs/5530201#file-steg-js&quot;&gt;2&lt;/a&gt;), &lt;a href=&quot;https://gist.github.com/Zolmeister/5530463&quot;&gt;harder serial&lt;/a&gt;,&amp;nbsp;&lt;a href=&quot;https://gist.github.com/Zolmeister/5530467&quot;&gt;robomunication&lt;/a&gt;)&lt;/p&gt;
 
 &lt;p&gt;tl;dr&lt;/p&gt;
@@ -4531,7 +4531,7 @@ Then I found this &lt;a href=&quot;http://nedbatchelder.com/blog/201302/finding_
     </item>
     <item>
       <title>Buffer Overflows - The Basics</title>
-      <link>http://zolmeister.com/2013/05/buffer-overflows-basics.html</link>
+      <link>https://zolmeister.com/2013/05/buffer-overflows-basics.html</link>
       <description>&lt;p&gt;Recently I competed in &lt;a href=&quot;https://picoctf.com/&quot;&gt;picoCTF&lt;/a&gt;, a hacker CTF game, and thought I would share some of my solutions. The first of which, is how I did the buffer overflow(s). (for those that don&amp;#39;t know, CTF consists of &amp;#39;flags&amp;#39; which are special strings that you get by exploiting vulnerabilities in programs).&lt;/p&gt;
 
 &lt;p&gt;Lets start with what a basic vulnerable application would look like.&lt;/p&gt;
@@ -4665,7 +4665,7 @@ Then I found this &lt;a href=&quot;http://nedbatchelder.com/blog/201302/finding_
     </item>
     <item>
       <title>CharityVid - A new way to donate to charity</title>
-      <link>http://zolmeister.com/2013/04/charityvid-new-way-to-donate-to-charity.html</link>
+      <link>https://zolmeister.com/2013/04/charityvid-new-way-to-donate-to-charity.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://charityvid.org/&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-nFJjOIwV1bM/UWscXbfPO1I/AAAAAAAAAcA/RRgsCCYqYKU/s1600/logo.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;  &lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://charityvid.org/&quot;&gt;CharityVid&lt;/a&gt; allows anybody to donate to a charity of their choice absolutely free, no credit card required. The only thing we ask is that they watch a short sponsored YouTube video, and that&amp;#39;s it.&lt;/p&gt;
@@ -4692,7 +4692,7 @@ Then I found this &lt;a href=&quot;http://nedbatchelder.com/blog/201302/finding_
     </item>
     <item>
       <title>ZFeed</title>
-      <link>http://zolmeister.com/2013/03/zfeed.html</link>
+      <link>https://zolmeister.com/2013/03/zfeed.html</link>
       <description>&lt;h2&gt;&lt;del&gt;&lt;a href=&quot;#null&quot;&gt;ZFeed.zolmeister.com&lt;/a&gt;&lt;/del&gt;&amp;nbsp;(&lt;a href=&quot;https://github.com/Zolmeister/ZFeed&quot;&gt;Source&lt;/a&gt;)&lt;/h2&gt;
 
 &lt;p&gt;ZFeed is an app I wrote for the &lt;a href=&quot;http://www.hackathon.io/sails-hackathon&quot;&gt;Sails.js hackathon&lt;/a&gt;. Basically It&amp;#39;s a front-end that I find useful for consuming my Google Reader RSS feed. I have all of my subscriptions in one feed, and every day I go through and read/glance at every single article in it (~70 per day). However, I had a few issues with how Google was showing me my articles, so I decided to take matters into my own hands.&lt;/p&gt;
@@ -4714,7 +4714,7 @@ Then I found this &lt;a href=&quot;http://nedbatchelder.com/blog/201302/finding_
     </item>
     <item>
       <title>My js1k submission: Flurry</title>
-      <link>http://zolmeister.com/2013/02/my-js1k-submission-flurry.html</link>
+      <link>https://zolmeister.com/2013/02/my-js1k-submission-flurry.html</link>
       <description>&lt;p&gt;App:&amp;nbsp;&lt;a href=&quot;http://js1k.com/2013-spring/demo/1345&quot;&gt;Flurry&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;In my &lt;a href=&quot;http://www.zolmeister.com/2012/06/javascript-golfing.html&quot;&gt;second blog post&lt;/a&gt;&amp;nbsp;I wrote about javascript golfing, and how it is a great way to entertain yourself and learn some cool tricks along the way. With &lt;a href=&quot;http://js1k.com/2013-spring/&quot;&gt;js1k&lt;/a&gt;&amp;nbsp;underway (you can submit till Match 31st), I have decided to write about my submission, Flurry. Now originally it was going to use both the &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/DOM/Using_fullscreen_mode&quot;&gt;Full Screen API&lt;/a&gt;, as well as the &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/API/Pointer_Lock_API&quot;&gt;Pointer Lock API&lt;/a&gt;&amp;nbsp;(Mozilla misspelled their call with a capital S in screen), however after submitting it turned out that webkit blocks (be default) the fullscreen/pointerlock from within a frame (which is how js1k hosts submissions). I was&amp;nbsp;disappointed&amp;nbsp;but moved on to a variant that didn&amp;#39;t use those calls.&lt;/p&gt;
@@ -4854,7 +4854,7 @@ Then I found this &lt;a href=&quot;http://nedbatchelder.com/blog/201302/finding_
     </item>
     <item>
       <title>How to deploy node.js applications</title>
-      <link>http://zolmeister.com/2012/12/how-to-deploy-nodejs-applications.html</link>
+      <link>https://zolmeister.com/2012/12/how-to-deploy-nodejs-applications.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://www.ascendtraining.com/blog/wp-content/uploads/2012/11/aws.png&quot;&gt;&lt;img src=&quot;http://www.ascendtraining.com/blog/wp-content/uploads/2012/11/aws.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;I am currently running 5&amp;nbsp;websites on my free (1 year) Amazon EC2 &lt;a href=&quot;http://aws.amazon.com/ec2/pricing/?_encoding=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=ur2&amp;amp;tag=zolmeister-20&quot;&gt;micro instace&lt;/a&gt;&lt;img src=&quot;http://www.assoc-amazon.com/e/ir?t=zolmeister-20&amp;amp;l=ur2&amp;amp;o=1&quot; alt=&quot;&quot;&gt;. Every one of these urls corresponds to a&amp;nbsp;separate&amp;nbsp;node.js service running on the server:&lt;br&gt;
@@ -4964,7 +4964,7 @@ Enter &lt;a href=&quot;http://upstart.ubuntu.com/&quot;&gt;upstart&lt;/a&gt;, th
     </item>
     <item>
       <title>Avabranch</title>
-      <link>http://zolmeister.com/2012/11/avabranch.html</link>
+      <link>https://zolmeister.com/2012/11/avabranch.html</link>
       <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;&lt;a href=&quot;http://avabranch.zolmeister.com/&quot;&gt;Avabranch&lt;/a&gt;&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://avabranch.zolmeister.com/&quot;&gt;Avabranch&lt;/a&gt;&amp;nbsp;(&lt;a href=&quot;https://github.com/Zolmeister/avabranch&quot;&gt;source on Github&lt;/a&gt;) is my entry for the &lt;a href=&quot;https://github.com/blog/1303-github-game-off&quot;&gt;github gameoff&lt;/a&gt;&amp;nbsp;web-game challenge. It&amp;#39;s built using &lt;a href=&quot;http://nodejs.org/&quot;&gt;Node.js&lt;/a&gt; and the &lt;a href=&quot;http://expressjs.com/&quot;&gt;Express&lt;/a&gt; framework, though most of the code is pure handwritten&amp;nbsp;client-side&amp;nbsp;javascript. I really enjoyed working on avabranch and wanted to take you through what I did to build it.&lt;/p&gt;
@@ -5069,7 +5069,7 @@ Enter &lt;a href=&quot;http://upstart.ubuntu.com/&quot;&gt;upstart&lt;/a&gt;, th
     </item>
     <item>
       <title>Back-light Music LEDs</title>
-      <link>http://zolmeister.com/2012/10/back-light-music-leds.html</link>
+      <link>https://zolmeister.com/2012/10/back-light-music-leds.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-OFSn--cd2dQ/UIdrY6kyN1I/AAAAAAAAAX8/_JEaGnLWr3Q/s1600/setup.jpg&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-OFSn--cd2dQ/UIdrY6kyN1I/AAAAAAAAAX8/_JEaGnLWr3Q/s640/setup.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4&gt;tl;dr&lt;/h4&gt;
@@ -5141,14 +5141,14 @@ Enter &lt;a href=&quot;http://upstart.ubuntu.com/&quot;&gt;upstart&lt;/a&gt;, th
     </item>
     <item>
       <title>My Favorite Exploit</title>
-      <link>http://zolmeister.com/2012/09/my-favorite-exploit.html</link>
+      <link>https://zolmeister.com/2012/09/my-favorite-exploit.html</link>
       <description>&lt;p&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-m2mZitQ5aOQ/UGKcAcjz-9I/AAAAAAAAAWI/RJjcZ7wM5LA/s1600/xss.png&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-m2mZitQ5aOQ/UGKcAcjz-9I/AAAAAAAAAWI/RJjcZ7wM5LA/s320/xss.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Cross-site_scripting&quot;&gt;XSS (Cross Site Scripting)&lt;/a&gt; is my personal favorite security hole. It&amp;#39;s everywhere, on almost every site, and it&amp;#39;s fun to exploit! I used to spend my evenings scouring the &lt;a href=&quot;http://www.alexa.com/topsites/countries/US&quot;&gt;top 500 sites&lt;/a&gt; on alexa for XSS vulnerabilities just for fun. In addition to that I did most of my testing manually. There are tools built to automate most XSS vulnerability tests, but that&amp;#39;s no fun. This hacking spree taught me the foundations of JavaScript and web development in general. By developing&amp;nbsp;intricate&amp;nbsp;tunnel exploit schemes I learned so much about how the web operates at the user level and how bugs enable hackers to get in.&lt;/p&gt;
 
 &lt;p&gt;My&amp;nbsp;endeavours&amp;nbsp;got my name here: &lt;a href=&quot;http://www.google.com/about/appsecurity/hall-of-fame/reward/&quot;&gt;Google Security Hall Of Fame&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Which led me to create this:&amp;nbsp;&lt;a href=&quot;http://gallery.zolmeister.com/&quot;&gt;http://gallery.zolmeister.com/&lt;/a&gt;&amp;nbsp;(click the page)&lt;/p&gt;
+&lt;p&gt;Which led me to create this:&amp;nbsp;&lt;a href=&quot;https://gallery.zolmeister.com/&quot;&gt;https://gallery.zolmeister.com/&lt;/a&gt;&amp;nbsp;(click the page)&lt;/p&gt;
 
 &lt;p&gt;That page is my XSS gallery. The images are the websites favicons, with size&amp;nbsp;relative&amp;nbsp;to their ranking. I have saved nearly every one of the XSS vulnerabilities I have found by hand, which is now over 200. Most of the sites are ones that were unhelpful or just pissed me off in general and so I took a few minutes to find an XSS vulnerability in them (I almost never report these vulnerabilities). Some however (the big icons) are ones where I started at the top of a list of most popular sites and moved my way down, collecting&amp;nbsp;vulnerabilities&amp;nbsp;along the way. It&amp;#39;s pretty scary actually, knowing that even the most high profile sites are vulnerable.&lt;/p&gt;
 </description>
@@ -5157,7 +5157,7 @@ Enter &lt;a href=&quot;http://upstart.ubuntu.com/&quot;&gt;upstart&lt;/a&gt;, th
     </item>
     <item>
       <title>How not to write a massively multi-player game</title>
-      <link>http://zolmeister.com/2012/09/how-not-to-write-massively-multi-player.html</link>
+      <link>https://zolmeister.com/2012/09/how-not-to-write-massively-multi-player.html</link>
       <description>&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 
 &lt;h4&gt;Welcome to Page Explorer!&lt;/h4&gt;
@@ -5315,17 +5315,17 @@ Basically a bunch of nodes connected to each other. This allows me to draw the p
     </item>
     <item>
       <title>Javascript Golfing</title>
-      <link>http://zolmeister.com/2012/06/javascript-golfing.html</link>
+      <link>https://zolmeister.com/2012/06/javascript-golfing.html</link>
       <description>&lt;p&gt;&lt;img src=&quot;http://www.clker.com/cliparts/4/3/d/0/1207314048614869515golfing%20black.svg.med.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;h4&gt;What is Javascript Golfing?&lt;/h4&gt;
 
 &lt;p&gt;Well, Javascript golfing is the&amp;nbsp;process&amp;nbsp;of writing the smallest amount of javascript code to do something awesome. It tests your ability to reduce, reuse, and recycle for the purpose of achieving the tiniest footprint possible. Also, it&amp;#39;s fun!
-Note: All of these games and more can be found here: &lt;a href=&quot;http://games.zolmeister.com/&quot;&gt;Games.Zolmeister.com&lt;/a&gt;&lt;/p&gt;
+Note: All of these games and more can be found here: &lt;a href=&quot;https://games.zolmeister.com/&quot;&gt;Games.Zolmeister.com&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4&gt;First attempt, &lt;a href=&quot;http://games.zolmeister.com/snake/tinySnake/&quot;&gt;Snake&lt;/a&gt;:&lt;/h4&gt;
+&lt;h4&gt;First attempt, &lt;a href=&quot;https://games.zolmeister.com/snake/tinySnake/&quot;&gt;Snake&lt;/a&gt;:&lt;/h4&gt;
 
-&lt;p&gt;My first attempt at golfing was inspired by &lt;a href=&quot;http://www.strille.net/works/snake_game_1Kb.php&quot;&gt;MXSnake&lt;/a&gt; (back when I didn&amp;#39;t even&amp;nbsp;know&amp;nbsp;it was called golfing). Here is my version: &lt;a href=&quot;http://games.zolmeister.com/snake/tinySnake/&quot;&gt;tinySnake&lt;/a&gt; (686 bytes). Kind of large, not too pretty and nothing really special, except my key events which I think are quite unique.&lt;/p&gt;
+&lt;p&gt;My first attempt at golfing was inspired by &lt;a href=&quot;http://www.strille.net/works/snake_game_1Kb.php&quot;&gt;MXSnake&lt;/a&gt; (back when I didn&amp;#39;t even&amp;nbsp;know&amp;nbsp;it was called golfing). Here is my version: &lt;a href=&quot;https://games.zolmeister.com/snake/tinySnake/&quot;&gt;tinySnake&lt;/a&gt; (686 bytes). Kind of large, not too pretty and nothing really special, except my key events which I think are quite unique.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;onkeydown&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;which&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;38&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -5334,15 +5334,15 @@ Note: All of these games and more can be found here: &lt;a href=&quot;http://gam
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I realized that the key presses should be directly tied to the movement variables of the snake, so I used the keyCode itself to set the movement (I think it could be done even more elegantly, but it&amp;#39;s a start).&lt;/p&gt;
 
-&lt;h4&gt;Second attempt, &lt;a href=&quot;http://games.zolmeister.com/pong.html&quot;&gt;Pong&lt;/a&gt;:&lt;/h4&gt;
+&lt;h4&gt;Second attempt, &lt;a href=&quot;https://games.zolmeister.com/pong.html&quot;&gt;Pong&lt;/a&gt;:&lt;/h4&gt;
 
-&lt;p&gt;My second attempt at golfing was inspired by an &lt;a href=&quot;http://alokmenghrajani.github.com/tron/&quot;&gt;article&lt;/a&gt; on hacker-news I read about, where someone made tron in 219 bytes(!). Instead of trying to best them though, I made &lt;a href=&quot;http://games.zolmeister.com/pong.html&quot;&gt;Pong (451 bytes)&lt;/a&gt; instead. (Screen is blank until you hit a key, W and A for p1 movement and UP and DOWN for p2 movement). Sadly I don&amp;#39;t have the original non-compressed code, but my technique for compression mimicked the tron game.&lt;/p&gt;
+&lt;p&gt;My second attempt at golfing was inspired by an &lt;a href=&quot;http://alokmenghrajani.github.com/tron/&quot;&gt;article&lt;/a&gt; on hacker-news I read about, where someone made tron in 219 bytes(!). Instead of trying to best them though, I made &lt;a href=&quot;https://games.zolmeister.com/pong.html&quot;&gt;Pong (451 bytes)&lt;/a&gt; instead. (Screen is blank until you hit a key, W and A for p1 movement and UP and DOWN for p2 movement). Sadly I don&amp;#39;t have the original non-compressed code, but my technique for compression mimicked the tron game.&lt;/p&gt;
 
-&lt;h4&gt;Third Attempt, &lt;a href=&quot;http://games.zolmeister.com/twotowers(miniv2).html&quot;&gt;Two Towers&lt;/a&gt;:&lt;/h4&gt;
+&lt;h4&gt;Third Attempt, &lt;a href=&quot;https://games.zolmeister.com/twotowers(miniv2).html&quot;&gt;Two Towers&lt;/a&gt;:&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://games.zolmeister.com/twotowers(miniv2).html&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-bUXMZCyCPes/T-lOu80EaPI/AAAAAAAAATQ/2k9X1CX1XeY/s200/twotowers.png&quot; alt=&quot;&quot; title=&quot;Two Towers&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://games.zolmeister.com/twotowers(miniv2).html&quot;&gt;&lt;img src=&quot;http://1.bp.blogspot.com/-bUXMZCyCPes/T-lOu80EaPI/AAAAAAAAATQ/2k9X1CX1XeY/s200/twotowers.png&quot; alt=&quot;&quot; title=&quot;Two Towers&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;After feeling good about my pong implementation, I decided I wanted to make something new and original. I settled on a game where the player spawns objects to attack an enemy base. Another constraint I wanted to have was to keep it below 1KB (it&amp;#39;s &lt;a href=&quot;http://games.zolmeister.com/twotowers(miniv2).html&quot;&gt;1008 bytes&amp;nbsp;currently&lt;/a&gt;), so that it could be compared to the applications at&amp;nbsp;&lt;a href=&quot;http://js1k.com/&quot;&gt;http://js1k.com&lt;/a&gt;&amp;nbsp;(definitely check this out, there are some truly amazing apps people created). This time I did not lose the original non-compressed source:&lt;/p&gt;
+&lt;p&gt;After feeling good about my pong implementation, I decided I wanted to make something new and original. I settled on a game where the player spawns objects to attack an enemy base. Another constraint I wanted to have was to keep it below 1KB (it&amp;#39;s &lt;a href=&quot;https://games.zolmeister.com/twotowers(miniv2).html&quot;&gt;1008 bytes&amp;nbsp;currently&lt;/a&gt;), so that it could be compared to the applications at&amp;nbsp;&lt;a href=&quot;http://js1k.com/&quot;&gt;http://js1k.com&lt;/a&gt;&amp;nbsp;(definitely check this out, there are some truly amazing apps people created). This time I did not lose the original non-compressed source:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt; &lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;2d&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
  &lt;span class=&quot;nx&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;level&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//multiple assignments in one statement reduces the use of semicolons&lt;/span&gt;
  &lt;span class=&quot;nx&quot;&gt;upgrade&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;
@@ -5441,7 +5441,7 @@ Good Luck!&lt;/p&gt;
     </item>
     <item>
       <title>Zoggle</title>
-      <link>http://zolmeister.com/2012/04/zoggle.html</link>
+      <link>https://zolmeister.com/2012/04/zoggle.html</link>
       <description>&lt;p&gt;Welcome to my guide to &lt;a href=&quot;http://zoggle.zolmeister.com/&quot; title=&quot;Zoggle&quot;&gt;Zoggle&lt;/a&gt;. Zoggle is not affiliated with&amp;nbsp;&lt;a href=&quot;http://en.wikipedia.org/wiki/Boggle&quot; title=&quot;Boggle&quot;&gt;Boggle&lt;/a&gt;.
 Zoggle is available...&lt;/p&gt;
 
@@ -5479,9 +5479,9 @@ The basic steps to my algorithm:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Reduce the size of the dictionary to only contain words possibly made by the grid. This basically consisted of removing all words that contained a letter not on the board. This took my dictionary from 100k, to ~2k.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Flood_fill&quot; title=&quot;Flood Fill&quot;&gt;Flood fill&lt;/a&gt; the board grid starting at the the first letter of the dictionary words to see if they can be made. Flood fill works by recursively &amp;quot;filling&amp;quot; adjacent grid cells. All this means is that I make sure that for example the 2nd filled grid cell contains the 2nd letter of the dictionary word, otherwise return.
+&lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Flood_fill&quot; title=&quot;Flood Fill&quot;&gt;Flood fill&lt;/a&gt; the board grid starting at the the first letter of the dictionary words to see if they can be made. Flood fill works by recursively &amp;quot;filling&amp;quot; adjacent grid cells. All this means is that I make sure that for example the 2nd filled grid cell contains the 2nd letter of the dictionary word, otherwise return.
 Flood Fill Graphic:
-&lt;img src=&quot;http://upload.wikimedia.org/wikipedia/commons/8/89/Recursive_Flood_Fill_8_%28aka%29.gif&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/8/89/Recursive_Flood_Fill_8_%28aka%29.gif&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;Here is the code for checking to see if a word can fit on the grid:&lt;/p&gt;
