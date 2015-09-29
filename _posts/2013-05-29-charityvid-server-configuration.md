@@ -4,8 +4,8 @@ title:  "CharityVid - Server Configuration"
 date:   2013-05-29
 ---
 
-[![](http://charityvid.org/img/logo.png)](http://charityvid.org/)
-In this post, I will focus on how I run and update the&nbsp;[CharityVid.org](http://charityvid.org/)&nbsp;servers, using the following tools:
+![](http://1.bp.blogspot.com/-nFJjOIwV1bM/UWscXbfPO1I/AAAAAAAAAcA/RRgsCCYqYKU/s1600/logo.png)
+In this post, I will focus on how I run and update the&nbsp;CharityVid.org&nbsp;servers, using the following tools:
 
 *   [Up](https://github.com/LearnBoost/up) &nbsp;- live reload tool
 *   [nginx](http://nginx.org/)&nbsp;(pronounced Engine X)

@@ -4,7 +4,7 @@ title:  "CharityVid - Front-end Optimization"
 date:   2013-06-14
 ---
 
-I've written a lot about the [backend](http://www.zolmeister.com/2013/05/charityvid-server-configuration.html) behind [CharityVid](http://charityvid.org/), but there is quite a bit of front things that get overlooked when developing a web application. Specifically, front end optimization (eg. page load times, browser compatibility, server latency, etc.) Let's begin with page load.
+I've written a lot about the [backend](http://www.zolmeister.com/2013/05/charityvid-server-configuration.html) behind CharityVid, but there is quite a bit of front things that get overlooked when developing a web application. Specifically, front end optimization (eg. page load times, browser compatibility, server latency, etc.) Let's begin with page load.
 
 There are many good tools for measuring page load times, but these are my favorite:
 

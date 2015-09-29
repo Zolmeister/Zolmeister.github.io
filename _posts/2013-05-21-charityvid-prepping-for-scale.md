@@ -4,7 +4,7 @@ title:  "CharityVid - Prepping for scale"
 date:   2013-05-21
 ---
 
-[![](http://charityvid.org/img/logo.png)](http://charityvid.org/img/logo.png)
+![](http://1.bp.blogspot.com/-nFJjOIwV1bM/UWscXbfPO1I/AAAAAAAAAcA/RRgsCCYqYKU/s1600/logo.png)
 In this post, I will outline how I setup horizontal scaling on [AWS EC2](http://aws.amazon.com/ec2/?_encoding=UTF8&camp=1789&creative=9325&linkCode=ur2&tag=zolmeister-20)![](http://www.assoc-amazon.com/e/ir?t=zolmeister-20&l=ur2&o=1), and also how I added server monitoring tools to watch my servers. I will go over:
 
 *   Migrating to [Mongolab](https://mongolab.com/)

@@ -4,7 +4,7 @@ title:  "CharityVid - User Auth, Jasmine Testing, and Dust.js"
 date:   2013-07-07
 ---
 
-This is the last (official) post in my [CharityVid](http://charityvid.org/) series. I'm going to try and cram 3 big topics into one post, so lets see how it goes.
+This is the last (official) post in my CharityVid series. I'm going to try and cram 3 big topics into one post, so lets see how it goes.
 
 ### User Authentication
 We're going to be using [passport.js](http://passportjs.org/)&nbsp;and [MongoDB](http://www.mongodb.org/) to create and store users. Here is what the passport code will look like:

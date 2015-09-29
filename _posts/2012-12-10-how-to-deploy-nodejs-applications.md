@@ -11,7 +11,7 @@ I am currently running 5&nbsp;websites on my free (1 year) Amazon EC2 [micro ins
 [http://games.zolmeister.com/](http://games.zolmeister.com/)  
 [http://avabranch.zolmeister.com/](http://avabranch.zolmeister.com/)  
 [http://gallery.zolmeister.com/](http://gallery.zolmeister.com/)  
-[http://charityvid.org/](http://charityvid.org/)  
+http://charityvid.org/
 
 Let me preface this by saying that the way I deployed my sites before was the following:
 
@@ -40,7 +40,7 @@ Enter [upstart](http://upstart.ubuntu.com/), the /sbin/init replacement. Upstart
 ```
 What this conf file says is that on service start, log the&nbsp;process's&nbsp;pid (in case we need to kill it), set node to production mode, cd into the site directory (this is necessary because of&nbsp;issues with express.js template loading), and finally start the app. Notice that I start the app with the "up" command, and that I am piping 2>&1 (std err to std out) and appending (>>) it to the log file. The "up" command comes from the [up node module](https://github.com/LearnBoost/up)&nbsp;which does auto-updating and load balancing. The alternative to "up" is [node-supervisor](https://github.com/isaacs/node-supervisor)&nbsp;which doesn't do load balancing but can be run on any application out of the box (without the&nbsp;modification&nbsp;required by "up").
 
-Ok, so now we have a way to start all of our applications, but how to route all the connections to the right place (remember all our apps are on one server with one IP address). Normally you would use [NGINX](http://nginx.org/) (pronounced "engine x"), but the stable branch doesn't support websockets (used by [http://zoggle.zolmeister.com](http://zoggle.zolmeister.com/)) so I decided to go with the simple [node-http-proxy](https://github.com/nodejitsu/node-http-proxy) module. The documentation is a bit lacking, but I was able to get all the sites routed, including websockets support and ssl support (for&nbsp;[https://charityvid.org/](https://charityvid.org/)). Here is what my app.js file looks like for my "gateway" application:
+Ok, so now we have a way to start all of our applications, but how to route all the connections to the right place (remember all our apps are on one server with one IP address). Normally you would use [NGINX](http://nginx.org/) (pronounced "engine x"), but the stable branch doesn't support websockets (used by [http://zoggle.zolmeister.com](http://zoggle.zolmeister.com/)) so I decided to go with the simple [node-http-proxy](https://github.com/nodejitsu/node-http-proxy) module. The documentation is a bit lacking, but I was able to get all the sites routed, including websockets support and ssl support (for&nbsp;https://charityvid.org/). Here is what my app.js file looks like for my "gateway" application:
 
 ```js
 var http = require('http'),

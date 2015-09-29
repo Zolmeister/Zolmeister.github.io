@@ -27,7 +27,7 @@ I realized that the key presses should be directly tied to the movement variable
 My second attempt at golfing was inspired by an [article](http://alokmenghrajani.github.com/tron/) on hacker-news I read about, where someone made tron in 219 bytes(!). Instead of trying to best them though, I made [Pong (451 bytes)](https://games.zolmeister.com/pong.html) instead. (Screen is blank until you hit a key, W and A for p1 movement and UP and DOWN for p2 movement). Sadly I don't have the original non-compressed code, but my technique for compression mimicked the tron game.
 
 #### Third Attempt, [Two Towers](https://games.zolmeister.com/twotowers(miniv2).html):
-[![](http://1.bp.blogspot.com/-bUXMZCyCPes/T-lOu80EaPI/AAAAAAAAATQ/2k9X1CX1XeY/s200/twotowers.png "Two Towers")](https://games.zolmeister.com/twotowers(miniv2).html)
+[![](http://1.bp.blogspot.com/-bUXMZCyCPes/T-lOu80EaPI/AAAAAAAAATQ/2k9X1CX1XeY/s200/twotowers.png)](https://games.zolmeister.com/twotowers(miniv2).html)
 
 After feeling good about my pong implementation, I decided I wanted to make something new and original. I settled on a game where the player spawns objects to attack an enemy base. Another constraint I wanted to have was to keep it below 1KB (it's [1008 bytes&nbsp;currently](https://games.zolmeister.com/twotowers(miniv2).html)), so that it could be compared to the applications at&nbsp;[http://js1k.com](http://js1k.com/)&nbsp;(definitely check this out, there are some truly amazing apps people created). This time I did not lose the original non-compressed source:
 

@@ -4,7 +4,7 @@ title:  "Polish.js - Making JavaScript Better"
 date:   2013-05-14
 ---
 
-[![Polish.js](https://raw.github.com/Zolmeister/Polish.js/master/polish-logo.png "Polish.js")](https://github.com/Zolmeister/Polish.js)**[Polish.js](https://github.com/Zolmeister/Polish.js)**
+[![Polish.js](https://raw.github.com/Zolmeister/Polish.js/master/polish-logo.png)](https://github.com/Zolmeister/Polish.js)**[Polish.js](https://github.com/Zolmeister/Polish.js)**
 
 JavaScript is pretty great, but it's not perfect. So I made it better by adding some extra functionality.
 (note. I add 2 global functions, range and zip because they are amazing, but the rest is either scoped under the Polish namespace, or added onto the default object properties.)
