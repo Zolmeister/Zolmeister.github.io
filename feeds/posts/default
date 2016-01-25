@@ -564,8 +564,6 @@ backend mobile
 &lt;li&gt;&lt;a href=&quot;http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html&quot;&gt;Architecture&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://zolmeister.com/2014/10/10x-logging-at-clay-io.html&quot;&gt;Logging&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;~~Also, we&amp;#39;re hiring - &lt;a href=&quot;mailto:zoli@clay.io&quot;&gt;zoli@clay.io&lt;/a&gt;~~&lt;/p&gt;
 </description>
       <pubDate>Mon, 15 Dec 2014 00:00:00 -0800</pubDate>
       <dc:date>2014-12-15T00:00:00-08:00</dc:date>
@@ -580,8 +578,7 @@ backend mobile
 we can&amp;#39;t ssh into each machine, that would take ages, so instead we use &lt;a href=&quot;http://logstash.net/&quot;&gt;Logstash&lt;/a&gt;
 to aggregate our logs.&lt;/p&gt;
 
-&lt;p&gt;This is the second post in my &lt;code&gt;10x&lt;/code&gt; series, and if you missed last episode: &lt;a href=&quot;http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html&quot;&gt;Architecture at Clay.io&lt;/a&gt;.
-~~And don&amp;#39;t forget, Clay.io is hiring: &lt;a href=&quot;mailto:zoli@clay.io&quot;&gt;zoli@clay.io&lt;/a&gt;~~&lt;/p&gt;
+&lt;p&gt;This is the second post in my &lt;code&gt;10x&lt;/code&gt; series, and if you missed last episode: &lt;a href=&quot;http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html&quot;&gt;Architecture at Clay.io&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h4&gt;Logstash overview&lt;/h4&gt;
 
@@ -630,8 +627,7 @@ a distributed logging system themselves in just a few seconds.&lt;/p&gt;
       <description>&lt;p&gt;&lt;img src=&quot;/assets/images/clay-architecture-1.png&quot; alt=&quot;Clay.io&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;This is the first post in my new series &lt;code&gt;10x&lt;/code&gt;, where I share my experiences
-and how we do things at &lt;a href=&quot;http://clay.io/&quot;&gt;Clay.io&lt;/a&gt; to develop at scale with a small team.
-~~If you find these things interesting, we&amp;#39;re hiring - &lt;a href=&quot;mailto:zoli@clay.io&quot;&gt;zoli@clay.io&lt;/a&gt; .~~&lt;/p&gt;
+and how we do things at &lt;a href=&quot;http://clay.io/&quot;&gt;Clay.io&lt;/a&gt; to develop at scale with a small team.&lt;/p&gt;
 
 &lt;p&gt;Update:&lt;/p&gt;
 
@@ -1263,8 +1259,7 @@ Luckily, most of that is in the past today, and we should be moving much more qu
 &lt;h4&gt;Clay.io is Hiring!&lt;/h4&gt;
 
 &lt;p&gt;We are currently looking to expand our team by hiring two engineers full-time to help us
-grow Clay.io and bring it to the next level. If you are interested or know someone who is interested
-in mobile web and loves to code and play games, ~~email me at &lt;a href=&quot;mailto:zoli@clay.io&quot;&gt;zoli@clay.io&lt;/a&gt;~~ (&lt;a href=&quot;http://clay.io/jobs&quot;&gt;or post here&lt;/a&gt;).&lt;/p&gt;
+grow Clay.io and bring it to the next level.&lt;/p&gt;
 
 &lt;h4&gt;Clay.io and Open Source&lt;/h4&gt;
 
