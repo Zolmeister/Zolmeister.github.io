@@ -169,5 +169,3 @@ If you missed previous `10x` posts:
 
   - [Architecture](http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html)
   - [Logging](http://zolmeister.com/2014/10/10x-logging-at-clay-io.html)
-
-Also, we're hiring - [zoli@clay.io](mailto:zoli@clay.io)

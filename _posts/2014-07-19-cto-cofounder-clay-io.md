@@ -57,8 +57,7 @@ I look forward to growing Clay.io with Austin, and turning it into a billion dol
 
 #### Clay.io is Hiring!
 We are currently looking to expand our team by hiring two engineers full-time to help us
-grow Clay.io and bring it to the next level. If you are interested or know someone who is interested
-in mobile web and loves to code and play games, email me at [zoli@clay.io](mailto:zoli@clay.io) ([or post here](http://clay.io/jobs)).
+grow Clay.io and bring it to the next level.
 
 #### Clay.io and Open Source
 I am a strong believer in the open source community, and as CTO I will push to make as much

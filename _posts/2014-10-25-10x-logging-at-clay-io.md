@@ -12,7 +12,6 @@ we can't ssh into each machine, that would take ages, so instead we use [Logstas
 to aggregate our logs.
 
 This is the second post in my `10x` series, and if you missed last episode: [Architecture at Clay.io](http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html).
-And don't forget, Clay.io is hiring: [zoli@clay.io](mailto:zoli@clay.io)
 
 
 #### Logstash overview
