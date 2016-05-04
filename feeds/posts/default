@@ -8,7 +8,75 @@
     <title>Zolmeister</title>
     <link>https://zolmeister.com</link>
     <description>Zolmeister - Blog</description>
-    <pubDate>Sun, 24 May 2015 00:00:00 -0700</pubDate>
+    <pubDate>Wed, 04 May 2016 00:00:00 -0700</pubDate>
+    <item>
+      <title>Clay.io - A Reflection</title>
+      <link>https://zolmeister.com/2016/05/clay-io.html</link>
+      <description>&lt;p&gt;&lt;img src=&quot;/assets/images/clay_logo_728.png&quot; alt=&quot;Clay Games&quot;&gt;&lt;/p&gt;
+
+&lt;h3&gt;Moving On&lt;/h3&gt;
+
+&lt;p&gt;As of January I am no longer with Clay.
+I&amp;#39;ve learned so much over the past year and a half, more so than I could have ever imagined.
+Every minute working on Clay was a joy, and without a doubt one of the most fulfilling experiences of my life.
+As for my next adventure, stay tuned.&lt;/p&gt;
+
+&lt;h4&gt;Lesson 1: Focus&lt;/h4&gt;
+
+&lt;p&gt;Focus proved to be the most important lesson I&amp;#39;ve learned about running a company.
+It&amp;#39;s so easy to get distracted and off track, without even realizing it.
+Focus means having concrete goals with timelines, and putting all major efforts towards those goals.
+Concrete goals are measurable and achievable, e.g. &amp;quot;Improve Day 1 retention by 1% in 1 month&amp;quot;.
+Goals without a timeline (to measure ROI by time) or that aren&amp;#39;t easily measurable (like happiness of users) should not be used.&lt;/p&gt;
+
+&lt;p&gt;At Clay we picked &amp;quot;Engaged Game Plays&amp;quot; (game plays lasting at least 1min) as our first KPI (key performance indicator). We made sure that all work being done would have a measurable impact on this metric. Had we been even stricter about only doing necessary work (e.g. we still did user support) I think we would have been even better off.&lt;/p&gt;
+
+&lt;p&gt;For most early stage companies I recommend retention (e.g. Day 1, Day 7) as the only key metric, because it&amp;#39;s easy to measure, test, and is a relatively clear indicator of value. I also recommend that everyone at the company know the metric, and understand that their work is to align with that goal. Constant reminders (e.g. posters, screens, etc.) can go a long way to getting everyone on the same page.&lt;/p&gt;
+
+&lt;style&gt;
+.clay_icons {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 40px;
+}
+&lt;/style&gt;
+
+&lt;div class=&quot;clay_icons&quot;&gt;
+  &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.clay.clay&quot;&gt;
+    &lt;img src=&quot;/assets/images/clay_icon.png&quot; alt=&quot;Clay Games&quot;&gt;
+  &lt;/a&gt;
+  &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.clay.zop&quot;&gt;
+    &lt;img src=&quot;/assets/images/zop_icon.png&quot; alt=&quot;Zop&quot;&gt;
+  &lt;/a&gt;
+  &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.clay.doodledraw&quot;&gt;
+    &lt;img src=&quot;/assets/images/clay_doodle_draw.png&quot; alt=&quot;Doodle Draw&quot;&gt;
+  &lt;/a&gt;
+  &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.clay.kittencards&quot;&gt;
+    &lt;img src=&quot;/assets/images/clay_kitten_cards.png&quot; alt=&quot;Kitten Cards&quot;&gt;
+  &lt;/a&gt;
+  &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.clay.memeblast&quot;&gt;
+    &lt;img src=&quot;/assets/images/clay_meme_blast.png&quot; alt=&quot;Meme Blast&quot;&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h4&gt;Lesson 2: Validation&lt;/h4&gt;
+
+&lt;p&gt;Failure should always be an option. Just because something &lt;em&gt;should&lt;/em&gt; work, doesn&amp;#39;t mean that it &lt;em&gt;will&lt;/em&gt;. Any and all assumptions made about the problems you&amp;#39;re solving need to be validated, and the process this takes is imperative to the growth of the company.
+This is where I think we could have improved the most.&lt;/p&gt;
+
+&lt;p&gt;Being explicit about the assumptions of the company vision, e.g. &amp;quot;Users would rather do X than Y&amp;quot;, and validating as quickly as possible can save months of time and money (burn rate). This validation process can be difficult, complex, and/or expensive (to do properly), but how founders approach this problem can greatly improve chances of long-term company success.&lt;/p&gt;
+
+&lt;h4&gt;Lesson 3: Science&lt;/h4&gt;
+
+&lt;p&gt;Science was probably our biggest strength at Clay. We never really argued about anything; discussions were always focused around evidence-based metric growth. Even then nobody was ever &amp;quot;right&amp;quot; or &amp;quot;wrong&amp;quot; because we tried to A/B test all valid (high ROI) ideas. Science is all about proving (within statistical margins of error) assumptions correct or incorrect. We did this with nearly every feature we ever released, to both prove positive KPI impact and to calculate growth.&lt;/p&gt;
+
+&lt;p&gt;We ended up building our own A/B testing analytics framework (&lt;a href=&quot;https://github.com/claydotio/hyperplane&quot;&gt;open-source&lt;/a&gt;) due to limitations (and cost) of other solutions. This was probably the hardest problem I solved at Clay, and even then I would like to take a second pass at it. I will likely write a blog post about it later this year.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/clay_mascot.png&quot; alt=&quot;Clay Mascot&quot;&gt;&lt;/p&gt;
+</description>
+      <pubDate>Wed, 04 May 2016 00:00:00 -0700</pubDate>
+      <dc:date>2016-05-04T00:00:00-07:00</dc:date>
+    </item>
     <item>
       <title>Zorium v1.0.0 (╯°□°)╯︵ ┻━┻</title>
       <link>https://zolmeister.com/2015/05/zorium.html</link>
@@ -5572,6 +5640,6 @@ It specifies what express is doing with the 404 cases:&lt;/p&gt;
       <pubDate>Sat, 14 Apr 2012 00:00:00 -0700</pubDate>
       <dc:date>2012-04-14T00:00:00-07:00</dc:date>
     </item>
-    <dc:date>2015-05-24T00:00:00-07:00</dc:date>
+    <dc:date>2016-05-04T00:00:00-07:00</dc:date>
   </channel>
 </rss>
