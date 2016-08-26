@@ -3,16 +3,14 @@ description: Zolmeister - Blog
 meta_description: "Zolmeister - Blog - by Zoli Kahan"
 
 permalink: :year/:month/:title.html
-rss_path: feeds/posts/
-rss_name: default
 
+gems: [jekyll-paginate, redcarpet, jekyll-feed]
 markdown: redcarpet
-highlighter: pygments
 logo: false
 paginate: 15
-
-#baseurl: 'https://zolmeister.com'
 
 # Details for the RSS feed generator
 url:            'https://zolmeister.com'
 author:         'Zoli Kahan'
+feed:
+  path: feeds/posts/default
