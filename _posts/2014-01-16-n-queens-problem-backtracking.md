@@ -4,21 +4,6 @@ title:  "N Queens Problem - Backtracking"
 date:   2014-01-16
 ---
 
-
-<style>
-.clearfix-7da63{clear:both}
-.board-b72b1{border:2px solid #404040;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
-.square-55d63{float:left;position:relative;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
-.white-1e1d7{background-color:#f0d9b5;color:#b58863}
-.black-3c85d{background-color:#b58863;color:#f0d9b5}
-.highlight1-32417,.highlight2-9c5d2{-webkit-box-shadow:inset 0 0 3px 3px #FF0;-moz-box-shadow:inset 0 0 3px 3px #FF0;box-shadow:inset 0 0 3px 3px #FF0}
-.notation-322f9{cursor:default;font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:14px;position:absolute}
-.alpha-d2270{bottom:1px;right:3px}
-.numeric-fc462{top:2px;left:2px}
-#board img { padding: 0; border: 0; -webkit-box-shadow: inherit; -moz-box-shadow: inherit;box-shadow: inherit; }
-</style>
-
-
 The [N Queens problem](http://en.wikipedia.org/wiki/Eight_queens_puzzle) is a simple yet effective way of assessing a developer's ability to use recursion. For that reason, it may show up during technical interviews, so I wrote a quick little example using the [chessboard.js](http://chessboardjs.com/) library for visualization.
 
 Link:&nbsp;[http://queens.zolmeister.com/](http://queens.zolmeister.com/)
@@ -55,6 +40,19 @@ function solve(n) {
 My solution uses a technique called backtracking, which is basically depth-first search without an end condition. Note that I do not recommend the pattern above with a 'return' above a function, but it provides an interesting exercise for those who have never seen it before to understand [JavaScript hoisting](http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html).
 
 The algorithm moves left to right, placing a queen in the next available column. The key to the above code is the inner loop. This is what checks to see if a move is legal, such that no other queen on the board conflicts with the one to be placed. After that, it is simple recursion, with a condition that if the board is full then add it to the solution set.
+
+<style>
+.clearfix-7da63{clear:both}
+.board-b72b1{border:2px solid #404040;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
+.square-55d63{float:left;position:relative;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.white-1e1d7{background-color:#f0d9b5;color:#b58863}
+.black-3c85d{background-color:#b58863;color:#f0d9b5}
+.highlight1-32417,.highlight2-9c5d2{-webkit-box-shadow:inset 0 0 3px 3px #FF0;-moz-box-shadow:inset 0 0 3px 3px #FF0;box-shadow:inset 0 0 3px 3px #FF0}
+.notation-322f9{cursor:default;font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:14px;position:absolute}
+.alpha-d2270{bottom:1px;right:3px}
+.numeric-fc462{top:2px;left:2px}
+#board img { padding: 0; border: 0; -webkit-box-shadow: inherit; -moz-box-shadow: inherit;box-shadow: inherit; }
+</style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
