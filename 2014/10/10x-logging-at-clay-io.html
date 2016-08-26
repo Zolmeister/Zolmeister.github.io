@@ -55,7 +55,7 @@
         <h1 class="post-title"><a href="">10x: Logging at Clay.io</a></h1>
 
         <section class="post-content">
-            <p><img src="/assets/images/logstash_logo.png" alt="logstash logo"></p>
+            <p><img src="https://zolmeister.com/assets/images/logstash_logo.png" alt="logstash logo"></p>
 
 <p>Managing 20+ servers as a small team is no easy task, and when things go wrong
 (they always do) figuring out what happened quickly is essential. Of course
@@ -71,7 +71,7 @@ client servers. The aggregate server runs the main <code>logstash</code> binary,
 client servers run <code>logstash-forwarder</code> to ships logs to the <code>logstash</code> instance.
 Here is a diagram of our setup:</p>
 
-<p><img src="/assets/images/scribe.png" alt="scribe"></p>
+<p><img src="https://zolmeister.com/assets/images/scribe.png" alt="scribe"></p>
 
 <p>Note that <code>logstash-forwarder</code> doesn&#39;t rotate logs. Log rotation is the process of
 storing older logs (usually compressed) into buckets (either of size or by date)
@@ -80,7 +80,7 @@ the <a href="http://linuxcommand.org/man_pages/logrotate8.html"><code>logrotate<
 
 <h4>Investigating logs</h4>
 
-<p><img src="/assets/images/logstash_screenshot.png" alt="kibana"></p>
+<p><img src="https://zolmeister.com/assets/images/logstash_screenshot.png" alt="kibana"></p>
 
 <p>The logstash daemon runs <a href="http://www.elasticsearch.org/">ElasticSearch</a> and
 <a href="http://www.elasticsearch.org/overview/kibana/">Kibana</a> to analyze logs.

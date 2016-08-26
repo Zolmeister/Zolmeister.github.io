@@ -55,7 +55,7 @@
         <h1 class="post-title"><a href="">10x: Architecture at Clay.io</a></h1>
 
         <section class="post-content">
-            <p><img src="/assets/images/clay-architecture-1.png" alt="Clay.io"></p>
+            <p><img src="https://zolmeister.com/assets/images/clay-architecture-1.png" alt="Clay.io"></p>
 
 <p>This is the first post in my new series <code>10x</code>, where I share my experiences
 and how we do things at <a href="http://clay.io/">Clay.io</a> to develop at scale with a small team.</p>
@@ -71,14 +71,14 @@ and how we do things at <a href="http://clay.io/">Clay.io</a> to develop at scal
 
 <h4>CloudFlare</h4>
 
-<p><a href="https://www.cloudflare.com/"><img src="/assets/images/cloudflare-logo.png" alt="CloudFlare"></a></p>
+<p><a href="https://www.cloudflare.com/"><img src="https://zolmeister.com/assets/images/cloudflare-logo.png" alt="CloudFlare"></a></p>
 
 <p><a href="https://www.cloudflare.com/">CloudFlare</a> handles all of our DNS, and acts as a distributed caching
 proxy with some additional DDOS protection features. It also handles SSL.</p>
 
 <h4>Amazon EC2 + VPC + NAT server</h4>
 
-<p><a href="http://aws.amazon.com/"><img src="/assets/images/aws-logo.png" alt="Amazon Web Services"></a></p>
+<p><a href="http://aws.amazon.com/"><img src="https://zolmeister.com/assets/images/aws-logo.png" alt="Amazon Web Services"></a></p>
 
 <p>Almost all of our servers live on Amazon EC2, most are either medium or large instances.
 We also use Amazon VPC to host some of our servers inside of a private network,
@@ -103,7 +103,7 @@ In addition, we may add Amazon ELB in front to scale horizontally if necessary.<
 
 <h4>App Server - Docker</h4>
 
-<p><a href="https://www.docker.com/"><img src="/assets/images/docker-logo.png" alt="Docker"></a></p>
+<p><a href="https://www.docker.com/"><img src="https://zolmeister.com/assets/images/docker-logo.png" alt="Docker"></a></p>
 
 <p><a href="https://www.docker.com/">Docker</a> is tool to manage Linux containers, which are similar to Virtual Machines
 except with less overhead (and without some isolation and security guarantees).
@@ -124,7 +124,7 @@ has been critical to preventing unnecessary breakage and downtime of our product
 
 <h4>MySQL</h4>
 
-<p><a href="http://www.mysql.com/"><img src="/assets/images/mysql-logo.jpg" alt="MySQL"></a></p>
+<p><a href="http://www.mysql.com/"><img src="https://zolmeister.com/assets/images/mysql-logo.jpg" alt="MySQL"></a></p>
 
 <p><a href="http://www.mysql.com/">MySQL</a> is a production-hardened relational SQL database.
 The vast majority of our data currently resides inside a Master-Slave MySQL cluster.
@@ -133,7 +133,7 @@ Eventually we may have to move tables or shard the single master server, but hop
 
 <h4>Logstash</h4>
 
-<p><a href="http://logstash.net/"><img src="/assets/images/logstash-logo.png" alt="logstash"></a></p>
+<p><a href="http://logstash.net/"><img src="https://zolmeister.com/assets/images/logstash-logo.png" alt="logstash"></a></p>
 
 <p><a href="http://logstash.net/">Logstash</a> is a log aggregation tool, with Kibana integration for analysis.
 It basically handles all of our application logs, and gives us a place to check
@@ -141,7 +141,7 @@ for errors when something goes wrong. It saves us from having to SSH into a mach
 
 <h4>MongoDB</h4>
 
-<p><a href="http://www.mongodb.org/"><img src="/assets/images/mongoDB-logo.png" alt="MongoDB"></a></p>
+<p><a href="http://www.mongodb.org/"><img src="https://zolmeister.com/assets/images/mongoDB-logo.png" alt="MongoDB"></a></p>
 
 <p><a href="http://www.mongodb.org/">MongoDB</a> is a NoSQL document storage database.
 We currently use mongodb for some of our developer endpoints, and for our A/B testing
@@ -157,7 +157,7 @@ Eventually we would like to replace this with Redis.</p>
 
 <h4>Ansible</h4>
 
-<p><a href="http://www.ansible.com/home"><img src="/assets/images/ansible-logo.png" alt="Ansible"></a></p>
+<p><a href="http://www.ansible.com/home"><img src="https://zolmeister.com/assets/images/ansible-logo.png" alt="Ansible"></a></p>
 
 <p><a href="http://www.ansible.com/home">Ansible</a> has been our tool of choice for managing our servers. It&#39;s simple enough for most developers to learn quickly
 and be comfortable working with, and has been critical for automating many of the processes normally

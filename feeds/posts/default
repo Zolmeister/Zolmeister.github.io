@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="https://zolmeister.com/feeds/posts/default" rel="self" type="application/atom+xml" /><link href="https://zolmeister.com/" rel="alternate" type="text/html" /><updated>2016-08-26T17:24:13-05:00</updated><id>https://zolmeister.com/</id><title>Zolmeister</title><subtitle>Zolmeister - Blog</subtitle><author><name>Zoli Kahan</name></author><entry><title>Clay.io - A Reflection</title><link href="https://zolmeister.com/2016/05/clay-io.html" rel="alternate" type="text/html" title="Clay.io - A Reflection" /><published>2016-05-04T00:00:00-05:00</published><updated>2016-05-04T00:00:00-05:00</updated><id>https://zolmeister.com/2016/05/clay-io</id><content type="html" xml:base="https://zolmeister.com/2016/05/clay-io.html">&lt;p&gt;&lt;img src=&quot;/assets/images/clay_logo_728.png&quot; alt=&quot;Clay Games&quot;&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="https://zolmeister.com/feeds/posts/default" rel="self" type="application/atom+xml" /><link href="https://zolmeister.com/" rel="alternate" type="text/html" /><updated>2016-08-26T17:34:41-05:00</updated><id>https://zolmeister.com/</id><title>Zolmeister</title><subtitle>Zolmeister - Blog</subtitle><author><name>Zoli Kahan</name></author><entry><title>Clay.io - A Reflection</title><link href="https://zolmeister.com/2016/05/clay-io.html" rel="alternate" type="text/html" title="Clay.io - A Reflection" /><published>2016-05-04T00:00:00-05:00</published><updated>2016-05-04T00:00:00-05:00</updated><id>https://zolmeister.com/2016/05/clay-io</id><content type="html" xml:base="https://zolmeister.com/2016/05/clay-io.html">&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/clay_logo_728.png&quot; alt=&quot;Clay Games&quot;&gt;&lt;/p&gt;
 
 &lt;h3&gt;Moving On&lt;/h3&gt;
 
@@ -58,7 +58,7 @@ This is where I think we could have improved the most.&lt;/p&gt;
 
 &lt;p&gt;We ended up building our own A/B testing analytics framework (&lt;a href=&quot;https://github.com/claydotio/hyperplane&quot;&gt;open-source&lt;/a&gt;) due to limitations (and cost) of other solutions. This was probably the hardest problem I solved at Clay, and even then I would like to take a second pass at it. I will likely write a blog post about it later this year.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/clay_mascot.png&quot; alt=&quot;Clay Mascot&quot;&gt;&lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>Zorium v1.0.0 (╯°□°)╯︵ ┻━┻</title><link href="https://zolmeister.com/2015/05/zorium.html" rel="alternate" type="text/html" title="Zorium v1.0.0 (╯°□°)╯︵ ┻━┻" /><published>2015-05-24T00:00:00-05:00</published><updated>2015-05-24T00:00:00-05:00</updated><id>https://zolmeister.com/2015/05/zorium</id><content type="html" xml:base="https://zolmeister.com/2015/05/zorium.html">&lt;p&gt;&lt;a href=&quot;https://zorium.org/&quot;&gt;&lt;img src=&quot;/assets/images/zorium_logo_728.png&quot; alt=&quot;zorium&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/clay_mascot.png&quot; alt=&quot;Clay Mascot&quot;&gt;&lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>Zorium v1.0.0 (╯°□°)╯︵ ┻━┻</title><link href="https://zolmeister.com/2015/05/zorium.html" rel="alternate" type="text/html" title="Zorium v1.0.0 (╯°□°)╯︵ ┻━┻" /><published>2015-05-24T00:00:00-05:00</published><updated>2015-05-24T00:00:00-05:00</updated><id>https://zolmeister.com/2015/05/zorium</id><content type="html" xml:base="https://zolmeister.com/2015/05/zorium.html">&lt;p&gt;&lt;a href=&quot;https://zorium.org/&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/zorium_logo_728.png&quot; alt=&quot;zorium&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3&gt;The CoffeeScript Web Framework&lt;/h3&gt;
 
@@ -224,7 +224,7 @@ Note that the server simply acts as a pre-renderer. Do not write server-side bus
 
 &lt;h4&gt;Comparison to other virtual-dom libraries&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/zorium_icon_256.png&quot; alt=&quot;zorium icon&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/zorium_icon_256.png&quot; alt=&quot;zorium icon&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;The Zorium framework is a collection of patterns, which are expressed in &lt;a href=&quot;https://github.com/Zorium/zorium-seed&quot;&gt;Zorium Seed&lt;/a&gt;. However, as a library is has some key differences from other popular virtual-dom libraries.&lt;/p&gt;
 
@@ -255,7 +255,7 @@ Zorium uses the &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&
 3: Inter-component communication with animations is nearly impossible (without an event-bus and side-effects), whereas Zorium simply uses RxJS observables to handle complex communications in a declarative way.&lt;br&gt;
 4: &lt;code&gt;React.createClass()&lt;/code&gt; (and extending React.Component) means non-idiomatic initialization. (vs. explicitly calling &lt;code&gt;new Component()&lt;/code&gt;)&lt;br&gt;
 5: JSX magic is not idiomatic code.&lt;br&gt;
-6: Mixins are also a mistake, they are opaque and imperative.  &lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>10x: Service Discovery at Clay.io</title><link href="https://zolmeister.com/2015/02/10x-service-discovery-at-clay-io.html" rel="alternate" type="text/html" title="10x: Service Discovery at Clay.io" /><published>2015-02-17T00:00:00-06:00</published><updated>2015-02-17T00:00:00-06:00</updated><id>https://zolmeister.com/2015/02/10x-service-discovery-at-clay-io</id><content type="html" xml:base="https://zolmeister.com/2015/02/10x-service-discovery-at-clay-io.html">&lt;p&gt;&lt;img src=&quot;/assets/images/synapse.png&quot; alt=&quot;synapse architecture&quot;&gt;&lt;/p&gt;
+6: Mixins are also a mistake, they are opaque and imperative.  &lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>10x: Service Discovery at Clay.io</title><link href="https://zolmeister.com/2015/02/10x-service-discovery-at-clay-io.html" rel="alternate" type="text/html" title="10x: Service Discovery at Clay.io" /><published>2015-02-17T00:00:00-06:00</published><updated>2015-02-17T00:00:00-06:00</updated><id>https://zolmeister.com/2015/02/10x-service-discovery-at-clay-io</id><content type="html" xml:base="https://zolmeister.com/2015/02/10x-service-discovery-at-clay-io.html">&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/synapse.png&quot; alt=&quot;synapse architecture&quot;&gt;&lt;/p&gt;
 
 &lt;h4&gt;Architecture&lt;/h4&gt;
 
@@ -428,7 +428,7 @@ docker run
     -discovery https://discovery.etcd.io/XXXXXXXXXXXX
     -initial-cluster-token cluster-token-here
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;(see &lt;a href=&quot;https://coreos.com/docs/cluster-management/setup/cluster-discovery/&quot;&gt;discovery docs&lt;/a&gt; for url)&lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>10x: Docker at Clay.io</title><link href="https://zolmeister.com/2014/12/10x-docker-at-clay-io.html" rel="alternate" type="text/html" title="10x: Docker at Clay.io" /><published>2014-12-15T00:00:00-06:00</published><updated>2014-12-15T00:00:00-06:00</updated><id>https://zolmeister.com/2014/12/10x-docker-at-clay-io</id><content type="html" xml:base="https://zolmeister.com/2014/12/10x-docker-at-clay-io.html">&lt;p&gt;&lt;img src=&quot;/assets/images/docker_logo.png&quot; alt=&quot;docker logo&quot;&gt;&lt;/p&gt;
+&lt;p&gt;(see &lt;a href=&quot;https://coreos.com/docs/cluster-management/setup/cluster-discovery/&quot;&gt;discovery docs&lt;/a&gt; for url)&lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>10x: Docker at Clay.io</title><link href="https://zolmeister.com/2014/12/10x-docker-at-clay-io.html" rel="alternate" type="text/html" title="10x: Docker at Clay.io" /><published>2014-12-15T00:00:00-06:00</published><updated>2014-12-15T00:00:00-06:00</updated><id>https://zolmeister.com/2014/12/10x-docker-at-clay-io</id><content type="html" xml:base="https://zolmeister.com/2014/12/10x-docker-at-clay-io.html">&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/docker_logo.png&quot; alt=&quot;docker logo&quot;&gt;&lt;/p&gt;
 
 &lt;h2&gt;Intro&lt;/h2&gt;
 
@@ -441,7 +441,7 @@ and then describe how to create a &amp;#39;container&amp;#39; using a Dockerfile
 
 &lt;h2&gt;Overview&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/docker-diagram.png&quot; alt=&quot;docker diagram&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/docker-diagram.png&quot; alt=&quot;docker diagram&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; &lt;a href=&quot;https://gist.github.com/Zolmeister/aa0cf06678170a39c3c0&quot;&gt;Example Ansible Config&lt;/a&gt; (may not follow best practices)&lt;/p&gt;
 
@@ -593,7 +593,7 @@ backend mobile
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://zolmeister.com/2014/10/10x-architecture-at-clay-io.html&quot;&gt;Architecture&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://zolmeister.com/2014/10/10x-logging-at-clay-io.html&quot;&gt;Logging&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>10x: Logging at Clay.io</title><link href="https://zolmeister.com/2014/10/10x-logging-at-clay-io.html" rel="alternate" type="text/html" title="10x: Logging at Clay.io" /><published>2014-10-25T00:00:00-05:00</published><updated>2014-10-25T00:00:00-05:00</updated><id>https://zolmeister.com/2014/10/10x-logging-at-clay-io</id><content type="html" xml:base="https://zolmeister.com/2014/10/10x-logging-at-clay-io.html">&lt;p&gt;&lt;img src=&quot;/assets/images/logstash_logo.png&quot; alt=&quot;logstash logo&quot;&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>10x: Logging at Clay.io</title><link href="https://zolmeister.com/2014/10/10x-logging-at-clay-io.html" rel="alternate" type="text/html" title="10x: Logging at Clay.io" /><published>2014-10-25T00:00:00-05:00</published><updated>2014-10-25T00:00:00-05:00</updated><id>https://zolmeister.com/2014/10/10x-logging-at-clay-io</id><content type="html" xml:base="https://zolmeister.com/2014/10/10x-logging-at-clay-io.html">&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/logstash_logo.png&quot; alt=&quot;logstash logo&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;Managing 20+ servers as a small team is no easy task, and when things go wrong
 (they always do) figuring out what happened quickly is essential. Of course
@@ -609,7 +609,7 @@ client servers. The aggregate server runs the main &lt;code&gt;logstash&lt;/code
 client servers run &lt;code&gt;logstash-forwarder&lt;/code&gt; to ships logs to the &lt;code&gt;logstash&lt;/code&gt; instance.
 Here is a diagram of our setup:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/scribe.png&quot; alt=&quot;scribe&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/scribe.png&quot; alt=&quot;scribe&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;Note that &lt;code&gt;logstash-forwarder&lt;/code&gt; doesn&amp;#39;t rotate logs. Log rotation is the process of
 storing older logs (usually compressed) into buckets (either of size or by date)
@@ -618,7 +618,7 @@ the &lt;a href=&quot;http://linuxcommand.org/man_pages/logrotate8.html&quot;&gt;
 
 &lt;h4&gt;Investigating logs&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/logstash_screenshot.png&quot; alt=&quot;kibana&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/logstash_screenshot.png&quot; alt=&quot;kibana&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;The logstash daemon runs &lt;a href=&quot;http://www.elasticsearch.org/&quot;&gt;ElasticSearch&lt;/a&gt; and
 &lt;a href=&quot;http://www.elasticsearch.org/overview/kibana/&quot;&gt;Kibana&lt;/a&gt; to analyze logs.
@@ -638,7 +638,7 @@ a distributed logging system themselves in just a few seconds.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Logstash&lt;/code&gt; Server: &lt;a href=&quot;https://github.com/claydotio/journalist-public&quot;&gt;clay/journalist-public&lt;/a&gt;&lt;br&gt;
 &lt;code&gt;Logstash-forwarder&lt;/code&gt; Server: &lt;a href=&quot;https://github.com/claydotio/scribe-public&quot;&gt;clay/scribe-public&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Good Luck!&lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>10x: Architecture at Clay.io</title><link href="https://zolmeister.com/2014/10/10x-architecture-at-clay-io.html" rel="alternate" type="text/html" title="10x: Architecture at Clay.io" /><published>2014-10-01T00:00:00-05:00</published><updated>2014-10-01T00:00:00-05:00</updated><id>https://zolmeister.com/2014/10/10x-architecture-at-clay-io</id><content type="html" xml:base="https://zolmeister.com/2014/10/10x-architecture-at-clay-io.html">&lt;p&gt;&lt;img src=&quot;/assets/images/clay-architecture-1.png&quot; alt=&quot;Clay.io&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Good Luck!&lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>10x: Architecture at Clay.io</title><link href="https://zolmeister.com/2014/10/10x-architecture-at-clay-io.html" rel="alternate" type="text/html" title="10x: Architecture at Clay.io" /><published>2014-10-01T00:00:00-05:00</published><updated>2014-10-01T00:00:00-05:00</updated><id>https://zolmeister.com/2014/10/10x-architecture-at-clay-io</id><content type="html" xml:base="https://zolmeister.com/2014/10/10x-architecture-at-clay-io.html">&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/clay-architecture-1.png&quot; alt=&quot;Clay.io&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;This is the first post in my new series &lt;code&gt;10x&lt;/code&gt;, where I share my experiences
 and how we do things at &lt;a href=&quot;http://clay.io/&quot;&gt;Clay.io&lt;/a&gt; to develop at scale with a small team.&lt;/p&gt;
@@ -654,14 +654,14 @@ and how we do things at &lt;a href=&quot;http://clay.io/&quot;&gt;Clay.io&lt;/a&
 
 &lt;h4&gt;CloudFlare&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.cloudflare.com/&quot;&gt;&lt;img src=&quot;/assets/images/cloudflare-logo.png&quot; alt=&quot;CloudFlare&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.cloudflare.com/&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/cloudflare-logo.png&quot; alt=&quot;CloudFlare&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.cloudflare.com/&quot;&gt;CloudFlare&lt;/a&gt; handles all of our DNS, and acts as a distributed caching
 proxy with some additional DDOS protection features. It also handles SSL.&lt;/p&gt;
 
 &lt;h4&gt;Amazon EC2 + VPC + NAT server&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://aws.amazon.com/&quot;&gt;&lt;img src=&quot;/assets/images/aws-logo.png&quot; alt=&quot;Amazon Web Services&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://aws.amazon.com/&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/aws-logo.png&quot; alt=&quot;Amazon Web Services&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Almost all of our servers live on Amazon EC2, most are either medium or large instances.
 We also use Amazon VPC to host some of our servers inside of a private network,
@@ -686,7 +686,7 @@ In addition, we may add Amazon ELB in front to scale horizontally if necessary.&
 
 &lt;h4&gt;App Server - Docker&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.docker.com/&quot;&gt;&lt;img src=&quot;/assets/images/docker-logo.png&quot; alt=&quot;Docker&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.docker.com/&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/docker-logo.png&quot; alt=&quot;Docker&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; is tool to manage Linux containers, which are similar to Virtual Machines
 except with less overhead (and without some isolation and security guarantees).
@@ -707,7 +707,7 @@ has been critical to preventing unnecessary breakage and downtime of our product
 
 &lt;h4&gt;MySQL&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.mysql.com/&quot;&gt;&lt;img src=&quot;/assets/images/mysql-logo.jpg&quot; alt=&quot;MySQL&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.mysql.com/&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/mysql-logo.jpg&quot; alt=&quot;MySQL&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.mysql.com/&quot;&gt;MySQL&lt;/a&gt; is a production-hardened relational SQL database.
 The vast majority of our data currently resides inside a Master-Slave MySQL cluster.
@@ -716,7 +716,7 @@ Eventually we may have to move tables or shard the single master server, but hop
 
 &lt;h4&gt;Logstash&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://logstash.net/&quot;&gt;&lt;img src=&quot;/assets/images/logstash-logo.png&quot; alt=&quot;logstash&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://logstash.net/&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/logstash-logo.png&quot; alt=&quot;logstash&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://logstash.net/&quot;&gt;Logstash&lt;/a&gt; is a log aggregation tool, with Kibana integration for analysis.
 It basically handles all of our application logs, and gives us a place to check
@@ -724,7 +724,7 @@ for errors when something goes wrong. It saves us from having to SSH into a mach
 
 &lt;h4&gt;MongoDB&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.mongodb.org/&quot;&gt;&lt;img src=&quot;/assets/images/mongoDB-logo.png&quot; alt=&quot;MongoDB&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.mongodb.org/&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/mongoDB-logo.png&quot; alt=&quot;MongoDB&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.mongodb.org/&quot;&gt;MongoDB&lt;/a&gt; is a NoSQL document storage database.
 We currently use mongodb for some of our developer endpoints, and for our A/B testing
@@ -740,7 +740,7 @@ Eventually we would like to replace this with Redis.&lt;/p&gt;
 
 &lt;h4&gt;Ansible&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.ansible.com/home&quot;&gt;&lt;img src=&quot;/assets/images/ansible-logo.png&quot; alt=&quot;Ansible&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.ansible.com/home&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/ansible-logo.png&quot; alt=&quot;Ansible&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.ansible.com/home&quot;&gt;Ansible&lt;/a&gt; has been our tool of choice for managing our servers. It&amp;#39;s simple enough for most developers to learn quickly
 and be comfortable working with, and has been critical for automating many of the processes normally
@@ -801,7 +801,7 @@ We will be following it&amp;#39;s development closely and hopefully put it into 
 and hope to implement that in the near future.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://rethinkdb.com/&quot;&gt;RethinkDB&lt;/a&gt;, while quite immature, is also quite an interesting project. We will definitely be following it&amp;#39;s
-progress and may eventually move some of our data into it as we move away from MySQL.&lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>Developing on Linux</title><link href="https://zolmeister.com/2014/09/developing-on-linux.html" rel="alternate" type="text/html" title="Developing on Linux" /><published>2014-09-13T00:00:00-05:00</published><updated>2014-09-13T00:00:00-05:00</updated><id>https://zolmeister.com/2014/09/developing-on-linux</id><content type="html" xml:base="https://zolmeister.com/2014/09/developing-on-linux.html">&lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/dotfiles&quot;&gt;&lt;img src=&quot;/assets/images/desktop.png&quot; alt=&quot;desktop&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+progress and may eventually move some of our data into it as we move away from MySQL.&lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>Developing on Linux</title><link href="https://zolmeister.com/2014/09/developing-on-linux.html" rel="alternate" type="text/html" title="Developing on Linux" /><published>2014-09-13T00:00:00-05:00</published><updated>2014-09-13T00:00:00-05:00</updated><id>https://zolmeister.com/2014/09/developing-on-linux</id><content type="html" xml:base="https://zolmeister.com/2014/09/developing-on-linux.html">&lt;p&gt;&lt;a href=&quot;https://github.com/Zolmeister/dotfiles&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/desktop.png&quot; alt=&quot;desktop&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3&gt;&lt;a href=&quot;https://github.com/Zolmeister/dotfiles&quot;&gt;dotfiles&lt;/a&gt;&lt;/h3&gt;
 
@@ -864,7 +864,7 @@ definitely work checking out.&lt;/p&gt;
 shell extension which takes care of drawing your prompt. I have customized it
 based on my ZSH theme to include additional git hints (like ±).&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot;&gt;&lt;img src=&quot;/assets/images/shell.png&quot; alt=&quot;shell&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/shell.png&quot; alt=&quot;shell&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2&gt;Atom.io&lt;/h2&gt;
 
@@ -896,7 +896,7 @@ were a Linux friendly GPU (Nvidia), 32GB of RAM, and 4k monitor support.&lt;/p&g
 &lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16824009316&quot;&gt;21.5&amp;quot; monitor&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16811146061&quot;&gt;NZXT ATX Mid Tower&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.newegg.com/Product/Product.aspx?Item=N82E16813157372&quot;&gt;ASRock Motherboard&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>Fuco - A Coloring Game</title><link href="https://zolmeister.com/2014/09/Fuco-a-coloring-game.html" rel="alternate" type="text/html" title="Fuco - A Coloring Game" /><published>2014-09-01T00:00:00-05:00</published><updated>2014-09-01T00:00:00-05:00</updated><id>https://zolmeister.com/2014/09/Fuco-a-coloring-game</id><content type="html" xml:base="https://zolmeister.com/2014/09/Fuco-a-coloring-game.html">&lt;p&gt;&lt;a href=&quot;http://fuco.zolmeister.com&quot;&gt;&lt;img src=&quot;/assets/images/fuco_logo.png&quot; alt=&quot;fuco&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>Fuco - A Coloring Game</title><link href="https://zolmeister.com/2014/09/Fuco-a-coloring-game.html" rel="alternate" type="text/html" title="Fuco - A Coloring Game" /><published>2014-09-01T00:00:00-05:00</published><updated>2014-09-01T00:00:00-05:00</updated><id>https://zolmeister.com/2014/09/Fuco-a-coloring-game</id><content type="html" xml:base="https://zolmeister.com/2014/09/Fuco-a-coloring-game.html">&lt;p&gt;&lt;a href=&quot;http://fuco.zolmeister.com&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/fuco_logo.png&quot; alt=&quot;fuco&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://fuco.zolmeister.com/&quot;&gt;Web&lt;/a&gt; |
 &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.zolmeister.fuco&quot;&gt;Android&lt;/a&gt; |
@@ -919,7 +919,7 @@ which meant no WebGL (due to iOS support). Because I wrote platform-agnostic cod
 
 &lt;p&gt;Being my second time participating I should have had better time management.
 However I made most of the game on Sunday (pulling an all-nighter, being awake during the &lt;a href=&quot;http://america.aljazeera.com/articles/2014/8/24/san-francisco-earthquake.html&quot;&gt;earthquake&lt;/a&gt; at 3am):
-&lt;a href=&quot;https://github.com/Zolmeister/fuco&quot;&gt;&lt;img src=&quot;/assets/images/fuco_github_timeline.png&quot; alt=&quot;timeline&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;https://github.com/Zolmeister/fuco&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/fuco_github_timeline.png&quot; alt=&quot;timeline&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;iframe frameborder=0 src=&quot;http://fuco.zolmeister.com&quot; style=&quot;width: 300px; height: 500px; margin: 0 auto&quot;&gt;&lt;/iframe&gt;
 
@@ -955,7 +955,7 @@ Here is my solution:&lt;/p&gt;
   &lt;span class=&quot;nx&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;restore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;http://fuco.zolmeister.com&quot;&gt;&lt;img src=&quot;/assets/images/fuco_screenshot.png&quot; alt=&quot;fuco&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://fuco.zolmeister.com&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/fuco_screenshot.png&quot; alt=&quot;fuco&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4&gt;Home screen animation&lt;/h4&gt;
 
@@ -989,7 +989,7 @@ and them inlined the SVG into the HTML.&lt;/p&gt;
   &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;strokeWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'2px'&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>Jekyll - Blogging for Developers</title><link href="https://zolmeister.com/2014/08/jekyll-blogging-for-developers.html" rel="alternate" type="text/html" title="Jekyll - Blogging for Developers" /><published>2014-08-20T00:00:00-05:00</published><updated>2014-08-20T00:00:00-05:00</updated><id>https://zolmeister.com/2014/08/jekyll-blogging-for-developers</id><content type="html" xml:base="https://zolmeister.com/2014/08/jekyll-blogging-for-developers.html">&lt;p&gt;&lt;a href=&quot;/2014/08/jekyll-blogging-for-developers.html&quot;&gt;&lt;img src=&quot;/assets/images/blog-header.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>Jekyll - Blogging for Developers</title><link href="https://zolmeister.com/2014/08/jekyll-blogging-for-developers.html" rel="alternate" type="text/html" title="Jekyll - Blogging for Developers" /><published>2014-08-20T00:00:00-05:00</published><updated>2014-08-20T00:00:00-05:00</updated><id>https://zolmeister.com/2014/08/jekyll-blogging-for-developers</id><content type="html" xml:base="https://zolmeister.com/2014/08/jekyll-blogging-for-developers.html">&lt;p&gt;&lt;a href=&quot;/2014/08/jekyll-blogging-for-developers.html&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/blog-header.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;You may have noticed that this blog moved from &lt;a href=&quot;http://zolmeister.blogspot.com/&quot;&gt;Blogger&lt;/a&gt;
 to a &lt;a href=&quot;https://github.com/rosario/kasper&quot;&gt;Ghost themed&lt;/a&gt; &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll website&lt;/a&gt;
