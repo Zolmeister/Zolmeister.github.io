@@ -4,7 +4,7 @@ title:  "Jekyll - Blogging for Developers"
 date:   2014-08-20
 ---
 
-[![](/assets/images/blog-header.png)](/2014/08/jekyll-blogging-for-developers.html)
+[![](https://zolmeister.com/assets/images/blog-header.png)](/2014/08/jekyll-blogging-for-developers.html)
 
 You may have noticed that this blog moved from [Blogger](http://zolmeister.blogspot.com/)
 to a [Ghost themed](https://github.com/rosario/kasper) [Jekyll website](http://jekyllrb.com/)

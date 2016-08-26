@@ -5,7 +5,7 @@ date:   2014-12-15
 ---
 
 
-![docker logo](/assets/images/docker_logo.png)
+![docker logo](https://zolmeister.com/assets/images/docker_logo.png)
 
 ## Intro
 
@@ -18,7 +18,7 @@ and then describe how to create a 'container' using a Dockerfile.
 
 ## Overview
 
-![docker diagram](/assets/images/docker-diagram.png)
+![docker diagram](https://zolmeister.com/assets/images/docker-diagram.png)
 
 **Update:** [Example Ansible Config](https://gist.github.com/Zolmeister/aa0cf06678170a39c3c0) (may not follow best practices)
 

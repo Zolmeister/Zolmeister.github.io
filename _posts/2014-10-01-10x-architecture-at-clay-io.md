@@ -5,7 +5,7 @@ date:   2014-10-01
 ---
 
 
-![Clay.io](/assets/images/clay-architecture-1.png)
+![Clay.io](https://zolmeister.com/assets/images/clay-architecture-1.png)
 
 This is the first post in my new series `10x`, where I share my experiences
 and how we do things at [Clay.io](http://clay.io/) to develop at scale with a small team.
@@ -19,7 +19,7 @@ Update:
 
 #### CloudFlare
 
-[![CloudFlare](/assets/images/cloudflare-logo.png)](https://www.cloudflare.com/)
+[![CloudFlare](https://zolmeister.com/assets/images/cloudflare-logo.png)](https://www.cloudflare.com/)
 
 [CloudFlare](https://www.cloudflare.com/) handles all of our DNS, and acts as a distributed caching
 proxy with some additional DDOS protection features. It also handles SSL.
@@ -27,7 +27,7 @@ proxy with some additional DDOS protection features. It also handles SSL.
 
 #### Amazon EC2 + VPC + NAT server
 
-[![Amazon Web Services](/assets/images/aws-logo.png)](http://aws.amazon.com/)
+[![Amazon Web Services](https://zolmeister.com/assets/images/aws-logo.png)](http://aws.amazon.com/)
 
 Almost all of our servers live on Amazon EC2, most are either medium or large instances.
 We also use Amazon VPC to host some of our servers inside of a private network,
@@ -54,7 +54,7 @@ In addition, we may add Amazon ELB in front to scale horizontally if necessary.
 
 #### App Server - Docker
 
-[![Docker](/assets/images/docker-logo.png)](https://www.docker.com/)
+[![Docker](https://zolmeister.com/assets/images/docker-logo.png)](https://www.docker.com/)
 
 [Docker](https://www.docker.com/) is tool to manage Linux containers, which are similar to Virtual Machines
 except with less overhead (and without some isolation and security guarantees).
@@ -75,7 +75,7 @@ has been critical to preventing unnecessary breakage and downtime of our product
 
 #### MySQL
 
-[![MySQL](/assets/images/mysql-logo.jpg)](http://www.mysql.com/)
+[![MySQL](https://zolmeister.com/assets/images/mysql-logo.jpg)](http://www.mysql.com/)
 
 [MySQL](http://www.mysql.com/) is a production-hardened relational SQL database.
 The vast majority of our data currently resides inside a Master-Slave MySQL cluster.
@@ -84,7 +84,7 @@ Eventually we may have to move tables or shard the single master server, but hop
 
 #### Logstash
 
-[![logstash](/assets/images/logstash-logo.png)](http://logstash.net/)
+[![logstash](https://zolmeister.com/assets/images/logstash-logo.png)](http://logstash.net/)
 
 [Logstash](http://logstash.net/) is a log aggregation tool, with Kibana integration for analysis.
 It basically handles all of our application logs, and gives us a place to check
@@ -92,7 +92,7 @@ for errors when something goes wrong. It saves us from having to SSH into a mach
 
 #### MongoDB
 
-[![MongoDB](/assets/images/mongoDB-logo.png)](http://www.mongodb.org/)
+[![MongoDB](https://zolmeister.com/assets/images/mongoDB-logo.png)](http://www.mongodb.org/)
 
 [MongoDB](http://www.mongodb.org/) is a NoSQL document storage database.
 We currently use mongodb for some of our developer endpoints, and for our A/B testing
@@ -108,7 +108,7 @@ Eventually we would like to replace this with Redis.
 
 #### Ansible
 
-[![Ansible](/assets/images/ansible-logo.png)](http://www.ansible.com/home)
+[![Ansible](https://zolmeister.com/assets/images/ansible-logo.png)](http://www.ansible.com/home)
 
 [Ansible](http://www.ansible.com/home) has been our tool of choice for managing our servers. It's simple enough for most developers to learn quickly
 and be comfortable working with, and has been critical for automating many of the processes normally

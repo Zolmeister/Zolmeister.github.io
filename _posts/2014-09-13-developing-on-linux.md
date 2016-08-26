@@ -3,7 +3,7 @@ layout: post
 title:  "Developing on Linux"
 date:   2014-09-13
 ---
-[![desktop](/assets/images/desktop.png)](https://github.com/Zolmeister/dotfiles)
+[![desktop](https://zolmeister.com/assets/images/desktop.png)](https://github.com/Zolmeister/dotfiles)
 
 ### [dotfiles](https://github.com/Zolmeister/dotfiles)
 
@@ -68,7 +68,7 @@ definitely work checking out.
 shell extension which takes care of drawing your prompt. I have customized it
 based on my ZSH theme to include additional git hints (like ±).
 
-[![shell](/assets/images/shell.png)](https://github.com/robbyrussell/oh-my-zsh)
+[![shell](https://zolmeister.com/assets/images/shell.png)](https://github.com/robbyrussell/oh-my-zsh)
 
 ## Atom.io
 

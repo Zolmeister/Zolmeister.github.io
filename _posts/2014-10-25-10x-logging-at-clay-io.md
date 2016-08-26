@@ -4,7 +4,7 @@ title:  "10x: Logging at Clay.io"
 date:   2014-10-25
 ---
 
-![logstash logo](/assets/images/logstash_logo.png)
+![logstash logo](https://zolmeister.com/assets/images/logstash_logo.png)
 
 Managing 20+ servers as a small team is no easy task, and when things go wrong
 (they always do) figuring out what happened quickly is essential. Of course
@@ -21,7 +21,7 @@ client servers. The aggregate server runs the main `logstash` binary, while the
 client servers run `logstash-forwarder` to ships logs to the `logstash` instance.
 Here is a diagram of our setup:
 
-![scribe](/assets/images/scribe.png)
+![scribe](https://zolmeister.com/assets/images/scribe.png)
 
 Note that `logstash-forwarder` doesn't rotate logs. Log rotation is the process of
 storing older logs (usually compressed) into buckets (either of size or by date)
@@ -31,7 +31,7 @@ the [`logrotate`](http://linuxcommand.org/man_pages/logrotate8.html) linux utili
 
 #### Investigating logs
 
-![kibana](/assets/images/logstash_screenshot.png)
+![kibana](https://zolmeister.com/assets/images/logstash_screenshot.png)
 
 The logstash daemon runs [ElasticSearch](http://www.elasticsearch.org/) and
 [Kibana](http://www.elasticsearch.org/overview/kibana/) to analyze logs.

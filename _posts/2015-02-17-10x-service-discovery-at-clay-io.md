@@ -4,7 +4,7 @@ title:  "10x: Service Discovery at Clay.io"
 date:   2015-02-17
 ---
 
-![synapse architecture](/assets/images/synapse.png)
+![synapse architecture](https://zolmeister.com/assets/images/synapse.png)
 
 #### Architecture
 

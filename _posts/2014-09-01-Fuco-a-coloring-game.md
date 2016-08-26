@@ -4,7 +4,7 @@ title:  "Fuco - A Coloring Game"
 date:   2014-09-01
 ---
 
-[![fuco](/assets/images/fuco_logo.png)](http://fuco.zolmeister.com)
+[![fuco](https://zolmeister.com/assets/images/fuco_logo.png)](http://fuco.zolmeister.com)
 
 [Web](http://fuco.zolmeister.com/) |
 [Android](https://play.google.com/store/apps/details?id=com.zolmeister.fuco) |
@@ -27,7 +27,7 @@ which meant no WebGL (due to iOS support). Because I wrote platform-agnostic cod
 
 Being my second time participating I should have had better time management.
 However I made most of the game on Sunday (pulling an all-nighter, being awake during the [earthquake](http://america.aljazeera.com/articles/2014/8/24/san-francisco-earthquake.html) at 3am):
-[![timeline](/assets/images/fuco_github_timeline.png)](https://github.com/Zolmeister/fuco)
+[![timeline](https://zolmeister.com/assets/images/fuco_github_timeline.png)](https://github.com/Zolmeister/fuco)
 
 <iframe frameborder=0 src="http://fuco.zolmeister.com" style="width: 300px; height: 500px; margin: 0 auto"></iframe>
 <br>
@@ -66,7 +66,7 @@ if (y < 0) {
 }
 ```
 
-[![fuco](/assets/images/fuco_screenshot.png)](http://fuco.zolmeister.com)
+[![fuco](https://zolmeister.com/assets/images/fuco_screenshot.png)](http://fuco.zolmeister.com)
 
 
 #### Home screen animation
