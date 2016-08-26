@@ -66,25 +66,25 @@
 
 <p>I ended up using <a href="http://angularjs.org/">AngularJS</a>, <a href="https://www.firebase.com/">Firebase</a>, <a href="http://gulpjs.com/">Gulp</a>, <a href="http://purecss.io/">Pure CSS</a>, <a href="http://www.google.com/fonts">Google Web Fonts</a>, and a few libraries (<a href="http://lodash.com/">lodash.js</a>, <a href="https://github.com/chjj/marked">marked.js</a>, <a href="http://highlightjs.org/">highlight.js</a>, <a href="http://fgnass.github.io/spin.js/">spin.js</a>). The code is pretty standard AngularJS, and for the most part follows best practices. This was my first time using Gulp (instead of <a href="http://gruntjs.com/">Grunt</a>), and I highly recommend it. When I wrote about re-writing <a href="http://www.zolmeister.com/2014/01/zoggle-rewritten-using-angularjs.html">Zoggle in AngularJS</a>, I posted my Gruntfile which minified my AngularJS source. Looking at the Gulp equivalent, it&#39;s clear how powerful Gulp can be:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Concatenate &amp; Minify JS</span>
-<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s1">&#39;scripts&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">gulp</span><span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="s1">&#39;./app/js/*.js&#39;</span><span class="p">)</span>
-        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">concat</span><span class="p">(</span><span class="s1">&#39;all.js&#39;</span><span class="p">))</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s1">'scripts'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">gulp</span><span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="s1">'./app/js/*.js'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">concat</span><span class="p">(</span><span class="s1">'all.js'</span><span class="p">))</span>
         <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">ngmin</span><span class="p">())</span>
-        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="s1">&#39;./app/dist&#39;</span><span class="p">))</span>
-        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;all.min.js&#39;</span><span class="p">))</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="s1">'./app/dist'</span><span class="p">))</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">rename</span><span class="p">(</span><span class="s1">'all.min.js'</span><span class="p">))</span>
         <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">uglify</span><span class="p">())</span>
-        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="s1">&#39;./app/dist&#39;</span><span class="p">));</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="s1">'./app/dist'</span><span class="p">));</span>
 <span class="p">});</span>
 </code></pre></div>
 <p>As for the front-end code itself, the Firebase service I wrote for the application provides the core functionality. This code allows users to create, read, update, and delete posts that they own:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">&#39;DBService&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Firebase</span><span class="p">(</span><span class="s1">&#39;https://glaring-fire-7868.firebaseio.com/&#39;</span><span class="p">)</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">postDB</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">child</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">'DBService'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Firebase</span><span class="p">(</span><span class="s1">'https://glaring-fire-7868.firebaseio.com/'</span><span class="p">)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">postDB</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">child</span><span class="p">(</span><span class="s1">'posts'</span><span class="p">)</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">createPost</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">post</span><span class="p">,</span> <span class="nx">uid</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">postDB</span><span class="p">.</span><span class="nx">child</span><span class="p">(</span><span class="nx">uid</span><span class="p">).</span><span class="nx">child</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nx">set</span><span class="p">(</span><span class="nx">post</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">findPost</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">postId</span><span class="p">,</span> <span class="nx">uid</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">postDB</span><span class="p">.</span><span class="nx">child</span><span class="p">(</span><span class="nx">uid</span><span class="p">).</span><span class="nx">child</span><span class="p">(</span><span class="nx">postId</span><span class="p">).</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">postDB</span><span class="p">.</span><span class="nx">child</span><span class="p">(</span><span class="nx">uid</span><span class="p">).</span><span class="nx">child</span><span class="p">(</span><span class="nx">postId</span><span class="p">).</span><span class="nx">once</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">posts</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">uid</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
@@ -92,9 +92,9 @@
         <span class="nx">uid</span> <span class="o">=</span> <span class="kc">null</span>
       <span class="p">}</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">uid</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">postDB</span><span class="p">.</span><span class="nx">child</span><span class="p">(</span><span class="nx">uid</span><span class="p">).</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">postDB</span><span class="p">.</span><span class="nx">child</span><span class="p">(</span><span class="nx">uid</span><span class="p">).</span><span class="nx">once</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span>
       <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">postDB</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">postDB</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span>
       <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">removePost</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">postId</span><span class="p">,</span> <span class="nx">uid</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
@@ -104,15 +104,15 @@
 </code></pre></div>
 <p>Firebase uses a simple json object to define data-access for users. Here was mine:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;.read&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s2">&quot;posts&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;$user&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;.read&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&quot;.write&quot;</span><span class="o">:</span> <span class="s2">&quot;$user == auth.username&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;$post&quot;</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">&quot;.read&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-          <span class="s2">&quot;.write&quot;</span><span class="o">:</span> <span class="s2">&quot;data.child(&#39;$user&#39;).val() == auth.username&quot;</span>
+  <span class="s2">"rules"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">".read"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"posts"</span><span class="err">:</span> <span class="p">{</span>
+      <span class="s2">"$user"</span><span class="err">:</span> <span class="p">{</span>
+        <span class="s2">".read"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">".write"</span><span class="err">:</span> <span class="s2">"$user == auth.username"</span><span class="p">,</span>
+        <span class="s2">"$post"</span><span class="err">:</span> <span class="p">{</span>
+          <span class="s2">".read"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="s2">".write"</span><span class="err">:</span> <span class="s2">"data.child('$user').val() == auth.username"</span>
         <span class="p">}</span>
       <span class="p">}</span>
     <span class="p">}</span>
@@ -159,22 +159,6 @@
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -186,7 +170,7 @@
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

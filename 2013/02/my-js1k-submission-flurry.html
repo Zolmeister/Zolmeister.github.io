@@ -61,10 +61,10 @@
 <p>In my <a href="http://www.zolmeister.com/2012/06/javascript-golfing.html">second blog post</a>&nbsp;I wrote about javascript golfing, and how it is a great way to entertain yourself and learn some cool tricks along the way. With <a href="http://js1k.com/2013-spring/">js1k</a>&nbsp;underway (you can submit till Match 31st), I have decided to write about my submission, Flurry. Now originally it was going to use both the <a href="https://developer.mozilla.org/en-US/docs/DOM/Using_fullscreen_mode">Full Screen API</a>, as well as the <a href="https://developer.mozilla.org/en-US/docs/API/Pointer_Lock_API">Pointer Lock API</a>&nbsp;(Mozilla misspelled their call with a capital S in screen), however after submitting it turned out that webkit blocks (be default) the fullscreen/pointerlock from within a frame (which is how js1k hosts submissions). I was&nbsp;disappointed&nbsp;but moved on to a variant that didn&#39;t use those calls.</p>
 
 <p>The final code came in at 1023 bytes, here is the original&nbsp;uncompressed&nbsp;source (4.8 kB):</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js">     <span class="cm">/*</span>
-<span class="cm"> * By: Zolmeister</span>
-<span class="cm"> * http://zolmeister.com</span>
-<span class="cm"> */</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js">     <span class="cm">/*
+ * By: Zolmeister
+ * http://zolmeister.com
+ */</span>
 <span class="nx">mouseX</span> <span class="o">=</span> <span class="nx">mouseY</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="nx">flowers</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="c1">// Z</span>
@@ -87,24 +87,24 @@
       <span class="kd">with</span><span class="p">(</span><span class="nb">Math</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">rand</span> <span class="o">=</span> <span class="nx">random</span>
         <span class="c1">//Align text so that it rotates cleanly</span>
-        <span class="nx">textBaseline</span> <span class="o">=</span> <span class="s1">&#39;middle&#39;</span>
-        <span class="nx">textAlign</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>
-        <span class="nx">shadowColor</span> <span class="o">=</span> <span class="s1">&#39;#222&#39;</span>
+        <span class="nx">textBaseline</span> <span class="o">=</span> <span class="s1">'middle'</span>
+        <span class="nx">textAlign</span> <span class="o">=</span> <span class="s1">'center'</span>
+        <span class="nx">shadowColor</span> <span class="o">=</span> <span class="s1">'#222'</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">rand</span><span class="p">()</span> <span class="o">&gt;</span><span class="p">.</span><span class="mi">6</span> <span class="o">&amp;</span> <span class="nx">flowers</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
           <span class="c1">//spawn flower</span>
           <span class="nx">flow</span> <span class="o">=</span> <span class="nx">rand</span><span class="p">()</span> <span class="o">*</span> <span class="mi">27</span> <span class="o">+</span> <span class="mi">10025</span>
           <span class="nx">dir</span> <span class="o">=</span> <span class="nx">rand</span><span class="p">()</span> <span class="o">*</span> <span class="nx">PI</span> <span class="o">*</span> <span class="mi">2</span>
           <span class="nx">flower</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="nx">x</span><span class="o">:</span> <span class="nx">mouseX</span><span class="p">,</span>
-            <span class="nx">y</span><span class="o">:</span> <span class="nx">mouseY</span><span class="p">,</span>
-            <span class="nx">dir</span><span class="o">:</span> <span class="nx">dir</span><span class="p">,</span>
-            <span class="nx">xSpeed</span><span class="o">:</span> <span class="nx">cos</span><span class="p">(</span><span class="nx">dir</span><span class="p">),</span>
-            <span class="nx">ySpeed</span><span class="o">:</span> <span class="nx">sin</span><span class="p">(</span><span class="nx">dir</span><span class="p">),</span>
-            <span class="nx">flower</span><span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">flow</span><span class="p">),</span> <span class="c1">//unicode flowers</span>
-            <span class="nx">rot</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="nx">poptime</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-            <span class="nx">size</span><span class="o">:</span> <span class="mi">90</span><span class="p">,</span>
-            <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#&#39;</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;FA7A79&#39;</span><span class="p">,</span> <span class="s1">&#39;A266AC&#39;</span><span class="p">,</span> <span class="s1">&#39;E38F3D&#39;</span><span class="p">,</span> <span class="s1">&#39;81A63F&#39;</span><span class="p">,</span> <span class="s1">&#39;619CD8&#39;</span><span class="p">][</span><span class="o">~~</span><span class="p">(</span><span class="nx">rand</span><span class="p">()</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)]</span>
+            <span class="na">x</span><span class="p">:</span> <span class="nx">mouseX</span><span class="p">,</span>
+            <span class="na">y</span><span class="p">:</span> <span class="nx">mouseY</span><span class="p">,</span>
+            <span class="na">dir</span><span class="p">:</span> <span class="nx">dir</span><span class="p">,</span>
+            <span class="na">xSpeed</span><span class="p">:</span> <span class="nx">cos</span><span class="p">(</span><span class="nx">dir</span><span class="p">),</span>
+            <span class="na">ySpeed</span><span class="p">:</span> <span class="nx">sin</span><span class="p">(</span><span class="nx">dir</span><span class="p">),</span>
+            <span class="na">flower</span><span class="p">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">flow</span><span class="p">),</span> <span class="c1">//unicode flowers</span>
+            <span class="na">rot</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="na">poptime</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="na">size</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
+            <span class="na">color</span><span class="p">:</span> <span class="s1">'#'</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'FA7A79'</span><span class="p">,</span> <span class="s1">'A266AC'</span><span class="p">,</span> <span class="s1">'E38F3D'</span><span class="p">,</span> <span class="s1">'81A63F'</span><span class="p">,</span> <span class="s1">'619CD8'</span><span class="p">][</span><span class="o">~~</span><span class="p">(</span><span class="nx">rand</span><span class="p">()</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)]</span>
           <span class="p">}</span>
           <span class="nx">flowers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">flower</span><span class="p">)</span>
         <span class="p">}</span>
@@ -154,21 +154,21 @@
                 <span class="nx">xx</span> <span class="o">=</span> <span class="nx">mouseX</span> <span class="o">+</span> <span class="nx">cos</span><span class="p">(</span><span class="nx">dd</span><span class="p">)</span> <span class="o">*</span> <span class="mi">45</span>
                 <span class="nx">yy</span> <span class="o">=</span> <span class="nx">mouseY</span> <span class="o">+</span> <span class="nx">sin</span><span class="p">(</span><span class="nx">dd</span><span class="p">)</span> <span class="o">*</span> <span class="mi">45</span>
                 <span class="nx">flowers</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
-                  <span class="nx">x</span><span class="o">:</span> <span class="nx">xx</span><span class="p">,</span>
-                  <span class="nx">y</span><span class="o">:</span> <span class="nx">yy</span><span class="p">,</span>
-                  <span class="nx">xSpeed</span><span class="o">:</span> <span class="nx">cos</span><span class="p">(</span><span class="nx">dd</span><span class="p">),</span>
-                  <span class="nx">ySpeed</span><span class="o">:</span> <span class="nx">sin</span><span class="p">(</span><span class="nx">dd</span><span class="p">),</span>
-                  <span class="nx">dir</span><span class="o">:</span> <span class="nx">dd</span><span class="p">,</span>
-                  <span class="nx">flower</span><span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">rand</span><span class="p">()</span> <span class="o">*</span> <span class="mi">27</span> <span class="o">+</span> <span class="mi">10025</span><span class="p">),</span> <span class="c1">//unicode flowers</span>
-                  <span class="nx">rot</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                  <span class="nx">poptime</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-                  <span class="nx">size</span><span class="o">:</span> <span class="nx">size</span><span class="p">,</span>
-                  <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#&#39;</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;FA7A79&#39;</span><span class="p">,</span> <span class="s1">&#39;A266AC&#39;</span><span class="p">,</span> <span class="s1">&#39;E38F3D&#39;</span><span class="p">,</span> <span class="s1">&#39;81A63F&#39;</span><span class="p">,</span> <span class="s1">&#39;619CD8&#39;</span><span class="p">][</span><span class="o">~~</span><span class="p">(</span><span class="nx">rand</span><span class="p">()</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)]</span>
+                  <span class="na">x</span><span class="p">:</span> <span class="nx">xx</span><span class="p">,</span>
+                  <span class="na">y</span><span class="p">:</span> <span class="nx">yy</span><span class="p">,</span>
+                  <span class="na">xSpeed</span><span class="p">:</span> <span class="nx">cos</span><span class="p">(</span><span class="nx">dd</span><span class="p">),</span>
+                  <span class="na">ySpeed</span><span class="p">:</span> <span class="nx">sin</span><span class="p">(</span><span class="nx">dd</span><span class="p">),</span>
+                  <span class="na">dir</span><span class="p">:</span> <span class="nx">dd</span><span class="p">,</span>
+                  <span class="na">flower</span><span class="p">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">rand</span><span class="p">()</span> <span class="o">*</span> <span class="mi">27</span> <span class="o">+</span> <span class="mi">10025</span><span class="p">),</span> <span class="c1">//unicode flowers</span>
+                  <span class="na">rot</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="na">poptime</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+                  <span class="na">size</span><span class="p">:</span> <span class="nx">size</span><span class="p">,</span>
+                  <span class="na">color</span><span class="p">:</span> <span class="s1">'#'</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'FA7A79'</span><span class="p">,</span> <span class="s1">'A266AC'</span><span class="p">,</span> <span class="s1">'E38F3D'</span><span class="p">,</span> <span class="s1">'81A63F'</span><span class="p">,</span> <span class="s1">'619CD8'</span><span class="p">][</span><span class="o">~~</span><span class="p">(</span><span class="nx">rand</span><span class="p">()</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)]</span>
                 <span class="p">})</span>
               <span class="p">}</span>
             <span class="p">}</span>
             <span class="c1">//draw rotated flower</span>
-            <span class="nx">font</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">+</span> <span class="s1">&#39;px sans&#39;</span>
+            <span class="nx">font</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">+</span> <span class="s1">'px sans'</span>
             <span class="nx">shadowBlur</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
             <span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">color</span>
             <span class="nx">save</span><span class="p">()</span>
@@ -188,7 +188,7 @@
 <p>Other than that, the only thing worth noting is that if you want to get spinning text (in my case unicode) its easiest (and the only way I got to work) to set the textBaseline=&#39;middle&#39; and textAlign=&#39;center&#39; on the canvas context. This positions the text (nearly) perfectly so that it rotates flawlessly. Without that, you get weird circulating objects (which is what happens to objects that are spun offset from their center).</p>
 
 <p>Finally, after hand minifying my code by renaming variables and moving a few bits of code around accordingly and also shortening &#39;if&#39; blocks with ternary operators, I passed the code first through the <a href="http://closure-compiler.appspot.com/home">google closure compiler service</a>&nbsp;and then through <a href="http://www.iteral.com/jscrush/">JSCrush</a>. This gave me a tidy line of 1023 bytes and concluded my js1k submission.</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">_</span><span class="o">=</span><span class="s1">&#39;X=Y=0;D=[];G=[[ 358`16 2`16 [ 351`73 9`73]];onmousemove= b X X;Y Y};K=c.hQZHQ-21;setIn rval(  if(X J=c.wid!ZWid!-21; a) Ma!) i   M=random, xtBasel e=&quot;mikle  xtAlign=&quot;cen r  Color=&quot;#222  6&lt; &amp;2 &amp;$ ,     Xq:Y,N:N,A: $ B:z$) 90  D) D[i] N%=2*PI; &gt;x|x&gt;J A x (x=  x&gt;J x=J- )  &gt;y|y&gt;K B y (y=  y&gt;K y=K- ) x+?6*A;y+?6*B;P=G[0]; j?;4&gt;j;j++)T=J*P[0 V=K*P[1 U=J* [0 W=K* [1 R=(V-W)/(T-U)*(x-T)+V,x&lt;max^&amp;x&gt;m ^ 10&gt; y-R) (x Aq B,j=4 P= ;O+=PI/9;F-?;if(150 0&gt;F H  x-X_&amp; y-Y_ H*= 9;F=30;N ;A= $ B=z$  i=0;10&gt;i;i++)k ,L=X+45*  R=Y+45*z      Lq:R,A:  B:z N:k H }font=H+&quot;px sans&quot;; Blur=3;fillStyle=I;save( transla (xq rota (O fillText(E,0,0 restore()}}},33) ,I:&quot;#&quot;+[&quot;FA7A79@A266AC@E38F3D@81A63F@619CD8&quot;][~~(5* )]}) ,E:Str g.fromCharCode(27* +10025 O:0,F:20,H: =2* *PI -  ( (k  0\. in &gt;D.leng!&amp;     D.push({x: 70 wi!( function( ); ],@, ), &amp;&amp; M() cos for( G[j] abs( =b.page *=-1, &gt; -?5.9* te 3 [ 64 shadow ){!th$(N?=1@ &quot;QeightZ= ner^(T,U)_)&lt;H/2`, kddq,yzs &#39;</span><span class="p">;</span><span class="k">for</span><span class="p">(</span><span class="nx">Y</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">$</span><span class="o">=</span><span class="s1">&#39;zqk`_^ZQ@?$!                                 &#39;</span><span class="p">[</span><span class="nx">Y</span><span class="o">++</span><span class="p">];)</span><span class="kd">with</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">$</span><span class="p">))</span><span class="nx">_</span><span class="o">=</span><span class="nx">join</span><span class="p">(</span><span class="nx">pop</span><span class="p">());</span><span class="nb">eval</span><span class="p">(</span><span class="nx">_</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">_</span><span class="o">=</span><span class="s1">'X=Y=0;D=[];G=[[ 358`16 2`16 [ 351`73 9`73]];onmousemove= b X X;Y Y};K=c.hQZHQ-21;setIn rval(  if(X J=c.wid!ZWid!-21; a) Ma!) i   M=random, xtBasel e="mikle  xtAlign="cen r  Color="#222  6&lt; &amp;2 &amp;$ ,     Xq:Y,N:N,A: $ B:z$) 90  D) D[i] N%=2*PI; &gt;x|x&gt;J A x (x=  x&gt;J x=J- )  &gt;y|y&gt;K B y (y=  y&gt;K y=K- ) x+?6*A;y+?6*B;P=G[0]; j?;4&gt;j;j++)T=J*P[0 V=K*P[1 U=J* [0 W=K* [1 R=(V-W)/(T-U)*(x-T)+V,x&lt;max^&amp;x&gt;m ^ 10&gt; y-R) (x Aq B,j=4 P= ;O+=PI/9;F-?;if(150 0&gt;F H  x-X_&amp; y-Y_ H*= 9;F=30;N ;A= $ B=z$  i=0;10&gt;i;i++)k ,L=X+45*  R=Y+45*z      Lq:R,A:  B:z N:k H }font=H+"px sans"; Blur=3;fillStyle=I;save( transla (xq rota (O fillText(E,0,0 restore()}}},33) ,I:"#"+["FA7A79@A266AC@E38F3D@81A63F@619CD8"][~~(5* )]}) ,E:Str g.fromCharCode(27* +10025 O:0,F:20,H: =2* *PI -  ( (k  0\. in &gt;D.leng!&amp;     D.push({x: 70 wi!( function( ); ],@, ), &amp;&amp; M() cos for( G[j] abs( =b.page *=-1, &gt; -?5.9* te 3 [ 64 shadow ){!th$(N?=1@ "QeightZ= ner^(T,U)_)&lt;H/2`, kddq,yzs '</span><span class="p">;</span><span class="k">for</span><span class="p">(</span><span class="nx">Y</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">$</span><span class="o">=</span><span class="s1">'zqk`_^ZQ@?$!                                 '</span><span class="p">[</span><span class="nx">Y</span><span class="o">++</span><span class="p">];)</span><span class="kd">with</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">$</span><span class="p">))</span><span class="nx">_</span><span class="o">=</span><span class="nx">join</span><span class="p">(</span><span class="nx">pop</span><span class="p">());</span><span class="nb">eval</span><span class="p">(</span><span class="nx">_</span><span class="p">)</span>
 </code></pre></div>
         </section>
 
@@ -228,22 +228,6 @@
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -255,7 +239,7 @@
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

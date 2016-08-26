@@ -76,8 +76,8 @@ http://charityvid.org/</p>
 
 <p><a href="http://upstart.ubuntu.com/img/upstart80.png"><img src="http://upstart.ubuntu.com/img/upstart80.png" alt=""></a>
 Enter <a href="http://upstart.ubuntu.com/">upstart</a>, the /sbin/init replacement. Upstart lets you maintain just one config file per site and start and stop it as a service without the need to run everything in a screen. To deploy an app is as simple as copying the myapplication.conf file into /etc/init/ and running &quot;start myapplication&quot;. Here is an example of one of my conf files (modified from <a href="http://kvz.io/blog/2009/12/15/run-nodejs-as-a-service-on-ubuntu-karmic/">this site</a>):</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">     description &quot;CharityVid node server&quot;
-     author   &quot;Zolmeister&quot;
+<div class="highlight"><pre><code class="language-" data-lang="">     description "CharityVid node server"
+     author   "Zolmeister"
      stop on shutdown
      respawn
      respawn limit 20 5
@@ -93,31 +93,31 @@ Enter <a href="http://upstart.ubuntu.com/">upstart</a>, the /sbin/init replaceme
 <p>What this conf file says is that on service start, log the&nbsp;process&#39;s&nbsp;pid (in case we need to kill it), set node to production mode, cd into the site directory (this is necessary because of&nbsp;issues with express.js template loading), and finally start the app. Notice that I start the app with the &quot;up&quot; command, and that I am piping 2&gt;&amp;1 (std err to std out) and appending (&gt;&gt;) it to the log file. The &quot;up&quot; command comes from the <a href="https://github.com/LearnBoost/up">up node module</a>&nbsp;which does auto-updating and load balancing. The alternative to &quot;up&quot; is <a href="https://github.com/isaacs/node-supervisor">node-supervisor</a>&nbsp;which doesn&#39;t do load balancing but can be run on any application out of the box (without the&nbsp;modification&nbsp;required by &quot;up&quot;).</p>
 
 <p>Ok, so now we have a way to start all of our applications, but how to route all the connections to the right place (remember all our apps are on one server with one IP address). Normally you would use <a href="http://nginx.org/">NGINX</a> (pronounced &quot;engine x&quot;), but the stable branch doesn&#39;t support websockets (used by <a href="http://zoggle.zolmeister.com/">http://zoggle.zolmeister.com</a>) so I decided to go with the simple <a href="https://github.com/nodejitsu/node-http-proxy">node-http-proxy</a> module. The documentation is a bit lacking, but I was able to get all the sites routed, including websockets support and ssl support (for&nbsp;https://charityvid.org/). Here is what my app.js file looks like for my &quot;gateway&quot; application:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">),</span>
-    <span class="nx">httpProxy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http-proxy&#39;</span><span class="p">),</span>
-    <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">),</span>
-    <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;https&#39;</span><span class="p">),</span>
-    <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;crypto&quot;</span><span class="p">),</span>
-    <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">),</span>
+    <span class="nx">httpProxy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http-proxy'</span><span class="p">),</span>
+    <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">),</span>
+    <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'https'</span><span class="p">),</span>
+    <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"crypto"</span><span class="p">),</span>
+    <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">main1</span> <span class="o">=</span> <span class="nx">httpProxy</span><span class="p">.</span><span class="nx">createServer</span><span class="p">({</span>
-  <span class="nx">router</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s1">&#39;zoggle.zolmeister.com&#39;</span><span class="o">:</span> <span class="s1">&#39;localhost:3001&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;avabranch.zolmeister.com&#39;</span><span class="o">:</span> <span class="s1">&#39;localhost:3005&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;charityvid.org&#39;</span><span class="o">:</span> <span class="s1">&#39;localhost:3100&#39;</span>
+  <span class="na">router</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">'zoggle.zolmeister.com'</span><span class="p">:</span> <span class="s1">'localhost:3001'</span><span class="p">,</span>
+    <span class="s1">'avabranch.zolmeister.com'</span><span class="p">:</span> <span class="s1">'localhost:3005'</span><span class="p">,</span>
+    <span class="s1">'charityvid.org'</span><span class="p">:</span> <span class="s1">'localhost:3100'</span>
   <span class="p">}</span>
 <span class="p">});</span>
 <span class="nx">main1</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8000</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">proxy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">httpProxy</span><span class="p">.</span><span class="nx">HttpProxy</span><span class="p">({</span>
-  <span class="nx">target</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">host</span><span class="o">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
-    <span class="nx">port</span><span class="o">:</span> <span class="mi">8000</span>
+  <span class="na">target</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">host</span><span class="p">:</span> <span class="s1">'localhost'</span><span class="p">,</span>
+    <span class="na">port</span><span class="p">:</span> <span class="mi">8000</span>
   <span class="p">}</span>
 <span class="p">});</span>
 <span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// Proxy normal HTTP requests</span>
   <span class="nx">proxy</span><span class="p">.</span><span class="nx">proxyRequest</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
 <span class="p">});</span>
-<span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;upgrade&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">socket</span><span class="p">,</span> <span class="nx">head</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'upgrade'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">socket</span><span class="p">,</span> <span class="nx">head</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// Proxy websocket requests too</span>
   <span class="nx">proxy</span><span class="p">.</span><span class="nx">proxyWebSocketRequest</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">socket</span><span class="p">,</span> <span class="nx">head</span><span class="p">);</span>
 <span class="p">});</span>
@@ -125,22 +125,22 @@ Enter <a href="http://upstart.ubuntu.com/">upstart</a>, the /sbin/init replaceme
 
 <span class="kd">function</span> <span class="nx">getCredentialsContext</span><span class="p">(</span><span class="nx">cer</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">createCredentials</span><span class="p">({</span>
-    <span class="nx">key</span><span class="o">:</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;certs&#39;</span><span class="p">,</span> <span class="nx">cer</span> <span class="o">+</span> <span class="s1">&#39;.key&#39;</span><span class="p">)),</span>
-    <span class="nx">cert</span><span class="o">:</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;certs&#39;</span><span class="p">,</span> <span class="nx">cer</span> <span class="o">+</span> <span class="s1">&#39;.crt&#39;</span><span class="p">))</span>
+    <span class="na">key</span><span class="p">:</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'certs'</span><span class="p">,</span> <span class="nx">cer</span> <span class="o">+</span> <span class="s1">'.key'</span><span class="p">)),</span>
+    <span class="na">cert</span><span class="p">:</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'certs'</span><span class="p">,</span> <span class="nx">cer</span> <span class="o">+</span> <span class="s1">'.crt'</span><span class="p">))</span>
   <span class="p">}).</span><span class="nx">context</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="kd">var</span> <span class="nx">certs</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&quot;charityvid.org&quot;</span><span class="o">:</span> <span class="nx">getCredentialsContext</span><span class="p">(</span><span class="s2">&quot;charityvid&quot;</span><span class="p">)</span>
+  <span class="s2">"charityvid.org"</span><span class="p">:</span> <span class="nx">getCredentialsContext</span><span class="p">(</span><span class="s2">"charityvid"</span><span class="p">)</span>
 <span class="p">};</span>
 <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">https</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">SNICallback</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">hostname</span><span class="p">)</span> <span class="p">{</span>
+  <span class="na">https</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">SNICallback</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">hostname</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="nx">certs</span><span class="p">[</span><span class="nx">hostname</span><span class="p">];</span>
     <span class="p">}</span>
   <span class="p">},</span>
-  <span class="nx">hostnameOnly</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nx">router</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s1">&#39;charityvid.org&#39;</span><span class="o">:</span> <span class="s1">&#39;localhost:3100&#39;</span>
+  <span class="na">hostnameOnly</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">router</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">'charityvid.org'</span><span class="p">:</span> <span class="s1">'localhost:3100'</span>
   <span class="p">}</span>
 <span class="p">};</span>
 <span class="c1">// https</span>
@@ -148,15 +148,15 @@ Enter <a href="http://upstart.ubuntu.com/">upstart</a>, the /sbin/init replaceme
 </code></pre></div>
 <p>After running the routing proxy every site should now be functional and up, but we still have to ssh into the server to start/stop apps and to update them (with supervisor and up you should rarely have to restart the node server). This is where <a href="http://docs.fabfile.org/en/1.5/">fabric</a> comes in. Fabric lets you automate the ssh process and run commands on the server from your work machine. For example a simple command to send the initial application.conf upstart file would be:</p>
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">installInit</span><span class="p">():</span>
-    <span class="n">put</span><span class="p">(</span><span class="s">&#39;avabranch.conf&#39;</span><span class="p">,</span> <span class="s">&#39;/etc/init/avabranch.conf&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
-    <span class="n">sudo</span><span class="p">(</span><span class="s">&#39;touch /var/log/avabranch.log&#39;</span><span class="p">)</span>
-    <span class="n">sudo</span><span class="p">(</span><span class="s">&#39;chown admin /var/log/avabranch.log&#39;</span><span class="p">)</span>
+    <span class="n">put</span><span class="p">(</span><span class="s">'avabranch.conf'</span><span class="p">,</span> <span class="s">'/etc/init/avabranch.conf'</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">sudo</span><span class="p">(</span><span class="s">'touch /var/log/avabranch.log'</span><span class="p">)</span>
+    <span class="n">sudo</span><span class="p">(</span><span class="s">'chown admin /var/log/avabranch.log'</span><span class="p">)</span>
 </code></pre></div>
 <p>And if you&#39;re using git to manage your source (I store mine in a private <a href="https://bitbucket.org/">bitbucket</a> repo), updating your production code is as easy as &quot;fab update:avabranch&quot; with the following fab file declaration:</p>
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
-    <span class="k">with</span> <span class="n">cd</span><span class="p">(</span><span class="s">&#39;/home/admin/websites&#39;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">app</span><span class="o">==</span><span class="s">&quot;avabranch&quot;</span><span class="p">:</span>
-            <span class="n">run</span><span class="p">(</span><span class="s">&#39;cd avabranch &amp;&amp; git pull&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">cd</span><span class="p">(</span><span class="s">'/home/admin/websites'</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">app</span><span class="o">==</span><span class="s">"avabranch"</span><span class="p">:</span>
+            <span class="n">run</span><span class="p">(</span><span class="s">'cd avabranch &amp;&amp; git pull'</span><span class="p">)</span>
 </code></pre></div>
 <p>Finally I keep my sites behind the <a href="http://www.cloudflare.com/">Cloud Flare</a> service, which basically means that they are protected from DDOS attacks, plus get free and efficient localized caching (cloud flare has many&nbsp;data-centers&nbsp;all over the world, which allows them to improve site cache latency times).</p>
 
@@ -198,22 +198,6 @@ Enter <a href="http://upstart.ubuntu.com/">upstart</a>, the /sbin/init replaceme
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -225,7 +209,7 @@ Enter <a href="http://upstart.ubuntu.com/">upstart</a>, the /sbin/init replaceme
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

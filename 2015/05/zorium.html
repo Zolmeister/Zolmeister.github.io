@@ -76,22 +76,22 @@ This is where Zorium stands out from the rest. Just start with <a href="https://
 <h4>Example</h4>
 
 <p>Because every framework should start with code:</p>
-<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nv">z = </span><span class="nx">require</span> <span class="s">&#39;zorium&#39;</span>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nx">z</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">'zorium'</span>
 
 <span class="k">class</span> <span class="nx">AppComponent</span>
-  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
-    <span class="vi">@state = </span><span class="nx">z</span><span class="p">.</span><span class="nx">state</span>
-      <span class="nv">name: </span><span class="s">&#39;Zorium&#39;</span>
+  <span class="na">constructor</span><span class="o">:</span> <span class="o">-&gt;</span>
+    <span class="vi">@</span><span class="na">state</span> <span class="o">=</span> <span class="nx">z</span><span class="p">.</span><span class="na">state</span>
+      <span class="na">name</span><span class="o">:</span> <span class="s">'Zorium'</span>
 
-  <span class="nv">render: </span><span class="nf">=&gt;</span>
-    <span class="p">{</span><span class="nx">name</span><span class="p">}</span> <span class="o">=</span> <span class="nx">@state</span><span class="p">.</span><span class="nx">getValue</span><span class="p">()</span>
+  <span class="na">render</span><span class="o">:</span> <span class="o">=&gt;</span>
+    <span class="p">{</span><span class="nx">name</span><span class="p">}</span> <span class="o">=</span> <span class="vi">@</span><span class="na">state</span><span class="p">.</span><span class="na">getValue</span><span class="p">()</span>
 
-    <span class="nx">z</span> <span class="s">&#39;div.zorium&#39;</span><span class="p">,</span>
-      <span class="nx">z</span> <span class="s">&#39;p.text&#39;</span><span class="p">,</span>
-        <span class="s">&quot;The Future is </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">z</span> <span class="s">'div.zorium'</span><span class="p">,</span>
+      <span class="nx">z</span> <span class="s">'p.text'</span><span class="p">,</span>
+        <span class="s">"The Future is </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">"</span>
 
-<span class="nx">z</span><span class="p">.</span><span class="nx">render</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s">&#39;div&#39;</span><span class="p">),</span> <span class="k">new</span> <span class="nx">AppComponent</span><span class="p">()</span>
-<span class="c1"># &lt;div class=&quot;zorium&quot;&gt;&lt;p class=&quot;text&quot;&gt;The Future is Zorium&lt;/p&gt;&lt;/div&gt;</span>
+<span class="nx">z</span><span class="p">.</span><span class="na">render</span> <span class="nb">document</span><span class="p">.</span><span class="na">createElement</span><span class="p">(</span><span class="s">'div'</span><span class="p">),</span> <span class="k">new</span> <span class="nx">AppComponent</span><span class="p">()</span>
+<span class="c1"># &lt;div class="zorium"&gt;&lt;p class="text"&gt;The Future is Zorium&lt;/p&gt;&lt;/div&gt;</span>
 </code></pre></div>
 <p>Notice:</p>
 
@@ -110,16 +110,16 @@ The most difficult implementation detail here was constructing an in-memory cach
 Eventually this was solved with <a href="https://github.com/Matt-Esch/virtual-dom/blob/master/docs/thunk.md">Thunks</a> and traversing the virtual-tree (<a href="https://github.com/Zorium/zorium/blob/master/src/z.coffee#L55">source</a>).</p>
 <div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1"># Component composition example</span>
 <span class="k">class</span> <span class="nx">Brick</span>
-  <span class="nv">render: </span><span class="nf">({name}) -&gt;</span>
-    <span class="nx">z</span> <span class="s">&#39;.z-brick&#39;</span><span class="p">.</span>
-      <span class="s">&quot;Hello </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="na">render</span><span class="o">:</span> <span class="p">({</span><span class="nx">name</span><span class="p">})</span> <span class="o">-&gt;</span>
+    <span class="nx">z</span> <span class="s">'.z-brick'</span><span class="p">.</span>
+      <span class="s">"Hello </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">"</span>
 
 <span class="k">class</span> <span class="nx">House</span>
-  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
-    <span class="vi">@$brick = </span><span class="k">new</span> <span class="nx">Brick</span><span class="p">()</span>
-  <span class="nv">render: </span><span class="nf">=&gt;</span>
-    <span class="nx">z</span> <span class="s">&#39;.z-house&#39;</span><span class="p">,</span>
-      <span class="nx">z</span> <span class="nx">@$brick</span><span class="p">,</span> <span class="p">{</span><span class="nv">name: </span><span class="s">&#39;Zorium&#39;</span><span class="p">}</span>
+  <span class="na">constructor</span><span class="o">:</span> <span class="o">-&gt;</span>
+    <span class="vi">@</span><span class="na">$brick</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Brick</span><span class="p">()</span>
+  <span class="na">render</span><span class="o">:</span> <span class="o">=&gt;</span>
+    <span class="nx">z</span> <span class="s">'.z-house'</span><span class="p">,</span>
+      <span class="nx">z</span> <span class="vi">@</span><span class="na">$brick</span><span class="p">,</span> <span class="p">{</span><span class="na">name</span><span class="o">:</span> <span class="s">'Zorium'</span><span class="p">}</span>
 </code></pre></div>
 <p><code>z.state()</code> creates an instance of <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md">Rx.BehaviorSubject()</a>,
 with a <code>set()</code> method for diffing the current value (and also some lazy-ness to make async more efficient).</p>
@@ -133,11 +133,11 @@ with a <code>set()</code> method for diffing the current value (and also some la
 <li>If another user likes the game, the value should update.</li>
 </ul>
 <div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1"># Note that we assume the models update themselves and emit streams.</span>
-<span class="nx">z</span><span class="p">.</span><span class="nx">state</span> <span class="p">{</span>
-  <span class="nv">numLikes: </span><span class="nx">Models</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">getMe</span><span class="p">().</span><span class="nx">flatMapLatest</span> <span class="nf">({favoriteGameId}) -&gt;</span>
-      <span class="k">return</span> <span class="nx">Models</span><span class="p">.</span><span class="nx">Game</span><span class="p">.</span><span class="nx">getById</span> <span class="nx">favoriteGameId</span>
-    <span class="p">.</span><span class="nx">map</span> <span class="nf">(game) -&gt;</span>
-      <span class="k">return</span> <span class="nx">game</span><span class="p">.</span><span class="nx">numLikes</span>
+<span class="nx">z</span><span class="p">.</span><span class="na">state</span> <span class="p">{</span>
+  <span class="na">numLikes</span><span class="o">:</span> <span class="nx">Models</span><span class="p">.</span><span class="na">User</span><span class="p">.</span><span class="na">getMe</span><span class="p">().</span><span class="na">flatMapLatest</span> <span class="p">({</span><span class="nx">favoriteGameId</span><span class="p">})</span> <span class="o">-&gt;</span>
+      <span class="k">return</span> <span class="nx">Models</span><span class="p">.</span><span class="na">Game</span><span class="p">.</span><span class="na">getById</span> <span class="nx">favoriteGameId</span>
+    <span class="p">.</span><span class="na">map</span> <span class="p">(</span><span class="nx">game</span><span class="p">)</span> <span class="o">-&gt;</span>
+      <span class="k">return</span> <span class="nx">game</span><span class="p">.</span><span class="na">numLikes</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4>Zorium Paper</h4>
@@ -146,16 +146,16 @@ with a <code>set()</code> method for diffing the current value (and also some la
 
 <p><a href="https://github.com/Zorium/zorium-paper">Zorium Paper</a> was the first npm-installable set of components for Zorium. Here&#39;s what it looks like to use it:</p>
 <div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1"># npm install zorium-paper</span>
-<span class="nv">Button = </span><span class="nx">require</span> <span class="s">&#39;zorium-paper/button&#39;</span>
+<span class="nx">Button</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">'zorium-paper/button'</span>
 
 <span class="k">class</span> <span class="nx">Clicker</span>
-  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
-    <span class="vi">@$button = </span><span class="k">new</span> <span class="nx">Button</span><span class="p">()</span>
-  <span class="nv">render: </span><span class="nf">-&gt;</span>
-    <span class="nx">z</span> <span class="s">&#39;.z-clicker&#39;</span><span class="p">,</span>
-      <span class="nx">z</span> <span class="nx">@$button</span><span class="p">,</span>
-        <span class="nv">$content: </span><span class="s">&#39;Click Me&#39;</span>
-        <span class="nv">isRaised: </span><span class="kc">true</span>
+  <span class="na">constructor</span><span class="o">:</span> <span class="o">-&gt;</span>
+    <span class="vi">@</span><span class="na">$button</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Button</span><span class="p">()</span>
+  <span class="na">render</span><span class="o">:</span> <span class="o">-&gt;</span>
+    <span class="nx">z</span> <span class="s">'.z-clicker'</span><span class="p">,</span>
+      <span class="nx">z</span> <span class="vi">@</span><span class="na">$button</span><span class="p">,</span>
+        <span class="na">$content</span><span class="o">:</span> <span class="s">'Click Me'</span>
+        <span class="na">isRaised</span><span class="o">:</span> <span class="no">true</span>
 </code></pre></div>
 <p>The key to using an npm module and maintaining efficient css (separable styles for production) is to use <a href="http://webpack.github.io/">webpack</a>.
 Webpack lets Zorium components declaratively define styles which can be efficiently loaded using webpack without resorting to inefficient inlining or other duplication.</p>
@@ -164,19 +164,19 @@ Webpack lets Zorium components declaratively define styles which can be efficien
 
 <p>(<a href="https://zorium.org/best-practices/stylus">full docs</a>)</p>
 <div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="k">if</span> <span class="nb">window</span><span class="o">?</span>
-  <span class="nx">require</span> <span class="s">&#39;./index.styl&#39;</span>
+  <span class="nx">require</span> <span class="s">'./index.styl'</span>
 
 <span class="k">class</span> <span class="nx">BigDrawer</span>
-  <span class="nv">render: </span><span class="nf">-&gt;</span>
-    <span class="nx">z</span> <span class="s">&#39;.z-big-drawer&#39;</span><span class="p">,</span> <span class="c1"># namespace</span>
-      <span class="nx">z</span> <span class="s">&#39;.blue&#39;</span><span class="p">,</span> <span class="s">&#39;blue&#39;</span>
-</code></pre></div><div class="highlight"><pre><code class="language-sass" data-lang="sass"><span class="c1">// index.styl</span>
-
-<span class="c1">// namespace</span>
-<span class="nc">.z-big-drawer</span>
-  <span class="c1">// direct children only</span>
-  <span class="o">&gt;</span> <span class="nc">.blue</span>
-    <span class="na">background</span><span class="o">:</span> <span class="nb">blue</span>
+  <span class="na">render</span><span class="o">:</span> <span class="o">-&gt;</span>
+    <span class="nx">z</span> <span class="s">'.z-big-drawer'</span><span class="p">,</span> <span class="c1"># namespace</span>
+      <span class="nx">z</span> <span class="s">'.blue'</span><span class="p">,</span> <span class="s">'blue'</span>
+</code></pre></div><div class="highlight"><pre><code class="language-sass" data-lang="sass"><span class="c1">// index.styl
+</span>
+<span class="c1">// namespace
+</span><span class="nc">.z-big-drawer</span>
+  <span class="c1">// direct children only
+</span>  <span class="o">&gt;</span> <span class="nc">.blue</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="no">blue</span>
 </code></pre></div>
 <p>User-land components should use the <code>z-</code> prefix, while library authors should namespace under a different prefix.</p>
 
@@ -188,30 +188,30 @@ In fact, the state issue was so elusive, it wasn&#39;t until after Zorium v1.0.0
 <p>After realizing my mistake, I decided to take a page from React, and implement a simpler <code>z.renderToString()</code> (with async support).<br>
 Note that the server simply acts as a pre-renderer. Do not write server-side business logic here.</p>
 <div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1"># server-side</span>
-<span class="nv">app = </span><span class="nx">express</span><span class="p">()</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">use</span> <span class="nf">(req, res, next) -&gt;</span>
-  <span class="nx">z</span><span class="p">.</span><span class="nx">renderToString</span> <span class="nx">z</span> <span class="k">new</span> <span class="nx">App</span><span class="p">(),</span> <span class="p">{</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">}</span>
-  <span class="p">.</span><span class="nx">then</span> <span class="nf">(html) -&gt;</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span> <span class="s">&#39;&lt;!DOCTYPE html&gt;&#39;</span> <span class="o">+</span> <span class="nx">html</span>
-  <span class="p">.</span><span class="nx">catch</span> <span class="nf">(err) -&gt;</span>
-    <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">html</span>
-      <span class="nx">log</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span>
-      <span class="nx">res</span><span class="p">.</span><span class="nx">send</span> <span class="s">&#39;&lt;!DOCTYPE html&gt;&#39;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nx">html</span>
+<span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">()</span>
+<span class="nx">app</span><span class="p">.</span><span class="na">use</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nx">z</span><span class="p">.</span><span class="na">renderToString</span> <span class="nx">z</span> <span class="k">new</span> <span class="nx">App</span><span class="p">(),</span> <span class="p">{</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">}</span>
+  <span class="p">.</span><span class="na">then</span> <span class="p">(</span><span class="nx">html</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="nx">res</span><span class="p">.</span><span class="na">send</span> <span class="s">'&lt;!DOCTYPE html&gt;'</span> <span class="o">+</span> <span class="nx">html</span>
+  <span class="p">.</span><span class="na">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="na">html</span>
+      <span class="nx">log</span><span class="p">.</span><span class="na">error</span> <span class="nx">err</span>
+      <span class="nx">res</span><span class="p">.</span><span class="na">send</span> <span class="s">'&lt;!DOCTYPE html&gt;'</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="na">html</span>
     <span class="k">else</span>
       <span class="nx">next</span> <span class="nx">err</span>
 </code></pre></div>
 <p>The built in router, <code>z.router</code>, attempts to expose an express-like api. Note the difference in where <code>new App()</code> is called, as client-side you want a stateful App for transitions.</p>
-<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nv">$app = </span><span class="k">new</span> <span class="nx">App</span><span class="p">()</span>
-<span class="nx">z</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">use</span> <span class="nf">(req, res) -&gt;</span>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nx">$app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">App</span><span class="p">()</span>
+<span class="nx">z</span><span class="p">.</span><span class="na">router</span><span class="p">.</span><span class="na">use</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">-&gt;</span>
   <span class="p">{</span><span class="nx">path</span><span class="p">,</span> <span class="nx">query</span><span class="p">}</span> <span class="o">=</span> <span class="nx">req</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span> <span class="nx">z</span> <span class="nx">$app</span><span class="p">,</span> <span class="p">{</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">}</span>
+  <span class="nx">res</span><span class="p">.</span><span class="na">send</span> <span class="nx">z</span> <span class="nx">$app</span><span class="p">,</span> <span class="p">{</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">}</span>
 </code></pre></div>
 <p>Sometimes it will be necessary to split code between node and client-side. Use <code>window?</code> to check:</p>
-<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nv">Promise = </span><span class="k">if</span> <span class="nb">window</span><span class="o">?</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">Promise</span>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nx">Promise</span> <span class="o">=</span> <span class="k">if</span> <span class="nb">window</span><span class="o">?</span>
+  <span class="nb">window</span><span class="p">.</span><span class="na">Promise</span>
 <span class="k">else</span>
   <span class="c1"># Avoid webpack include</span>
-  <span class="nv">_Promise = </span><span class="s">&#39;promiz&#39;</span>
+  <span class="nx">_Promise</span> <span class="o">=</span> <span class="s">'promiz'</span>
   <span class="nx">require</span> <span class="nx">_Promise</span>
 </code></pre></div>
 <p>Zorium&#39;s boldest claim is probably that you can achieve nearly 100% code re-use for client and server-side code. Normally with other frameworks database requests are made and injected at different initialization points within the application.  </p>
@@ -293,22 +293,6 @@ Zorium uses the <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -320,7 +304,7 @@ Zorium uses the <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

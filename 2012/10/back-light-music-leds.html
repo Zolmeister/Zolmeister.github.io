@@ -86,13 +86,13 @@
 <p>You can check out the code <a href="https://github.com/Zolmeister/AudioMan">here</a>. Basically it uses the <a href="http://people.csail.mit.edu/hubert/pyaudio/">pyaudio</a> library to record audio, write streaming data chunks to a temporary wav file (this could be improved upon), and use some magic to get amplitude data from the wav file. Then it normalizes the amplitude over the 0-255 range of LED brightness for the arduino, smooths the curve slightly, and sends the amplitude over to the arduino at 115200 baud (not sure if this is too much/not enough, but it worked for me - 9600 baud hung because it was too slow).</p>
 
 <p><strong>Beat detection snippet (thanks <a href="http://ricardocabello.com/blog/post/677">Mr.Doob</a> and <a href="http://www.deanmcnamee.com/">Dean McNamee</a>)</strong></p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">w</span> <span class="o">=</span> <span class="n">wave</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">WAVE_OUTPUT_FILENAME</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">w</span> <span class="o">=</span> <span class="n">wave</span><span class="o">.</span><span class="nb">open</span><span class="p">(</span><span class="n">WAVE_OUTPUT_FILENAME</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span>
 <span class="n">summ</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">delta</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">amps</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">getnframes</span><span class="p">()):</span>
-  <span class="n">data</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s">&#39;&lt;h&#39;</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">readframes</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s">'&lt;h'</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">readframes</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
   <span class="n">summ</span> <span class="o">+=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">1470</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
     <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">summ</span> <span class="o">/</span> <span class="mf">1470.0</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span>
@@ -160,22 +160,6 @@
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -187,7 +171,7 @@
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

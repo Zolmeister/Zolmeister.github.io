@@ -62,19 +62,19 @@
 (note. I add 2 global functions, range and zip because they are amazing, but the rest is either scoped under the Polish namespace, or added onto the default object properties.)</p>
 
 <h4>Before:</h4>
-<div class="highlight"><pre><code class="language-text" data-lang="text">     &gt; Math.min([1,2,3])
+<div class="highlight"><pre><code class="language-" data-lang="">     &gt; Math.min([1,2,3])
      NaN
      &gt; Math.randInt(2,10)
-     TypeError: Object #&lt;Object&gt; has no method &#39;randInt&#39;
+     TypeError: Object #&lt;Object&gt; has no method 'randInt'
      &gt; range(1,5)
      ReferenceError: range is not defined
      &gt; Math.sum([1,2,3])
-     TypeError: Object #&lt;Object&gt; has no method &#39;sum&#39;
+     TypeError: Object #&lt;Object&gt; has no method 'sum'
      &gt; [1,2,3][-1]
      undefined
 </code></pre></div>
 <h4>After:</h4>
-<div class="highlight"><pre><code class="language-text" data-lang="text">      &gt; Math.min([1,2,3])
+<div class="highlight"><pre><code class="language-" data-lang="">      &gt; Math.min([1,2,3])
       1
       &gt; Math.randInt(2,10)
       6
@@ -93,12 +93,12 @@
      [1,2,5,3,4,5]
 </code></pre></div>
 <p>Now, those are just the basics. What would be really great is if we could utilize python selectors:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">    &gt; &quot;abcdef&quot;.g(&#39;-3:-1&#39;)
-     &#39;de&#39;
+<div class="highlight"><pre><code class="language-" data-lang="">    &gt; "abcdef".g('-3:-1')
+     'de'
 </code></pre></div>
 <p>And wouldn&#39;t it also be great if we had access to some of the python itertools methods?</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">     Polish.combinations([1,2,3],2)
-     Polish.combinationsReplace(&quot;abc&quot;,2)
+<div class="highlight"><pre><code class="language-" data-lang="">     Polish.combinations([1,2,3],2)
+     Polish.combinationsReplace("abc",2)
      Polish.permutations([1,2])
 </code></pre></div>
 <p><a href="http://www.blogger.com/"></a>There are a few more goodies in there too, check out library on <a href="https://github.com/Zolmeister/Polish.js">GitHub</a>.</p>
@@ -141,22 +141,6 @@
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -168,7 +152,7 @@
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

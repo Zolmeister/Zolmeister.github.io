@@ -61,29 +61,29 @@
 <h3>User Authentication</h3>
 
 <p>We&#39;re going to be using <a href="http://passportjs.org/">passport.js</a>&nbsp;and <a href="http://www.mongodb.org/">MongoDB</a> to create and store users. Here is what the passport code will look like:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js">     <span class="kd">var</span> <span class="nx">passport</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;passport&#39;</span><span class="p">),</span>
-       <span class="nx">FacebookStrategy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;passport-facebook&#39;</span><span class="p">).</span><span class="nx">Strategy</span><span class="p">,</span>
-       <span class="nx">db</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./db&#39;</span><span class="p">),</span>
-       <span class="nx">settings</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./settings&#39;</span><span class="p">),</span>
-       <span class="nx">log</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./log&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js">     <span class="kd">var</span> <span class="nx">passport</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'passport'</span><span class="p">),</span>
+       <span class="nx">FacebookStrategy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'passport-facebook'</span><span class="p">).</span><span class="nx">Strategy</span><span class="p">,</span>
+       <span class="nx">db</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./db'</span><span class="p">),</span>
+       <span class="nx">settings</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./settings'</span><span class="p">),</span>
+       <span class="nx">log</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./log'</span><span class="p">);</span>
      <span class="nx">passport</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="k">new</span> <span class="nx">FacebookStrategy</span><span class="p">({</span>
-       <span class="nx">clientID</span><span class="o">:</span> <span class="nx">FACEBOOK_APP_ID</span><span class="p">,</span>
-       <span class="nx">clientSecret</span><span class="o">:</span> <span class="nx">FACEBOOK_APP_SECRET</span><span class="p">,</span>
-       <span class="nx">callbackURL</span><span class="o">:</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">DOMAIN</span> <span class="o">+</span> <span class="s2">&quot;/auth/facebook/callback&quot;</span>
+       <span class="na">clientID</span><span class="p">:</span> <span class="nx">FACEBOOK_APP_ID</span><span class="p">,</span>
+       <span class="na">clientSecret</span><span class="p">:</span> <span class="nx">FACEBOOK_APP_SECRET</span><span class="p">,</span>
+       <span class="na">callbackURL</span><span class="p">:</span> <span class="s2">"//"</span> <span class="o">+</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">DOMAIN</span> <span class="o">+</span> <span class="s2">"/auth/facebook/callback"</span>
      <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">accessToken</span><span class="p">,</span> <span class="nx">refreshToken</span><span class="p">,</span> <span class="nx">profile</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
        <span class="nx">db</span><span class="p">.</span><span class="nx">getUser</span><span class="p">(</span><span class="nx">profile</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
          <span class="k">if</span> <span class="p">(</span><span class="nx">err</span> <span class="o">||</span> <span class="o">!</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//user does not exist, create</span>
            <span class="c1">//default user object</span>
            <span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span>
-             <span class="nx">fbid</span><span class="o">:</span> <span class="nx">profile</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
-             <span class="nx">username</span><span class="o">:</span> <span class="nx">profile</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span>
-             <span class="nx">displayName</span><span class="o">:</span> <span class="nx">profile</span><span class="p">.</span><span class="nx">displayName</span><span class="p">,</span>
+             <span class="na">fbid</span><span class="p">:</span> <span class="nx">profile</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+             <span class="na">username</span><span class="p">:</span> <span class="nx">profile</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span>
+             <span class="na">displayName</span><span class="p">:</span> <span class="nx">profile</span><span class="p">.</span><span class="nx">displayName</span><span class="p">,</span>
              <span class="p">...</span>
            <span class="p">}</span>
-           <span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;creating new user: &quot;</span><span class="o">+</span><span class="nx">user</span><span class="p">.</span><span class="nx">fbid</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span>
+           <span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">"creating new user: "</span><span class="o">+</span><span class="nx">user</span><span class="p">.</span><span class="nx">fbid</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span>
            <span class="nx">db</span><span class="p">.</span><span class="nx">addUser</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
              <span class="k">if</span><span class="p">(</span><span class="nx">err</span> <span class="o">||</span> <span class="o">!</span><span class="nx">result</span><span class="p">){</span>
-               <span class="nx">log</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;error adding user&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+               <span class="nx">log</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">"error adding user"</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
                <span class="k">return</span> <span class="nx">done</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
              <span class="p">}</span>
              <span class="k">return</span> <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span>
@@ -104,24 +104,24 @@
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">app</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
        <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">cookieParser</span><span class="p">(</span><span class="nx">settings</span><span class="p">.</span><span class="nx">SESSION_SECRET</span><span class="p">))</span>
        <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">session</span><span class="p">({</span>
-         <span class="nx">secret</span><span class="o">:</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">SESSION_SECRET</span><span class="p">,</span>
-         <span class="nx">store</span><span class="o">:</span> <span class="k">new</span> <span class="nx">MongoStore</span><span class="p">({</span>
-           <span class="nx">url</span><span class="o">:</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">MONGO_URL</span>
+         <span class="na">secret</span><span class="p">:</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">SESSION_SECRET</span><span class="p">,</span>
+         <span class="na">store</span><span class="p">:</span> <span class="k">new</span> <span class="nx">MongoStore</span><span class="p">({</span>
+           <span class="na">url</span><span class="p">:</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">MONGO_URL</span>
          <span class="p">})</span>
        <span class="p">}))</span> <span class="c1">//auth</span>
        <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">passport</span><span class="p">.</span><span class="nx">initialize</span><span class="p">())</span>
        <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">passport</span><span class="p">.</span><span class="nx">session</span><span class="p">())</span> <span class="c1">//defaults</span>
      <span class="p">})</span>
-     <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/auth/facebook/callback&#39;</span><span class="p">,</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">passport</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">(</span><span class="s1">&#39;facebook&#39;</span><span class="p">,</span> <span class="p">{</span>
-       <span class="nx">failureRedirect</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span>
+     <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/auth/facebook/callback'</span><span class="p">,</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">passport</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">(</span><span class="s1">'facebook'</span><span class="p">,</span> <span class="p">{</span>
+       <span class="na">failureRedirect</span><span class="p">:</span> <span class="s1">'/'</span>
      <span class="p">}),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-       <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+       <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
      <span class="p">})</span>
-     <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/logout&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/logout'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
        <span class="nx">req</span><span class="p">.</span><span class="nx">logout</span><span class="p">()</span>
-       <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+       <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
      <span class="p">})</span>
-     <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/auth/facebook&#39;</span><span class="p">,</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">passport</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">(</span><span class="s1">&#39;facebook&#39;</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* function will not be called.(redirected to Facebook for authentication)*/</span>
+     <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/auth/facebook'</span><span class="p">,</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">passport</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">(</span><span class="s1">'facebook'</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* function will not be called.(redirected to Facebook for authentication)*/</span>
      <span class="p">})</span>
 </code></pre></div>
 <p>Well that was a piece of cake, onto testing!</p>
@@ -129,11 +129,11 @@
 <h3>Testing</h3>
 
 <p>There are many kinds of testing (<a href="http://en.wikipedia.org/wiki/Software_testing#Testing_levels">http://en.wikipedia.org/wiki/Software<em>testing#Testing</em>levels</a>), and its up to you to decide how much or how little of it you wan&#39;t to do. CharityVid uses <a href="https://github.com/mhevery/jasmine-node">Jasmine-node</a>&nbsp;for its tests. We have a folder named &#39;tests&#39;, and inside are javascript files named &#39;<part of code>.spec.js&#39;. The .spec.js extension tells jasmine that these are tests to run. Here is what a test might look like with jasmine:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;Util check&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-       <span class="kd">var</span> <span class="nx">belt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../util&#39;</span><span class="p">)</span>
-        <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;retrieves charity data&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">describe</span><span class="p">(</span><span class="s2">"Util check"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+       <span class="kd">var</span> <span class="nx">belt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../util'</span><span class="p">)</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s2">"retrieves charity data"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">belt</span><span class="p">.</span><span class="nx">onDataReady</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="nx">belt</span><span class="p">.</span><span class="nx">getCharity</span><span class="p">(</span><span class="s2">&quot;americanredcross&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">charity</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">belt</span><span class="p">.</span><span class="nx">getCharity</span><span class="p">(</span><span class="s2">"americanredcross"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">charity</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nx">expect</span><span class="p">(</span><span class="nx">charity</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">()</span>
                     <span class="nx">expect</span><span class="p">(</span><span class="nx">charity</span><span class="p">.</span><span class="nx">website</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">()</span>
                     <span class="p">...</span>
@@ -144,42 +144,43 @@
      <span class="p">})</span>
 </code></pre></div>
 <p>And then to test it:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">jasmine-node tests
+<div class="highlight"><pre><code class="language-" data-lang="">jasmine-node tests
 </code></pre></div>
 <p>And now finally, onto Dust.js</p>
 
 <h3>Dust.js</h3>
 
 <p>CharityVid uses&nbsp;<a href="http://linkedin.github.io/dustjs/">Dust.js</a>, which&nbsp;is a <a href="http://en.wikipedia.org/wiki/Template_engine_%28web%29">template engine</a>, similar to <a href="http://jade-lang.com/">Jade</a>, the default template engine used by express.js. Dust has a some nice features, including pre-compiled client side templates that can also be used server side (pre-compiling reduces the initial load times). Using dust.js is as simple as setting the view engine:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">cons</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;consolidate&#39;</span><span class="p">)</span>
-     <span class="nx">app</span><span class="p">.</span><span class="nx">engine</span><span class="p">(</span><span class="s1">&#39;dust&#39;</span><span class="p">,</span> <span class="nx">cons</span><span class="p">.</span><span class="nx">dust</span><span class="p">)</span> <span class="c1">//dustjs template engine</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">cons</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'consolidate'</span><span class="p">)</span>
+     <span class="nx">app</span><span class="p">.</span><span class="nx">engine</span><span class="p">(</span><span class="s1">'dust'</span><span class="p">,</span> <span class="nx">cons</span><span class="p">.</span><span class="nx">dust</span><span class="p">)</span> <span class="c1">//dustjs template engine</span>
      <span class="nx">app</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-       <span class="nx">app</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;view engine&#39;</span><span class="p">,</span> <span class="s1">&#39;dust&#39;</span><span class="p">)</span> <span class="c1">//dust.js default</span>
+       <span class="nx">app</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'view engine'</span><span class="p">,</span> <span class="s1">'dust'</span><span class="p">)</span> <span class="c1">//dust.js default</span>
      <span class="p">})</span>
 </code></pre></div>
 <p>The dust engine comes from the <a href="https://github.com/visionmedia/consolidate.js/">Consolidate.js</a>&nbsp;library, which supports a ton of different engines.</p>
 
 <p>Here is an example of what dust.js looks like:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">{&gt;&quot;base.dust&quot;/}
-     {&lt;css_extra}&lt;link href=&quot;/css/profile.css&quot; rel=&quot;stylesheet&quot;&gt;{/css_extra}
-     {&lt;title}CharityVid - {name}{/title}
-     {&lt;meta_extra}
-     &lt;meta property=&quot;og:title&quot; content=&quot;{name} - CharityVid&quot;/&gt;
-     {/meta_extra}
-     {&lt;js}&lt;script src=&#39;/js/profile.js&#39; async&gt;&lt;/script&gt;{/js}
-     {&lt;profile_nav}class=&quot;active&quot;{/profile_nav}
-     {&lt;container}
-     &lt;h1&gt;{name}&lt;/h1&gt;
-     &lt;div class=&quot;row-fluid&quot;&gt;
-       &lt;img alt=&#39;{name}&#39; class=&#39;profile-picture&#39; src=&#39;https://graph.facebook.com/{fbid}/picture?type=large&#39; align=&quot;left&quot;&gt;
-       &lt;span id=&#39;userQuote&#39;&gt;{quote}&lt;/span&gt;
-       {?isUser}
-           &lt;a class=&#39;edit&#39; id=&#39;editQuote&#39; href=&#39;#&#39;&gt;edit&lt;/a&gt;
-       {/isUser}
-       &lt;input type=&#39;hidden&#39; name=&#39;_csrf&#39; id=&#39;csrfToken&#39; value=&#39;{token}&#39;&gt;
-     &lt;/div&gt;
-     {/container}
-</code></pre></div>
+<div class="highlight"><pre><code class="language-" data-lang=""><span class="p">{</span><span class="err">&gt;</span><span class="nt">"base.dust"</span><span class="err">/}</span><span class="w">
+     </span><span class="p">{</span><span class="err">&lt;css_extra</span><span class="p">}</span><span class="err">&lt;link</span><span class="w"> </span><span class="err">href=</span><span class="s2">"/css/profile.css"</span><span class="w"> </span><span class="err">rel=</span><span class="s2">"stylesheet"</span><span class="err">&gt;</span><span class="p">{</span><span class="err">/css_extra</span><span class="p">}</span><span class="w">
+     </span><span class="p">{</span><span class="err">&lt;title</span><span class="p">}</span><span class="err">CharityVid</span><span class="w"> </span><span class="err">-</span><span class="w"> </span><span class="p">{</span><span class="err">name</span><span class="p">}{</span><span class="err">/title</span><span class="p">}</span><span class="w">
+     </span><span class="p">{</span><span class="err">&lt;meta_extra</span><span class="p">}</span><span class="w">
+     </span><span class="err">&lt;meta</span><span class="w"> </span><span class="err">property=</span><span class="s2">"og:title"</span><span class="w"> </span><span class="err">content=</span><span class="s2">"{name} - CharityVid"</span><span class="err">/&gt;</span><span class="w">
+     </span><span class="p">{</span><span class="err">/meta_extra</span><span class="p">}</span><span class="w">
+     </span><span class="p">{</span><span class="err">&lt;js</span><span class="p">}</span><span class="err">&lt;script</span><span class="w"> </span><span class="err">src='/js/profile.js'</span><span class="w"> </span><span class="err">async&gt;&lt;/script&gt;</span><span class="p">{</span><span class="err">/js</span><span class="p">}</span><span class="w">
+     </span><span class="p">{</span><span class="err">&lt;profile_nav</span><span class="p">}</span><span class="err">class=</span><span class="s2">"active"</span><span class="p">{</span><span class="err">/profile_nav</span><span class="p">}</span><span class="w">
+     </span><span class="p">{</span><span class="err">&lt;container</span><span class="p">}</span><span class="w">
+     </span><span class="err">&lt;h</span><span class="mi">1</span><span class="err">&gt;</span><span class="p">{</span><span class="err">name</span><span class="p">}</span><span class="err">&lt;/h</span><span class="mi">1</span><span class="err">&gt;</span><span class="w">
+     </span><span class="err">&lt;div</span><span class="w"> </span><span class="err">class=</span><span class="s2">"row-fluid"</span><span class="err">&gt;</span><span class="w">
+       </span><span class="err">&lt;img</span><span class="w"> </span><span class="err">alt='</span><span class="p">{</span><span class="err">name</span><span class="p">}</span><span class="err">'</span><span class="w"> </span><span class="err">class='profile-picture'</span><span class="w"> </span><span class="err">src='https://graph.facebook.com/</span><span class="p">{</span><span class="err">fbid</span><span class="p">}</span><span class="err">/picture?type=large'</span><span class="w"> </span><span class="err">align=</span><span class="s2">"left"</span><span class="err">&gt;</span><span class="w">
+       </span><span class="err">&lt;span</span><span class="w"> </span><span class="err">id='userQuote'&gt;</span><span class="p">{</span><span class="err">quote</span><span class="p">}</span><span class="err">&lt;/span&gt;</span><span class="w">
+       </span><span class="p">{</span><span class="err">?isUser</span><span class="p">}</span><span class="w">
+           </span><span class="err">&lt;a</span><span class="w"> </span><span class="err">class='edit'</span><span class="w"> </span><span class="err">id='editQuote'</span><span class="w"> </span><span class="err">href='#'&gt;edit&lt;/a&gt;</span><span class="w">
+       </span><span class="p">{</span><span class="err">/isUser</span><span class="p">}</span><span class="w">
+       </span><span class="err">&lt;input</span><span class="w"> </span><span class="err">type='hidden'</span><span class="w"> </span><span class="err">name='_csrf'</span><span class="w"> </span><span class="err">id='csrfToken'</span><span class="w"> </span><span class="err">value='</span><span class="p">{</span><span class="err">token</span><span class="p">}</span><span class="err">'&gt;</span><span class="w">
+     </span><span class="err">&lt;/div&gt;</span><span class="w">
+     </span><span class="p">{</span><span class="err">/container</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
         </section>
 
         
@@ -218,22 +219,6 @@
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -245,7 +230,7 @@
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

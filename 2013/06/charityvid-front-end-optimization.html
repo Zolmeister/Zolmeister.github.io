@@ -71,32 +71,32 @@
 <p>Hopefully those tools are self explanatory, (don&#39;t feel like you need to to get to 100% on Page Speed/YSlow), usually just taking advantages of easy wins (like caching) is enough to make your site fast enough (aim for ~90%+ on PageSpeed and you should be good).</p>
 
 <p>Here are some helpful snippets for express:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js">     <span class="nx">app</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js">     <span class="nx">app</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s1">'production'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
        <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">logger</span><span class="p">())</span>
        <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">compress</span><span class="p">())</span> <span class="c1">//gzip all the things</span>
      <span class="p">})</span>
 </code></pre></div><div class="highlight"><pre><code class="language-js" data-lang="js">     <span class="c1">//force non-www</span>
-     <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/*&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
-       <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^www/</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span> <span class="p">)</span> <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="mi">301</span><span class="p">,</span><span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^www\./</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+     <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/*'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^www/</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span> <span class="p">)</span> <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="mi">301</span><span class="p">,</span><span class="s1">'http://'</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">host</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^www</span><span class="se">\.</span><span class="sr">/</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
        <span class="k">else</span> <span class="nx">next</span><span class="p">();</span>
      <span class="p">});</span>
 </code></pre></div>
 <p>Next up is browser compatibility. Hopefully you don&#39;t have to support ie6, but even then browsers like ie 7 (mostly gone), ie8, ie9, ie10 are still a pain to work with. This is especially true because in order to test these out on a real computer (running linux), you have to install a windows VM. Tools like&nbsp;<a href="http://browsershots.org/">http://browsershots.org/</a>&nbsp;let you see your site running in other browsers pretty well, but this is just a quick check though, if you really want to support IE (which you shouldn&#39;t) then test it in a VM.</p>
 
 <p>Finally, we get to <meta> tags (and such). Let me make it easy, and I&#39;ll just post what I use:</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;Be the difference, support charity just by watching a video.&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1, maximum-scale=1&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;twitter:card&quot;</span> <span class="na">content=</span><span class="s">&quot;summary&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;twitter:url&quot;</span> <span class="na">content=</span><span class="s">&quot;http://charityvid.org&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;twitter:title&quot;</span> <span class="na">content=</span><span class="s">&quot;CharityVid&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;twitter:description&quot;</span> <span class="na">content=</span><span class="s">&quot;CharityVid is dedicated to enabling people to donate to charity, even if all they can afford is their time. By donating just a few minutes day you can make a difference.&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;twitter:image&quot;</span> <span class="na">content=</span><span class="s">&quot;http://charityvid.org/ico/apple-touch-icon-144-precomposed.png&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;shortcut icon&quot;</span> <span class="na">href=</span><span class="s">&quot;/ico/favicon.ico&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">sizes=</span><span class="s">&quot;144x144&quot;</span> <span class="na">href=</span><span class="s">&quot;/ico/apple-touch-icon-144-precomposed.png&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">sizes=</span><span class="s">&quot;114x114&quot;</span> <span class="na">href=</span><span class="s">&quot;/ico/apple-touch-icon-114-precomposed.png&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">sizes=</span><span class="s">&quot;72x72&quot;</span> <span class="na">href=</span><span class="s">&quot;/ico/apple-touch-icon-72-precomposed.png&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">href=</span><span class="s">&quot;/ico/apple-touch-icon-57-precomposed.png&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><code class="language-html" data-lang="html">     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"description"</span> <span class="na">content=</span><span class="s">"Be the difference, support charity just by watching a video."</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1, maximum-scale=1"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"twitter:card"</span> <span class="na">content=</span><span class="s">"summary"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"twitter:url"</span> <span class="na">content=</span><span class="s">"http://charityvid.org"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"twitter:title"</span> <span class="na">content=</span><span class="s">"CharityVid"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"twitter:description"</span> <span class="na">content=</span><span class="s">"CharityVid is dedicated to enabling people to donate to charity, even if all they can afford is their time. By donating just a few minutes day you can make a difference."</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"twitter:image"</span> <span class="na">content=</span><span class="s">"http://charityvid.org/ico/apple-touch-icon-144-precomposed.png"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"shortcut icon"</span> <span class="na">href=</span><span class="s">"/ico/favicon.ico"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"apple-touch-icon-precomposed"</span> <span class="na">sizes=</span><span class="s">"144x144"</span> <span class="na">href=</span><span class="s">"/ico/apple-touch-icon-144-precomposed.png"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"apple-touch-icon-precomposed"</span> <span class="na">sizes=</span><span class="s">"114x114"</span> <span class="na">href=</span><span class="s">"/ico/apple-touch-icon-114-precomposed.png"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"apple-touch-icon-precomposed"</span> <span class="na">sizes=</span><span class="s">"72x72"</span> <span class="na">href=</span><span class="s">"/ico/apple-touch-icon-72-precomposed.png"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"apple-touch-icon-precomposed"</span> <span class="na">href=</span><span class="s">"/ico/apple-touch-icon-57-precomposed.png"</span><span class="nt">&gt;</span>
 </code></pre></div>
 <p>You should notice two things: I don&#39;t have a &#39;keywords&#39; meta tag, and I have apple-touch-icon&#39;s.</p>
 
@@ -114,23 +114,23 @@
 <p>Grunt seemed a bit daunting at a glance, but its actually quite simple. Here is an example Gruntfile.js:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js">    <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
-       <span class="nx">concat</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">dist</span><span class="o">:</span> <span class="p">{</span>
-         <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;public/js/**/*.js&#39;</span><span class="p">],</span>
-         <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;public/prod/js/production.js&#39;</span>
+       <span class="na">concat</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">dist</span><span class="p">:</span> <span class="p">{</span>
+         <span class="na">src</span><span class="p">:</span> <span class="p">[</span><span class="s1">'public/js/**/*.js'</span><span class="p">],</span>
+         <span class="na">dest</span><span class="p">:</span> <span class="s1">'public/prod/js/production.js'</span>
         <span class="p">}</span>
        <span class="p">},</span>
-       <span class="nx">uglify</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">dist</span><span class="o">:</span> <span class="p">{</span>
-         <span class="nx">files</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s1">&#39;public/prod/js/production.min.js&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;public/prod/js/production.js&#39;</span><span class="p">]</span>
+       <span class="na">uglify</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">dist</span><span class="p">:</span> <span class="p">{</span>
+         <span class="na">files</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s1">'public/prod/js/production.min.js'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'public/prod/js/production.js'</span><span class="p">]</span>
          <span class="p">}</span>
         <span class="p">}</span>
        <span class="p">}</span>
       <span class="p">});</span>
-      <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-uglify&#39;</span><span class="p">);</span>
-      <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-concat&#39;</span><span class="p">);</span>
-      <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;compress&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;concat&#39;</span><span class="p">,</span> <span class="s1">&#39;uglify&#39;</span><span class="p">]);</span>
+      <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">'grunt-contrib-uglify'</span><span class="p">);</span>
+      <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">'grunt-contrib-concat'</span><span class="p">);</span>
+      <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">'compress'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'concat'</span><span class="p">,</span> <span class="s1">'uglify'</span><span class="p">]);</span>
      <span class="p">};</span>
 </code></pre></div>
 <p>Just run &#39;grunt compress&#39;, and you should be good to go (don&#39;t forget to npm install -g grunt-cli).</p>
@@ -173,22 +173,6 @@
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -200,7 +184,7 @@
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

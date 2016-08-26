@@ -67,22 +67,22 @@
 <blockquote>
 <p>Because widget rendering is done in a separate, sandboxed process that doesn&#39;t have access to the X server or the filesystem, there&#39;s no current way to do GTK+ widget rendering. We instead pass WebKit a few colors and let it draw a default scrollbar. (<a href="https://code.google.com/p/chromium/wiki/LinuxGtkThemeIntegration">source</a>)</span></div><div style="text-align: left;">Here is the source:</p>
 </blockquote>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">:</span><span class="nd">:-webkit-scrollbar</span> <span class="p">{</span>
-    <span class="k">width</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
-    <span class="k">height</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nd">::-webkit-scrollbar</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">12px</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">12px</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="o">:</span><span class="nd">:-webkit-scrollbar-track-piece</span> <span class="p">{</span>
-    <span class="k">background</span><span class="o">:</span> <span class="m">#aaa</span><span class="p">;</span>
+<span class="nd">::-webkit-scrollbar-track-piece</span> <span class="p">{</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="m">#aaa</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="o">:</span><span class="nd">:-webkit-scrollbar-thumb</span> <span class="p">{</span>
-    <span class="k">background</span><span class="o">:</span> <span class="m">#7a7a7a</span><span class="p">;</span>
-    <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
+<span class="nd">::-webkit-scrollbar-thumb</span> <span class="p">{</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="m">#7a7a7a</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="o">:</span><span class="nd">:-webkit-scrollbar-corner</span>       <span class="p">{</span>
-    <span class="k">background</span><span class="o">:</span> <span class="m">#999</span><span class="p">;</span>
+<span class="nd">::-webkit-scrollbar-corner</span>       <span class="p">{</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="m">#999</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="o">:</span><span class="nd">:-webkit-scrollbar-thumb:window-inactive</span> <span class="p">{</span>
-    <span class="k">background</span><span class="o">:</span> <span class="m">#888</span><span class="p">;</span>
+<span class="nd">::-webkit-scrollbar-thumb:window-inactive</span> <span class="p">{</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="m">#888</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Feel free to fork it and change the css to be whatever you want. (pull requests welcome).</p>
@@ -127,22 +127,6 @@
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -154,7 +138,7 @@
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

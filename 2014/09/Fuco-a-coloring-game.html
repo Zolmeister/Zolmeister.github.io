@@ -123,11 +123,11 @@ Here is my solution:</p>
 Some googling for SVG animation landed me at <a href="http://codepen.io/netsi1964/pen/iyglK">this example</a>,
 which I adapted slightly for my purposes. I used Inkscape to draw the SVG paths,
 and them inlined the SVG into the HTML.</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">$paths</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">$paths</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'path'</span><span class="p">)</span>
 
 <span class="c1">// This is hard coded because it crashes android if you calculate it</span>
 <span class="kd">var</span> <span class="nx">pathLengths</span> <span class="o">=</span> <span class="p">[</span><span class="mf">114.63752746582031</span><span class="p">,</span> <span class="mf">135.55255126953125</span><span class="p">,</span> <span class="mf">115.6463851928711</span><span class="p">,</span> <span class="mf">147.36000061035156</span><span class="p">,</span> <span class="mf">3442.748291015625</span><span class="p">,</span> <span class="mf">1806.394775390625</span><span class="p">,</span> <span class="mf">8450.58984375</span><span class="p">,</span> <span class="mf">8450.58984375</span><span class="p">]</span>
-<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'load'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">$paths</span><span class="p">.</span><span class="nx">length</span>
   <span class="k">while</span><span class="p">(</span><span class="nx">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// This line will crash android browser clients</span>
@@ -135,19 +135,20 @@ and them inlined the SVG into the HTML.</p>
     <span class="nx">simulatePathDrawing</span><span class="p">(</span><span class="nx">$paths</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">i</span><span class="p">)</span>
   <span class="p">}</span>
 
-  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">visibility</span> <span class="o">=</span> <span class="s1">&#39;visible&#39;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">visibility</span> <span class="o">=</span> <span class="s1">'visible'</span>
 <span class="p">})</span>
 
 <span class="kd">function</span> <span class="nx">simulatePathDrawing</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">pathLengths</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
-  <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">transition</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">WebkitTransition</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
-  <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">strokeDasharray</span> <span class="o">=</span> <span class="nx">length</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">length</span>
+  <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">transition</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">WebkitTransition</span> <span class="o">=</span> <span class="s1">'none'</span><span class="p">;</span>
+  <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">strokeDasharray</span> <span class="o">=</span> <span class="nx">length</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="nx">length</span>
   <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">strokeDashoffset</span> <span class="o">=</span> <span class="nx">length</span>
   <span class="nx">path</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
-  <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">transition</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">WebkitTransition</span> <span class="o">=</span> <span class="s1">&#39;stroke-dashoffset 1.25s ease-in-out&#39;</span>
-  <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">strokeDashoffset</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
-  <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">strokeWidth</span> <span class="o">=</span> <span class="s1">&#39;2px&#39;</span>
+  <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">transition</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">WebkitTransition</span> <span class="o">=</span> <span class="s1">'stroke-dashoffset 1.25s ease-in-out'</span>
+  <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">strokeDashoffset</span> <span class="o">=</span> <span class="s1">'0'</span>
+  <span class="nx">path</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">strokeWidth</span> <span class="o">=</span> <span class="s1">'2px'</span>
 <span class="p">}</span>
+
 </code></pre></div>
         </section>
 
@@ -187,22 +188,6 @@ and them inlined the SVG into the HTML.</p>
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -214,7 +199,7 @@ and them inlined the SVG into the HTML.</p>
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

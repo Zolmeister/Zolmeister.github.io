@@ -91,11 +91,11 @@ and then deploy to <code>master</code>. Here is my source branch:
 jekyll build
 mv _site/ /tmp/
 git checkout master
-rm -r *
-cp -r /tmp/_site/* .
+rm -r <span class="k">*</span>
+cp -r /tmp/_site/<span class="k">*</span> .
 rm -r /tmp/_site/
 git add . -A
-git commit -am<span class="s1">&#39;publish&#39;</span>
+git commit -am<span class="s1">'publish'</span>
 </code></pre></div>
 <h3>Other platforms</h3>
 
@@ -157,22 +157,6 @@ I would recommend technical blogging to every developer, no matter what projects
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -184,7 +168,7 @@ I would recommend technical blogging to every developer, no matter what projects
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

@@ -102,7 +102,7 @@ Flood Fill Graphic:
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">fitWord</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">cboard</span><span class="p">,</span> <span class="nx">tarWord</span><span class="p">,</span> <span class="nx">cword</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;=</span> <span class="nx">boardWidth</span> <span class="o">||</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">y</span> <span class="o">&gt;=</span> <span class="nx">boardHeight</span> <span class="o">||</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span><span class="c1">// out of bounds</span>
     <span class="k">return</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">cboard</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="c1">// visited space</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">cboard</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">)</span><span class="c1">// visited space</span>
     <span class="k">return</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">tarWord</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">cword</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span><span class="p">;</span>
@@ -113,7 +113,7 @@ Flood Fill Graphic:
     <span class="nx">wordFit</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
     <span class="k">return</span><span class="p">;</span>
   <span class="p">}</span>
-  <span class="nx">board</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+  <span class="nx">board</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
   <span class="nx">fitWord</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">board</span><span class="p">,</span> <span class="nx">tarWord</span><span class="p">,</span> <span class="nx">cword</span><span class="p">);</span>
   <span class="nx">fitWord</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">board</span><span class="p">,</span> <span class="nx">tarWord</span><span class="p">,</span> <span class="nx">cword</span><span class="p">);</span>
   <span class="nx">fitWord</span><span class="p">(</span><span class="nx">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">board</span><span class="p">,</span> <span class="nx">tarWord</span><span class="p">,</span> <span class="nx">cword</span><span class="p">);</span>
@@ -132,24 +132,24 @@ Flood Fill Graphic:
 <p><code>navigator.userAgent.indexOf(&quot;Android&quot;) != -1</code></p>
 
 <p>And then add the required CSS</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mobileCss</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;link&quot;</span><span class="p">);</span>
-<span class="nx">mobileCss</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;rel&quot;</span><span class="p">,</span> <span class="s2">&quot;stylesheet&quot;</span><span class="p">);</span>
-<span class="nx">mobileCss</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="s2">&quot;/stylesheets/mobile.css&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mobileCss</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"link"</span><span class="p">);</span>
+<span class="nx">mobileCss</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"rel"</span><span class="p">,</span> <span class="s2">"stylesheet"</span><span class="p">);</span>
+<span class="nx">mobileCss</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"href"</span><span class="p">,</span> <span class="s2">"/stylesheets/mobile.css"</span><span class="p">);</span>
 <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">mobileCss</span><span class="p">);</span>
 </code></pre></div>
 <p>So far this has worked reliably for me. I did however achieve separate CSS for portrait mode vs landscape mode via CSS.</p>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="k">@media</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">orientation</span><span class="nd">:landscape</span><span class="o">)</span>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="k">@media</span> <span class="n">screen</span> <span class="n">and</span> <span class="p">(</span><span class="n">orientation</span><span class="p">:</span><span class="nb">landscape</span><span class="p">)</span>
 </code></pre></div>
 <h4>Problem #4, Touch detection on Android &amp; iPhone:</h4>
 
 <p>Turns out that window.onmousemove doesn&#39;t work on mobile devices. Instead I had to use window.ontouchmove and re-write my board highlight detection to use <code>elementFromPoint</code>.</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;touchmove&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"touchmove"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
   <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">elementFromPoint</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">touches</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">pageX</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">touches</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">pageY</span><span class="p">);</span>
   <span class="nx">currentWord</span> <span class="o">+=</span> <span class="nx">j</span><span class="p">.</span><span class="nx">innerText</span><span class="p">;</span>
   <span class="nx">currentWordUsed</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">j</span><span class="p">);</span>
-  <span class="nx">j</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tileHighlight&quot;</span><span class="p">);</span>
+  <span class="nx">j</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"class"</span><span class="p">,</span>
+    <span class="s2">"tileHighlight"</span><span class="p">);</span>
 <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
 </code></pre></div>
 <h4>Problem #5, CSS3 on Android:</h4>
@@ -159,33 +159,33 @@ Flood Fill Graphic:
 <h4>Special Notes:</h4>
 
 <p>Socket.io Configuration</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">io</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="nx">io</span><span class="p">.</span><span class="nx">enable</span><span class="p">(</span><span class="s1">&#39;browser client minification&#39;</span><span class="p">);</span> <span class="c1">// send minified client</span>
-  <span class="nx">io</span><span class="p">.</span><span class="nx">enable</span><span class="p">(</span><span class="s1">&#39;browser client etag&#39;</span><span class="p">);</span> <span class="c1">// apply etag caching logic based on version</span>
-  <span class="nx">io</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;connect timeout&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">);</span> <span class="c1">//if connection fails, fall back in 2 seconds</span>
-  <span class="nx">io</span><span class="p">.</span><span class="nx">enable</span><span class="p">(</span><span class="s1">&#39;browser client gzip&#39;</span><span class="p">);</span> <span class="c1">// gzip the file</span>
-  <span class="nx">io</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;log level&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// reduce logging</span>
-  <span class="nx">io</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;transports&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="c1">// enable all transports (optional if you want</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">io</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s1">'production'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">io</span><span class="p">.</span><span class="nx">enable</span><span class="p">(</span><span class="s1">'browser client minification'</span><span class="p">);</span> <span class="c1">// send minified client</span>
+  <span class="nx">io</span><span class="p">.</span><span class="nx">enable</span><span class="p">(</span><span class="s1">'browser client etag'</span><span class="p">);</span> <span class="c1">// apply etag caching logic based on version</span>
+  <span class="nx">io</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'connect timeout'</span><span class="p">,</span> <span class="mi">2000</span><span class="p">);</span> <span class="c1">//if connection fails, fall back in 2 seconds</span>
+  <span class="nx">io</span><span class="p">.</span><span class="nx">enable</span><span class="p">(</span><span class="s1">'browser client gzip'</span><span class="p">);</span> <span class="c1">// gzip the file</span>
+  <span class="nx">io</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'log level'</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// reduce logging</span>
+  <span class="nx">io</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'transports'</span><span class="p">,</span> <span class="p">[</span> <span class="c1">// enable all transports (optional if you want</span>
                   <span class="c1">// flashsocket)</span>
-      <span class="s1">&#39;websocket&#39;</span><span class="p">,</span> <span class="s1">&#39;flashsocket&#39;</span><span class="p">,</span> <span class="s1">&#39;htmlfile&#39;</span><span class="p">,</span> <span class="s1">&#39;xhr-polling&#39;</span><span class="p">,</span> <span class="s1">&#39;jsonp-polling&#39;</span><span class="p">]);</span>
+      <span class="s1">'websocket'</span><span class="p">,</span> <span class="s1">'flashsocket'</span><span class="p">,</span> <span class="s1">'htmlfile'</span><span class="p">,</span> <span class="s1">'xhr-polling'</span><span class="p">,</span> <span class="s1">'jsonp-polling'</span><span class="p">]);</span>
 <span class="p">});</span>
 </code></pre></div>
 <p>app.js Caching</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">cacheTime</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// 1 hour</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/public&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">maxAge</span><span class="o">:</span> <span class="nx">cacheTime</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">'/public'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">maxAge</span><span class="p">:</span> <span class="nx">cacheTime</span>
 <span class="p">}));</span>
 </code></pre></div>
 <p>Custom 404
 <code>myapp/node_modules/express/node_modules/connect/lib/http.js</code>
 It specifies what express is doing with the 404 cases:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">);</span>
-<span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Cannot &#39;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">method</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Content-Type'</span><span class="p">,</span> <span class="s1">'text/plain'</span><span class="p">);</span>
+<span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">'Cannot '</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">method</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
 </code></pre></div>
 <p>I changed this code to something like this:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/html&#39;</span><span class="p">);</span>
-<span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;errors/404&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Page not found&#39;</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Content-Type'</span><span class="p">,</span> <span class="s1">'text/html'</span><span class="p">);</span>
+<span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">'errors/404'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">title</span><span class="p">:</span> <span class="s1">'Page not found'</span>
 <span class="p">});</span>
 </code></pre></div>
         </section>
@@ -226,22 +226,6 @@ It specifies what express is doing with the 404 cases:</p>
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -253,7 +237,7 @@ It specifies what express is doing with the 404 cases:</p>
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

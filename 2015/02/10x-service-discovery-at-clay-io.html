@@ -79,14 +79,14 @@ We use the <code>ec2tag</code> watcher, which easily lets us add servers to our 
 for services to look for services at a specific port.</p>
 
 <p>Here, we use <a href="http://www.ansible.com/home">Ansible</a> to pass the local IP and port to service running on that machine.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">SERVICE_API=http://{ ansible_default_ipv4.address }:{ service_port }
+<div class="highlight"><pre><code class="language-" data-lang="">SERVICE_API=http://{ ansible_default_ipv4.address }:{ service_port }
 </code></pre></div>
 <p>For a service to use another service, they simply make calls to that IP/port.
 The key here is that the IP is the local machine IP, which is handled by HAProxy.
 We have released an HAProxy docker container which watches a mounted config file,
 and updates automatically on changes:<br>
 <a href="https://github.com/claydotio/haproxy">https://github.com/claydotio/haproxy</a></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">docker run
+<div class="highlight"><pre><code class="language-" data-lang="">docker run
     --restart always
     --name haproxy
     -v /var/log:/var/log
@@ -107,7 +107,7 @@ and updates automatically on changes:<br>
 <p>Ok, now it&#39;s time to actually set up synapse.</p>
 
 <p>Running synapse (thanks to our public Docker container) is easy.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">docker run
+<div class="highlight"><pre><code class="language-" data-lang="">docker run
     --restart always
     --name synapse
     -v /var/log:/var/log
@@ -126,75 +126,75 @@ and updates automatically on changes:<br>
 
 <p><a href="https://github.com/claydotio/synapse/blob/master/example.synapse.conf.json">source</a></p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s2">&quot;services&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;myservice&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;discovery&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">"services"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"myservice"</span><span class="err">:</span> <span class="p">{</span>
+      <span class="s2">"discovery"</span><span class="err">:</span> <span class="p">{</span>
         <span class="c1">// use amazon ec2 tags</span>
-        <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;ec2tag&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;tag_name&quot;</span><span class="o">:</span> <span class="s2">&quot;servicename&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;tag_value&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+        <span class="s2">"method"</span><span class="err">:</span> <span class="s2">"ec2tag"</span><span class="p">,</span>
+        <span class="s2">"tag_name"</span><span class="err">:</span> <span class="s2">"servicename"</span><span class="p">,</span>
+        <span class="s2">"tag_value"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
         <span class="c1">// if this is too low, Amazon will rate-limit and block requests</span>
-        <span class="s2">&quot;check_interval&quot;</span><span class="o">:</span> <span class="mf">120.0</span>
+        <span class="s2">"check_interval"</span><span class="err">:</span> <span class="mf">120.0</span>
       <span class="p">},</span>
-      <span class="s2">&quot;haproxy&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"haproxy"</span><span class="err">:</span> <span class="p">{</span>
         <span class="c1">// This is the port other services will use to talk to this service</span>
         <span class="c1">// e.g. http://10.0.1.10:50003</span>
-        <span class="s2">&quot;port&quot;</span><span class="o">:</span> <span class="mi">50003</span><span class="p">,</span>
-        <span class="s2">&quot;listen&quot;</span><span class="o">:</span> <span class="p">[</span>
-          <span class="s2">&quot;mode http&quot;</span>
+        <span class="s2">"port"</span><span class="err">:</span> <span class="mi">50003</span><span class="p">,</span>
+        <span class="s2">"listen"</span><span class="err">:</span> <span class="p">[</span>
+          <span class="s2">"mode http"</span>
         <span class="p">],</span>
         <span class="c1">// This is the port that the service exposes itself</span>
-        <span class="s2">&quot;server_port_override&quot;</span><span class="o">:</span> <span class="s2">&quot;50001&quot;</span><span class="p">,</span>
+        <span class="s2">"server_port_override"</span><span class="err">:</span> <span class="s2">"50001"</span><span class="p">,</span>
         <span class="c1">// This is our custom (non-documented) config for our backup server</span>
         <span class="c1">// See http://zolmeister.com/2014/12/10x-docker-at-clay-io.html</span>
         <span class="c1">// for details on how our zero-downtime deploys work</span>
-        <span class="s2">&quot;server_backup_port&quot;</span><span class="o">:</span> <span class="s2">&quot;50002&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;server_options&quot;</span><span class="o">:</span> <span class="s2">&quot;check&quot;</span>
+        <span class="s2">"server_backup_port"</span><span class="err">:</span> <span class="s2">"50002"</span><span class="p">,</span>
+        <span class="s2">"server_options"</span><span class="err">:</span> <span class="s2">"check"</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">},</span>
   <span class="c1">// See the manual for details on parameters:</span>
   <span class="c1">// http://cbonte.github.io/haproxy-dconv/configuration-1.5.html</span>
-  <span class="s2">&quot;haproxy&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">"haproxy"</span><span class="err">:</span> <span class="p">{</span>
     <span class="c1">// This is never used because HAProxy runs in a separate container</span>
     <span class="c1">// Reloads happen automatically via the file-watcher</span>
-    <span class="s2">&quot;reload_command&quot;</span><span class="o">:</span> <span class="s2">&quot;echo noop&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;config_file_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/etc/haproxy/haproxy.cfg&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;socket_file_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/var/haproxy/stats.sock&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;do_writes&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s2">&quot;do_reloads&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s2">&quot;do_socket&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"reload_command"</span><span class="err">:</span> <span class="s2">"echo noop"</span><span class="p">,</span>
+    <span class="s2">"config_file_path"</span><span class="err">:</span> <span class="s2">"/etc/haproxy/haproxy.cfg"</span><span class="p">,</span>
+    <span class="s2">"socket_file_path"</span><span class="err">:</span> <span class="s2">"/var/haproxy/stats.sock"</span><span class="p">,</span>
+    <span class="s2">"do_writes"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"do_reloads"</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"do_socket"</span><span class="err">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="c1">// By default, this is localhost, however because HAProxy is running</span>
     <span class="c1">// inside of a container, we need to expose it to the host machine</span>
-    <span class="s2">&quot;bind_address&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;global&quot;</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">&quot;daemon&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;user    haproxy&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;group   haproxy&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;chroot  /var/lib/haproxy&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;maxconn 4096&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;log     127.0.0.1 local0&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;log     127.0.0.1 local1 notice&quot;</span>
+    <span class="s2">"bind_address"</span><span class="err">:</span> <span class="s2">"0.0.0.0"</span><span class="p">,</span>
+    <span class="s2">"global"</span><span class="err">:</span> <span class="p">[</span>
+      <span class="s2">"daemon"</span><span class="p">,</span>
+      <span class="s2">"user    haproxy"</span><span class="p">,</span>
+      <span class="s2">"group   haproxy"</span><span class="p">,</span>
+      <span class="s2">"chroot  /var/lib/haproxy"</span><span class="p">,</span>
+      <span class="s2">"maxconn 4096"</span><span class="p">,</span>
+      <span class="s2">"log     127.0.0.1 local0"</span><span class="p">,</span>
+      <span class="s2">"log     127.0.0.1 local1 notice"</span>
     <span class="p">],</span>
-    <span class="s2">&quot;defaults&quot;</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">&quot;log            global&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;mode           http&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;maxconn        2000&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;retries        3&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;timeout        connect 5s&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;timeout        client  1m&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;timeout        server  1m&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;option         redispatch&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;balance        roundrobin&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;default-server inter 2s rise 3 fall 2&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;option         dontlognull&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;option         dontlog-normal&quot;</span>
+    <span class="s2">"defaults"</span><span class="err">:</span> <span class="p">[</span>
+      <span class="s2">"log            global"</span><span class="p">,</span>
+      <span class="s2">"mode           http"</span><span class="p">,</span>
+      <span class="s2">"maxconn        2000"</span><span class="p">,</span>
+      <span class="s2">"retries        3"</span><span class="p">,</span>
+      <span class="s2">"timeout        connect 5s"</span><span class="p">,</span>
+      <span class="s2">"timeout        client  1m"</span><span class="p">,</span>
+      <span class="s2">"timeout        server  1m"</span><span class="p">,</span>
+      <span class="s2">"option         redispatch"</span><span class="p">,</span>
+      <span class="s2">"balance        roundrobin"</span><span class="p">,</span>
+      <span class="s2">"default-server inter 2s rise 3 fall 2"</span><span class="p">,</span>
+      <span class="s2">"option         dontlognull"</span><span class="p">,</span>
+      <span class="s2">"option         dontlog-normal"</span>
     <span class="p">],</span>
-    <span class="s2">&quot;extra_sections&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;listen stats :1937&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;stats enable&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;stats uri /&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;stats realm Haproxy Statistics&quot;</span>
+    <span class="s2">"extra_sections"</span><span class="err">:</span> <span class="p">{</span>
+      <span class="s2">"listen stats :1937"</span><span class="err">:</span> <span class="p">[</span>
+        <span class="s2">"stats enable"</span><span class="p">,</span>
+        <span class="s2">"stats uri /"</span><span class="p">,</span>
+        <span class="s2">"stats realm Haproxy Statistics"</span>
       <span class="p">]</span>
     <span class="p">}</span>
   <span class="p">}</span>
@@ -209,7 +209,7 @@ and hopefully soon an etcd watcher:<br>
 <a href="https://github.com/airbnb/synapse/pull/58">https://github.com/airbnb/synapse/pull/58</a></p>
 
 <p>Once that&#39;s merged, we may move to using <a href="https://github.com/airbnb/nerve">Nerve</a> with <a href="https://github.com/coreos/etcd">etcd</a> instead of EC2 tags to handle service announcement. For reference, I&#39;ll leave this etcd example docker information here:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">curl https://discovery.etcd.io/new?size=3
+<div class="highlight"><pre><code class="language-" data-lang="">curl https://discovery.etcd.io/new?size=3
 docker run
     --restart always
     --name etcd
@@ -269,22 +269,6 @@ docker run
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -296,7 +280,7 @@ docker run
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

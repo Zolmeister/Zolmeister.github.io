@@ -102,36 +102,36 @@ and allows us to roll back to the last docker container release version if anyth
 <h2>Clay.io Dockerfiles</h2>
 
 <p>Here is an example Dockerfile from our mobile app (<a href="https://github.com/claydotio/clay-mobile/blob/master/Dockerfile">source</a>):</p>
-<div class="highlight"><pre><code class="language-docker" data-lang="docker"><span class="k">FROM</span> dockerfile/nodejs:latest
+<div class="highlight"><pre><code class="language-docker" data-lang="docker">FROM dockerfile/nodejs:latest
 
-<span class="c"># Install Git</span>
-<span class="k">RUN</span> apt-get install -y git
+# Install Git
+RUN apt-get install -y git
 
-<span class="c"># Add source</span>
-<span class="k">ADD</span> ./node_modules /opt/clay-mobile/node_modules
-<span class="k">ADD</span> . /opt/clay-mobile
+# Add source
+ADD ./node_modules /opt/clay-mobile/node_modules
+ADD . /opt/clay-mobile
 
-<span class="k">WORKDIR</span> /opt/clay-mobile
+WORKDIR /opt/clay-mobile
 
-<span class="c"># Install app deps</span>
-<span class="k">RUN</span> npm install
+# Install app deps
+RUN npm install
 
-<span class="k">CMD</span> <span class="o">[</span><span class="s2">&quot;npm&quot;</span>, <span class="s2">&quot;start&quot;</span><span class="o">]</span>
+CMD ["npm", "start"]
 </code></pre></div>
 <p>The file is self-explanatory. It simply copies the source code from the current directory into the container.
 Environment variables will be used to introduce sensitive / dynamic configuration.
 One important note is that <code>npm start</code> actually compiles and minifies the code for production:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// package.json</span>
 <span class="p">{</span>
-  <span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;build&quot;</span><span class="o">:</span> <span class="s2">&quot;node_modules/gulp/bin/gulp.js build&quot;</span>
-    <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;npm run build &amp;&amp;</span>
-<span class="s2">              ./node_modules/pm2/bin/pm2 start ./bin/server.coffee</span>
-<span class="s2">                -i max</span>
-<span class="s2">                --name clay_mobile</span>
-<span class="s2">                --no-daemon</span>
-<span class="s2">                -o /var/log/clay/clay_mobile.log</span>
-<span class="s2">                -e /var/log/clay/clay_mobile.error.log&quot;</span><span class="p">,</span>
+  <span class="s2">"scripts"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"build"</span><span class="err">:</span> <span class="s2">"node_modules/gulp/bin/gulp.js build"</span>
+    <span class="s2">"start"</span><span class="err">:</span> <span class="s2">"npm run build &amp;&amp;
+              ./node_modules/pm2/bin/pm2 start ./bin/server.coffee
+                -i max
+                --name clay_mobile
+                --no-daemon
+                -o /var/log/clay/clay_mobile.log
+                -e /var/log/clay/clay_mobile.error.log"</span><span class="p">,</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -172,11 +172,11 @@ PM2 is used simply to take advantage of multiple server cores.</p>
 
 <p>The key to zero-downtime updates is to run two server processes. A master process, and a backup process.
 We do this by assigning different ports to two container deployments:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run ... -e <span class="nv">PORT</span><span class="o">=</span><span class="m">50000</span> --name mobile
-docker run ... -e <span class="nv">PORT</span><span class="o">=</span><span class="m">50001</span> --name mobile-backup
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run ... -e <span class="nv">PORT</span><span class="o">=</span>50000 --name mobile
+docker run ... -e <span class="nv">PORT</span><span class="o">=</span>50001 --name mobile-backup
 </code></pre></div>
 <p><a href="http://www.haproxy.org/">HAProxy</a> handles re-routing traffic to the backup server when the master goes down:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># example haproxy.cfg
+<div class="highlight"><pre><code class="language-" data-lang=""># example haproxy.cfg
 
 backend mobile
   mode http
@@ -261,22 +261,6 @@ backend mobile
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -288,7 +272,7 @@ backend mobile
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

@@ -99,19 +99,19 @@
 </code></pre></div>
 <p>As pix.length increases, it takes much longer to go through the loop. This eventually reaches the point where we will not get this computation in under 16ms (required to get 60FPS). Luckily, I came up with a solution. If you remember my slideshow project, where I animated <a href="http://www.zolmeister.com/2013/08/tanzania-africa-in-175-million-particles.html">1.75 million particles in real-time</a>, I was able to leverage the GPU shaders to greatly improve rendering performance. I am going to do the same here, using a library called Glsl.js (<a href="https://github.com/gre/glsl.js">https://github.com/gre/glsl.js</a>). This library greatly simplifies the process of using GLSL (opengl shading language) shaders, and applying them to the canvas that I am already using (no need to re-write code in WebGL).</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">GAME</span><span class="p">.</span><span class="nx">glsl</span> <span class="o">=</span> <span class="nx">Glsl</span><span class="p">({</span>
-  <span class="nx">canvas</span><span class="o">:</span> <span class="nx">GAME</span><span class="p">.</span><span class="nx">outCanv</span><span class="p">,</span>
-  <span class="nx">fragment</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#fragment&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(),</span>
-  <span class="nx">variables</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">canv</span><span class="o">:</span> <span class="nx">GAME</span><span class="p">.</span><span class="nx">canv</span>
+  <span class="na">canvas</span><span class="p">:</span> <span class="nx">GAME</span><span class="p">.</span><span class="nx">outCanv</span><span class="p">,</span>
+  <span class="na">fragment</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#fragment'</span><span class="p">).</span><span class="nx">text</span><span class="p">(),</span>
+  <span class="na">variables</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">canv</span><span class="p">:</span> <span class="nx">GAME</span><span class="p">.</span><span class="nx">canv</span>
   <span class="p">},</span>
-  <span class="nx">update</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">delta</span><span class="p">)</span> <span class="p">{</span>
+  <span class="na">update</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time</span><span class="p">,</span> <span class="nx">delta</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">animate</span><span class="p">(</span><span class="nx">time</span><span class="p">)</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">sync</span><span class="p">(</span><span class="s1">&#39;canv&#39;</span><span class="p">)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">sync</span><span class="p">(</span><span class="s1">'canv'</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">})</span>
 </code></pre></div>
 <p>And now the shader code, which replaces the &#39;for&#39; loop over the pixels:</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">id=</span><span class="s">&quot;fragment&quot;</span> <span class="na">type=</span><span class="s">&quot;x-shader/x-fragment&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">id=</span><span class="s">"fragment"</span> <span class="na">type=</span><span class="s">"x-shader/x-fragment"</span><span class="nt">&gt;</span>
     <span class="nx">precision</span> <span class="nx">mediump</span> <span class="kr">float</span><span class="p">;</span>
     <span class="nx">uniform</span> <span class="nx">vec2</span> <span class="nx">resolution</span><span class="p">;</span>
     <span class="nx">uniform</span> <span class="nx">sampler2D</span> <span class="nx">canv</span><span class="p">;</span>
@@ -187,22 +187,6 @@ In addition to utilizing shaders, this game also uses fixed-interval time-step p
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -214,7 +198,7 @@ In addition to utilizing shaders, this game also uses fixed-interval time-step p
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 

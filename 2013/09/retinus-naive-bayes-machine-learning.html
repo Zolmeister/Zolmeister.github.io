@@ -83,33 +83,33 @@ and Red means that I will probably not be interested in the article. Simple.</p>
 
 <p>Now, lets see how we can extract &#39;features&#39; from text. Lets take the following string: <code>The dog sat down and the dog was happy.</code> Alright, we can now break down the string into individual words (each word is a feature) (this is where you tokenize words, and can do thing like remove punctuation and add word combinations).</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s1">&#39;the&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="s1">&#39;dog&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="s1">&#39;sat&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="s1">&#39;down&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="s1">&#39;and&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="s1">&#39;was&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="s1">&#39;happy&#39;</span><span class="o">:</span> <span class="mi">1</span>
+  <span class="s1">'the'</span><span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s1">'dog'</span><span class="err">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s1">'sat'</span><span class="err">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s1">'down'</span><span class="err">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s1">'and'</span><span class="err">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s1">'was'</span><span class="err">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s1">'happy'</span><span class="err">:</span> <span class="mi">1</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Now, lets add another sentence to compare it to, and also label out two sentences differently.</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// dog sentences</span>
-<span class="s1">&#39;dog&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;the&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sat&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;and&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;was&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;happy&#39;</span><span class="o">:</span><span class="mi">1</span>
+<span class="s1">'dog'</span><span class="err">:</span> <span class="p">{</span>
+  <span class="s1">'the'</span><span class="err">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'dog'</span><span class="err">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'sat'</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'down'</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'and'</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'was'</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'happy'</span><span class="err">:</span><span class="mi">1</span>
 <span class="p">},</span>
 <span class="c1">// cat sentences: the cats like scratching</span>
-<span class="s1">&#39;cat&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;the&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;cats&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;like&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;scratching&#39;</span><span class="o">:</span> <span class="mi">1</span>
+<span class="s1">'cat'</span><span class="err">:</span> <span class="p">{</span>
+  <span class="s1">'the'</span><span class="err">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'cats'</span><span class="err">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'like'</span><span class="err">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'scratching'</span><span class="err">:</span> <span class="mi">1</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Ok, now we can try to classify a new sentence: &#39;the animal lay down at my feet&#39;</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s1">&#39;the&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;animal&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;lay&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;down&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;at&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;my&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;feet&#39;</span><span class="o">:</span><span class="mi">1</span>
+  <span class="s1">'the'</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">'animal'</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">'lay'</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">'down'</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">'at'</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">'my'</span><span class="err">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">'feet'</span><span class="err">:</span><span class="mi">1</span>
 <span class="p">}</span>
 <span class="c1">// dog-ness score</span>
-<span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">4</span> <span class="p">(</span><span class="s1">&#39;the&#39;</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;lay&#39;</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="p">)</span>
+<span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">4</span> <span class="p">(</span><span class="s1">'the'</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'lay'</span><span class="p">,</span> <span class="s1">'down'</span><span class="p">)</span>
 <span class="c1">// cat ness score</span>
-<span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">(</span><span class="s1">&#39;the&#39;</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+<span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">(</span><span class="s1">'the'</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 <p>And we can then see that the sentence is more &#39;dog-like&#39; than &#39;cat-like&#39; because it&#39;s score is higher when comparing to the dog sentence history. Now obviously we haven&#39;t taken into account total sentences per class, or normalization of variables, or other things which would give us better results, but you get the idea. Here is a proper implementation of what I just described in <a href="https://github.com/NaturalNode/apparatus/blob/master/lib/apparatus/classifier/bayes_classifier.js">~100 lines of javascript</a>. That bit of code comes straight out of the library which I used to do the classifications.</p>
 
@@ -142,7 +142,7 @@ My final solution was this:</p>
 
 <span class="c1">// in a loop</span>
  <span class="c1">// train history based on hostname</span>
-  <span class="kd">var</span> <span class="nx">hostname</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">link</span><span class="p">).</span><span class="nx">hostname</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\./g</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">hostname</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">link</span><span class="p">).</span><span class="nx">hostname</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\.</span><span class="sr">/g</span><span class="p">,</span><span class="s1">'_'</span><span class="p">)</span>
   <span class="nx">classifier3</span><span class="p">.</span><span class="nx">addDocument</span><span class="p">([</span><span class="nx">hostname</span><span class="p">],</span> <span class="nx">isInteresting</span><span class="p">)</span>
 
   <span class="c1">// bayes text classifiers</span>
@@ -154,7 +154,7 @@ My final solution was this:</p>
 <span class="kd">var</span> <span class="nx">tag2</span> <span class="o">=</span> <span class="nx">classifier2</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">docs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">title</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span>
 <span class="kd">var</span> <span class="nx">tag3</span> <span class="o">=</span> <span class="nx">classifier3</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">hostname</span><span class="p">)</span>
 
-<span class="nx">result</span> <span class="o">=</span> <span class="p">(</span><span class="nx">tag1</span> <span class="o">===</span> <span class="s1">&#39;true&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">tag3</span> <span class="o">===</span> <span class="s1">&#39;true&#39;</span> <span class="o">||</span> <span class="nx">tag2</span> <span class="o">===</span> <span class="s1">&#39;true&#39;</span>  <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">)</span>
+<span class="nx">result</span> <span class="o">=</span> <span class="p">(</span><span class="nx">tag1</span> <span class="o">===</span> <span class="s1">'true'</span> <span class="o">&amp;&amp;</span> <span class="nx">tag3</span> <span class="o">===</span> <span class="s1">'true'</span> <span class="o">||</span> <span class="nx">tag2</span> <span class="o">===</span> <span class="s1">'true'</span>  <span class="p">?</span> <span class="kc">true</span> <span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
 </code></pre></div>
 <p>Which gave me ~60% accuracy, with ~20% false negatives (I had ~4000 documents in my training set, and I separated 200 extra documents for testing, meaning that the classifiers were not trained on the 200 selected documents meant to check their accuracy). I care a lot about false negatives because a false negative means that an article was marked as uninteresting, when in fact I would have actually been interested in reading it. When I applied the SVM or combination Bayes classifier:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">classifierSum</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">natural</span><span class="p">.</span><span class="nx">BayesClassifier</span><span class="p">()</span> <span class="c1">// total</span>
@@ -215,22 +215,6 @@ My final solution was this:</p>
             </section>
 
             
-            <section class="disqus">
-        	    <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                  var disqus_shortname = 'zolmeister'; // required: replace example with your forum shortname
-
-                  /* * * DON'T EDIT BELOW THIS LINE * * */
-                  (function() {
-                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                  })();
-              </script>
-
-            </section>
-            
 
         </footer>
 
@@ -242,7 +226,7 @@ My final solution was this:</p>
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="feeds/posts/default"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright">All content copyright <a href="">Zolmeister</a> &copy; 2016 &bull; All rights reserved.</section>
         </div>
     </footer>
 
