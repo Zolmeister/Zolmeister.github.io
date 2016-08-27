@@ -7,7 +7,7 @@
     <title>
       
         
-          Polish.js - Making JavaScript Better - Zolmeister - by Zoli Kahan
+          MySQL Migrations - Zolmeister - by Zoli Kahan
         
       
     </title>
@@ -45,63 +45,57 @@
         </header>
 
         <span class="post-meta">
-        	<time datetime="2013-05-14">14 May 2013</time>
+        	<time datetime="2016-08-18">18 Aug 2016</time>
         	<!--
         		on
 	        	
 	        -->
        	</span>
 
-        <h1 class="post-title"><a href="">Polish.js - Making JavaScript Better</a></h1>
+        <h1 class="post-title"><a href="">MySQL Migrations</a></h1>
 
         <section class="post-content">
-            <p><a href="https://github.com/Zolmeister/Polish.js"><img src="https://raw.github.com/Zolmeister/Polish.js/master/polish-logo.png" alt="Polish.js"></a><strong><a href="https://github.com/Zolmeister/Polish.js">Polish.js</a></strong></p>
+            <p><img src="/assets/images/mysql-logo.jpg" alt="MySQL logo"></p>
 
-<p>JavaScript is pretty great, but it&#39;s not perfect. So I made it better by adding some extra functionality.
-(note. I add 2 global functions, range and zip because they are amazing, but the rest is either scoped under the Polish namespace, or added onto the default object properties.)</p>
+<h3>Migrating 17M rows with no downtime - Isotope</h3>
 
-<h4>Before:</h4>
-<div class="highlight"><pre><code class="language-" data-lang="">     &gt; Math.min([1,2,3])
-     NaN
-     &gt; Math.randInt(2,10)
-     TypeError: Object #&lt;Object&gt; has no method 'randInt'
-     &gt; range(1,5)
-     ReferenceError: range is not defined
-     &gt; Math.sum([1,2,3])
-     TypeError: Object #&lt;Object&gt; has no method 'sum'
-     &gt; [1,2,3][-1]
-     undefined
-</code></pre></div>
-<h4>After:</h4>
-<div class="highlight"><pre><code class="language-" data-lang="">      &gt; Math.min([1,2,3])
-      1
-      &gt; Math.randInt(2,10)
-      6
-      &gt; range(1,5)
-      [1, 2, 3, 4]
-      &gt; Math.sum([1,2,3])
-      6
-      &gt; [1,2,3][-1]
-      3
-     &gt; list = [1,2,3,4,5]
-     &gt; list.pop(1) // pops index
-     2
-     &gt; list.remove(2) // removes element
-      [1,3,4,5]
-     &gt; list.insert(2,5)
-     [1,2,5,3,4,5]
-</code></pre></div>
-<p>Now, those are just the basics. What would be really great is if we could utilize python selectors:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">    &gt; "abcdef".g('-3:-1')
-     'de'
-</code></pre></div>
-<p>And wouldn&#39;t it also be great if we had access to some of the python itertools methods?</p>
-<div class="highlight"><pre><code class="language-" data-lang="">     Polish.combinations([1,2,3],2)
-     Polish.combinationsReplace("abc",2)
-     Polish.permutations([1,2])
-</code></pre></div>
-<p><a href="http://www.blogger.com/"></a>There are a few more goodies in there too, check out library on <a href="https://github.com/Zolmeister/Polish.js">GitHub</a>.</p>
+<p>Scenario: 17M rows in a table, constant writes/reads, slave/master setup.</p>
 
+<p>If you  try to run an ALTER TABLE (especially on older versions of MySQL), most operations will lock the table for writes for the entire run-time of the query. To avoid this, we need to incrementally update the table, incorporating write changes as they arrive.</p>
+
+<p>Our solution was to use the <a href="https://github.com/soundcloud/lhm">Large Hadron Migrator</a>, built and open-sourced by SoundCloud. LHM creates a copy table for the migration, with change triggers set up to keep up with new writes. It handles all the low-level details of the migration, and generally works well (though slowly, as I&#39;ll illustrate later).</p>
+
+<p>First step is to create a migration.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>apt-get -y install libmysqlclient-dev libmysqlclient18 ruby-dev build-essential rake
+<span class="gp">$ </span>gem install activerecord-mysql-adapter standalone_migrations lhm
+<span class="gp">$ </span>rake db:new_migration <span class="nv">name</span><span class="o">=</span>add_some_column_to_some_table
+run/test locally: <span class="sb">`</span><span class="nv">RAILS_ENV</span><span class="o">=</span>production rake db:migrate<span class="sb">`</span>
+dump schema: <span class="sb">`</span><span class="nv">RAILS_ENV</span><span class="o">=</span>production rake db:schema:dump<span class="sb">`</span>
+</code></pre></div>
+<p>Our database ran too slowly for the default change-rate of LHM (batches were too large, causing writes to time-out). By decreasing the speed of migration we avoided this, at the cost of migrations taking <strong>20Hr+</strong> (we eventually moved away from MySQL).</p>
+<div class="highlight"><pre><code class="language-" data-lang=""># Throttle is in ms - default 100
+# Stride is in number of rows - default 40,000
+options = { :stride =&gt; 16, :throttle =&gt; 100 }
+</code></pre></div>
+<p>Next, we&#39;ll build a docker container to be able to run the migration remotely</p>
+<div class="highlight"><pre><code class="language-" data-lang="">FROM ubuntu:14.04
+
+RUN apt-get -y update
+RUN apt-get -y install libmysqlclient-dev libmysqlclient18 ruby-dev build-essential rake
+RUN gem install activerecord-mysql-adapter standalone_migrations lhm
+
+ADD . /opt/isotope
+WORKDIR /opt/isotope
+</code></pre></div><div class="highlight"><pre><code class="language-" data-lang="">docker build -t isotope .
+docker push isotope
+</code></pre></div>
+<p>Finally, to run the migration itself</p>
+<div class="highlight"><pre><code class="language-" data-lang="">docker run -e RAILS_ENV=production -e MYSQL_MASTER_HOST=&lt;MYSQL PRODUCTION IP&gt; -e MYSQL_MASTER_PASS=&lt;PASSWORD&gt; -i -t isotope rake db:migrate
+</code></pre></div>
+<p>If something goes wrong during the migration we have to clean up the change table manually.</p>
+<div class="highlight"><pre><code class="language-" data-lang="">drop `lhmn_*` tables
+drop `lhmn_*` triggers
+</code></pre></div>
         </section>
 
         
@@ -125,15 +119,15 @@
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="https://twitter.com/share?text=Polish.js - Making JavaScript Better&amp;url=https://zolmeister.com/2013/05/polishjs-making-javascript-better.html"
+                <a class="icon-twitter" href="https://twitter.com/share?text=MySQL Migrations&amp;url=https://zolmeister.com/2016/08/mysql-migrations.html"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://zolmeister.com/2013/05/polishjs-making-javascript-better.html"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://zolmeister.com/2016/08/mysql-migrations.html"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://zolmeister.com/2013/05/polishjs-making-javascript-better.html"
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://zolmeister.com/2016/08/mysql-migrations.html"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
