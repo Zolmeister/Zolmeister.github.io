@@ -4,7 +4,7 @@ title:  "MySQL Migrations"
 date:   2016-08-27
 ---
 
-![MySQL logo](/assets/images/mysql-logo.jpg)
+![MySQL logo](https://zolmeister.com/assets/images/mysql-logo.jpg)
 
 ### Migrating 17M rows with no downtime - Isotope
 
@@ -24,9 +24,9 @@ run/test locally: `RAILS_ENV=production rake db:migrate`
 dump schema: `RAILS_ENV=production rake db:schema:dump`
 ```
 
-Our database ran too slowly for the default change-rate of LHM (batches were too large, causing writes to time-out). By decreasing the speed of migration we avoided this, at the cost of migrations taking **20Hr+** (we eventually moved away from MySQL).
+Our database ran too slowly for the default change-rate of LHM (batches were too large, causing writes to time-out). By decreasing the speed of migration we avoided this, at the cost of migrations taking **20hr+** (we eventually moved away from MySQL).
 
-```
+```ruby
 # Throttle is in ms - default 100
 # Stride is in number of rows - default 40,000
 options = { :stride => 16, :throttle => 100 }
