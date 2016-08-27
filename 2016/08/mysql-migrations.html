@@ -55,7 +55,7 @@
         <h1 class="post-title"><a href="">MySQL Migrations</a></h1>
 
         <section class="post-content">
-            <p><img src="/assets/images/mysql-logo.jpg" alt="MySQL logo"></p>
+            <p><img src="https://zolmeister.com/assets/images/mysql-logo.jpg" alt="MySQL logo"></p>
 
 <h3>Migrating 17M rows with no downtime - Isotope</h3>
 
@@ -72,10 +72,10 @@
 run/test locally: <span class="sb">`</span><span class="nv">RAILS_ENV</span><span class="o">=</span>production rake db:migrate<span class="sb">`</span>
 dump schema: <span class="sb">`</span><span class="nv">RAILS_ENV</span><span class="o">=</span>production rake db:schema:dump<span class="sb">`</span>
 </code></pre></div>
-<p>Our database ran too slowly for the default change-rate of LHM (batches were too large, causing writes to time-out). By decreasing the speed of migration we avoided this, at the cost of migrations taking <strong>20Hr+</strong> (we eventually moved away from MySQL).</p>
-<div class="highlight"><pre><code class="language-" data-lang=""># Throttle is in ms - default 100
-# Stride is in number of rows - default 40,000
-options = { :stride =&gt; 16, :throttle =&gt; 100 }
+<p>Our database ran too slowly for the default change-rate of LHM (batches were too large, causing writes to time-out). By decreasing the speed of migration we avoided this, at the cost of migrations taking <strong>20hr+</strong> (we eventually moved away from MySQL).</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Throttle is in ms - default 100</span>
+<span class="c1"># Stride is in number of rows - default 40,000</span>
+<span class="n">options</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:stride</span> <span class="o">=&gt;</span> <span class="mi">16</span><span class="p">,</span> <span class="ss">:throttle</span> <span class="o">=&gt;</span> <span class="mi">100</span> <span class="p">}</span>
 </code></pre></div>
 <p>Next, we&#39;ll build a docker container to be able to run the migration remotely</p>
 <div class="highlight"><pre><code class="language-" data-lang="">FROM ubuntu:14.04
