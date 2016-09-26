@@ -1,4 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="https://zolmeister.com/feeds/posts/default" rel="self" type="application/atom+xml" /><link href="https://zolmeister.com/" rel="alternate" type="text/html" /><updated>2016-08-27T13:20:56-05:00</updated><id>https://zolmeister.com/</id><title>Zolmeister</title><subtitle>Zolmeister - Blog</subtitle><author><name>Zoli Kahan</name></author><entry><title>MySQL Migrations</title><link href="https://zolmeister.com/2016/08/mysql-migrations.html" rel="alternate" type="text/html" title="MySQL Migrations" /><published>2016-08-27T00:00:00-05:00</published><updated>2016-08-27T00:00:00-05:00</updated><id>https://zolmeister.com/2016/08/mysql-migrations</id><content type="html" xml:base="https://zolmeister.com/2016/08/mysql-migrations.html">&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/mysql-logo.jpg&quot; alt=&quot;MySQL logo&quot;&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="https://zolmeister.com/feeds/posts/default" rel="self" type="application/atom+xml" /><link href="https://zolmeister.com/" rel="alternate" type="text/html" /><updated>2016-09-26T13:02:29-05:00</updated><id>https://zolmeister.com/</id><title>Zolmeister</title><subtitle>Zolmeister - Blog</subtitle><author><name>Zoli Kahan</name></author><entry><title>JWT Authentication</title><link href="https://zolmeister.com/2016/09/jwt-auth.html" rel="alternate" type="text/html" title="JWT Authentication" /><published>2016-09-26T00:00:00-05:00</published><updated>2016-09-26T00:00:00-05:00</updated><id>https://zolmeister.com/2016/09/jwt-auth</id><content type="html" xml:base="https://zolmeister.com/2016/09/jwt-auth.html">&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/jwt_logo.png&quot; alt=&quot;json web tokens&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Authentication models for hosting platforms require more considerations due to 3rd party api access.
+We wanted to be able to issue user auth tokens for 3rd party apps (think OAuth), as well as be able to verify authentication of local native api calls (through our iframe native app hooks).
+Our solution was to use Json Web Tokens (JWT) with ES256 encryption (public/private key pair), which allows us to verify signed tokens using a public key which can be shared without compromising the security of our tokens. It also allows us to statelessly sign tokens for 3rd party developer use.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s a sample implementation of a basic authentication strategy (extensible to allow scoped tokens).&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffee&quot; data-lang=&quot;coffee&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# auth_model.coffee&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;jwt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'jsonwebtoken'&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;fromUserId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;resolve&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;accessToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jwt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sign&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;userId&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;scopes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'*'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;JWT_ES256_PRIVATE_KEY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;algorithm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ES256'&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;issuer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;JWT_ISSUER&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;userId&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;na&quot;&gt;userIdFromAccessToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;promisify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;jwt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;verify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jwt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;JWT_ES256_PUBLIC_KEY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;issuer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;JWT_ISSUER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;userId&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And the corresponding Express middleware:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffee&quot; data-lang=&quot;coffee&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# auth_middleware.coffee&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;accessToken&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;accessToken&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;accessToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;Auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;userIdFromAccessToken&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;accessToken&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getById&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# Authentication successful&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>MySQL Migrations</title><link href="https://zolmeister.com/2016/08/mysql-migrations.html" rel="alternate" type="text/html" title="MySQL Migrations" /><published>2016-08-27T00:00:00-05:00</published><updated>2016-08-27T00:00:00-05:00</updated><id>https://zolmeister.com/2016/08/mysql-migrations</id><content type="html" xml:base="https://zolmeister.com/2016/08/mysql-migrations.html">&lt;p&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/mysql-logo.jpg&quot; alt=&quot;MySQL logo&quot;&gt;&lt;/p&gt;
 
 &lt;h3&gt;Migrating 17M rows with no downtime - Isotope&lt;/h3&gt;
 
@@ -1029,65 +1075,4 @@ and them inlined the SVG into the HTML.&lt;/p&gt;
   &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;strokeWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'2px'&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry><entry><title>Jekyll - Blogging for Developers</title><link href="https://zolmeister.com/2014/08/jekyll-blogging-for-developers.html" rel="alternate" type="text/html" title="Jekyll - Blogging for Developers" /><published>2014-08-20T00:00:00-05:00</published><updated>2014-08-20T00:00:00-05:00</updated><id>https://zolmeister.com/2014/08/jekyll-blogging-for-developers</id><content type="html" xml:base="https://zolmeister.com/2014/08/jekyll-blogging-for-developers.html">&lt;p&gt;&lt;a href=&quot;/2014/08/jekyll-blogging-for-developers.html&quot;&gt;&lt;img src=&quot;https://zolmeister.com/assets/images/blog-header.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;You may have noticed that this blog moved from &lt;a href=&quot;http://zolmeister.blogspot.com/&quot;&gt;Blogger&lt;/a&gt;
-to a &lt;a href=&quot;https://github.com/rosario/kasper&quot;&gt;Ghost themed&lt;/a&gt; &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll website&lt;/a&gt;
-hosted on &lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub pages&lt;/a&gt;. It&amp;#39;s been a long time coming,
-and I couldn&amp;#39;t be more happy with how things turned out.&lt;/p&gt;
-
-&lt;h3&gt;Jekyll on GitHub&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://pages.github.com/&quot;&gt;Jekyll&lt;/a&gt; is a static site generator, which allows you
-to create websites with markdown easily.
-&lt;a href=&quot;https://github.com/Zolmeister/Zolmeister.github.io/tree/src/_posts&quot;&gt;All of my posts&lt;/a&gt;
-can thus be written in markdown, with code highlighting and version control thanks to GitHub hosting.&lt;/p&gt;
-
-&lt;p&gt;To get started, all you need is to find an open source theme that you like
-(e.g. &lt;a href=&quot;https://github.com/rosario/kasper&quot;&gt;Kapsper&lt;/a&gt;), clone it, and run &lt;code&gt;jekyll serve&lt;/code&gt; (after installing Jekyll).
-Because the posts are written in markdown, you can use your
-&lt;a href=&quot;http://dillinger.io/&quot;&gt;favorite markdown editor&lt;/a&gt; to write your posts in, or just your editors &lt;a href=&quot;https://atom.io/packages/markdown-preview&quot;&gt;markdown preview&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3&gt;Free Hosting&lt;/h3&gt;
-
-&lt;p&gt;Hosting on GitHub is completely free (for your first site), and works seamlessly with Jekyll, until you need a plugin.
-This was the case with &lt;a href=&quot;https://github.com/agelber/jekyll-rss&quot;&gt;Jekyll RSS&lt;/a&gt;
-which is a plugin that generates an RSS feed from my blog posts.  &lt;/p&gt;
-
-&lt;p&gt;In order to get plugins to work, you need to compile in a separate git branch,
-and then deploy to &lt;code&gt;master&lt;/code&gt;. Here is my source branch:
-&lt;a href=&quot;https://github.com/Zolmeister/Zolmeister.github.io/tree/src&quot;&gt;Zolmeister.github.io/tree/src&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Here is the &lt;code&gt;publish.sh&lt;/code&gt; script I wrote to make publishing quicker (DO NOT EDIT ON THE MASTER BRANCH):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-
-jekyll build
-mv _site/ /tmp/
-git checkout master
-rm -r &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-cp -r /tmp/_site/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; .
-rm -r /tmp/_site/
-git add . -A
-git commit -am&lt;span class=&quot;s1&quot;&gt;'publish'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;Other platforms&lt;/h3&gt;
-
-&lt;p&gt;I considered many other platforms before stumbling across Jekyll.
-Namely &lt;a href=&quot;https://ghost.org/&quot;&gt;Ghost&lt;/a&gt;, &lt;a href=&quot;https://medium.com/&quot;&gt;Medium&lt;/a&gt;,
-and &lt;a href=&quot;https://svbtle.com/&quot;&gt;Svbtle&lt;/a&gt;.
-Both Medium and Svbtle control the display of posts, which is a big downside,
-but they are extremely simple to use just for writing.&lt;/p&gt;
-
-&lt;p&gt;Ghost was most interesting,
-and my inspiration for a &lt;a href=&quot;http://zolmeister.com/2014/02/dematerializer-blogging-for-developers.html&quot;&gt;Blogging for Developers&lt;/a&gt;
-hackathon project. However, it&amp;#39;s development has been slow in coming partially due
-to a &lt;a href=&quot;https://github.com/TryGhost/Ghost/issues?q=milestone%3A%220.4+Ember.js%22&quot;&gt;rewrite in Ember.js&lt;/a&gt;
-which took about 4 months. I simply couldn&amp;#39;t wait this long, and without free
-time to contribute to the project I had to abandon the idea of using it.&lt;/p&gt;
-
-&lt;h3&gt;Closing thoughts&lt;/h3&gt;
-
-&lt;p&gt;Blogging is a passion of mine. It brings me joy to catalog my activity to help me reflect
-on the projects I have worked on. I believe it makes me a stronger developer and
-has been a motivating force behind a lot of the open source work that I do.
-I would recommend technical blogging to every developer, no matter what projects you work on.&lt;/p&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><author><name>Zoli Kahan</name></author><summary></summary></entry></feed>
